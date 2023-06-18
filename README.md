@@ -16,8 +16,13 @@ Unity3d를 이용한 Splatoon 개인 모작입니다.
 + 함수 이름은 동사로 시작, 맨 처음 글자는 대문자          ex) public void Fire, public void GenerateEnemy...  <br>
 + Constants 쓸거면 다 대문자                            ex) public const int MINVALUE = 4;  <br>
 
+
+
+
+
+
 ## Git Commit Message Convention
-# git-commit-message-convention
+
 효과적인 협업과 숙달을 위한 커밋메시지 작성법
 아래의 규칙을 최대한 지키면서 협업
 
