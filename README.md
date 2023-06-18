@@ -1,4 +1,4 @@
-# Splatoon
+# Portpolio Splatoon
 Unity3d를 이용한 Splatoon 개인 모작입니다.
 
 
