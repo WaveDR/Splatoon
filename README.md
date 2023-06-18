@@ -68,3 +68,13 @@ Unity3d를 이용한 Splatoon 개인 모작입니다.
 
 ### 타입 종류에 적히지 않은 단순한 작업은 타입을 적지 않습니다.
 + ex) 불필요 파일 정리, 빌드 설정
+
+
+## Git 전략
+
+# branch 설명
+
++ main : 본 결과물이 저장될 main branch
++ confirm : main branch에 삽입 전 검사 및 저장용 공간
++ develop : 실제로 작업할 공간
+
