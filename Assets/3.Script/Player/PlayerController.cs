@@ -14,8 +14,11 @@ public class PlayerController : MonoBehaviour
     public bool _isJump;
 
     private bool isTransmition = false;
+
     private int _player_CurHp;
     private float _player_Speed;
+
+
 
     // Start is called before the first frame update
     void Awake()
@@ -43,8 +46,9 @@ public class PlayerController : MonoBehaviour
     {
         _player_Anim.SetFloat(_player_Input.Move_Hor_S, _player_Input.Move_Hor);
         _player_Anim.SetFloat(_player_Input.Move_Ver_S, _player_Input.Move_Ver);
-
         _player_Anim.SetBool("isDown", !_isJump);
+
+
     }
 
     private void Player_Movement()
