@@ -12,28 +12,14 @@ public class PlayerStat : ScriptableObject
     public float enemyZone_Speed;
 
     [Header("기본 체력")]
-    public int maxHeath;
+    public int max_Heath;
 
     [Header("감지 거리")]
-    public float detectRange;
+    public float detect_Range;
 
-    [Header("바닥 레이어")]
-    public LayerMask floor_Layer;
-}
-
-[CreateAssetMenu]
-public class WeaponStat : ScriptableObject
-{
-    [Header("공격력")]
-    public float moveZone_Speed;
- 
-
-    [Header("기본 체력")]
-    public int maxHeath;
-
-    [Header("감지 거리")]
-    public float detectRange;
-
+    [Header("피해량")]
+    public float damage;
+    
     [Header("바닥 레이어")]
     public LayerMask floor_Layer;
 }

@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private PlayerStat stat;
+    [SerializeField] private PlayerStat player_Stat;
     [SerializeField] GameObject raycast_Object;
+
+    public Team player_Team;
 
     private PlayerInput _player_Input; 
     private Rigidbody _player_rigid; 
+    private PlayerShooter _player_shot;
     private Animator _player_Anim;
 
     public bool _isJump;
@@ -26,6 +29,7 @@ public class PlayerController : MonoBehaviour
         TryGetComponent(out _player_Input);
         TryGetComponent(out _player_rigid);
         TryGetComponent(out _player_Anim);
+        TryGetComponent(out _player_shot);
         Player_StatReset();
     }
     private void FixedUpdate()
@@ -61,8 +65,8 @@ public class PlayerController : MonoBehaviour
 
     private void Player_StatReset()
     {
-        _player_CurHp = stat.maxHeath;
-        _player_Speed = stat.moveZone_Speed;
+        _player_CurHp = player_Stat.max_Heath;
+        _player_Speed = player_Stat.moveZone_Speed;
     }
  
     private void Player_Jump()
@@ -79,18 +83,30 @@ public class PlayerController : MonoBehaviour
 
     private void RaycastFloor()
     {
-        Debug.DrawRay(transform.position, Vector3.down * stat.detectRange, Color.green); ;
-        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, stat.detectRange, stat.floor_Layer))
+        Debug.DrawRay(transform.position, Vector3.down * player_Stat.detect_Range, Color.green); ;
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, player_Stat.detect_Range, player_Stat.floor_Layer))
         {
             raycast_Object = hit.collider.gameObject;
 
 
             TeamZone teamZone = raycast_Object.GetComponent<TeamZone>();
+            Debug.Log(teamZone.team);
 
-
-            if (teamZone.team == Team.Blue || teamZone.team == Team.Yellow)
-            {  
+            if (teamZone.team == player_Team || teamZone.team != player_Team)
+            {
                 _isJump = false;
+                isTransmition = true;
+
+            }
+
+            if (teamZone.team == player_Team) // 내 진영과 현재 바닥 진영이 같을 때
+            {
+                _player_shot.Reload_Ammo();
+                isTransmition = true;
+            }
+            else //내 진영과 바닥 진영이 같지 않을 때
+            {
+                isTransmition = false;
             }
         }
         else

@@ -6,9 +6,20 @@ public enum Weapon { Brush, Gun, Bow }
 public class PlayerShooter : MonoBehaviour
 {
     [Header("Weapon")]
+    
     public Weapon WeaponType;
     public GameObject[] weapons;
-    private int weaponNum;
+    public GameObject ammo_Back;
+    public Shot_System weapon_Shot;
+    public int weaponNum;
+
+    private int reloadAmmo = 1;
+
+    [Header("Attack Rate")]
+
+    [SerializeField] private float fireMaxTime;
+    [SerializeField] private float fireRateTime;
+   // [SerializeField] private bool fireReady;
 
     [Header("IK Transform")]
     public Transform weapon_Pivot;
@@ -46,17 +57,22 @@ public class PlayerShooter : MonoBehaviour
         for (int i = 0; i < weapons.Length; i++)
         {
             weapons[i].SetActive(true);
-
             if (weaponNum != i)
                 weapons[i].SetActive(false);
         }
+        _player_Anim.SetInteger("WeaponNum", weaponNum);
+
+        weapon_Shot = GetComponentInChildren<Shot_System>();
+        fireMaxTime = weapon_Shot.weapon_Stat.fire_Rate;
     }
 
-    // Update is called once per frame
     void Update()
     {
         //공격로직
+        Fire_Paint();
     }
+
+
 
     private void OnDisable()
     {
@@ -84,5 +100,37 @@ public class PlayerShooter : MonoBehaviour
             _player_Anim.SetIKPosition(AvatarIKGoal.RightHand, right_HandMount[weaponNum].position);
             _player_Anim.SetIKRotation(AvatarIKGoal.RightHand, right_HandMount[weaponNum].rotation);
         }
+    }
+    private void Fire_Paint()
+    {
+        if (_player_Input.fire)
+        {
+            fireRateTime += Time.deltaTime;
+            ammo_Back.transform.localScale = 
+            new Vector3(ammo_Back.transform.localScale.x, weapon_Shot.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
+
+            if(fireRateTime >= fireMaxTime)
+            {
+                weapon_Shot.Shot();
+                fireRateTime = 0;
+            }
+        }
+        else
+        {
+            fireRateTime = 0;
+        }
+
+    }
+
+    public void Reload_Ammo()
+    {
+        if(weapon_Shot.weapon_CurAmmo <= weapon_Shot.weapon_MaxAmmo)
+        {
+            weapon_Shot.weapon_CurAmmo += Time.deltaTime;
+
+            ammo_Back.transform.localScale =
+           new Vector3(ammo_Back.transform.localScale.x, weapon_Shot.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
+        }
+
     }
 }

@@ -6,7 +6,6 @@ public enum Team {Blue, Yellow}
 
 public class TeamZone : MonoBehaviour
 {
-
     public Team team;
     // Start is called before the first frame update
     void Start()
@@ -17,6 +16,13 @@ public class TeamZone : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       //나중에 조각조각 나누어서 구분하게 만들어주세요ㅈ
+       
+    }
+
+    private void OnParticleCollision(GameObject other)
+    {
+        Debug.Log("물감 충돌" + other.name);
+
+        //팀 판별 로직 구현할것
     }
 }

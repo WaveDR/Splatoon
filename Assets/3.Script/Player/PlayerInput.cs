@@ -18,6 +18,7 @@ public class PlayerInput : MonoBehaviour
     public float Move_Hor => move_Hor;
     public float Move_Ver => move_Ver;
     public bool jDown;
+    public bool fire;
 
     public float Move_Speed => move_speed;
 
@@ -32,6 +33,8 @@ public class PlayerInput : MonoBehaviour
         move_Hor = Input.GetAxis(move_Hor_S);
         move_Ver = Input.GetAxis(move_Ver_S);
         jDown = Input.GetButtonDown("Jump");
+        fire = Input.GetButton("Fire1");
+
         move_Vec.x = move_Hor;
         move_Vec.z = move_Ver;
 
