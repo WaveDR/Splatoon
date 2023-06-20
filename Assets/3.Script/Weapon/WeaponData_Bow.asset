@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fire_Rate: 1
   max_Ammo: 100
-  use_Ammo: 5
+  use_Ammo: 10

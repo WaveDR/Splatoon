@@ -8,12 +8,20 @@ public class PlayerShooter : MonoBehaviour
     [Header("Weapon")]
     
     public Weapon WeaponType;
-    public GameObject[] weapons;
-    public GameObject ammo_Back;
-    public Shot_System weapon_Shot;
-    public int weaponNum;
+    public GameObject[] weapon_Obj;
+    public Shot_System weapon;
+    public int weaponNum;            // 총 번호
+    public GameObject ammo_Back;     // 총알 통 애니메이션용
 
-    private int reloadAmmo = 1;
+    private bool _isFire;
+    private float JumpRot;
+    private float weapon_JumpRot
+    {
+        get { return JumpRot; }
+        set { JumpRot = value;
+              JumpRot = Mathf.Clamp(JumpRot, -90, 0);
+            }
+    }
 
     [Header("Attack Rate")]
 
@@ -26,12 +34,16 @@ public class PlayerShooter : MonoBehaviour
     public Transform[] left_HandMount;
     public Transform[] right_HandMount;
 
+
+    [Header("Player Component")]
+    private PlayerController _Player_Con;
     private PlayerInput _player_Input;
     private Animator _player_Anim;
     // Start is called before the first frame update
     void Awake()
     {
         TryGetComponent(out _player_Input);
+        TryGetComponent(out _Player_Con);
         TryGetComponent(out _player_Anim);
     }
 
@@ -54,16 +66,16 @@ public class PlayerShooter : MonoBehaviour
                 break;
         }
 
-        for (int i = 0; i < weapons.Length; i++)
+        for (int i = 0; i < weapon_Obj.Length; i++)
         {
-            weapons[i].SetActive(true);
+            weapon_Obj[i].SetActive(true);
             if (weaponNum != i)
-                weapons[i].SetActive(false);
+                weapon_Obj[i].SetActive(false);
         }
         _player_Anim.SetInteger("WeaponNum", weaponNum);
 
-        weapon_Shot = GetComponentInChildren<Shot_System>();
-        fireMaxTime = weapon_Shot.weapon_Stat.fire_Rate;
+        weapon = GetComponentInChildren<Shot_System>();
+        fireMaxTime = weapon.weapon_Stat.fire_Rate;
     }
 
     void Update()
@@ -72,11 +84,9 @@ public class PlayerShooter : MonoBehaviour
         Fire_Paint();
     }
 
-
-
     private void OnDisable()
     {
-        weapons[weaponNum].SetActive(false);
+        weapon_Obj[weaponNum].SetActive(false);
     }
     private void OnAnimatorIK(int layerIndex)
     {
@@ -101,35 +111,59 @@ public class PlayerShooter : MonoBehaviour
             _player_Anim.SetIKRotation(AvatarIKGoal.RightHand, right_HandMount[weaponNum].rotation);
         }
     }
+
     private void Fire_Paint()
     {
+        
+
+        if (WeaponType == Weapon.Bow)
+        {
+            if (_Player_Con._isJump && weapon_JumpRot < 0) // 점프 O
+            {
+                weapon.transform.localEulerAngles = new Vector3(0, 0, weapon_JumpRot += 540 * Time.deltaTime);
+            }
+            else if (!_Player_Con._isJump && weapon_JumpRot > -90 ) //점프 X
+            {
+                weapon.transform.localEulerAngles = new Vector3(0, 0, weapon_JumpRot -= 540 * Time.deltaTime);
+            }
+        }
+
+
         if (_player_Input.fire)
         {
             fireRateTime += Time.deltaTime;
             ammo_Back.transform.localScale = 
-            new Vector3(ammo_Back.transform.localScale.x, weapon_Shot.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
+            new Vector3(ammo_Back.transform.localScale.x, weapon.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
+            _isFire = true;
 
-            if(fireRateTime >= fireMaxTime)
+            if(fireRateTime >= fireMaxTime && weapon.weapon_CurAmmo > 0)
             {
-                weapon_Shot.Shot();
+                _player_Anim.SetBool("isFire", true);
+                weapon.Shot();
                 fireRateTime = 0;
+            }
+            else
+            {
+                _player_Anim.SetBool("isFire", false);
             }
         }
         else
         {
             fireRateTime = 0;
-        }
+            _player_Anim.SetBool("isFire", false);
 
+            _isFire = false;
+        }
     }
 
     public void Reload_Ammo()
     {
-        if(weapon_Shot.weapon_CurAmmo <= weapon_Shot.weapon_MaxAmmo)
+        if (weapon.weapon_CurAmmo <= weapon.weapon_MaxAmmo && !_isFire)
         {
-            weapon_Shot.weapon_CurAmmo += Time.deltaTime;
+            weapon.weapon_CurAmmo += Time.deltaTime * 20f;
 
             ammo_Back.transform.localScale =
-           new Vector3(ammo_Back.transform.localScale.x, weapon_Shot.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
+           new Vector3(ammo_Back.transform.localScale.x, weapon.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
         }
 
     }
