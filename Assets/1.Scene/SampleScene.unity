@@ -820,6 +820,7 @@ GameObject:
   - component: {fileID: 612495045}
   - component: {fileID: 612495047}
   - component: {fileID: 612495046}
+  - component: {fileID: 612495048}
   m_Layer: 0
   m_Name: Bow Effect 00
   m_TagString: Untagged
@@ -5576,6 +5577,30 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &612495048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612495044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f99f96b970a5c104f821b936c5ef7627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brush:
+    splatTexture: {fileID: 2800000, guid: f66159b1d87ac7c42bb17699914f00a6, type: 3}
+    splatsX: 4
+    splatsY: 4
+    splatIndex: -1
+    splatScale: 3
+    splatRandomScaleMin: 0.75
+    splatRandomScaleMax: 1.25
+    splatRotation: 0
+    splatRandomRotation: 180
+    splatChannel: 3
+  RandomChannel: 0
 --- !u!1 &617866892
 GameObject:
   m_ObjectHideFlags: 0
@@ -10316,7 +10341,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &674445621
 GameObject:
@@ -15227,6 +15252,7 @@ GameObject:
   - component: {fileID: 862084485}
   - component: {fileID: 862084487}
   - component: {fileID: 862084486}
+  - component: {fileID: 862084488}
   m_Layer: 0
   m_Name: Bow Effect 01
   m_TagString: Untagged
@@ -19983,6 +20009,30 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &862084488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 862084484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f99f96b970a5c104f821b936c5ef7627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brush:
+    splatTexture: {fileID: 2800000, guid: f66159b1d87ac7c42bb17699914f00a6, type: 3}
+    splatsX: 4
+    splatsY: 4
+    splatIndex: -1
+    splatScale: 3
+    splatRandomScaleMin: 0.75
+    splatRandomScaleMax: 1.25
+    splatRotation: 0
+    splatRandomRotation: 180
+    splatChannel: 3
+  RandomChannel: 0
 --- !u!1 &870561057
 GameObject:
   m_ObjectHideFlags: 0
@@ -29997,11 +30047,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1314834775}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.166, z: 0}
+  m_LocalPosition: {x: 0, y: -4.4, z: 0}
   m_LocalScale: {x: 57.36205, y: 0.27873, z: 98.76698}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1314834780
 MonoBehaviour:
@@ -30044,7 +30094,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40ed8ad4fc591514692edfe1dbb12e42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paintTextureSize: 256
+  paintTextureSize: 4096
   SetupOnStart: 0
   PaintAllSplats: 0
   debugTexture: 0
@@ -30061,6 +30111,7 @@ GameObject:
   - component: {fileID: 1375401108}
   - component: {fileID: 1375401110}
   - component: {fileID: 1375401109}
+  - component: {fileID: 1375401111}
   m_Layer: 0
   m_Name: Bow Effect 02
   m_TagString: Untagged
@@ -34817,6 +34868,30 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &1375401111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375401107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f99f96b970a5c104f821b936c5ef7627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brush:
+    splatTexture: {fileID: 2800000, guid: f66159b1d87ac7c42bb17699914f00a6, type: 3}
+    splatsX: 4
+    splatsY: 4
+    splatIndex: -1
+    splatScale: 3
+    splatRandomScaleMin: 0.75
+    splatRandomScaleMax: 1.25
+    splatRotation: 0
+    splatRandomRotation: 180
+    splatChannel: 3
+  RandomChannel: 0
 --- !u!1 &1412404507
 GameObject:
   m_ObjectHideFlags: 0
@@ -35241,7 +35316,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1596995152
 GameObject:
@@ -35474,13 +35549,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687258581}
-  m_LocalRotation: {x: 0.087558836, y: 0.72917664, z: -0.056304462, w: 0.6763613}
-  m_LocalPosition: {x: -18.23623, y: 9.644644, z: 11.014766}
-  m_LocalScale: {x: 5.4917, y: 5.4917, z: 5.4917}
+  m_LocalRotation: {x: 0.15275022, y: -0, z: -0, w: 0.98826486}
+  m_LocalPosition: {x: 0, y: 2.8, z: -3.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 20.146, y: 195.09, z: 0.001}
+  m_Father: {fileID: 543450652125679649}
+  m_RootOrder: 23
+  m_LocalEulerAnglesHint: {x: 17.573, y: 0, z: 0}
 --- !u!114 &1687258586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35772,7 +35847,7 @@ RectTransform:
   - {fileID: 1412404508}
   - {fileID: 2120791741}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -45671,7 +45746,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 45, y: 130, z: 90}
 --- !u!1 &9171101120952627
 GameObject:
@@ -45946,8 +46021,9 @@ Transform:
   - {fileID: 8184960315895762202}
   - {fileID: 2175028579161228345}
   - {fileID: 1596995153}
+  - {fileID: 1687258585}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &543450652736730616
 Transform:
@@ -50594,6 +50670,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 700313767}
     m_Modifications:
+    - target: {fileID: 8280899902728409787, guid: fac53c8c00903964cb857ad58c4fb297, type: 3}
+      propertyPath: brush.splatChannel
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8280899902728409788, guid: fac53c8c00903964cb857ad58c4fb297, type: 3}
       propertyPath: m_Name
       value: Gun Effect
