@@ -9889,6 +9889,7 @@ GameObject:
   - component: {fileID: 5976457835810650507}
   - component: {fileID: 5976457835810650506}
   - component: {fileID: 5976457835810650500}
+  - component: {fileID: -8920930731532680295}
   m_Layer: 0
   m_Name: Bow Effect 00
   m_TagString: Untagged
@@ -14669,8 +14670,22 @@ MonoBehaviour:
     splatRandomScaleMax: 1.25
     splatRotation: 0
     splatRandomRotation: 180
-    splatChannel: 3
+    splatChannel: 2
   RandomChannel: 0
+--- !u!114 &-8920930731532680295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5976457835810650504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37059dab8aad43946a6525afe769214c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletType: 0
+  player: {fileID: 0}
 --- !u!1 &5976457836172863126
 GameObject:
   m_ObjectHideFlags: 0

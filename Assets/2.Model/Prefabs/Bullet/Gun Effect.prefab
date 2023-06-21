@@ -14721,6 +14721,7 @@ GameObject:
   - component: {fileID: 8280899902743907290}
   - component: {fileID: 8280899902744015482}
   - component: {fileID: 8280899902728409787}
+  - component: {fileID: -2714103152577683589}
   m_Layer: 0
   m_Name: Gun Effect
   m_TagString: Untagged
@@ -19503,6 +19504,20 @@ MonoBehaviour:
     splatRandomRotation: 180
     splatChannel: 0
   RandomChannel: 0
+--- !u!114 &-2714103152577683589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8280899902728409788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37059dab8aad43946a6525afe769214c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletType: 0
+  weapon: {fileID: 0}
 --- !u!1 &8280899902728409790
 GameObject:
   m_ObjectHideFlags: 0

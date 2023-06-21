@@ -7,6 +7,8 @@ public enum Team {Blue, Yellow, Etc}
 public class TeamZone : MonoBehaviour
 {
     public Team team;
+    private Bullet bullet;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,11 +20,10 @@ public class TeamZone : MonoBehaviour
     {
        
     }
-
     private void OnParticleCollision(GameObject other)
     {
-        Debug.Log("물감 충돌" + other.name);
-
+        bullet = other.GetComponent<Bullet>();
+        team = bullet.bulletType;
         //팀 판별 로직 구현할것
     }
 }

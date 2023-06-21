@@ -134,12 +134,17 @@ public class PlayerController : MonoBehaviour, IPlayer
             {
                 if (_player_Input.squid_Form)// 오징어 형태
                 {
-                    Transform_Stat(30, player_Stat.moveZone_Speed, true, false);
+                    Transform_Stat(0, player_Stat.moveZone_Speed, true, false);
                 }
 
                 else //사람 형태
                 {
-                    Transform_Stat(20, player_Stat.moveZone_Speed, false, true);
+                    Transform_Stat(0, player_Stat.moveZone_Speed, false, true);
+                }
+
+                for (int i = 0; i < player_Wave.Length - 1; i++)
+                {
+                    player_Wave[i].Stop();
                 }
             }
 
