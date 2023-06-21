@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private PlayerStat player_Stat;
-    [SerializeField] GameObject raycast_Object;
+    [SerializeField] private GameObject raycast_Object;
+    [SerializeField] private ParticleSystem player_MoveWave;
 
     public Team player_Team;
 
@@ -103,6 +104,11 @@ public class PlayerController : MonoBehaviour
             {
                 _player_shot.Reload_Ammo();
                 isTransmition = true;
+
+                if(_player_Input.move_Vec != Vector3.zero)
+                {
+                   player_MoveWave.Play();
+                }
             }
             else //내 진영과 바닥 진영이 같지 않을 때
             {
