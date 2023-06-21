@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, IPlayer
 {
     [Header("Player Stat")]
-    public Team player_Team;
+    public ETeam player_Team;
     [SerializeField] private PlayerStat player_Stat;
 
     [Header("Player Move")]
@@ -16,15 +16,12 @@ public class PlayerController : MonoBehaviour, IPlayer
     [SerializeField] private GameObject[] human_Object;
     [SerializeField] private GameObject squid_Object;
 
-
-
     private PlayerInput _player_Input;
     private Rigidbody _player_rigid;
     private PlayerShooter _player_shot;
     private Animator _player_Anim;
 
     public bool _isJump;
-    private bool _isSquid;
 
     private int _player_CurHp;
     private float _player_Speed;
@@ -130,7 +127,7 @@ public class PlayerController : MonoBehaviour, IPlayer
                 }
             }
 
-            else if (teamZone.team == Team.Etc) //그 이외의 진영일 때
+            else if (teamZone.team == ETeam.Etc) //그 이외의 진영일 때
             {
                 if (_player_Input.squid_Form)// 오징어 형태
                 {

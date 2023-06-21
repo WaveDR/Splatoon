@@ -17,7 +17,7 @@ public class Floor_Creater : MonoBehaviour
     public Vector2Int top_Right, bottom_Left;
     private GameObject[] node_Obj;
     [SerializeField] private GameObject node_Prefab;
-    [SerializeField] private List<Node> node = new List<Node>();
+
     [SerializeField] private int node_poolCount;
 
     public Node[,] node_Array;
@@ -36,6 +36,7 @@ public class Floor_Creater : MonoBehaviour
         for (int i = 0; i < node_Obj.Length; i++)
         {
             node_Obj[i] = Instantiate(node_Prefab, _poolVec, Quaternion.identity, transform);
+           // node_Obj[i].transform.localRotation = Quaternion.Euler(90, 0, 0);
             node_Obj[i].SetActive(false);
         }
         Node_ArraySet();
@@ -43,22 +44,18 @@ public class Floor_Creater : MonoBehaviour
 
     void Node_ArraySet()
     {
-        sizeX = top_Right.x - bottom_Left.x + 1;
-        sizeY = top_Right.y - bottom_Left.y + 1;
-        node_Array = new Node[sizeX, sizeY];
+        sizeX = top_Right.x - bottom_Left.x;
+        sizeY = top_Right.y - bottom_Left.y;
+        //node_Array = new Node[sizeX, sizeY];
         for (int i = 0; i < sizeX; i++)
         {
             for (int j = 0; j < sizeY; j++)
             {
                 node_Obj[nodePool_Num].SetActive(true);
-                node_Array[i, j] = new Node(node_Obj[nodePool_Num], i, j);
-                node_Obj[nodePool_Num].transform.position = new Vector3( i * 3, 0, j * 3);
+                //node_Array[i, j] = new Node(node_Obj[nodePool_Num], i, j);
+                node_Obj[nodePool_Num].transform.position = new Vector3( i * (node_Obj[nodePool_Num].transform.localScale.x * 2), 0, j * (node_Obj[nodePool_Num].transform.localScale.y * 2));
                 nodePool_Num++;
             }
         }
-    }
-    void Update()
-    {
-        
     }
 }

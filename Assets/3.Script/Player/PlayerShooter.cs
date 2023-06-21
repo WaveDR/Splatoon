@@ -18,7 +18,9 @@ public class PlayerShooter : MonoBehaviour
     private float weapon_JumpRot
     {
         get { return JumpRot; }
-        set { JumpRot = value;
+        set { 
+            
+              JumpRot = value;
               JumpRot = Mathf.Clamp(JumpRot, -90, 0);
             }
     }

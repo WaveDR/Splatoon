@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public Team bulletType;
+    public ETeam bulletType;
 
     public PlayerController player;
+    public ParticlePainter paint;
     // Start is called before the first frame update
     void Awake()
     {

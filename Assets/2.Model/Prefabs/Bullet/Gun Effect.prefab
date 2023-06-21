@@ -19502,7 +19502,7 @@ MonoBehaviour:
     splatRandomScaleMax: 1.25
     splatRotation: 0
     splatRandomRotation: 180
-    splatChannel: 0
+    splatChannel: 3
   RandomChannel: 0
 --- !u!114 &-2714103152577683589
 MonoBehaviour:
@@ -19517,7 +19517,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletType: 0
-  weapon: {fileID: 0}
+  player: {fileID: 0}
+  paint: {fileID: 0}
 --- !u!1 &8280899902728409790
 GameObject:
   m_ObjectHideFlags: 0

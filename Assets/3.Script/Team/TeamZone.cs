@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Team {Blue, Yellow, Etc}
+public enum ETeam {Blue, Yellow, Etc}
 
 public class TeamZone : MonoBehaviour
 {
-    public Team team;
+    public ETeam team;
     private Bullet bullet;
 
     // Start is called before the first frame update
