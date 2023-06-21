@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Weapon { Brush, Gun, Bow }
+public enum EWeapon { Brush, Gun, Bow }
 public class PlayerShooter : MonoBehaviour
 {
     [Header("Weapon")]
     
-    public Weapon WeaponType;
+    public EWeapon WeaponType;
     public GameObject[] weapon_Obj;
     public Shot_System weapon;
     public int weaponNum;            // ÃÑ ¹øÈ£
@@ -53,15 +53,15 @@ public class PlayerShooter : MonoBehaviour
 
         switch (WeaponType)
         {
-            case Weapon.Brush:
+            case EWeapon.Brush:
                 weaponNum = 0;
                 break;
 
-            case Weapon.Gun:
+            case EWeapon.Gun:
                 weaponNum = 1;
                 break;
 
-            case Weapon.Bow:
+            case EWeapon.Bow:
                 weaponNum = 2;
                 break;
         }
@@ -90,7 +90,7 @@ public class PlayerShooter : MonoBehaviour
     }
     private void OnAnimatorIK(int layerIndex)
     {
-        if (WeaponType != Weapon.Brush)
+        if (WeaponType != EWeapon.Brush)
         {
             // ÃÑÀÇ ±âÁØÁ¡À» 3D ¸ðµ¨ ¿À¸¥ÂÊ ÆÈ²ÞÄ¡·Î ÀÌµ¿
             weapon_Pivot.position = _player_Anim.GetIKHintPosition(AvatarIKHint.RightElbow) + new Vector3(-0.05f, -0.1f, 0.07f);
@@ -114,9 +114,7 @@ public class PlayerShooter : MonoBehaviour
 
     private void Fire_Paint()
     {
-        
-
-        if (WeaponType == Weapon.Bow)
+        if (WeaponType == EWeapon.Bow)
         {
             if (_Player_Con._isJump && weapon_JumpRot < 0) // Á¡ÇÁ O
             {
@@ -129,7 +127,7 @@ public class PlayerShooter : MonoBehaviour
         }
 
 
-        if (_player_Input.fire)
+        if (_player_Input.fire && !_player_Input.squid_Form)
         {
             fireRateTime += Time.deltaTime;
             ammo_Back.transform.localScale = 
@@ -156,11 +154,11 @@ public class PlayerShooter : MonoBehaviour
         }
     }
 
-    public void Reload_Ammo()
+    public void Reload_Ammo(int speed)
     {
         if (weapon.weapon_CurAmmo <= weapon.weapon_MaxAmmo && !_isFire)
         {
-            weapon.weapon_CurAmmo += Time.deltaTime * 20f;
+            weapon.weapon_CurAmmo += Time.deltaTime * speed;
 
             ammo_Back.transform.localScale =
            new Vector3(ammo_Back.transform.localScale.x, weapon.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);

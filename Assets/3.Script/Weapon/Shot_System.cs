@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Shot_System : MonoBehaviour
 {
-    public Weapon weaponType;
+    public EWeapon weaponType;
     public WeaponStat weapon_Stat;
     public int weapon_MaxAmmo;
     public float weapon_CurAmmo;

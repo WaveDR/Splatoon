@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Team {Blue, Yellow}
+public enum Team {Blue, Yellow, Etc}
 
 public class TeamZone : MonoBehaviour
 {

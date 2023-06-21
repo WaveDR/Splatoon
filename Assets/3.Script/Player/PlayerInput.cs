@@ -10,17 +10,16 @@ public class PlayerInput : MonoBehaviour
 
     [SerializeField] private float move_Hor = 0;
     [SerializeField] private float move_Ver = 0;
-    [SerializeField] private float move_speed = 0;
  
 
     public Vector3 move_Vec;
-
+    
     public float Move_Hor => move_Hor;
     public float Move_Ver => move_Ver;
+
     public bool jDown;
     public bool fire;
-
-    public float Move_Speed => move_speed;
+    public bool squid_Form = false;
 
     public string Move_Hor_S => move_Hor_S;
     public string Move_Ver_S => move_Ver_S;
@@ -32,13 +31,16 @@ public class PlayerInput : MonoBehaviour
     {
         move_Hor = Input.GetAxis(move_Hor_S);
         move_Ver = Input.GetAxis(move_Ver_S);
+
         jDown = Input.GetButtonDown("Jump");
         fire = Input.GetButton("Fire1");
+        squid_Form = Input.GetButton("Run");
+
 
         move_Vec.x = move_Hor;
         move_Vec.z = move_Ver;
 
-        move_Vec = new Vector3(move_Hor, 0, move_Ver);
+        move_Vec = new Vector3(Move_Hor, 0, Move_Ver);
 
     }
 }

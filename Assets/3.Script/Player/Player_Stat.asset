@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player_Stat
   m_EditorClassIdentifier: 
   moveZone_Speed: 3
-  dashSpeed: 4
+  dashSpeed: 5
   enemyZone_Speed: 2
   max_Heath: 100
   detect_Range: 0.1
