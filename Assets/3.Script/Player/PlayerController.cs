@@ -68,6 +68,7 @@ public class PlayerController : MonoBehaviour, IPlayer
         {
             transform.Translate(_player_Input.move_Vec * _player_Speed * Time.deltaTime);
         }
+        Squid_Eular();
     }
 
 
@@ -84,6 +85,16 @@ public class PlayerController : MonoBehaviour, IPlayer
             _player_Anim.SetTrigger("isJump");
             //_isJump = true;
             _player_rigid.AddForce(Vector3.up * 5f, ForceMode.Impulse);
+        }
+    }
+    private void Squid_Eular()
+    {
+        if (squid_Object.activeSelf)
+        {
+            if(_player_Input.squid_FinalRot > 0)
+                squid_Object.transform.localEulerAngles = new Vector3(0, _player_Input.player_SquidRot += 900 * Time.deltaTime, 0);
+            if (_player_Input.squid_FinalRot < 0)
+                squid_Object.transform.localEulerAngles = new Vector3(0, _player_Input.player_SquidRot -= 900 * Time.deltaTime, 0);
         }
     }
 
