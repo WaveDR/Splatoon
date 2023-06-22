@@ -16,9 +16,6 @@ public class PlayerStat : ScriptableObject
 
     [Header("감지 거리")]
     public float detect_Range;
-
-    [Header("피해량")]
-    public float damage;
     
     [Header("바닥 레이어")]
     public LayerMask floor_Layer;

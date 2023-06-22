@@ -13,7 +13,7 @@ public class Shot_System : MonoBehaviour
     [SerializeField] private Transform firePoint_Files_Blue;
     [SerializeField] private Transform firePoint_Files;
 
-    public ParticleSystem[] firePoint;
+    public Bullet[] firePoint;
 
     public PlayerTeams team;
 
@@ -52,20 +52,25 @@ public class Shot_System : MonoBehaviour
                 break;
         }
 
-        firePoint = new ParticleSystem[firePoint_Files.childCount];
+        firePoint = new Bullet[firePoint_Files.childCount];
 
-        for (int i = 0; i < firePoint.Length; i++)
+        if (firePoint_Files.gameObject.activeSelf)
         {
-            firePoint[i] = firePoint_Files.GetChild(i).gameObject.GetComponent<ParticleSystem>();
+            for (int i = 0; i < firePoint.Length; i++)
+            {
+                firePoint[i] = firePoint_Files.GetChild(i).gameObject.GetComponent<Bullet>();
+                firePoint[i].dmg = weapon_Stat.weapon_Dmg;
+            }
         }
+   
     }
     public void Shot()
     {
         if(weapon_CurAmmo > 0)
         {
-            foreach (ParticleSystem shot in firePoint)
+            foreach (Bullet shot in firePoint)
             {
-                shot.Play();
+                shot.particle.Play();
             }
             weapon_CurAmmo -= weapon_Stat.use_Ammo;
         }

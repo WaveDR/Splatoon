@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, IPlayer
+public class PlayerController : Living_Entity, IPlayer
 {
     [Header("Player Stat")]
-    [SerializeField] private PlayerStat player_Stat;
 
     [Header("Player Move")]
     [SerializeField] private GameObject raycast_Object;
@@ -16,17 +15,17 @@ public class PlayerController : MonoBehaviour, IPlayer
     [SerializeField] private GameObject squid_Object;
 
     private PlayerInput _player_Input;
-    private PlayerTeams _playeR_Team;
+    private PlayerTeams _player_Team;
     private Rigidbody _player_rigid;
     private PlayerShooter _player_shot;
     private Animator _player_Anim;
 
     public bool _isJump;
 
-    private int _player_CurHp;
     private float _player_Speed;
+    private Bullet dmgBullet; //맞을 때 받을 데미지값 가져오기
 
-
+    [SerializeField] private float hp;
     // Start is called before the first frame update
     void Awake()
     {
@@ -34,11 +33,19 @@ public class PlayerController : MonoBehaviour, IPlayer
         TryGetComponent(out _player_rigid);
         TryGetComponent(out _player_Anim);
         TryGetComponent(out _player_shot);
-        TryGetComponent(out _playeR_Team);
+        TryGetComponent(out _player_Team);
+
         Player_StatReset();
 
         foreach (ParticleSystem start in player_Wave) start.Stop();
     }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        player_CurHealth = player_Stat.max_Heath;
+    }
+
 
     private void FixedUpdate()
     {
@@ -54,6 +61,23 @@ public class PlayerController : MonoBehaviour, IPlayer
         Player_Animation();
     }
 
+    private void OnParticleCollision(GameObject other)
+    {
+        dmgBullet = other.GetComponent<Bullet>();
+
+        if(dmgBullet.team.team != _player_Team.team)
+        {
+            OnDamage(dmgBullet.dmg);
+        }
+    }
+
+
+    //============================================        ↑ 콜백 메서드   |  일반 메서드 ↓        ========================================================
+
+    public override void OnDamage(float damage)
+    {
+        base.OnDamage(damage);
+    }
     private void Player_Animation()
     {
         _player_Anim.SetFloat(_player_Input.Move_Hor_S, _player_Input.Move_Hor);
@@ -67,13 +91,13 @@ public class PlayerController : MonoBehaviour, IPlayer
         {
             transform.Translate(_player_Input.move_Vec * _player_Speed * Time.deltaTime);
         }
+        hp = player_CurHealth;
         Squid_Eular();
     }
 
 
     private void Player_StatReset()
     {
-        _player_CurHp = player_Stat.max_Heath;
         _player_Speed = player_Stat.moveZone_Speed;
     }
 
@@ -97,6 +121,12 @@ public class PlayerController : MonoBehaviour, IPlayer
         }
     }
 
+    public override void RestoreHp(float newHealth)
+    {
+        base.RestoreHp(newHealth);
+        
+    }
+
     #region Player Raycast
 
     private void RaycastFloor(bool SquidForm)
@@ -106,32 +136,29 @@ public class PlayerController : MonoBehaviour, IPlayer
         {
             raycast_Object = hit.collider.gameObject;
 
-
             TeamZone teamZone = raycast_Object.GetComponent<TeamZone>();
             Debug.Log(teamZone.team);
 
-            if (teamZone.team == _playeR_Team.team || teamZone.team != _playeR_Team.team)
-            {
-                _isJump = false;
+            if (teamZone != null) _isJump = false;
 
-            }
-
-            if (teamZone.team == _playeR_Team.team) // 내 진영과 현재 바닥 진영이 같을 때
+            if (teamZone.team == _player_Team.team) // 내 진영과 현재 바닥 진영이 같을 때
             {
-                if (_player_Input.squid_Form)// 오징어 형태
+                if (SquidForm)// 오징어 형태
                 {
                     Transform_Stat(30, player_Stat.dashSpeed, false, false);
+                    RestoreHp(recovery_Speed * 3);
                 }
 
                 else //사람 형태
                 {
                     Transform_Stat(20, player_Stat.moveZone_Speed, false, true);
+                    RestoreHp(recovery_Speed);
                 }
             }
 
             else if (teamZone.team == ETeam.Etc) //그 이외의 진영일 때
             {
-                if (_player_Input.squid_Form)// 오징어 형태
+                if (SquidForm)// 오징어 형태
                 {
                     Transform_Stat(0, player_Stat.moveZone_Speed, true, false);
                 }
@@ -149,7 +176,7 @@ public class PlayerController : MonoBehaviour, IPlayer
 
             else //적 진영에 있을 때
             {
-                if (_player_Input.squid_Form)// 오징어 형태
+                if (SquidForm)// 오징어 형태
                 {
                     Transform_Stat(0, player_Stat.enemyZone_Speed, true, false);
                 }
@@ -165,7 +192,7 @@ public class PlayerController : MonoBehaviour, IPlayer
             _isJump = true;
             raycast_Object = null;
 
-            if (_player_Input.squid_Form)// 오징어 형태
+            if (SquidForm)// 오징어 형태
             {
                 Transform_Stat(0, player_Stat.dashSpeed, true, false);
             }

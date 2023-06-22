@@ -66,24 +66,24 @@ public class PlayerInput : MonoBehaviour
     {
 
         if (h < 0 ) //좌
-            squid_FinalRot = -90f;
+            squid_FinalRot = -89.99f;
         if (h > 0 ) //우
-            squid_FinalRot = 90f;
+            squid_FinalRot = 89.99f;
         if (v > 0 ) //상
             squid_FinalRot = 0.1f;
         if (v < 0 ) //하
             squid_FinalRot = 179.9f;
 
         if (h > 0 && v > 0) //우측 상단
-            squid_FinalRot = 45f;
+            squid_FinalRot = 44.99f;
 
         if (h < 0 && v > 0) //좌측 상단
-            squid_FinalRot = -45f;
+            squid_FinalRot = -44.99f;
 
         if (h > 0 && v < 0) //우측 하단
-            squid_FinalRot = 135f;
+            squid_FinalRot = 134.99f;
 
         if (h < 0 && v < 0) //좌측 하단
-            squid_FinalRot = -135f;
+            squid_FinalRot = -134.99f;
     }
 }

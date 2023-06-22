@@ -18,6 +18,7 @@ public class PlayerShooter : MonoBehaviour
     private float weapon_JumpRot
     {
         get { return JumpRot; }
+
         set { 
             
               JumpRot = value;

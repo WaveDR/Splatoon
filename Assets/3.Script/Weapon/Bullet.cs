@@ -7,12 +7,11 @@ public class Bullet : MonoBehaviour
     public ETeam bulletType;
 
     public PlayerTeams team;
-    public ParticlePainter paint;
-
+    public ParticleSystem particle;
+    public float dmg;
     void Awake()
     {
-        paint = GetComponent<ParticlePainter>();
-
+        particle = GetComponent<ParticleSystem>();
     }
     private void OnEnable()
     {
