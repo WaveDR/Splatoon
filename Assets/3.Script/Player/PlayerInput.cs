@@ -22,6 +22,8 @@ public class PlayerInput : MonoBehaviour
     public bool fUp;
     public bool fire;
     public bool squid_Form = false;
+    public bool isWall;
+    public bool isWall_Hor;
 
     public string Move_Hor_S => move_Hor_S;
     public string Move_Ver_S => move_Ver_S;
@@ -59,9 +61,20 @@ public class PlayerInput : MonoBehaviour
         squid_Form = Input.GetButton("Run");
 
 
-        move_Vec.x = move_Hor;
-        move_Vec.z = move_Ver;
-        move_Vec = new Vector3(Move_Hor, 0, Move_Ver);
+       //move_Vec.x = move_Hor;
+       //move_Vec.z = move_Ver;
+
+        if(!isWall)
+            move_Vec = new Vector3(Move_Hor, 0, Move_Ver);
+
+        else
+        {
+            if(isWall_Hor)
+            move_Vec = new Vector3(0, Move_Hor, Move_Ver);
+            else
+            move_Vec = new Vector3(Move_Hor, Move_Ver, 0);
+        }
+
         Squid_Euler(Move_Hor, Move_Ver);
 
     }

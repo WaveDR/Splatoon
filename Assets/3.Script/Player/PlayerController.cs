@@ -8,6 +8,7 @@ public class PlayerController : Living_Entity, IPlayer
 
     [Header("Player Move")]
     [SerializeField] private GameObject raycast_Object;
+    [SerializeField] private GameObject raycast_Wall_Object;
     [SerializeField] private ParticleSystem[] player_Wave;
 
     [Header("Squidform")]
@@ -59,6 +60,7 @@ public class PlayerController : Living_Entity, IPlayer
         Player_Jump();
         RaycastFloor(_player_Input.squid_Form);
         Player_Animation();
+
     }
 
     private void OnParticleCollision(GameObject other)
@@ -71,7 +73,29 @@ public class PlayerController : Living_Entity, IPlayer
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+           //_isJump = false;
+           //raycast_Wall_Object = collision.gameObject;
 
+            if (_player_Input.squid_Form)
+            {
+                RaycastWall();
+            }
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            _isJump = false;
+            _player_Input.isWall = false;
+            _player_rigid.useGravity = true;
+            _player_rigid.isKinematic = false;
+        }
+    }
     //============================================        ↑ 콜백 메서드   |  일반 메서드 ↓        ========================================================
 
     public override void OnDamage(float damage)
@@ -139,7 +163,8 @@ public class PlayerController : Living_Entity, IPlayer
             TeamZone teamZone = raycast_Object.GetComponent<TeamZone>();
             Debug.Log(teamZone.team);
 
-            if (teamZone != null) _isJump = false;
+            if (teamZone != null)
+                _isJump = false;
 
             if (teamZone.team == player_Team.team) // 내 진영과 현재 바닥 진영이 같을 때
             {
@@ -189,18 +214,18 @@ public class PlayerController : Living_Entity, IPlayer
         }
         else //공중에 있을 때
         {
-            _isJump = true;
-            raycast_Object = null;
+                _isJump = true;
+                raycast_Object = null;
 
-            if (SquidForm)// 오징어 형태
-            {
-                Transform_Stat(0, player_Stat.dashSpeed, true, false);
-            }
+                if (SquidForm)// 오징어 형태
+                {
+                    Transform_Stat(0, player_Stat.dashSpeed, true, false);
+                }
 
-            else //사람 형태
-            {
-                Transform_Stat(0, player_Stat.moveZone_Speed, false, true);
-            }
+                else //사람 형태
+                {
+                    Transform_Stat(0, player_Stat.moveZone_Speed, false, true);
+                }
         }
 
         if (_player_Input.move_Vec == Vector3.zero || _isJump)
@@ -211,6 +236,33 @@ public class PlayerController : Living_Entity, IPlayer
             }
         }
     }
+
+  
+
+    private void RaycastWall()  //시계방향으로 회전하며 확인
+    {
+        Debug.DrawRay(transform.position, Vector3.forward * player_Stat.detect_Range * 10, Color.green);
+        if (Physics.Raycast(transform.position, Vector3.forward, out RaycastHit forward_Hit, player_Stat.detect_Range * 10, player_Stat.floor_Layer))
+        {
+            raycast_Wall_Object = forward_Hit.transform.gameObject;
+            TeamZone teamZone = raycast_Wall_Object.GetComponent<TeamZone>();
+            Debug.Log(teamZone.team);
+
+            if (teamZone.team != player_Team.team)
+            {
+                Debug.Log("적 진영이거나 칠하지 않은 구역입니다!");
+                return;
+            }
+
+            _player_Input.isWall = true;
+            _player_Input.isWall_Hor = false;
+            _player_rigid.useGravity = false;
+            _player_rigid.isKinematic = true;
+        }
+        
+
+    }
+
 
     public void Transform_Stat(int ammo, float speed, bool Squid, bool Human)
     {
