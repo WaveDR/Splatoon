@@ -9,7 +9,12 @@ public class PlayerTeams : MonoBehaviour
     [SerializeField] private PlayerShooter _player_Shooter;
 
     [SerializeField] private ParticleSystem[] _player_Color_Par;
-    [SerializeField] private Material[] _player_Color_Mat;
+    [SerializeField] private Material[] _player_Yellow_Mat;
+    [SerializeField] private Material[] _player_Blue_Mat;
+
+    [SerializeField] private SkinnedMeshRenderer[] _human_Render;
+    [SerializeField] private SkinnedMeshRenderer _squid_Render;
+
 
     Color32 team_Yellow = new Color32(253, 242, 63, 255);
     Color32 team_Blue = new Color32(129, 67, 255, 255);
@@ -30,11 +35,13 @@ public class PlayerTeams : MonoBehaviour
         {
             case ETeam.Blue:
 
-                foreach(Material mat in _player_Color_Mat)
+                foreach (SkinnedMeshRenderer render in _human_Render)
                 {
-                    mat.color = team_Blue;
+                    render.material = _player_Blue_Mat[0];
+                    _squid_Render.material = _player_Blue_Mat[1];
                 }
-
+                
+                
                 foreach (ParticleSystem par in _player_Color_Par)
                 {
                     var particle = par.main;
@@ -45,10 +52,13 @@ public class PlayerTeams : MonoBehaviour
 
             case ETeam.Yellow:
 
-                foreach (Material mat in _player_Color_Mat)
+                foreach (SkinnedMeshRenderer render in _human_Render)
                 {
-                    mat.color = team_Yellow;
+                    render.material = _player_Yellow_Mat[0];
+                    _squid_Render.material = _player_Yellow_Mat[1];
                 }
+
+
                 foreach (ParticleSystem par in _player_Color_Par)
                 {
                     var particle = par.main;

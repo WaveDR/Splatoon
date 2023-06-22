@@ -16,12 +16,6 @@ public class Test_Enemy : MonoBehaviour
         team = GetComponent<PlayerTeams>();
     }
 
-    private void Start()
-    {
-        if (team.team == ETeam.Blue) team.team = ETeam.Yellow;
-        if (team.team == ETeam.Yellow) team.team = ETeam.Blue;
-    }
-
     private void Update()
     {
         input.move_Vec = Vector3.zero;
@@ -31,12 +25,12 @@ public class Test_Enemy : MonoBehaviour
 
         if(time >= 2)
         {
-            StartCoroutine(ASDFSADF());
+            StartCoroutine(Dummy_Attack());
             time = 0;
         }
     }
 
-    IEnumerator ASDFSADF()
+    IEnumerator Dummy_Attack()
     {
         input.fire = true;
         yield return new WaitForSeconds(1f);

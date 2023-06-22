@@ -15,7 +15,7 @@ public class PlayerController : Living_Entity, IPlayer
     [SerializeField] private GameObject squid_Object;
 
     private PlayerInput _player_Input;
-    private PlayerTeams _player_Team;
+    public PlayerTeams player_Team;
     private Rigidbody _player_rigid;
     private PlayerShooter _player_shot;
     private Animator _player_Anim;
@@ -33,7 +33,7 @@ public class PlayerController : Living_Entity, IPlayer
         TryGetComponent(out _player_rigid);
         TryGetComponent(out _player_Anim);
         TryGetComponent(out _player_shot);
-        TryGetComponent(out _player_Team);
+        TryGetComponent(out player_Team);
 
         Player_StatReset();
 
@@ -65,7 +65,7 @@ public class PlayerController : Living_Entity, IPlayer
     {
         dmgBullet = other.GetComponent<Bullet>();
 
-        if(dmgBullet.team.team != _player_Team.team)
+        if(dmgBullet.team.team != player_Team.team)
         {
             OnDamage(dmgBullet.dmg);
         }
@@ -141,7 +141,7 @@ public class PlayerController : Living_Entity, IPlayer
 
             if (teamZone != null) _isJump = false;
 
-            if (teamZone.team == _player_Team.team) // 내 진영과 현재 바닥 진영이 같을 때
+            if (teamZone.team == player_Team.team) // 내 진영과 현재 바닥 진영이 같을 때
             {
                 if (SquidForm)// 오징어 형태
                 {
