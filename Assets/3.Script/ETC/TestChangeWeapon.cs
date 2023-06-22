@@ -36,4 +36,18 @@ public class TestChangeWeapon : MonoBehaviour
         player.gameObject.SetActive(true);
     }
 
+    public void Change_Team(bool isYellow)
+    {
+        if (isYellow)
+        {
+            player.weapon.team.team = ETeam.Yellow;
+        }
+        else
+        {
+            player.weapon.team.team = ETeam.Blue;
+        }
+        player.gameObject.SetActive(false);
+        player.gameObject.SetActive(true);
+    }
+
 }

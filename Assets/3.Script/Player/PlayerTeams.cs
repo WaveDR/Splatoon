@@ -8,16 +8,21 @@ public class PlayerTeams : MonoBehaviour
     [SerializeField] private PlayerController _player_Con;
     [SerializeField] private PlayerShooter _player_Shooter;
 
+    [SerializeField] private ParticleSystem[] _player_Color_Par;
     [SerializeField] private Material[] _player_Color_Mat;
-    [SerializeField] private Bullet[] bullets;
+
+    Color32 team_Yellow = new Color32(253, 242, 63, 255);
+    Color32 team_Blue = new Color32(129, 67, 255, 255);
 
     private void Awake()
     {
         TryGetComponent(out _player_Con);
         TryGetComponent(out _player_Shooter);
+    }
+    private void OnEnable()
+    {
         Player_ColorSet();
     }
-
 
     public void Player_ColorSet()
     {
@@ -27,16 +32,29 @@ public class PlayerTeams : MonoBehaviour
 
                 foreach(Material mat in _player_Color_Mat)
                 {
-                    mat.color = Color.blue;
-                }
-                foreach (Bullet bullet in bullets)
-                {
-                    //bullet.paint.brush.splatChannel = 2;
+                    mat.color = team_Blue;
                 }
 
+                foreach (ParticleSystem par in _player_Color_Par)
+                {
+                    var particle = par.main;
+                    particle.startColor = (Color)team_Blue;
+                   
+                }
                 break;
 
             case ETeam.Yellow:
+
+                foreach (Material mat in _player_Color_Mat)
+                {
+                    mat.color = team_Yellow;
+                }
+                foreach (ParticleSystem par in _player_Color_Par)
+                {
+                    var particle = par.main;
+                    particle.startColor = (Color)team_Yellow;
+                }
+
                 break;
         }
     }

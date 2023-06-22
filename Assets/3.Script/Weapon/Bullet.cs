@@ -6,12 +6,17 @@ public class Bullet : MonoBehaviour
 {
     public ETeam bulletType;
 
-    public PlayerController player;
+    public PlayerTeams team;
     public ParticlePainter paint;
-    // Start is called before the first frame update
+
     void Awake()
     {
-        player = GetComponentInParent<PlayerController>();
-        bulletType = player.player_Team;
+        paint = GetComponent<ParticlePainter>();
+
+    }
+    private void OnEnable()
+    {
+        team = GetComponentInParent<PlayerTeams>();
+        bulletType = team.team;
     }
 }

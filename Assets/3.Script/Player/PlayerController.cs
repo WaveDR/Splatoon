@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, IPlayer
 {
     [Header("Player Stat")]
-    public ETeam player_Team;
     [SerializeField] private PlayerStat player_Stat;
 
     [Header("Player Move")]
@@ -17,6 +16,7 @@ public class PlayerController : MonoBehaviour, IPlayer
     [SerializeField] private GameObject squid_Object;
 
     private PlayerInput _player_Input;
+    private PlayerTeams _playeR_Team;
     private Rigidbody _player_rigid;
     private PlayerShooter _player_shot;
     private Animator _player_Anim;
@@ -34,10 +34,12 @@ public class PlayerController : MonoBehaviour, IPlayer
         TryGetComponent(out _player_rigid);
         TryGetComponent(out _player_Anim);
         TryGetComponent(out _player_shot);
+        TryGetComponent(out _playeR_Team);
         Player_StatReset();
 
         foreach (ParticleSystem start in player_Wave) start.Stop();
     }
+
     private void FixedUpdate()
     {
         _player_rigid.MovePosition(_player_rigid.position + _player_Input.move_Vec * _player_Speed * Time.deltaTime);
@@ -108,13 +110,13 @@ public class PlayerController : MonoBehaviour, IPlayer
             TeamZone teamZone = raycast_Object.GetComponent<TeamZone>();
             Debug.Log(teamZone.team);
 
-            if (teamZone.team == player_Team || teamZone.team != player_Team)
+            if (teamZone.team == _playeR_Team.team || teamZone.team != _playeR_Team.team)
             {
                 _isJump = false;
 
             }
 
-            if (teamZone.team == player_Team) // 내 진영과 현재 바닥 진영이 같을 때
+            if (teamZone.team == _playeR_Team.team) // 내 진영과 현재 바닥 진영이 같을 때
             {
                 if (_player_Input.squid_Form)// 오징어 형태
                 {

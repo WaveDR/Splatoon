@@ -10,6 +10,8 @@ public class ParticlePainter : MonoBehaviour
     private ParticleSystem part;
     private List<ParticleCollisionEvent> collisionEvents;
 
+    public int splayChannel;
+
     private void Start()
     {
         part = GetComponent<ParticleSystem>();
@@ -22,7 +24,7 @@ public class ParticlePainter : MonoBehaviour
         if (paintTarget != null)
         {
             if (RandomChannel) brush.splatChannel = Random.Range(0, 4);
-
+            brush.splatChannel = splayChannel;
             int numCollisionEvents = part.GetCollisionEvents(other, collisionEvents);
             for (int i = 0; i < numCollisionEvents; i++)
             {
