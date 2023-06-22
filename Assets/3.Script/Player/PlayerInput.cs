@@ -18,6 +18,7 @@ public class PlayerInput : MonoBehaviour
     public float Move_Ver => move_Ver;
 
     public bool jDown;
+    public bool fDown;
     public bool fire;
     public bool squid_Form = false;
 
@@ -52,6 +53,7 @@ public class PlayerInput : MonoBehaviour
 
         jDown = Input.GetButtonDown("Jump");
         fire = Input.GetButton("Fire1");
+        fDown = Input.GetButtonDown("Fire1");
         squid_Form = Input.GetButton("Run");
 
 

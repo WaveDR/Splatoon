@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
     public PlayerTeams team;
     public ParticleSystem particle;
     public float dmg;
-
+    public bool brush;
     public PlayerController[] players;
     void Awake()
     {
@@ -19,27 +19,39 @@ public class Bullet : MonoBehaviour
 
     private void OnEnable()
     {
+    
         team = GetComponentInParent<PlayerTeams>();
         bulletType = team.team;
-        for (int i = 0; i < particle.trigger.colliderCount; i++)
-        {
-            particle.trigger.RemoveCollider(i);
-        }
-   
 
-        for (int i = 0; i < players.Length; i++)
+        if (!brush)
         {
+            for (int i = 0; i < particle.trigger.colliderCount; i++)
+            {
+                particle.trigger.RemoveCollider(i);
+            }
+
+
+            for (int i = 0; i < players.Length; i++)
+            {
                 particle.trigger.AddCollider(players[i]);
+            }
         }
     }
     private void OnDisable()
     {
-        for (int i = 0; i < particle.trigger.colliderCount; i++)
+        if (!brush)
         {
-            particle.trigger.RemoveCollider(i);
+            for (int i = 0; i < particle.trigger.colliderCount; i++)
+            {
+                particle.trigger.RemoveCollider(i);
+            }
         }
     }
-    private void OnParticleTrigger()
+    private void OnTriggerEnter(Collider other)
     {
+        PlayerController enemy = other.GetComponent<PlayerController>();
+
+        if(enemy != null)
+        enemy.OnDamage(dmg);
     }
 }
