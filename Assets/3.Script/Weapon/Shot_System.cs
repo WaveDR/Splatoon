@@ -64,6 +64,26 @@ public class Shot_System : MonoBehaviour
         }
    
     }
+    public void Charge_Ready(bool ready)
+    {
+        if (ready)
+        {
+            foreach (Bullet shot in firePoint)
+            {
+                ParticleSystem par = shot.particle.transform.GetChild(1).GetComponent<ParticleSystem>();
+                par.Play();
+            }
+        }
+        else
+        {
+            foreach (Bullet shot in firePoint)
+            {
+                ParticleSystem par = shot.particle.transform.GetChild(1).GetComponent<ParticleSystem>();
+                par.Play();
+            }
+        }
+   
+    }
     public void Shot()
     {
         if(weapon_CurAmmo > 0)

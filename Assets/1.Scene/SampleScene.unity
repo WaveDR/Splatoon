@@ -11186,6 +11186,7 @@ MonoBehaviour:
   move_Vec: {x: 0, y: 0, z: 0}
   jDown: 0
   fDown: 0
+  fUp: 0
   fire: 0
   squid_Form: 0
   squid_FinalRot: 0
@@ -20653,6 +20654,7 @@ MonoBehaviour:
   move_Vec: {x: 0, y: 0, z: 0}
   jDown: 0
   fDown: 0
+  fUp: 0
   fire: 0
   squid_Form: 0
   squid_FinalRot: 0
@@ -24645,6 +24647,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1596995153}
     m_Modifications:
+    - target: {fileID: 326774955524934871, guid: 681dac176573a08429dbffeccf3afd03, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 326774955524934871, guid: 681dac176573a08429dbffeccf3afd03, type: 3}
+      propertyPath: autoRandomSeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 887589502566758809, guid: 681dac176573a08429dbffeccf3afd03, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 887589502566758809, guid: 681dac176573a08429dbffeccf3afd03, type: 3}
+      propertyPath: autoRandomSeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2561561030090017838, guid: 681dac176573a08429dbffeccf3afd03, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2561561030090017838, guid: 681dac176573a08429dbffeccf3afd03, type: 3}
+      propertyPath: autoRandomSeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7041809192665240369, guid: 681dac176573a08429dbffeccf3afd03, type: 3}
       propertyPath: m_Name
       value: Weapon_Bow

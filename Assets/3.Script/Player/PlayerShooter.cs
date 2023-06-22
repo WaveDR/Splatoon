@@ -6,7 +6,7 @@ public enum EWeapon { Brush, Gun, Bow }
 public class PlayerShooter : MonoBehaviour
 {
     [Header("Weapon")]
-    
+
     public EWeapon WeaponType;
     public GameObject[] weapon_Obj;
     public Shot_System weapon;
@@ -24,11 +24,12 @@ public class PlayerShooter : MonoBehaviour
     {
         get { return JumpRot; }
 
-        set { 
-            
-              JumpRot = value;
-              JumpRot = Mathf.Clamp(JumpRot, -90, 0);
-            }
+        set
+        {
+
+            JumpRot = value;
+            JumpRot = Mathf.Clamp(JumpRot, -90, 0);
+        }
     }
 
     [Header("Attack Rate")]
@@ -123,80 +124,114 @@ public class PlayerShooter : MonoBehaviour
 
     private void Fire_Paint()
     {
-        if (WeaponType == EWeapon.Bow)
+        switch (WeaponType)
         {
-            if (_Player_Con._isJump && weapon_JumpRot < 0) // 점프 O
-            {
-                weapon.transform.localEulerAngles = new Vector3(0, 0, weapon_JumpRot += 540 * Time.deltaTime);
-            }
-            else if (!_Player_Con._isJump && weapon_JumpRot > -90 ) //점프 X
-            {
-                weapon.transform.localEulerAngles = new Vector3(0, 0, weapon_JumpRot -= 540 * Time.deltaTime);
-            }
-        }
+            case EWeapon.Gun:
 
-
-
-        if (WeaponType != EWeapon.Brush)
-        {
-            if (_player_Input.fire && !_player_Input.squid_Form)
-            {
-                fireRateTime += Time.deltaTime;
-                ammo_Back.transform.localScale =
-                new Vector3(ammo_Back.transform.localScale.x, weapon.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
-                _isFire = true;
-
-                if (fireRateTime >= fireMaxTime && weapon.weapon_CurAmmo > 0)
+                if (_player_Input.fire && !_player_Input.squid_Form)
                 {
-                    _player_Anim.SetBool("isFire", true);
-                    weapon.Shot();
+                    fireRateTime += Time.deltaTime;
+                    ammo_Back.transform.localScale =
+                    new Vector3(ammo_Back.transform.localScale.x, weapon.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
+                    _isFire = true;
+
+                    _player_Anim.SetTrigger("Reload_Bow");
+
+                    if (fireRateTime >= fireMaxTime && weapon.weapon_CurAmmo > 0)
+                    {
+                        _player_Anim.SetBool("isFire", true);
+                        weapon.Shot();
+                        fireRateTime = 0;
+                    }
+
+                    else
+                    {
+                        _player_Anim.SetBool("isFire", false);
+                    }
+                }
+                else
+                {
                     fireRateTime = 0;
+                    _player_Anim.SetBool("isFire", false);
+                    _isFire = false;
+                }
+                break;
+
+            case EWeapon.Bow:
+
+                if (_Player_Con._isJump && weapon_JumpRot < 0) // 점프 O
+                {
+                    weapon.transform.localEulerAngles = new Vector3(0, 0, weapon_JumpRot += 540 * Time.deltaTime);
+                }
+                else if (!_Player_Con._isJump && weapon_JumpRot > -90) //점프 X
+                {
+                    weapon.transform.localEulerAngles = new Vector3(0, 0, weapon_JumpRot -= 540 * Time.deltaTime);
                 }
 
+                if (_player_Input.fire)
+                {
+                    fireRateTime += Time.deltaTime;
+                    ammo_Back.transform.localScale =
+                    new Vector3(ammo_Back.transform.localScale.x, weapon.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
+                    _isFire = true;
+                    _player_Anim.SetTrigger("Reload_Bow");
+                }
+         
+                if (fireRateTime >= fireMaxTime && weapon.weapon_CurAmmo > 0)
+                {
+
+                    //차지 중
+                    if (_player_Input.fUp)
+                    {
+                        _player_Anim.SetBool("isFire", true);
+                        weapon.Shot();
+                        fireRateTime = 0;
+                    }
+                }
                 else
                 {
                     _player_Anim.SetBool("isFire", false);
                 }
-            }
-            else
-            {
-                fireRateTime = 0;
-                _player_Anim.SetBool("isFire", false);
-                _isFire = false;
-            }
-        }
-        else
-        {
-            if (_player_Input.fDown)
-            {
-                _combo_Start = true;
-            }
 
-            if (_player_Input.fDown && _combo_Attack && weapon.weapon_CurAmmo > 0)
-            {
-                _combo_Num++;
-                combo_ResetTime = 0;
-                _player_Anim.SetInteger("Brush_Combo", _combo_Num);
-                _combo_Attack = false;
-            }
-            if (_combo_Start)
-            {
-                fireRateTime += Time.deltaTime;
-                combo_ResetTime += Time.deltaTime;
-            }
-            if (fireRateTime >= 0.3f)
-            {
-                _combo_Attack = true;
-            }
-            if (combo_ResetTime >= 2f && _combo_Attack)
-            {
-                _player_Anim.SetInteger("Brush_Combo", 0);
-                _combo_Num = 0;
-                fireRateTime = 0;
-                combo_ResetTime = 0;
-                _combo_Attack = false;
-            }
-            if (_combo_Num >= 4) _combo_Num = -1;
+                if (_player_Input.squid_Form)
+                {
+                    fireRateTime = 0;
+                    _player_Anim.SetBool("isFire", false);
+                    _isFire = false;
+                }
+
+                break;
+            case EWeapon.Brush:
+
+                if (_player_Input.fDown) _combo_Start = true;
+
+                if (_combo_Start)
+                {
+                    fireRateTime += Time.deltaTime;
+                    combo_ResetTime += Time.deltaTime;
+                }
+
+                if (_player_Input.fDown && _combo_Attack && weapon.weapon_CurAmmo > 0)
+                {
+                    _combo_Num++;
+                    combo_ResetTime = 0;
+                    _player_Anim.SetInteger("Brush_Combo", _combo_Num);
+                    _combo_Attack = false;
+                }
+
+
+                if (combo_ResetTime >= 2f && _combo_Attack)
+                {
+                    _player_Anim.SetInteger("Brush_Combo", 0);
+                    _combo_Num = 0;
+                    fireRateTime = 0;
+                    combo_ResetTime = 0;
+                    _combo_Attack = false;
+                }
+
+                if (fireRateTime >= 0.3f) _combo_Attack = true;
+                if (_combo_Num >= 4) _combo_Num = -1;
+                break;
         }
     }
     public void shot()
