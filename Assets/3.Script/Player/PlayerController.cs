@@ -22,8 +22,10 @@ public class PlayerController : Living_Entity, IPlayer
     private Animator _player_Anim;
 
     public bool _isJump;
+    public bool isWall;
 
     private float _player_Speed;
+    private bool _Wall_RacastOn;
     private Bullet dmgBullet; //맞을 때 받을 데미지값 가져오기
 
     [SerializeField] private float hp;
@@ -61,69 +63,49 @@ public class PlayerController : Living_Entity, IPlayer
         RaycastFloor(_player_Input.squid_Form);
         Player_Animation();
 
+        if (!_player_Input.squid_Form)
+        {
+            _Wall_RacastOn = false;
+            MoveWall(false, null);
+        }
+        else
+        {
+            RaycastWall(_player_Input.squid_Form);
+        }
+
     }
 
     private void OnParticleCollision(GameObject other)
     {
         dmgBullet = other.GetComponent<Bullet>();
 
-        if(dmgBullet.team.team != player_Team.team)
+        if (dmgBullet.team.team != player_Team.team)
         {
             OnDamage(dmgBullet.dmg);
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-           //_isJump = false;
-           //raycast_Wall_Object = collision.gameObject;
+            //_isJump = false;
+            //raycast_Wall_Object = collision.gameObject;
 
             if (_player_Input.squid_Form)
             {
-                RaycastWall();
+                _Wall_RacastOn = true;
             }
         }
     }
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Wall"))
+        if (collision.gameObject.CompareTag("Wall")) // 건물 끄트머리에 도달할 시
         {
-            _isJump = false;
-            _player_Input.isWall = false;
-            _player_rigid.useGravity = true;
-            _player_rigid.isKinematic = false;
+            MoveWall(false, null);
         }
     }
     //============================================        ↑ 콜백 메서드   |  일반 메서드 ↓        ========================================================
-
-    public override void OnDamage(float damage)
-    {
-        base.OnDamage(damage);
-    }
-    private void Player_Animation()
-    {
-        _player_Anim.SetFloat(_player_Input.Move_Hor_S, _player_Input.Move_Hor);
-        _player_Anim.SetFloat(_player_Input.Move_Ver_S, _player_Input.Move_Ver);
-        _player_Anim.SetBool("isDown", !_isJump);
-    }
-
-    private void Player_Movement()
-    {
-        if (_player_Input.move_Vec != Vector3.zero)
-        {
-            transform.Translate(_player_Input.move_Vec * _player_Speed * Time.deltaTime);
-        }
-        hp = player_CurHealth;
-        Squid_Eular();
-    }
-
-
-    private void Player_StatReset()
-    {
-        _player_Speed = player_Stat.moveZone_Speed;
-    }
 
     private void Player_Jump()
     {
@@ -138,18 +120,43 @@ public class PlayerController : Living_Entity, IPlayer
     {
         if (squid_Object.activeSelf)
         {
-            if(_player_Input.squid_FinalRot > 0)
+            if (_player_Input.squid_FinalRot > 0)
                 squid_Object.transform.localEulerAngles = new Vector3(0, _player_Input.player_SquidRot += 900 * Time.deltaTime, 0);
             if (_player_Input.squid_FinalRot < 0)
                 squid_Object.transform.localEulerAngles = new Vector3(0, _player_Input.player_SquidRot -= 900 * Time.deltaTime, 0);
         }
     }
+    private void Player_Animation()
+    {
+        _player_Anim.SetFloat(_player_Input.Move_Hor_S, _player_Input.Move_Hor);
+        _player_Anim.SetFloat(_player_Input.Move_Ver_S, _player_Input.Move_Ver);
+        _player_Anim.SetBool("isDown", !_isJump);
+    }
+    private void Player_Movement()
+    {
+        if (_player_Input.move_Vec != Vector3.zero)
+        {
+            transform.Translate(_player_Input.move_Vec * _player_Speed * Time.deltaTime);
+        }
+        hp = player_CurHealth;
+        Squid_Eular();
+    }
+    private void Player_StatReset()
+    {
+        _player_Speed = player_Stat.moveZone_Speed;
+    }
+    #region Override
 
+    public override void OnDamage(float damage)
+    {
+        base.OnDamage(damage);
+    }
     public override void RestoreHp(float newHealth)
     {
         base.RestoreHp(newHealth);
-        
+
     }
+    #endregion
 
     #region Player Raycast
 
@@ -214,18 +221,18 @@ public class PlayerController : Living_Entity, IPlayer
         }
         else //공중에 있을 때
         {
-                _isJump = true;
-                raycast_Object = null;
+            _isJump = true;
+            raycast_Object = null;
 
-                if (SquidForm)// 오징어 형태
-                {
-                    Transform_Stat(0, player_Stat.dashSpeed, true, false);
-                }
+            if (SquidForm)// 오징어 형태
+            {
+                Transform_Stat(0, player_Stat.dashSpeed, true, false);
+            }
 
-                else //사람 형태
-                {
-                    Transform_Stat(0, player_Stat.moveZone_Speed, false, true);
-                }
+            else //사람 형태
+            {
+                Transform_Stat(0, player_Stat.moveZone_Speed, false, true);
+            }
         }
 
         if (_player_Input.move_Vec == Vector3.zero || _isJump)
@@ -237,30 +244,81 @@ public class PlayerController : Living_Entity, IPlayer
         }
     }
 
-  
 
-    private void RaycastWall()  //시계방향으로 회전하며 확인
+
+    private void RaycastWall(bool SquidForm)  //시계방향으로 회전하며 확인
     {
-        Debug.DrawRay(transform.position, Vector3.forward * player_Stat.detect_Range * 10, Color.green);
-        if (Physics.Raycast(transform.position, Vector3.forward, out RaycastHit forward_Hit, player_Stat.detect_Range * 10, player_Stat.floor_Layer))
+        if(_player_Input.move_Vec == transform.forward)
         {
-            raycast_Wall_Object = forward_Hit.transform.gameObject;
-            TeamZone teamZone = raycast_Wall_Object.GetComponent<TeamZone>();
-            Debug.Log(teamZone.team);
+            _player_Input.isWall_Hor = false;
+            _player_Input.isWall_Left = false;
+            
+        }
+        Wall_Vec(SquidForm, transform.forward);
+        //else if (_player_Input.move_Vec == -transform.right)
+        //{
+        //    _player_Input.isWall_Hor = true;
+        //    _player_Input.isWall_Left = true;
+        //    Wall_Vec(SquidForm, -transform.right);
+        //}
+        //else if (_player_Input.move_Vec == transform.right )
+        //{
+        //    _player_Input.isWall_Hor = true;
+        //    _player_Input.isWall_Left = false;
+        //    Wall_Vec(SquidForm, transform.right);
+        //}
+    }
 
+    public void Wall_Vec(bool SquidForm, Vector3 dir)
+    {
+        if (!_Wall_RacastOn) { MoveWall(false, null); return; }
+
+        Debug.DrawRay(transform.position, dir * player_Stat.detect_Range * 10, Color.green);
+
+        if (Physics.Raycast(transform.position, dir, out RaycastHit forward_Hit, player_Stat.detect_Range * 10, player_Stat.floor_Layer))
+        {
+            MoveWall(true, forward_Hit.transform.gameObject);
+            TeamZone teamZone = raycast_Wall_Object.GetComponent<TeamZone>();
+            _player_Input.isWall_Hor = false;
+            Debug.Log(teamZone.team);
             if (teamZone.team != player_Team.team)
             {
                 Debug.Log("적 진영이거나 칠하지 않은 구역입니다!");
                 return;
             }
 
-            _player_Input.isWall = true;
-            _player_Input.isWall_Hor = false;
-            _player_rigid.useGravity = false;
-            _player_rigid.isKinematic = true;
-        }
-        
+            else // 내 진영일 때
+            {
+                if (SquidForm)// 오징어 형태
+                {
+                    Transform_Stat(30, player_Stat.dashSpeed, false, false);
+                    RestoreHp(recovery_Speed * 3);
+                }
 
+                else //사람 형태
+                {
+                    Transform_Stat(20, player_Stat.moveZone_Speed, false, true);
+                    RestoreHp(recovery_Speed);
+                }
+            }
+
+            if (_player_Input.Move_Ver < 0) // 벽탈 때 뒤로 이동 시
+            {
+                _Wall_RacastOn = false;
+                MoveWall(false, null);
+            }
+        }
+        else // 레이캐스트 감지 안될 때
+        {
+            MoveWall(false, null);
+        }
+    }
+    public void MoveWall(bool moveWall, GameObject wallObj)
+    {
+        _player_Input.isWall = moveWall;
+        _player_rigid.isKinematic = moveWall;
+        _player_rigid.useGravity = !moveWall;
+        raycast_Wall_Object = wallObj;
     }
 
 

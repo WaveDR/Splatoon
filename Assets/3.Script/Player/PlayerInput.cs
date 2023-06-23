@@ -24,6 +24,7 @@ public class PlayerInput : MonoBehaviour
     public bool squid_Form = false;
     public bool isWall;
     public bool isWall_Hor;
+    public bool isWall_Left;
 
     public string Move_Hor_S => move_Hor_S;
     public string Move_Ver_S => move_Ver_S;
@@ -64,15 +65,22 @@ public class PlayerInput : MonoBehaviour
        //move_Vec.x = move_Hor;
        //move_Vec.z = move_Ver;
 
-        if(!isWall)
+        if(!isWall) //벽이 아니면 지상 이동
             move_Vec = new Vector3(Move_Hor, 0, Move_Ver);
 
-        else
+        else //벽이면 벽 타기
         {
-            if(isWall_Hor)
-            move_Vec = new Vector3(0, Move_Hor, Move_Ver);
-            else
-            move_Vec = new Vector3(Move_Hor, Move_Ver, 0);
+            if(isWall_Hor) // 횡이동
+            {
+                if (!isWall_Left) //왼쪽 벽과 오른쪽 벽 이동 기준 변환
+                    move_Vec = new Vector3(0,Move_Hor, Move_Ver);
+                else
+                    move_Vec = new Vector3(0,-Move_Hor, Move_Ver);
+            }
+            else //종이동
+            {
+                move_Vec = new Vector3(Move_Hor, Move_Ver, 0);
+            }
         }
 
         Squid_Euler(Move_Hor, Move_Ver);
