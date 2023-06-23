@@ -41,6 +41,12 @@ public class PlayerController : Living_Entity, IPlayer
         Player_StatReset();
 
         foreach (ParticleSystem start in player_Wave) start.Stop();
+
+
+        for (int i = 1; i < hitEffect.Length; i++)
+        {
+            hitEffect[i] = hitEffect[0].transform.GetChild(i).GetComponent<ParticleSystem>();
+        }
     }
 
     protected override void OnEnable()
@@ -149,6 +155,29 @@ public class PlayerController : Living_Entity, IPlayer
 
     public override void OnDamage(float damage)
     {
+        if(player_Team.team == ETeam.Blue)
+        {
+            foreach(ParticleSystem par in hitEffect)
+            {
+                var hit = par.main;
+                hit.startColor = (Color)player_Team.team_Yellow;
+            }
+        }
+        else
+        {
+            foreach (ParticleSystem par in hitEffect)
+            {
+                var hit = par.main;
+                hit.startColor = (Color)player_Team.team_Blue;
+            }
+        }
+          
+        if (!isDead)
+        {
+            hitEffect[0].Play();
+        }
+ 
+
         base.OnDamage(damage);
     }
     public override void RestoreHp(float newHealth)

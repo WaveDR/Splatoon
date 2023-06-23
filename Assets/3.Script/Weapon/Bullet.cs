@@ -51,7 +51,7 @@ public class Bullet : MonoBehaviour
     {
         PlayerController enemy = other.GetComponent<PlayerController>();
 
-        if(enemy != null)
-        enemy.OnDamage(dmg);
+        //if(enemy != null)
+        //enemy.OnDamage(dmg);
     }
 }

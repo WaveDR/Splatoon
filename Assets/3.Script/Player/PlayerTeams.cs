@@ -16,8 +16,8 @@ public class PlayerTeams : MonoBehaviour
     [SerializeField] private SkinnedMeshRenderer _squid_Render;
 
 
-    Color32 team_Yellow = new Color32(253, 242, 63, 255);
-    Color32 team_Blue = new Color32(129, 67, 255, 255);
+  public  Color32 team_Yellow = new Color32(253, 242, 63, 255);
+  public  Color32 team_Blue = new Color32(129, 67, 255, 255);
 
     private void Awake()
     {

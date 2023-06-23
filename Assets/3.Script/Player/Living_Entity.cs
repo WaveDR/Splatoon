@@ -8,6 +8,7 @@ public class Living_Entity : MonoBehaviour, IDamage
     [SerializeField] protected PlayerStat player_Stat;
 
     private float _player_CurHealth;
+    public ParticleSystem[] hitEffect;
     public float player_CurHealth
     {
         get { return _player_CurHealth; }
@@ -29,7 +30,9 @@ public class Living_Entity : MonoBehaviour, IDamage
     }
     public virtual void OnDamage(float damage)
     {
-        player_CurHealth -= damage;
+            //플레이어의 총알에 맞았을 때 
+            //총알에 맞으면 맞은 방향으로 피 튀기기
+            player_CurHealth -= damage;
 
         if(player_CurHealth <= 0 && !isDead)
         {
