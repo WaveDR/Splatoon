@@ -1,0 +1,381 @@
+fileFormatVersion: 2
+guid: e8efc798dc8e55345ab8dfa0da4e1fac
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3633659884893909829
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_0
+  - first:
+      213: -4066048556931139760
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_1
+  - first:
+      213: -4908210003444775257
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_2
+  - first:
+      213: -7868384747091833384
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_3
+  - first:
+      213: 1112278883176453548
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_4
+  - first:
+      213: -581043822438065728
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_5
+  - first:
+      213: 3956836135551230970
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_6
+  - first:
+      213: 7554737799788954796
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_7
+  - first:
+      213: -8799018207665644763
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_8
+  - first:
+      213: -856692762827765599
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_9
+  - first:
+      213: -1179340289852201785
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_10
+  - first:
+      213: 2713170700886991925
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_11
+  - first:
+      213: 4747327042466568763
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_12
+  - first:
+      213: 5609767051743321955
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_13
+  - first:
+      213: -2027944381169684799
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_14
+  - first:
+      213: -317068867704526769
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_15
+  - first:
+      213: -4348995499325819171
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_16
+  - first:
+      213: -1372535299793572543
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_17
+  - first:
+      213: 307883472769742411
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_18
+  - first:
+      213: 7820517740953611115
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_19
+  - first:
+      213: -2588156641940749801
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_20
+  - first:
+      213: -7156748989389206819
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_21
+  - first:
+      213: -8602466307536103319
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_22
+  - first:
+      213: -12130853341730229
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_23
+  - first:
+      213: -5661363672310066456
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_24
+  - first:
+      213: -9034142335967251418
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_25
+  - first:
+      213: -921618854867567781
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_26
+  - first:
+      213: -634273182001281812
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_27
+  - first:
+      213: 7193902459178171698
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_28
+  - first:
+      213: 1775576485156228044
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_29
+  - first:
+      213: -7336771087922198655
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_30
+  - first:
+      213: 8324926791117924178
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_31
+  - first:
+      213: 3728172042231076096
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_32
+  - first:
+      213: -6317623120649403256
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_33
+  - first:
+      213: 6017425250406693266
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_34
+  - first:
+      213: 579693326141968353
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_35
+  - first:
+      213: -3355561079431052203
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_36
+  - first:
+      213: 4685840874627329715
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_37
+  - first:
+      213: 5313014356784542140
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_38
+  - first:
+      213: -8964913694752027456
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_39
+  - first:
+      213: 5962509235920996009
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_40
+  - first:
+      213: -5834879179027192989
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_41
+  - first:
+      213: -3844336065543601959
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_42
+  - first:
+      213: -7979324994658164016
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_43
+  - first:
+      213: 2330091215971921636
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_44
+  - first:
+      213: -2083241409841205931
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_45
+  - first:
+      213: 23986200476419681
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_46
+  - first:
+      213: -6940897894382334815
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_47
+  - first:
+      213: -7574647380217243284
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_48
+  - first:
+      213: -6256430809100528113
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_49
+  - first:
+      213: -6507102203531052563
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_50
+  - first:
+      213: -8141592862174301361
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_51
+  - first:
+      213: -3804343398110316120
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_52
+  - first:
+      213: 7708986276117430257
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_53
+  - first:
+      213: 6971209828028295877
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_54
+  - first:
+      213: -1643032715491853715
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_55
+  - first:
+      213: 6745111811796570447
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_56
+  - first:
+      213: -3276335910474175208
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_57
+  - first:
+      213: -3915926952620199830
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_58
+  - first:
+      213: 2119652473113210137
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_59
+  - first:
+      213: -333130580429628418
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_60
+  - first:
+      213: -7067722166641019177
+    second: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_61
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_0
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 524
+        width: 240
+        height: 240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54330b1d96a5d6230800000000000000
+      internalID: 3633659884893909829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_1
+      rect:
+        serializedVersion: 2
+        x: 529
+        y: 1557
+        width: 240
+        height: 240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05731ac516e7297c0800000000000000
+      internalID: -4066048556931139760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 3 - Weapon Icons 2D_2
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 0
+        width: 240
+        height: 240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a6c7a5b10982ebb0800000000000000
+      internalID: -4908210003444775257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 65ede8afccc3fdf4aa612bfe967a48c6
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

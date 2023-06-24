@@ -174,6 +174,7 @@ public class PlayerController : Living_Entity, IPlayer
           
         if (!isDead)
         {
+            _player_Anim.SetTrigger("Hit");
             hitEffect[0].Play();
         }
  
