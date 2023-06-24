@@ -1,16 +1,13 @@
 fileFormatVersion: 2
-guid: 6ae376fcf5e27f34b95e0e5089917777
+guid: 6e49b8ca18cbc6241aef8a01a141e5c1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1072507022854994807
-    second: Nintendo Switch - Splatoon 3 - Title Screen_0
+      213: 6201403914839209069
+    second: Click Button_0
   - first:
-      213: -1511410275995270202
-    second: Nintendo Switch - Splatoon 3 - Title Screen_1
-  - first:
-      213: 1171474207641330175
-    second: Nintendo Switch - Splatoon 3 - Title Screen_2
+      213: -3213785139197073330
+    second: Click Button_1
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -124,64 +121,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Nintendo Switch - Splatoon 3 - Title Screen_0
+      name: Click Button_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 826
-        width: 1534
-        height: 918
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 984cd9b8b80bd11f0800000000000000
-      internalID: -1072507022854994807
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Nintendo Switch - Splatoon 3 - Title Screen_1
-      rect:
-        serializedVersion: 2
-        x: 925
-        y: 503
+        y: 0
         width: 447
         height: 307
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6c34d6d9c54660be0800000000000000
-      internalID: -1511410275995270202
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Nintendo Switch - Splatoon 3 - Title Screen_2
-      rect:
-        serializedVersion: 2
-        x: 208
-        y: 133
-        width: 250
-        height: 118
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ff16ef9c599e14010800000000000000
-      internalID: 1171474207641330175
+      spriteID: d6435bc0100df0650800000000000000
+      internalID: 6201403914839209069
       vertices: []
       indices: 
       edges: []
@@ -189,7 +144,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: ffa2279d7410d464197ba788adcf04a3
+    spriteID: f9a0dbc58a86b9f49930cf530152b383
     internalID: 0
     vertices: []
     indices: 

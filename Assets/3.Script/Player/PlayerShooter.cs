@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum EWeapon { Brush, Gun, Bow }
 public class PlayerShooter : MonoBehaviour
 {
     [Header("Weapon")]
 
+    public GameObject skill_UI_Obj;
     public EWeapon WeaponType;
     public GameObject[] weapon_Obj;
     public Shot_System weapon;
@@ -130,6 +132,7 @@ public class PlayerShooter : MonoBehaviour
 
                 if (_player_Input.fire && !_player_Input.squid_Form)
                 {
+            
                     fireRateTime += Time.deltaTime;
                     ammo_Back.transform.localScale =
                     new Vector3(ammo_Back.transform.localScale.x, weapon.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
@@ -209,28 +212,37 @@ public class PlayerShooter : MonoBehaviour
                 {
                     fireRateTime += Time.deltaTime;
                     combo_ResetTime += Time.deltaTime;
+
+                    if (_player_Input.fDown && _combo_Attack && weapon.weapon_CurAmmo > 0)
+                    {
+                        _isFire = true;
+                        ammo_Back.transform.localScale =
+                            new Vector3(ammo_Back.transform.localScale.x, weapon.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
+                        _combo_Num++;
+                        combo_ResetTime = 0;
+                        _player_Anim.SetInteger("Brush_Combo", _combo_Num);
+                        _combo_Attack = false;
+                    }
+
+
+                    if (combo_ResetTime >= 2f && _combo_Attack)
+                    {
+                        _combo_Start = false;
+                    }
+
+                    if (fireRateTime >= 0.3f) _combo_Attack = true; //콤보 가능 시간
+                    if (_combo_Num >= 4) _combo_Num = -1;           //콤보 초기화
                 }
-
-                if (_player_Input.fDown && _combo_Attack && weapon.weapon_CurAmmo > 0)
+                else
                 {
-                    _combo_Num++;
-                    combo_ResetTime = 0;
-                    _player_Anim.SetInteger("Brush_Combo", _combo_Num);
-                    _combo_Attack = false;
-                }
-
-
-                if (combo_ResetTime >= 2f && _combo_Attack)
-                {
-                    _player_Anim.SetInteger("Brush_Combo", 0);
                     _combo_Num = 0;
                     fireRateTime = 0;
                     combo_ResetTime = 0;
+                    _isFire = false;
                     _combo_Attack = false;
+                    _player_Anim.SetInteger("Brush_Combo", 0);
                 }
-
-                if (fireRateTime >= 0.3f) _combo_Attack = true;
-                if (_combo_Num >= 4) _combo_Num = -1;
+        
                 break;
         }
     }

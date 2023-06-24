@@ -71,6 +71,8 @@ public class PlayerController : Living_Entity, IPlayer
 
         if (!_player_Input.squid_Form)
         {
+
+
             _Wall_RacastOn = false;
             MoveWall(false, null);
         }
@@ -314,6 +316,8 @@ public class PlayerController : Living_Entity, IPlayer
             if (teamZone.team != player_Team.team)
             {
                 Debug.Log("적 진영이거나 칠하지 않은 구역입니다!");
+
+                MoveWall(false, null);
                 return;
             }
 
@@ -356,6 +360,17 @@ public class PlayerController : Living_Entity, IPlayer
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.LeftShift))
         {
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                hitEffect[0].transform.localPosition = new Vector3(0, 0.4f, 0.46f);
+            }
+
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                hitEffect[0].transform.localPosition = new Vector3(0, 1.5f, 0.46f);
+
+            }
+
             player_Wave[2].Play(); //1회만 실행되는 소환 이펙트
         }
 
