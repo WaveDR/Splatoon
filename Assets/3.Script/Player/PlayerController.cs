@@ -29,6 +29,7 @@ public class PlayerController : Living_Entity, IPlayer
     private Bullet dmgBullet; //맞을 때 받을 데미지값 가져오기
 
     [SerializeField] private float hp;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -114,6 +115,8 @@ public class PlayerController : Living_Entity, IPlayer
         }
     }
     //============================================        ↑ 콜백 메서드   |  일반 메서드 ↓        ========================================================
+
+
 
     private void Player_Jump()
     {

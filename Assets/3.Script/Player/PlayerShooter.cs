@@ -9,19 +9,17 @@ public class PlayerShooter : MonoBehaviour
     [Header("Weapon")]
 
     public GameObject skill_UI_Obj;
+    
     public EWeapon WeaponType;
     public GameObject[] weapon_Obj;
     public Shot_System weapon;
+    
     public int weaponNum;            // 총 번호
     public GameObject ammo_Back;     // 총알 통 애니메이션용
 
     private bool _isFire;
+    private bool _isCharge;
     private float JumpRot;
-
-    [SerializeField] private bool _combo_Attack;
-    [SerializeField] private bool _combo_Start;
-    [SerializeField] private int _combo_Num;
-
     private float weapon_JumpRot
     {
         get { return JumpRot; }
@@ -33,6 +31,15 @@ public class PlayerShooter : MonoBehaviour
             JumpRot = Mathf.Clamp(JumpRot, -90, 0);
         }
     }
+
+
+    [SerializeField] private Player_Camera _playerCam;
+    [SerializeField] private ParticleSystem _Charge_Effect;
+    [SerializeField] private bool _combo_Attack;
+    [SerializeField] private bool _combo_Start;
+    [SerializeField] private int _combo_Num;
+    [SerializeField] private Image bowAim;
+    [SerializeField] private GameObject[] weapon_Aim;
 
     [Header("Attack Rate")]
 
@@ -51,12 +58,15 @@ public class PlayerShooter : MonoBehaviour
     private PlayerController _Player_Con;
     private PlayerInput _player_Input;
     private Animator _player_Anim;
+
+    
     // Start is called before the first frame update
     void Awake()
     {
         TryGetComponent(out _player_Input);
         TryGetComponent(out _Player_Con);
         TryGetComponent(out _player_Anim);
+        TryGetComponent(out _playerCam);
     }
 
     private void OnEnable()
@@ -67,14 +77,22 @@ public class PlayerShooter : MonoBehaviour
         {
             case EWeapon.Brush:
                 weaponNum = 0;
+                for (int i = 0; i < weapon_Aim.Length; i++)
+                {
+                    weapon_Aim[i].SetActive(false);
+                }
                 break;
 
             case EWeapon.Gun:
                 weaponNum = 1;
+                weapon_Aim[0].SetActive(true);
+                weapon_Aim[1].SetActive(false);
                 break;
 
             case EWeapon.Bow:
                 weaponNum = 2;
+                weapon_Aim[1].SetActive(true);
+                weapon_Aim[0].SetActive(false);
                 break;
         }
 
@@ -88,6 +106,7 @@ public class PlayerShooter : MonoBehaviour
 
         weapon = GetComponentInChildren<Shot_System>();
         fireMaxTime = weapon.weapon_Stat.fire_Rate;
+        _playerCam.weapon_DirY = GetComponentInChildren<Shot_System>();
     }
 
     void Update()
@@ -174,22 +193,35 @@ public class PlayerShooter : MonoBehaviour
                 if (_player_Input.fire)
                 {
                     fireRateTime += Time.deltaTime;
+                    bowAim.fillAmount = fireRateTime;
                     ammo_Back.transform.localScale =
                     new Vector3(ammo_Back.transform.localScale.x, weapon.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
                     _isFire = true;
                     _player_Anim.SetTrigger("Reload_Bow");
                 }
-         
                 if (fireRateTime >= fireMaxTime && weapon.weapon_CurAmmo > 0)
                 {
+                    if (!_isCharge)
+                    {
+                    _Charge_Effect.Play();
+                        _isCharge = true;
+                    }
 
                     //차지 중
                     if (_player_Input.fUp)
                     {
                         _player_Anim.SetBool("isFire", true);
                         weapon.Shot();
+                        _isCharge = false;
                         fireRateTime = 0;
                     }
+                }
+                else if ((fireRateTime < fireMaxTime || weapon.weapon_CurAmmo <= 0) && _player_Input.fUp)
+                {
+                    fireRateTime = 0;
+                    bowAim.fillAmount = fireRateTime;
+                    _player_Anim.SetBool("isFire", false);
+                    _isFire = false;
                 }
                 else
                 {
