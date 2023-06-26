@@ -124,15 +124,6 @@ public class PlayerShooter : MonoBehaviour
         //공격로직
         Fire_Paint();
         WarningAmmo();
-
-        if(weapon.weapon_CurAmmo <= 10)
-        {
-            ammoNot_UI.gameObject.SetActive(true);
-        }
-        else
-        {
-            ammoNot_UI.gameObject.SetActive(false);
-        }
     }
 
     void WarningAmmo()
@@ -143,7 +134,11 @@ public class PlayerShooter : MonoBehaviour
         }
         if(weapon.weapon_CurAmmo <= 10)
         {
-            //총알부족 UI 출력
+            ammoNot_UI.gameObject.SetActive(true);
+        }
+        else
+        {
+            ammoNot_UI.gameObject.SetActive(false);
         }
     }
     private void OnDisable()
@@ -318,7 +313,7 @@ public class PlayerShooter : MonoBehaviour
         if (weapon.weapon_CurAmmo <= weapon.weapon_MaxAmmo && !_isFire)
         {
             weapon.weapon_CurAmmo += Time.deltaTime * speed;
-
+ 
             ammo_Back.transform.localScale =
            new Vector3(ammo_Back.transform.localScale.x, weapon.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
         }
