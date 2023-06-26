@@ -9,9 +9,9 @@ public class PlayerShooter : MonoBehaviour
     [Header("Weapon")]
 
     public GameObject skill_UI_Obj;
-    
-    public EWeapon WeaponType;
     public GameObject[] weapon_Obj;
+
+    public EWeapon WeaponType;
     public Shot_System weapon;
     
     public int weaponNum;            // 총 번호
@@ -19,27 +19,35 @@ public class PlayerShooter : MonoBehaviour
 
     private bool _isFire;
     private bool _isCharge;
-    private float JumpRot;
+    private float _jumpRot;
     private float weapon_JumpRot
     {
-        get { return JumpRot; }
+        get { return _jumpRot; }
 
         set
         {
 
-            JumpRot = value;
-            JumpRot = Mathf.Clamp(JumpRot, -90, 0);
+            _jumpRot = value;
+            _jumpRot = Mathf.Clamp(_jumpRot, -90, 0);
         }
     }
 
-
+    [Header("Player Aim")]
     [SerializeField] private Player_Camera _playerCam;
-    [SerializeField] private ParticleSystem _Charge_Effect;
-    [SerializeField] private bool _combo_Attack;
-    [SerializeField] private bool _combo_Start;
-    [SerializeField] private int _combo_Num;
-    [SerializeField] private Image bowAim;
     [SerializeField] private GameObject[] weapon_Aim;
+
+    [Header("Bow Effect")]
+    [SerializeField] private ParticleSystem _Charge_Effect;
+
+    //근접 공격 콤보
+    private bool _combo_Attack;
+    private bool _combo_Start;
+    private int _combo_Num;
+
+
+    [Header("Shot_UI")]
+    [SerializeField] private Image bowAim_UI;
+    public Image ammoBack_UI;
 
     [Header("Attack Rate")]
 
@@ -107,14 +115,27 @@ public class PlayerShooter : MonoBehaviour
         weapon = GetComponentInChildren<Shot_System>();
         fireMaxTime = weapon.weapon_Stat.fire_Rate;
         _playerCam.weapon_DirY = GetComponentInChildren<Shot_System>();
+        ammoBack_UI.transform.parent.gameObject.SetActive(false);
     }
 
     void Update()
     {
         //공격로직
         Fire_Paint();
+        WarningAmmo();
     }
 
+    void WarningAmmo()
+    {
+        if(weapon.weapon_CurAmmo <= 50)
+        {
+            ammoBack_UI.transform.parent.gameObject.SetActive(true);
+        }
+        if(weapon.weapon_CurAmmo <= 10)
+        {
+            //총알부족 UI 출력
+        }
+    }
     private void OnDisable()
     {
         weapon_Obj[weaponNum].SetActive(false);
@@ -145,6 +166,8 @@ public class PlayerShooter : MonoBehaviour
 
     private void Fire_Paint()
     {
+
+      
         switch (WeaponType)
         {
             case EWeapon.Gun:
@@ -153,8 +176,7 @@ public class PlayerShooter : MonoBehaviour
                 {
             
                     fireRateTime += Time.deltaTime;
-                    ammo_Back.transform.localScale =
-                    new Vector3(ammo_Back.transform.localScale.x, weapon.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
+                    
                     _isFire = true;
 
                     _player_Anim.SetTrigger("Reload_Bow");
@@ -193,9 +215,7 @@ public class PlayerShooter : MonoBehaviour
                 if (_player_Input.fire)
                 {
                     fireRateTime += Time.deltaTime;
-                    bowAim.fillAmount = fireRateTime;
-                    ammo_Back.transform.localScale =
-                    new Vector3(ammo_Back.transform.localScale.x, weapon.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
+                    bowAim_UI.fillAmount = fireRateTime;
                     _isFire = true;
                     _player_Anim.SetTrigger("Reload_Bow");
                 }
@@ -203,7 +223,7 @@ public class PlayerShooter : MonoBehaviour
                 {
                     if (!_isCharge)
                     {
-                    _Charge_Effect.Play();
+                        _Charge_Effect.Play();
                         _isCharge = true;
                     }
 
@@ -211,15 +231,16 @@ public class PlayerShooter : MonoBehaviour
                     if (_player_Input.fUp)
                     {
                         _player_Anim.SetBool("isFire", true);
+                        fireRateTime = 0;
+                        bowAim_UI.fillAmount = fireRateTime;
                         weapon.Shot();
                         _isCharge = false;
-                        fireRateTime = 0;
                     }
                 }
                 else if ((fireRateTime < fireMaxTime || weapon.weapon_CurAmmo <= 0) && _player_Input.fUp)
                 {
                     fireRateTime = 0;
-                    bowAim.fillAmount = fireRateTime;
+                    bowAim_UI.fillAmount = fireRateTime;
                     _player_Anim.SetBool("isFire", false);
                     _isFire = false;
                 }
@@ -248,8 +269,6 @@ public class PlayerShooter : MonoBehaviour
                     if (_player_Input.fDown && _combo_Attack && weapon.weapon_CurAmmo > 0)
                     {
                         _isFire = true;
-                        ammo_Back.transform.localScale =
-                            new Vector3(ammo_Back.transform.localScale.x, weapon.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
                         _combo_Num++;
                         combo_ResetTime = 0;
                         _player_Anim.SetInteger("Brush_Combo", _combo_Num);
@@ -277,6 +296,8 @@ public class PlayerShooter : MonoBehaviour
         
                 break;
         }
+        ammoBack_UI.fillAmount = weapon.weapon_CurAmmo * 0.01f;
+        ammo_Back.transform.localScale = new Vector3(ammo_Back.transform.localScale.x, weapon.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
     }
     public void shot()
     {

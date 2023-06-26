@@ -72,8 +72,6 @@ public class PlayerController : Living_Entity, IPlayer
 
         if (!_player_Input.squid_Form)
         {
-
-
             _Wall_RacastOn = false;
             MoveWall(false, null);
         }
@@ -365,11 +363,13 @@ public class PlayerController : Living_Entity, IPlayer
         {
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
+                _player_shot.ammoBack_UI.transform.parent.gameObject.SetActive(true);
                 hitEffect[0].transform.localPosition = new Vector3(0, 0.4f, 0.46f);
             }
 
             if (Input.GetKeyUp(KeyCode.LeftShift))
             {
+                _player_shot.ammoBack_UI.transform.parent.gameObject.SetActive(false);
                 hitEffect[0].transform.localPosition = new Vector3(0, 1.5f, 0.46f);
 
             }

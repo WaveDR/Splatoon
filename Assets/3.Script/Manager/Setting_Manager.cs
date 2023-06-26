@@ -27,11 +27,15 @@ public class Setting_Manager : MonoBehaviour
     public Color32 team_Blue = new Color32(129, 67, 255, 255);
     private void Awake()
     {
+        //GameManager.Instance.SetCursorState(false);
+
+        //플레이어 스크립트 넣어주기
         player_shot = FindObjectOfType<PlayerShooter>();
         player_Team = FindObjectOfType<PlayerTeams>();
+
+        #region UI 초기화 
         reset_Obj(0);
         stage_Lobby[0].SetActive(true);
-
         stage_Lobby[1].SetActive(false);
         loading_Page.SetActive(false);
         player_shot.skill_UI_Obj.SetActive(false);
@@ -41,6 +45,7 @@ public class Setting_Manager : MonoBehaviour
         {
             obj.SetActive(true);
         }
+        #endregion
     }
     public void Select_Team(string team)
     {
@@ -157,6 +162,7 @@ public class Setting_Manager : MonoBehaviour
 
     public void MoveScene()
     {
+        GameManager.Instance.SetCursorState(true);
         //나중에 네트워크에 넣을 정보값들
 
         player_Team.team = team;

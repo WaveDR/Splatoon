@@ -91,6 +91,6 @@ Material:
     - _SplatBump_ST: {r: 10, g: 10, b: 0, a: 0}
     - _SplatColor1: {r: 1, g: 0, b: 0, a: 1}
     - _SplatColor2: {r: 0, g: 1, b: 0, a: 1}
-    - _SplatColor3: {r: 0, g: 0, b: 1, a: 1}
-    - _SplatColor4: {r: 1, g: 1, b: 0, a: 1}
+    - _SplatColor3: {r: 0.5058824, g: 0.2627451, b: 1, a: 1}
+    - _SplatColor4: {r: 0.99215686, g: 0.9490196, b: 0.24705882, a: 1}
   m_BuildTextureStacks: []
