@@ -1499,6 +1499,7 @@ MonoBehaviour:
   _Charge_Effect: {fileID: 532875589}
   bowAim_UI: {fileID: 215717826}
   ammoBack_UI: {fileID: 2029301342}
+  ammoNot_UI: {fileID: 1618055290}
   fireMaxTime: 0
   fireRateTime: 0
   combo_ResetTime: 0
@@ -24873,6 +24874,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1963227728}
     m_Modifications:
+    - target: {fileID: 105489600, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 416
+      objectReference: {fileID: 0}
+    - target: {fileID: 105489600, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -316
+      objectReference: {fileID: 0}
+    - target: {fileID: 2029301341, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.060922425
+      objectReference: {fileID: 0}
     - target: {fileID: 2029301342, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
       propertyPath: m_FillAmount
       value: 1
@@ -24965,9 +24978,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4441455991099889533, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 4689241298268942235, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8666667
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
@@ -24976,6 +24989,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4441455990634922239, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
   m_PrefabInstance: {fileID: 1618055288}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1618055290 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4689241298268942235, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
+  m_PrefabInstance: {fileID: 1618055288}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1625052507
 GameObject:
   m_ObjectHideFlags: 0
@@ -26414,6 +26438,7 @@ MonoBehaviour:
   _Charge_Effect: {fileID: 0}
   bowAim_UI: {fileID: 0}
   ammoBack_UI: {fileID: 2029301342}
+  ammoNot_UI: {fileID: 0}
   fireMaxTime: 0
   fireRateTime: 0
   combo_ResetTime: 0

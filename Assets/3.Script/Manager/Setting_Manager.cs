@@ -27,7 +27,7 @@ public class Setting_Manager : MonoBehaviour
     public Color32 team_Blue = new Color32(129, 67, 255, 255);
     private void Awake()
     {
-        //GameManager.Instance.SetCursorState(false);
+        GameManager.Instance.SetCursorState(false);
 
         //플레이어 스크립트 넣어주기
         player_shot = FindObjectOfType<PlayerShooter>();

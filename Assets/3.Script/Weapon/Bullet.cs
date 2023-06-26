@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
 
     public PlayerTeams team;
     public ParticleSystem particle;
+    public ParticleSystem[] color;
     public float dmg;
     public bool brush;
     public PlayerController[] players;
@@ -15,6 +16,7 @@ public class Bullet : MonoBehaviour
     {
         particle = GetComponent<ParticleSystem>();
         players = FindObjectsOfType<PlayerController>();
+        color = GetComponentsInChildren<ParticleSystem>();
     }
 
     private void OnEnable()
@@ -34,6 +36,25 @@ public class Bullet : MonoBehaviour
             for (int i = 0; i < players.Length; i++)
             {
                 particle.trigger.AddCollider(players[i]);
+            }
+        }
+
+        if (color != null)
+        {
+            foreach (ParticleSystem par in color)
+            {
+                var bullet = par.main;
+                var main = par.main;
+                if (team.team == ETeam.Blue)
+                {
+                    bullet.startColor = (Color)team.team_Blue;
+                    main.startColor = (Color)team.team_Blue;
+                }
+                else
+                {
+                    bullet.startColor = (Color)team.team_Yellow;
+                    main.startColor = (Color)team.team_Yellow;
+                }
             }
         }
     }

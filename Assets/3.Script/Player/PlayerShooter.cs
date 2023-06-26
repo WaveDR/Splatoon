@@ -48,6 +48,7 @@ public class PlayerShooter : MonoBehaviour
     [Header("Shot_UI")]
     [SerializeField] private Image bowAim_UI;
     public Image ammoBack_UI;
+    public Image ammoNot_UI;
 
     [Header("Attack Rate")]
 
@@ -123,6 +124,15 @@ public class PlayerShooter : MonoBehaviour
         //공격로직
         Fire_Paint();
         WarningAmmo();
+
+        if(weapon.weapon_CurAmmo <= 10)
+        {
+            ammoNot_UI.gameObject.SetActive(true);
+        }
+        else
+        {
+            ammoNot_UI.gameObject.SetActive(false);
+        }
     }
 
     void WarningAmmo()

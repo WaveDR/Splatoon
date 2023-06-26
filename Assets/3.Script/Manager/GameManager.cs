@@ -38,17 +38,17 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       //if (Input.GetKey(KeyCode.Escape))
-       //{
-       //    SetCursorState(false);
-       //}
-       //else
-       //{
-       //    GameManager.Instance.SetCursorState(true);
-       //}
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            SetCursorState(false);
+        }
+        else
+        {
+            GameManager.Instance.SetCursorState(true);
+        }
     }
     public void SetCursorState(bool newState)
     {
-       
+       //Cursor.lockState = newState ? CursorLockMode.Confined : CursorLockMode.None;
     }
 }
