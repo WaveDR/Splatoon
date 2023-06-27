@@ -4,7 +4,6 @@ using UnityEngine;
 
 public enum ETeam {Blue, Yellow, Etc, Static}
 
-[System.Serializable]
 public class TeamZone : MonoBehaviour
 {
     public ETeam team;
@@ -16,9 +15,12 @@ public class TeamZone : MonoBehaviour
     }
     private void OnEnable()
     {
+        In_NodeList();
+    }
+    public void In_NodeList()
+    {
         ScoreManager.Instance.nodes.Add(gameObject.GetComponent<TeamZone>());
     }
-
     void Update()
     {
        
@@ -29,8 +31,6 @@ public class TeamZone : MonoBehaviour
         if(team != ETeam.Static)
         team = bullet.bulletType;
         //팀 판별 로직 구현할것
-
-        if(team != bullet.team.team)
-        bullet.player_Shot.player_Score += 1;
+        bullet.player_Shot.player_Score++;
     }
 }

@@ -5,8 +5,18 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    public static ScoreManager Instance = null;
-
+    public static ScoreManager _instance = null;
+    public static ScoreManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<ScoreManager>();
+            }
+            return _instance;
+        }
+    }
 
     public List<TeamZone> nodes = new List<TeamZone>();
     public GameObject map_Camera;
@@ -46,25 +56,14 @@ public class ScoreManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
         map_Camera = GameObject.FindGameObjectWithTag("MapCamera");
         ui_Anim = GameObject.FindGameObjectWithTag("TimeUI").GetComponent<Animator>();
-        
         players = FindObjectsOfType<PlayerController>();
     }
     private void OnEnable()
     {
         deltaTime = startTimer;
         count_Image.gameObject.SetActive(true);
-
     }
     private void Start()
     {
@@ -106,14 +105,20 @@ public class ScoreManager : MonoBehaviour
 
         if(deltaTime <= 61)
         {
-            ui_Anim.SetTrigger("One_Min");
+            ui_Anim.SetBool("One_Min",true);
             timeText_Min.color = players[0].player_Team.team_Yellow;
             timeText_Mid.color = players[0].player_Team.team_Yellow;
             timeText_Sec.color = players[0].player_Team.team_Yellow;
         }
         if (deltaTime <= 10 && deltaTime > 0)
         {
+            ui_Anim.SetBool("One_Min", false);
             CountDown((int)deltaTime);
+        }
+        if(deltaTime <= 0)
+        {
+            ui_Anim.SetBool("Count", false);
+            ui_Anim.SetBool("TimeOut", true);
         }
     }
 
@@ -179,9 +184,7 @@ public class ScoreManager : MonoBehaviour
         else //ºí·ç ÆÀ ½Â¸®
         {
             StartCoroutine(Winner_Team(ETeam.Blue));
-
         }
-
     }
     public int Check_Color(ETeam team)
     {
