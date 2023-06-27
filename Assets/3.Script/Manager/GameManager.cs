@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance = null;
+    public List<TeamZone> nodes = new List<TeamZone>();
     public static GameManager Instance
     {
         get

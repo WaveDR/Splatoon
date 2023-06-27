@@ -201,7 +201,6 @@ public class PlayerController : Living_Entity, IPlayer
             raycast_Object = hit.collider.gameObject;
 
             TeamZone teamZone = raycast_Object.GetComponent<TeamZone>();
-            Debug.Log(teamZone.team);
 
             if (teamZone != null)
                 _isJump = false;

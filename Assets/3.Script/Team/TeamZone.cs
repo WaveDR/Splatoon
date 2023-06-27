@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum ETeam {Blue, Yellow, Etc, Static}
 
+[System.Serializable]
 public class TeamZone : MonoBehaviour
 {
     public ETeam team;
@@ -12,6 +13,10 @@ public class TeamZone : MonoBehaviour
     void Start()
     {
         
+    }
+    private void OnEnable()
+    {
+        GameManager.Instance.nodes.Add(gameObject.GetComponent<TeamZone>());
     }
 
     void Update()
