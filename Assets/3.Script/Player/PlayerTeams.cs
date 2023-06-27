@@ -48,7 +48,6 @@ public class PlayerTeams : MonoBehaviour
                     particle.startColor = (Color)team_Blue;
                    
                 }
-
                 _player_Shooter.ammoBack_UI.color = team_Blue;
                 _player_Shooter.ammoNot_UI.color = team_Blue;
                 break;
@@ -67,6 +66,7 @@ public class PlayerTeams : MonoBehaviour
                     var particle = par.main;
                     particle.startColor = (Color)team_Yellow;
                 }
+
                 _player_Shooter.ammoBack_UI.color = team_Yellow;
                 _player_Shooter.ammoNot_UI.color = team_Yellow;
                 break;

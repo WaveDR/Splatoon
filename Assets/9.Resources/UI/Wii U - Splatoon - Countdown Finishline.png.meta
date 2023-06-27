@@ -155,9 +155,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 1147.5
+        y: 1143.75
         width: 482.66666
-        height: 382.5
+        height: 381.25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,9 +176,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 482
-        y: 1147.5
+        y: 1143.75
         width: 482.66666
-        height: 382.5
+        height: 381.25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,9 +197,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 964
-        y: 1147.5
+        y: 1143.75
         width: 482.66666
-        height: 382.5
+        height: 381.25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,9 +218,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 765.5
+        y: 762.75
         width: 482.66666
-        height: 382.5
+        height: 381.25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -239,9 +239,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 482
-        y: 765.5
+        y: 762.75
         width: 482.66666
-        height: 382.5
+        height: 381.25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -260,9 +260,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 964
-        y: 765.5
+        y: 762.75
         width: 482.66666
-        height: 382.5
+        height: 381.25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -281,9 +281,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 383.5
+        y: 381.75
         width: 482.66666
-        height: 382.5
+        height: 381.25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -302,9 +302,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 482
-        y: 383.5
+        y: 381.75
         width: 482.66666
-        height: 382.5
+        height: 381.25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -323,9 +323,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 964
-        y: 383.5
+        y: 381.75
         width: 482.66666
-        height: 382.5
+        height: 381.25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -344,9 +344,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 1.5
+        y: 0.75
         width: 482.66666
-        height: 382.5
+        height: 381.25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -365,9 +365,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 482
-        y: 1.5
+        y: 0.75
         width: 482.66666
-        height: 382.5
+        height: 381.25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -386,9 +386,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 964
-        y: 1.5
+        y: 0.75
         width: 482.66666
-        height: 382.5
+        height: 381.25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

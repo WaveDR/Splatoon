@@ -20,8 +20,9 @@ public class Living_Entity : MonoBehaviour, IDamage
     }
 
     protected float recovery_Speed = 5;
+    protected bool isFalling;
     public bool isDead;
-
+    public bool isStop;
     public event Action onDeath;
 
     protected virtual void OnEnable()
@@ -51,6 +52,8 @@ public class Living_Entity : MonoBehaviour, IDamage
         {
             onDeath();
         }
+
+
         isDead = true;
     }
 }

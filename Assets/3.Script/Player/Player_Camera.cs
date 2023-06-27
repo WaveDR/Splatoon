@@ -6,6 +6,7 @@ public class Player_Camera : MonoBehaviour
 {
     public Shot_System weapon_DirY;
     public Transform player_DirY;
+    public GameObject cam_Obj;
     public float eulerX;
     public float _eulerY;
     public float eulerY
@@ -28,6 +29,7 @@ public class Player_Camera : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+        if(!_player_Con.isStop)
         CameraRotation();
     }
 

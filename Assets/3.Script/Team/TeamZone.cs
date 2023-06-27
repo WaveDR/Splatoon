@@ -16,7 +16,7 @@ public class TeamZone : MonoBehaviour
     }
     private void OnEnable()
     {
-        GameManager.Instance.nodes.Add(gameObject.GetComponent<TeamZone>());
+        ScoreManager.Instance.nodes.Add(gameObject.GetComponent<TeamZone>());
     }
 
     void Update()
@@ -26,9 +26,11 @@ public class TeamZone : MonoBehaviour
     private void OnParticleCollision(GameObject other)
     {
         bullet = other.GetComponent<Bullet>();
-
         if(team != ETeam.Static)
         team = bullet.bulletType;
         //팀 판별 로직 구현할것
+
+        if(team != bullet.team.team)
+        bullet.player_Shot.player_Score += 1;
     }
 }

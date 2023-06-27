@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-
     [SerializeField] private string move_Hor_S;
     [SerializeField] private string move_Ver_S;
 
     [SerializeField] private float move_Hor = 0;
     [SerializeField] private float move_Ver = 0;
  
-
     public Vector3 move_Vec;
-    
+    private PlayerController _player_Con;
     public float Move_Hor => move_Hor;
     public float Move_Ver => move_Ver;
 
@@ -48,10 +46,20 @@ public class PlayerInput : MonoBehaviour
 
 
     // Start is called before the first frame update
-
+    private void Awake()
+    {
+        TryGetComponent(out _player_Con);
+    }
     // Update is called once per frame
     void Update()
     {
+        if (_player_Con.isStop)
+        {
+            move_Hor = 0;
+            move_Ver = 0;
+            move_Vec = Vector3.zero;
+            return;
+        }
         move_Hor = Input.GetAxis(move_Hor_S);
         move_Ver = Input.GetAxis(move_Ver_S);
 
@@ -84,7 +92,6 @@ public class PlayerInput : MonoBehaviour
         }
 
         Squid_Euler(Move_Hor, Move_Ver);
-
     }
 
     void Squid_Euler(float h, float v)

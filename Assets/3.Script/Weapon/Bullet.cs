@@ -7,10 +7,12 @@ public class Bullet : MonoBehaviour
     public ETeam bulletType;
 
     public PlayerTeams team;
+    public PlayerShooter player_Shot;
     public ParticleSystem particle;
     public ParticleSystem[] color;
     public float dmg;
     public bool brush;
+    public bool deathEffect;
     public PlayerController[] players;
     void Awake()
     {
@@ -21,8 +23,15 @@ public class Bullet : MonoBehaviour
 
     private void OnEnable()
     {
-    
+        player_Shot = GetComponentInParent<PlayerShooter>();
         team = GetComponentInParent<PlayerTeams>();
+
+        if(deathEffect)
+        {
+            if (team.team == ETeam.Blue) bulletType = ETeam.Yellow;
+            else bulletType = ETeam.Blue;
+        }
+        else
         bulletType = team.team;
 
         if (!brush)
@@ -45,7 +54,7 @@ public class Bullet : MonoBehaviour
             {
                 var bullet = par.main;
                 var main = par.main;
-                if (team.team == ETeam.Blue)
+                if (bulletType == ETeam.Blue)
                 {
                     bullet.startColor = (Color)team.team_Blue;
                     main.startColor = (Color)team.team_Blue;

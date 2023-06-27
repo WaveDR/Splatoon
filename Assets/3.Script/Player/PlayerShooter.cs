@@ -33,7 +33,7 @@ public class PlayerShooter : MonoBehaviour
     }
 
     [Header("Player Aim")]
-    [SerializeField] private Player_Camera _playerCam;
+    public Player_Camera playerCam;
     [SerializeField] private GameObject[] weapon_Aim;
 
     [Header("Bow Effect")]
@@ -44,11 +44,15 @@ public class PlayerShooter : MonoBehaviour
     private bool _combo_Start;
     private int _combo_Num;
 
+    [Header("Player_Score")]
+    public int player_Score = 0;
+    private int _player_ScoreSet;
 
     [Header("Shot_UI")]
     [SerializeField] private Image bowAim_UI;
     public Image ammoBack_UI;
     public Image ammoNot_UI;
+    public Text score_UI;
 
     [Header("Attack Rate")]
 
@@ -75,7 +79,7 @@ public class PlayerShooter : MonoBehaviour
         TryGetComponent(out _player_Input);
         TryGetComponent(out _Player_Con);
         TryGetComponent(out _player_Anim);
-        TryGetComponent(out _playerCam);
+        TryGetComponent(out playerCam);
     }
 
     private void OnEnable()
@@ -115,18 +119,29 @@ public class PlayerShooter : MonoBehaviour
 
         weapon = GetComponentInChildren<Shot_System>();
         fireMaxTime = weapon.weapon_Stat.fire_Rate;
-        _playerCam.weapon_DirY = GetComponentInChildren<Shot_System>();
+        playerCam.weapon_DirY = GetComponentInChildren<Shot_System>();
         ammoBack_UI.transform.parent.gameObject.SetActive(false);
     }
 
     void Update()
     {
+        if (!_Player_Con.isStop)
+        {
+            Fire_Paint();
+            WarningAmmo();
+
+            if (player_Score >= 3)
+            {
+                _player_ScoreSet++;
+                player_Score = 0;
+            }
+
+            score_UI.text = _player_ScoreSet.ToString("D4");
+        }
         //공격로직
-        Fire_Paint();
-        WarningAmmo();
     }
 
-    void WarningAmmo()
+    private void WarningAmmo()
     {
         if(weapon.weapon_CurAmmo <= 50)
         {
