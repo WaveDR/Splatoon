@@ -222,7 +222,7 @@ public class PlayerController : Living_Entity, IPlayer
         {
             _player_shot.playerCam.cam_Obj.gameObject.SetActive(false);
         }
-        ScoreManager.Instance.MapCam(true, _player_shot.playerCam.cam_Obj);
+        GameManager.Instance.MapCam(true, _player_shot.playerCam.cam_Obj);
         if (!falling)
         {
             if (plusTime >= spawnTime)
@@ -231,16 +231,16 @@ public class PlayerController : Living_Entity, IPlayer
                 if (team == ETeam.Yellow)
                 {
                     transform.rotation = Quaternion.identity;
-                    transform.position = ScoreManager.Instance.yellowSpawn;
+                    transform.position = GameManager.Instance.yellowSpawn;
                 }
                 else 
                 {
                     transform.rotation = Quaternion.Euler(0,180,0);
-                    transform.position = ScoreManager.Instance.blueSpawn;
+                    transform.position = GameManager.Instance.blueSpawn;
                 }
 
                 //카메라 전환
-                ScoreManager.Instance.MapCam(false, _player_shot.playerCam.cam_Obj);
+                GameManager.Instance.MapCam(false, _player_shot.playerCam.cam_Obj);
 
                 //리스폰 시간 초기화
                 spawnTime = 5f;
@@ -263,15 +263,15 @@ public class PlayerController : Living_Entity, IPlayer
                 if (player_Team.team == ETeam.Yellow)
                 {
                     transform.rotation = Quaternion.identity;
-                    transform.position = ScoreManager.Instance.yellowSpawn;
+                    transform.position = GameManager.Instance.yellowSpawn;
                 }
                 else
                 {
                     transform.rotation = Quaternion.Euler(0, 180, 0);
-                    transform.position = ScoreManager.Instance.blueSpawn;
+                    transform.position = GameManager.Instance.blueSpawn;
                 }
                 //카메라 전환
-                ScoreManager.Instance.MapCam(false, _player_shot.playerCam.cam_Obj);
+                GameManager.Instance.MapCam(false, _player_shot.playerCam.cam_Obj);
                 //리스폰 초기화, 리턴
                 spawnTime = 5f;
                 plusTime = 0;
@@ -282,6 +282,10 @@ public class PlayerController : Living_Entity, IPlayer
     } //리스폰
     #endregion
 
+    public void UI_OnOFf(bool on)
+    {
+        _player_shot.skill_UI_Obj.SetActive(on);
+    }
 
     #region Player Raycast
     private void RaycastFloor(bool SquidForm)

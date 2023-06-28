@@ -19,7 +19,7 @@ public class TeamZone : MonoBehaviour
     }
     public void In_NodeList()
     {
-        ScoreManager.Instance.nodes.Add(gameObject.GetComponent<TeamZone>());
+        GameManager.Instance.nodes.Add(gameObject.GetComponent<TeamZone>());
     }
     void Update()
     {
