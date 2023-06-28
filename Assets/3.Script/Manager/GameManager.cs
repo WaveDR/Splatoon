@@ -26,15 +26,18 @@ public class GameManager : MonoBehaviour
     public PlayerController[] players;
 
     [Header("UI")]
-    [SerializeField] private Text timeText_Sec;
-    [SerializeField] private Text timeText_Mid;
-    [SerializeField] private Text timeText_Min;
+    [SerializeField] private Text timeText;
+   //[SerializeField] private Text timeText_Mid;
+   //[SerializeField] private Text timeText_Min;
 
     [SerializeField] private Sprite[] count_Sprite;
     [SerializeField] private Image count_Image;
 
     [SerializeField] private Image scoreGage_Yellow;
     [SerializeField] private Image scoreGage_Blue;
+
+    [SerializeField] private Text scoreCount_Yellow;
+    [SerializeField] private Text scoreCount_Blue;
 
 
     [Header("Character Anim")]
@@ -51,6 +54,7 @@ public class GameManager : MonoBehaviour
     private int _Min;
     private int _Sec;
     private float _Time;
+    private float _Charging_Score;
     private float deltaTime
     {
         get { return _Time; }
@@ -58,6 +62,7 @@ public class GameManager : MonoBehaviour
             _Time = Mathf.Clamp(_Time, 0, endTimer);
         }
     }
+    private bool chargeCall;
     
     [Header("SpawnPos")]
     public Vector3 yellowSpawn = new Vector3(0,3.6f,-60f);
@@ -65,6 +70,10 @@ public class GameManager : MonoBehaviour
     public MeshRenderer deadLine;
     public bool gameStart;
     public bool gameEnd;
+
+    [Header("Particle")]
+    [SerializeField] private ParticleSystem yellow_WinEffect;
+    [SerializeField] private ParticleSystem blue_WinEffect;
 
     private void Awake()
     {
@@ -90,6 +99,7 @@ public class GameManager : MonoBehaviour
 
         scoreGage_Blue.fillAmount = 0; //스코어 게이지 초기화
         scoreGage_Yellow.fillAmount = 0;
+
     }
 
     private void Start()
@@ -104,54 +114,41 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            SetCursorState(false);
-        }
-        else
-        {
-            SetCursorState(true);
-        }
+        if (Input.GetKey(KeyCode.Escape)) SetCursorState(false);
 
-        if (!gameStart)
-        {
-            StartCount();
-        }
-        else if (!gameEnd)
-        {
-            EndCount();
-        }
+        else  SetCursorState(true);
+
+        if (!gameStart)  StartCount();
+        else if (!gameEnd) EndCount();
+
+        EndScoreCharge(chargeCall);
     }
 
-    private void TimeSet()
+    private void TimeSet() //Time UI Setting
     {
         _Sec = (int)deltaTime % 60;
         _Min = (int)deltaTime / 60;
+        timeText.text = $"{ _Min}:{_Sec.ToString("D2")}";
 
-        timeText_Sec.text = _Sec.ToString("D2");
-        timeText_Min.text = _Min.ToString();
-
-        if(deltaTime <= 61 && deltaTime >10)
+        if (deltaTime <= 61 && deltaTime > 10) 
         {
-            ui_Anim.SetBool("One_Min",true);
-            timeText_Min.color = players[0].player_Team.team_Yellow;
-            timeText_Mid.color = players[0].player_Team.team_Yellow;
-            timeText_Sec.color = players[0].player_Team.team_Yellow;
-        }
-        if (deltaTime <= 11 && deltaTime > 1)
-        {
+            ui_Anim.SetBool("One_Min", true);
+            timeText.color = players[0].player_Team.team_Yellow;
+        }   //1 Min Warning
+        if (deltaTime <= 11 && deltaTime > 1)  
+            {
             ui_Anim.SetBool("One_Min", false);
             count_Image.gameObject.SetActive(true);
             CountDown((int)deltaTime -1);
-        }
+        }    //10 Sec. NumColor = Yellow
         else if(deltaTime <= 1)
         {
             count_Image.gameObject.SetActive(false);
-            ui_Anim.SetBool("Count", false); 
-        }
+            ui_Anim.SetBool("Count", false);
+            timeText.text = "END";
+        } //TimeSet Exit
     }
-
-    private void CountDown(int count)
+    private void CountDown(int count) //Count Down Image
     {
         if(count <11 && count > -1)
         {
@@ -159,22 +156,35 @@ public class GameManager : MonoBehaviour
             count_Image.sprite = count_Sprite[count];
         }
     }
+    private void EndScoreCharge(bool call) //27.7% Production
+    {
+        if (call && _Charging_Score <= 27.3f)
+        {
+            _Charging_Score += Time.deltaTime * 35;
 
-    public void StartCount()
+            scoreGage_Yellow.fillAmount = _Charging_Score / 100;
+            scoreGage_Blue.fillAmount = _Charging_Score / 100;
+            scoreCount_Yellow.text = $"{Mathf.Floor(_Charging_Score * 10f) / 10f}" + "%";
+            scoreCount_Blue.text = $"{Mathf.Floor(_Charging_Score * 10f) / 10f}" + "%";
+        }
+        else return;
+    }
+
+    public void StartCount() //Game Start CountDown
     {
         deltaTime -= Time.deltaTime;
         
         foreach (PlayerController player in players)
         {
             player.isStop = true;
-        }
+        } //Player Move Limit
 
-        if (deltaTime <= 10 && deltaTime > 0)
+        if (deltaTime <= 10 && deltaTime > 0) //CountDown Call
         {
             CountDown((int)deltaTime);
         }
 
-        if (deltaTime <= 0)
+        if (deltaTime <= 0) //GameStart Action
         {
             ui_Anim.SetBool("Count", false);
             count_Image.gameObject.SetActive(false);
@@ -187,7 +197,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    public void EndCount()
+    public void EndCount() //Game End CountDown
     {
         deltaTime -= Time.deltaTime;
         TimeSet();
@@ -204,46 +214,62 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator GameStop()
     {
+        //화면 전환되는 시간
         foreach (PlayerController player in players)
         {
             player.isStop = true;
         }
-        yield return new WaitForSeconds(5f); //화면 전환되는 시간
+        yield return new WaitForSeconds(5f); //맵 확인하는 시간
 
         deadLine.enabled = true;
         ui_Anim.SetBool("TimeOut", false);
-
         teamYellow_Anim.gameObject.SetActive(true);
         teamBlue_Anim.gameObject.SetActive(true);
-
-
         foreach (PlayerController player in players)
         {
             player.UI_OnOFf(false);
             MapCam(true, player._player_shot.playerCam.cam_Obj);
-        } //맵캠으로 변경
+        } //맵캠으로 변경 / 플레이어 ui 비활성화
 
-        yield return new WaitForSeconds(3f); //맵 확인하는 시간
-
+        
+        yield return new WaitForSeconds(3f); //UI Call
         ui_Anim.SetBool("Score", true);
         manager_Anim.SetBool("GameEnd", true);
 
-        yield return new WaitForSeconds(3f); //스코어 게이지 충전...
+        yield return new WaitForSeconds(1f); //Score Gage Charged
+        chargeCall = true;
+        
+
+        yield return new WaitForSeconds(3f); //Result
+        chargeCall = false;
+
+        float color_Count = (Check_Color(ETeam.Blue) + Check_Color(ETeam.Yellow)) / 100;
+        float yellow_Score = Mathf.Floor(((Check_Color(ETeam.Yellow) / color_Count)) * 10f) / 10f;
+        float blue_Score = Mathf.Floor(((Check_Color(ETeam.Blue) / color_Count)) * 10f) / 10f;
+
+        scoreGage_Yellow.fillAmount = yellow_Score / 100;
+        scoreGage_Blue.fillAmount = blue_Score / 100;
+        scoreCount_Yellow.text = $"{yellow_Score}" + "%";
+        scoreCount_Blue.text = $"{blue_Score}" + "%";
+
         //점수 확인
         if ( Check_Color(ETeam.Yellow) > Check_Color(ETeam.Blue))
         {
             teamYellow_Anim.Win();
             teamBlue_Anim.Lose();
-            StartCoroutine(Winner_Team(ETeam.Yellow));
+            yellow_WinEffect.Play();
         }
         else //블루 팀 승리
         {
             teamBlue_Anim.Win();
             teamYellow_Anim.Lose();
-            StartCoroutine(Winner_Team(ETeam.Blue));
+            blue_WinEffect.Play();
         }
+
+        yield return new WaitForSeconds(2f);
+        ui_Anim.SetBool("Score", false);
     }
-    public int Check_Color(ETeam team)
+    public float Check_Color(ETeam team)
     {
         int teamScore = 0;
 
@@ -253,15 +279,9 @@ public class GameManager : MonoBehaviour
                 teamScore++;
         }
         return teamScore;
-    }
+    } //컬러 노드 갯수 확인 메서드
 
-    public IEnumerator Winner_Team(ETeam team)
-    {
-        Debug.Log($"{team}팀 승리!");
-        yield return null;
-
-    }
-    public void SetCursorState(bool newState)
+    public void SetCursorState(bool newState) //커서 잠금
     {
        //Cursor.lockState = newState ? CursorLockMode.Confined : CursorLockMode.None;
     }
@@ -279,5 +299,5 @@ public class GameManager : MonoBehaviour
             playerCam.SetActive(true);
 
         }
-    }
+    } //카메라 메서드
 }
