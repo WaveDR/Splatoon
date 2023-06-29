@@ -1,0 +1,1716 @@
+fileFormatVersion: 2
+guid: b1f5bb8fd8a6f6442a1477b824fb35c1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6989829638977709317
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_0
+  - first:
+      213: 1051650496226678914
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_1
+  - first:
+      213: 7488658489448213926
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_2
+  - first:
+      213: 3317232217014072543
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_3
+  - first:
+      213: -1214468064084853525
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_4
+  - first:
+      213: -4309478162247701206
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_5
+  - first:
+      213: 7851847985564278120
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_6
+  - first:
+      213: -8320443444192529032
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_7
+  - first:
+      213: -1929622354296953470
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_8
+  - first:
+      213: -8987960540817886053
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_9
+  - first:
+      213: -2149755491614802014
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_10
+  - first:
+      213: 7291008149939096024
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_11
+  - first:
+      213: -3055312919545017309
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_12
+  - first:
+      213: 4675106327409735563
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_13
+  - first:
+      213: -4855564300229657575
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_14
+  - first:
+      213: 7520847761326215079
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_15
+  - first:
+      213: -460835361686907374
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_16
+  - first:
+      213: 8584515071215584518
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_17
+  - first:
+      213: 7616307335788298551
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_18
+  - first:
+      213: 4132393745404458155
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_19
+  - first:
+      213: 8611356482845690227
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_20
+  - first:
+      213: 7416611804722873930
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_21
+  - first:
+      213: -1945958168713318293
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_22
+  - first:
+      213: -4687578853774451789
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_23
+  - first:
+      213: 3911255546799082721
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_24
+  - first:
+      213: 6827838183401671697
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_25
+  - first:
+      213: 182177261211109981
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_26
+  - first:
+      213: 1191922909657077523
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_27
+  - first:
+      213: -1070045530133665042
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_28
+  - first:
+      213: 2047208141021742930
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_29
+  - first:
+      213: -6904647766873999397
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_30
+  - first:
+      213: -6427728052801721184
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_31
+  - first:
+      213: -6541225635198518387
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_32
+  - first:
+      213: 3126677661608365130
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_33
+  - first:
+      213: -2334006797649200753
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_34
+  - first:
+      213: 5284631390665465216
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_35
+  - first:
+      213: -2336813890321943427
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_36
+  - first:
+      213: 6776429031078499505
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_37
+  - first:
+      213: -6678823159357039506
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_38
+  - first:
+      213: 2830792616632198133
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_39
+  - first:
+      213: -2466487626001269069
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_40
+  - first:
+      213: -8980807709668606458
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_41
+  - first:
+      213: -8971504859775368755
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_42
+  - first:
+      213: -6528362478834067010
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_43
+  - first:
+      213: 6066561855360339470
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_44
+  - first:
+      213: 478917839369171636
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_45
+  - first:
+      213: -3921869956994370485
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_46
+  - first:
+      213: -6024663559748218357
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_47
+  - first:
+      213: 1387771994644820538
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_48
+  - first:
+      213: 1626208967881814825
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_49
+  - first:
+      213: 2625093830188295507
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_50
+  - first:
+      213: 523883269685908484
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_51
+  - first:
+      213: 2369377757726858805
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_52
+  - first:
+      213: 8427973507769742394
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_53
+  - first:
+      213: -1363179990077718781
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_54
+  - first:
+      213: 141425579434173326
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_55
+  - first:
+      213: 3742406546404755461
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_56
+  - first:
+      213: -3195161523306377764
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_57
+  - first:
+      213: 2941129687248468218
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_58
+  - first:
+      213: 7940034535444780073
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_59
+  - first:
+      213: -4605905018561536644
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_60
+  - first:
+      213: 1092590766495164149
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_61
+  - first:
+      213: 2706339450216964050
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_62
+  - first:
+      213: 7657125992827369589
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_63
+  - first:
+      213: -1690757949869650633
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_64
+  - first:
+      213: 4050086498582311309
+    second: Nintendo Switch - Splatoon 2 - PB Ink Colors_65
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1170
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfa9c302af22ffe90800000000000000
+      internalID: -6989829638977709317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_1
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 1170
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 288547fed86389e00800000000000000
+      internalID: 1051650496226678914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_2
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 1170
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ad26c3383f0de760800000000000000
+      internalID: 7488658489448213926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_3
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 1170
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd4fa9c302d290e20800000000000000
+      internalID: 3317232217014072543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_4
+      rect:
+        serializedVersion: 2
+        x: 1032
+        y: 1170
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bec7a21fab7552fe0800000000000000
+      internalID: -1214468064084853525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_5
+      rect:
+        serializedVersion: 2
+        x: 1290
+        y: 1170
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2d2ceba178a134c0800000000000000
+      internalID: -4309478162247701206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_6
+      rect:
+        serializedVersion: 2
+        x: 1548
+        y: 1170
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86ddce9542e57fc60800000000000000
+      internalID: 7851847985564278120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_7
+      rect:
+        serializedVersion: 2
+        x: 1806
+        y: 1170
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8753d2765c8d78c80800000000000000
+      internalID: -8320443444192529032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2852a7d31ba9835e0800000000000000
+      internalID: -1929622354296953470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_9
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 1024
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9472552289544380800000000000000
+      internalID: -8987960540817886053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_10
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 1024
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2afba5035c88a22e0800000000000000
+      internalID: -2149755491614802014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_11
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 1024
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d9099f684dde2560800000000000000
+      internalID: 7291008149939096024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_12
+      rect:
+        serializedVersion: 2
+        x: 1032
+        y: 1024
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32c8bd066195995d0800000000000000
+      internalID: -3055312919545017309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_13
+      rect:
+        serializedVersion: 2
+        x: 1290
+        y: 1024
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b87307c5f6051e040800000000000000
+      internalID: 4675106327409735563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_14
+      rect:
+        serializedVersion: 2
+        x: 1548
+        y: 1024
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91c3ebcaef19d9cb0800000000000000
+      internalID: -4855564300229657575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_15
+      rect:
+        serializedVersion: 2
+        x: 1806
+        y: 1024
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7af04a7113b6f5860800000000000000
+      internalID: 7520847761326215079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 878
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21696be1ea8ca99f0800000000000000
+      internalID: -460835361686907374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_17
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 878
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 605cacc79f2522770800000000000000
+      internalID: 8584515071215584518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_18
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 878
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7310dd14b2f82b960800000000000000
+      internalID: 7616307335788298551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_19
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 878
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba4f0e29736395930800000000000000
+      internalID: 4132393745404458155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_20
+      rect:
+        serializedVersion: 2
+        x: 1032
+        y: 878
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3794642a81fa18770800000000000000
+      internalID: 8611356482845690227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_21
+      rect:
+        serializedVersion: 2
+        x: 1290
+        y: 878
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a46c97934291de660800000000000000
+      internalID: 7416611804722873930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_22
+      rect:
+        serializedVersion: 2
+        x: 1548
+        y: 878
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b60b21e0b519ef4e0800000000000000
+      internalID: -1945958168713318293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_23
+      rect:
+        serializedVersion: 2
+        x: 1806
+        y: 878
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bb142c4edf52feb0800000000000000
+      internalID: -4687578853774451789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 732
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ec4cb47232974630800000000000000
+      internalID: 3911255546799082721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_25
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 732
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11c418107aa51ce50800000000000000
+      internalID: 6827838183401671697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_26
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 732
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5a44acf049378200800000000000000
+      internalID: 182177261211109981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_27
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 732
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31792cd329f8a8010800000000000000
+      internalID: 1191922909657077523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_28
+      rect:
+        serializedVersion: 2
+        x: 1032
+        y: 732
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eea63ea724f6621f0800000000000000
+      internalID: -1070045530133665042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_29
+      rect:
+        serializedVersion: 2
+        x: 1290
+        y: 732
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25783ea25f4296c10800000000000000
+      internalID: 2047208141021742930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_30
+      rect:
+        serializedVersion: 2
+        x: 1548
+        y: 732
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd7f74c3073cd20a0800000000000000
+      internalID: -6904647766873999397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_31
+      rect:
+        serializedVersion: 2
+        x: 1806
+        y: 732
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0aca0fb346f1cc6a0800000000000000
+      internalID: -6427728052801721184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 586
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8b305211f5e835a0800000000000000
+      internalID: -6541225635198518387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_33
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 586
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4cc05374c0346b20800000000000000
+      internalID: 3126677661608365130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_34
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 586
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f89b5c20f21fb9fd0800000000000000
+      internalID: -2334006797649200753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_35
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 586
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08d5e792048c65940800000000000000
+      internalID: 5284631390665465216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_36
+      rect:
+        serializedVersion: 2
+        x: 1032
+        y: 586
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d747921d528f19fd0800000000000000
+      internalID: -2336813890321943427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_37
+      rect:
+        serializedVersion: 2
+        x: 1290
+        y: 586
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b4141bfc46ba0e50800000000000000
+      internalID: 6776429031078499505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_38
+      rect:
+        serializedVersion: 2
+        x: 1548
+        y: 586
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6c1fd4f8bd0053a0800000000000000
+      internalID: -6678823159357039506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_39
+      rect:
+        serializedVersion: 2
+        x: 1806
+        y: 586
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f3292bf2eef84720800000000000000
+      internalID: 2830792616632198133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 440
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3be3c49729645cdd0800000000000000
+      internalID: -2466487626001269069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_41
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 440
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60efc1d68f2cd5380800000000000000
+      internalID: -8980807709668606458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_42
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 440
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc10664fcdfce7380800000000000000
+      internalID: -8971504859775368755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_43
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 440
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb95b1c0ae89665a0800000000000000
+      internalID: -6528362478834067010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_44
+      rect:
+        serializedVersion: 2
+        x: 1032
+        y: 440
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0e00bc8dd1c03450800000000000000
+      internalID: 6066561855360339470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_45
+      rect:
+        serializedVersion: 2
+        x: 1290
+        y: 440
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b2723ccc3575a600800000000000000
+      internalID: 478917839369171636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_46
+      rect:
+        serializedVersion: 2
+        x: 1548
+        y: 440
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b44f2169d08b299c0800000000000000
+      internalID: -3921869956994370485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_47
+      rect:
+        serializedVersion: 2
+        x: 1806
+        y: 440
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0297f59968146ca0800000000000000
+      internalID: -6024663559748218357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_48
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 294
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a323a02c64b524310800000000000000
+      internalID: 1387771994644820538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_49
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 294
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9237625b074719610800000000000000
+      internalID: 1626208967881814825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_50
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 294
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35561722ee43e6420800000000000000
+      internalID: 2625093830188295507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_51
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 294
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4041661ee05354700800000000000000
+      internalID: 523883269685908484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_52
+      rect:
+        serializedVersion: 2
+        x: 1032
+        y: 294
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53e55046488b1e020800000000000000
+      internalID: 2369377757726858805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_53
+      rect:
+        serializedVersion: 2
+        x: 1290
+        y: 294
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a34b403804d26f470800000000000000
+      internalID: 8427973507769742394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_54
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 148
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30f3f7e7503051de0800000000000000
+      internalID: -1363179990077718781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_55
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 148
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e83e350b0d176f100800000000000000
+      internalID: 141425579434173326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_56
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 148
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5084d830de2bfe330800000000000000
+      internalID: 3742406546404755461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_57
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 148
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cddc353f58188a3d0800000000000000
+      internalID: -3195161523306377764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_58
+      rect:
+        serializedVersion: 2
+        x: 1032
+        y: 148
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af8fcc62eddf0d820800000000000000
+      internalID: 2941129687248468218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_59
+      rect:
+        serializedVersion: 2
+        x: 1290
+        y: 148
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9241585875ba03e60800000000000000
+      internalID: 7940034535444780073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_60
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7d537be9c98410c0800000000000000
+      internalID: -4605905018561536644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_61
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 2
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f6e0d96389a92f00800000000000000
+      internalID: 1092590766495164149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_62
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 2
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2dfdec32469de8520800000000000000
+      internalID: 2706339450216964050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_63
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 2
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 578b2e27583934a60800000000000000
+      internalID: 7657125992827369589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_64
+      rect:
+        serializedVersion: 2
+        x: 1032
+        y: 2
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73d0ad44a983988e0800000000000000
+      internalID: -1690757949869650633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nintendo Switch - Splatoon 2 - PB Ink Colors_65
+      rect:
+        serializedVersion: 2
+        x: 1290
+        y: 2
+        width: 258
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d81ba91563cc43830800000000000000
+      internalID: 4050086498582311309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: b5c2cc196b6677a44b50559cd40e9356
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

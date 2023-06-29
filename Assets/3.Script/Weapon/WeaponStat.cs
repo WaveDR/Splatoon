@@ -14,5 +14,8 @@ public class WeaponStat : ScriptableObject
 
     [Header("소비 탄환")]
     public int use_Ammo;
+
+    [Header("공격력")]
+    public int weapon_Dmg;
 }
 

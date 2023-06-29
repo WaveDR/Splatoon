@@ -2,27 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Team {Blue, Yellow}
+public enum ETeam {Blue, Yellow, Etc, Static}
 
 public class TeamZone : MonoBehaviour
 {
-    public Team team;
-    // Start is called before the first frame update
+    public ETeam team;
+    private Bullet bullet;
+
     void Start()
     {
         
     }
-
-    // Update is called once per frame
+    private void OnEnable()
+    {
+        In_NodeList();
+    }
+    public void In_NodeList()
+    {
+        GameManager.Instance.nodes.Add(gameObject.GetComponent<TeamZone>());
+    }
     void Update()
     {
        
     }
-
     private void OnParticleCollision(GameObject other)
     {
-        Debug.Log("물감 충돌" + other.name);
-
+        bullet = other.GetComponent<Bullet>();
+        if(team != ETeam.Static)
+        team = bullet.bulletType;
         //팀 판별 로직 구현할것
+        bullet.player_Shot.player_Score++;
     }
 }
