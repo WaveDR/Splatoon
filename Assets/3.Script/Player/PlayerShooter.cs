@@ -47,11 +47,19 @@ public class PlayerShooter : MonoBehaviour
     [Header("Player_Score")]
     public int player_Score = 0;
     private int _player_ScoreSet;
+    public int player_ScoreSet => _player_ScoreSet;
 
     [Header("Shot_UI")]
     [SerializeField] private Image bowAim_UI;
+    [SerializeField] private Text killLog_UI;
+    [SerializeField] private GameObject killLog_Obj;
+    [SerializeField] private GameObject enemyData_Obj;
+    [SerializeField] private Text enemyName_UI;
+    [SerializeField] private Text enemyScore_UI;
+
     public Image ammoBack_UI;
     public Image ammoNot_UI;
+    public Text name_UI;
     public Text score_UI;
 
     [Header("Attack Rate")]
@@ -71,6 +79,8 @@ public class PlayerShooter : MonoBehaviour
     private PlayerController _Player_Con;
     private PlayerInput _player_Input;
     private Animator _player_Anim;
+
+    public PlayerInput player_Input => _player_Input;
 
     
     // Start is called before the first frame update
@@ -121,6 +131,9 @@ public class PlayerShooter : MonoBehaviour
         fireMaxTime = weapon.weapon_Stat.fire_Rate;
         playerCam.weapon_DirY = GetComponentInChildren<Shot_System>();
         ammoBack_UI.transform.parent.gameObject.SetActive(false);
+        name_UI.text = _player_Input.player_Name;
+        killLog_Obj.SetActive(false);
+        enemyData_Obj.SetActive(false);
     }
 
     void Update()
@@ -130,15 +143,35 @@ public class PlayerShooter : MonoBehaviour
             Fire_Paint();
             WarningAmmo();
 
-            if (player_Score >= 3)
+            if (player_Score >= 2)
             {
                 _player_ScoreSet++;
                 player_Score = 0;
             }
 
-            score_UI.text = _player_ScoreSet.ToString("D4");
+            score_UI.text = player_ScoreSet.ToString("D4");
         }
         //°ø°Ý·ÎÁ÷
+    }
+
+    public IEnumerator KillLog(string name)
+    {
+        killLog_Obj.SetActive(true);
+        killLog_UI.text = $"{name}¸¦ ¾²·¯¶ß·È´Ù!";
+
+        yield return new WaitForSeconds(3f);
+
+        killLog_Obj.SetActive(false);
+    }
+
+    public IEnumerator Enemy_Score(string name, int score)
+    {
+        enemyData_Obj.SetActive(true);
+        enemyName_UI.text = name;
+        enemyScore_UI.text = score.ToString("D4");
+        yield return new WaitForSeconds(5f);
+
+        enemyData_Obj.SetActive(false);
     }
 
     private void WarningAmmo()

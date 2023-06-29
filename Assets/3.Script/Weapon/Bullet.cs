@@ -67,6 +67,11 @@ public class Bullet : MonoBehaviour
             }
         }
     }
+
+    public void Player_Kill(string name)
+    {
+        StartCoroutine(player_Shot.KillLog(name));
+    }
     private void OnDisable()
     {
         if (!brush)

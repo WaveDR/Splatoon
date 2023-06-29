@@ -43,7 +43,7 @@ public class PlayerInput : MonoBehaviour
                 squidRot = Mathf.Clamp(squidRot, squid_FinalRot, 0);
         }
     }
-
+    public string player_Name;
 
     // Start is called before the first frame update
     private void Awake()

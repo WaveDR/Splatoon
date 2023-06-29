@@ -2,10 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
+using System;
 
+
+[Serializable]
+public class Player_Info
+{
+    public Player_Info(ETeam _team, EWeapon _weapon, string _name, int _score) { team = _team; weapon = _weapon; name = _name; score = _score; }
+    public ETeam team;
+    public EWeapon weapon;
+    public string name;
+    public int score;
+}
 public class GameManager : MonoBehaviour
 {
-    
     public static GameManager _instance = null;
     public static GameManager Instance
     {
@@ -20,10 +31,15 @@ public class GameManager : MonoBehaviour
         }
         set { _instance = value; }
     }
-
     public List<TeamZone> nodes = new List<TeamZone>();
     public GameObject map_Camera;
+
+    [Header("Player")]
     public PlayerController[] players;
+    public Player_Info player_Data;
+
+    public Dictionary<int, Player_Info> player_Info = new Dictionary<int, Player_Info>();
+    [SerializeField] private Player_MVP mvp_Model;
 
     [Header("UI")]
     [SerializeField] private Text timeText;
@@ -39,10 +55,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text scoreCount_Yellow;
     [SerializeField] private Text scoreCount_Blue;
 
+    [SerializeField] private Text[] mvp_Data;
+
 
     [Header("Character Anim")]
     [SerializeField] private Animator ui_Anim;
     [SerializeField] private Animator manager_Anim;
+    [SerializeField] private Animator mvp_Anim;
     [SerializeField] private WinAnim teamYellow_Anim;
     [SerializeField] private WinAnim teamBlue_Anim;
 
@@ -82,13 +101,21 @@ public class GameManager : MonoBehaviour
         map_Camera = GameObject.FindGameObjectWithTag("MapCamera");
         ui_Anim = GameObject.FindGameObjectWithTag("TimeUI").GetComponent<Animator>();
         players = FindObjectsOfType<PlayerController>();
+        mvp_Model = transform.GetComponentInChildren<Player_MVP>();
 
         //Animator
         TryGetComponent(out manager_Anim);
         teamYellow_Anim = transform.GetChild(0).GetComponent<WinAnim>();
         teamBlue_Anim = transform.GetChild(1).GetComponent<WinAnim>();
+        mvp_Anim = transform.GetChild(2).GetComponent<Animator>();
         teamYellow_Anim.gameObject.SetActive(false);
         teamBlue_Anim.gameObject.SetActive(false);
+    }
+
+    private void List_In_Player(int score, PlayerController player_data)
+    {
+        player_Info[score] = new Player_Info(player_data.player_Team.team, player_data._player_shot.WeaponType,
+            player_data.player_Input.player_Name, player_data._player_shot.player_ScoreSet);
     }
 
     private void OnEnable()
@@ -96,10 +123,8 @@ public class GameManager : MonoBehaviour
         deltaTime = startTimer; //시작 전 카운트 
         deadLine.enabled = false; //데드라인 메쉬 비활성화
         count_Image.gameObject.SetActive(true); //카운트 다운 이미지 켜기
-
         scoreGage_Blue.fillAmount = 0; //스코어 게이지 초기화
         scoreGage_Yellow.fillAmount = 0;
-
     }
 
     private void Start()
@@ -266,8 +291,64 @@ public class GameManager : MonoBehaviour
             blue_WinEffect.Play();
         }
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.5f);
         ui_Anim.SetBool("Score", false);
+
+
+        //Player Data Setup
+        int[] player_Score = new int[players.Length];
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            List_In_Player(players[i]._player_shot.player_ScoreSet, players[i]);
+            player_Score[i] = players[i]._player_shot.player_ScoreSet;
+        }
+
+        int mostScore = player_Score.Max();
+
+        Debug.Log(mostScore);
+
+        Debug.Log(player_Info[mostScore].team);
+        Debug.Log(player_Info[mostScore].weapon);
+        Debug.Log(player_Info[mostScore].name);
+        Debug.Log(player_Info[mostScore].score);
+        // Debug.Log(mostScore);
+
+        player_Data = player_Info[mostScore];
+
+        mvp_Data[0].text = player_Data.name;
+
+        if(player_Data.team == ETeam.Yellow)
+        {
+            mvp_Data[1].text = "Yellow";
+            mvp_Data[1].color = players[0].player_Team.team_Yellow;
+            mvp_Model.TeamChange(ETeam.Yellow);
+        }
+        else
+        {
+            mvp_Data[1].text = "Blue";
+            mvp_Data[1].color = players[0].player_Team.team_Blue;
+            mvp_Model.TeamChange(ETeam.Blue);
+        }
+        switch (player_Data.weapon)
+        {
+            case EWeapon.Brush:
+                mvp_Data[2].text = "호쿠사이";
+                break;   
+            case EWeapon.Gun:
+                mvp_Data[2].text = "새싹 슈터";
+                break;   
+            case EWeapon.Bow:
+                mvp_Data[2].text = "트라이 스트링거";
+                break;
+        }
+        mvp_Data[3].text = player_Data.score.ToString("D4");
+
+        yield return new WaitForSeconds(2f);
+
+        manager_Anim.SetBool("GameEnd", false);
+        ui_Anim.SetBool("isMVP", true);
+        mvp_Anim.SetBool("Dance", true);
     }
     public float Check_Color(ETeam team)
     {

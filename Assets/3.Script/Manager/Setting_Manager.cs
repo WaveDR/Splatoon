@@ -8,6 +8,7 @@ public class Setting_Manager : MonoBehaviour
 {
     public PlayerShooter player_shot;
     public PlayerTeams player_Team;
+    public PlayerInput player_Input;
     [SerializeField] private GameObject[] playerSelect_Card;
     [SerializeField] private GameObject[] playerSelect_Camera;
     [SerializeField] private GameObject[] playerSelect_Weapon;
@@ -32,7 +33,7 @@ public class Setting_Manager : MonoBehaviour
         //플레이어 스크립트 넣어주기
         player_shot = FindObjectOfType<PlayerShooter>();
         player_Team = FindObjectOfType<PlayerTeams>();
-
+        player_Input = FindObjectOfType<PlayerInput>();
         #region UI 초기화 
         reset_Obj(0);
         stage_Lobby[0].SetActive(true);
@@ -93,7 +94,7 @@ public class Setting_Manager : MonoBehaviour
 
     public void Write_Name(string name)
     {
-        name = player_Name;
+        player_Name = name;
     }
     public void Back_Page()
     {
@@ -165,6 +166,7 @@ public class Setting_Manager : MonoBehaviour
         GameManager.Instance.SetCursorState(true);
         //나중에 네트워크에 넣을 정보값들
 
+        player_Input.player_Name = player_Name;
         player_Team.team = team;
         player_shot.WeaponType = weapon;
 

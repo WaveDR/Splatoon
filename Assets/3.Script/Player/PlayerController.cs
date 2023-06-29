@@ -18,7 +18,7 @@ public class PlayerController : Living_Entity, IPlayer
     [SerializeField] private GameObject[] human_Object;
     [SerializeField] private GameObject squid_Object;
 
-    private PlayerInput _player_Input;
+    public PlayerInput player_Input;
     private Rigidbody _player_rigid;
     public PlayerShooter _player_shot;
     private Animator _player_Anim;
@@ -36,7 +36,7 @@ public class PlayerController : Living_Entity, IPlayer
     // Start is called before the first frame update
     void Awake()
     {
-        TryGetComponent(out _player_Input);
+        TryGetComponent(out player_Input);
         TryGetComponent(out _player_rigid);
         TryGetComponent(out _player_Anim);
         TryGetComponent(out _player_shot);
@@ -61,7 +61,7 @@ public class PlayerController : Living_Entity, IPlayer
 
     private void FixedUpdate()
     {
-        _player_rigid.MovePosition(_player_rigid.position + _player_Input.move_Vec * _player_Speed * Time.deltaTime);
+        _player_rigid.MovePosition(_player_rigid.position + player_Input.move_Vec * _player_Speed * Time.deltaTime);
     }
 
     // Update is called once per frame
@@ -76,17 +76,17 @@ public class PlayerController : Living_Entity, IPlayer
             {
                 Player_Movement();
                 Player_Jump();
-                RaycastFloor(_player_Input.squid_Form);
+                RaycastFloor(player_Input.squid_Form);
                 Player_Animation();
 
-                if (!_player_Input.squid_Form)
+                if (!player_Input.squid_Form)
                 {
                     _Wall_RacastOn = false;
                     MoveWall(false, null);
                 }
                 else
                 {
-                    RaycastWall(_player_Input.squid_Form);
+                    RaycastWall(player_Input.squid_Form);
                 }
             }
         }
@@ -117,7 +117,7 @@ public class PlayerController : Living_Entity, IPlayer
             //_isJump = false;
             //raycast_Wall_Object = collision.gameObject;
 
-            if (_player_Input.squid_Form)
+            if (player_Input.squid_Form)
             {
                 _Wall_RacastOn = true;
             }
@@ -136,7 +136,7 @@ public class PlayerController : Living_Entity, IPlayer
     
     private void Player_Jump()
     {
-        if (_player_Input.jDown && !_isJump)
+        if (player_Input.jDown && !_isJump)
         {
             _player_Anim.SetTrigger("isJump");
             //_isJump = true;
@@ -148,23 +148,23 @@ public class PlayerController : Living_Entity, IPlayer
     {
         if (squid_Object.activeSelf)
         {
-            if (_player_Input.squid_FinalRot > 0)
-                squid_Object.transform.localEulerAngles = new Vector3(0, _player_Input.player_SquidRot += 900 * Time.deltaTime, 0);
-            if (_player_Input.squid_FinalRot < 0)
-                squid_Object.transform.localEulerAngles = new Vector3(0, _player_Input.player_SquidRot -= 900 * Time.deltaTime, 0);
+            if (player_Input.squid_FinalRot > 0)
+                squid_Object.transform.localEulerAngles = new Vector3(0, player_Input.player_SquidRot += 900 * Time.deltaTime, 0);
+            if (player_Input.squid_FinalRot < 0)
+                squid_Object.transform.localEulerAngles = new Vector3(0, player_Input.player_SquidRot -= 900 * Time.deltaTime, 0);
         }
     }
     private void Player_Animation()
     {
-        _player_Anim.SetFloat(_player_Input.Move_Hor_S, _player_Input.Move_Hor);
-        _player_Anim.SetFloat(_player_Input.Move_Ver_S, _player_Input.Move_Ver);
+        _player_Anim.SetFloat(player_Input.Move_Hor_S, player_Input.Move_Hor);
+        _player_Anim.SetFloat(player_Input.Move_Ver_S, player_Input.Move_Ver);
         _player_Anim.SetBool("isDown", !_isJump);
     }
     private void Player_Movement()
     {
-        if (_player_Input.move_Vec != Vector3.zero)
+        if (player_Input.move_Vec != Vector3.zero)
         {
-            transform.Translate(_player_Input.move_Vec * _player_Speed * Time.deltaTime);
+            transform.Translate(player_Input.move_Vec * _player_Speed * Time.deltaTime);
         }
         hp = player_CurHealth;
         Squid_Eular();
@@ -214,6 +214,8 @@ public class PlayerController : Living_Entity, IPlayer
         base.Player_Die();
         Transform_Stat(0, 0, false, false);
         deathEffect.particle.Play();
+        dmgBullet.Player_Kill(player_Input.player_Name);
+        StartCoroutine(_player_shot.Enemy_Score(dmgBullet.player_Shot.player_Input.player_Name, dmgBullet.player_Shot.player_ScoreSet));
     }
     public void Respawn(ETeam team, bool falling)
     {
@@ -362,7 +364,7 @@ public class PlayerController : Living_Entity, IPlayer
             }
         }
 
-        if (_player_Input.move_Vec == Vector3.zero || _isJump)
+        if (player_Input.move_Vec == Vector3.zero || _isJump)
         {
             for (int i = 0; i < player_Wave.Length - 1; i++)
             {
@@ -372,24 +374,24 @@ public class PlayerController : Living_Entity, IPlayer
     }                //Ray로 바닥 확인
     private void RaycastWall(bool SquidForm)
     {
-        if(_player_Input.move_Vec == transform.forward)
+        if(player_Input.move_Vec == transform.forward)
         {
-            _player_Input.isWall_Hor = false;
-            _player_Input.isWall_Left = false;
+            player_Input.isWall_Hor = false;
+            player_Input.isWall_Left = false;
         }
 
         Wall_Vec(SquidForm, transform.forward);
 
-        //else if (_player_Input.move_Vec == -transform.right)
+        //else if (player_Input.move_Vec == -transform.right)
         //{
-        //    _player_Input.isWall_Hor = true;
-        //    _player_Input.isWall_Left = true;
+        //    player_Input.isWall_Hor = true;
+        //    player_Input.isWall_Left = true;
         //    Wall_Vec(SquidForm, -transform.right);
         //}
-        //else if (_player_Input.move_Vec == transform.right )
+        //else if (player_Input.move_Vec == transform.right )
         //{
-        //    _player_Input.isWall_Hor = true;
-        //    _player_Input.isWall_Left = false;
+        //    player_Input.isWall_Hor = true;
+        //    player_Input.isWall_Left = false;
         //    Wall_Vec(SquidForm, transform.right);
         //}
     }                 //Ray로 벽 확인
@@ -403,12 +405,9 @@ public class PlayerController : Living_Entity, IPlayer
         {
             MoveWall(true, forward_Hit.transform.gameObject);
             TeamZone teamZone = raycast_Wall_Object.GetComponent<TeamZone>();
-            _player_Input.isWall_Hor = false;
-            Debug.Log(teamZone.team);
+            player_Input.isWall_Hor = false;
             if (teamZone.team != player_Team.team)
             {
-                Debug.Log("적 진영이거나 칠하지 않은 구역입니다!");
-
                 MoveWall(false, null);
                 return;
             }
@@ -428,7 +427,7 @@ public class PlayerController : Living_Entity, IPlayer
                 }
             }
 
-            if (_player_Input.Move_Ver < 0) // 벽탈 때 뒤로 이동 시
+            if (player_Input.Move_Ver < 0) // 벽탈 때 뒤로 이동 시
             {
                 _Wall_RacastOn = false;
                 MoveWall(false, null);
@@ -441,7 +440,7 @@ public class PlayerController : Living_Entity, IPlayer
     }        //벽 위치 확인
     public void MoveWall(bool moveWall, GameObject wallObj)
     {
-        _player_Input.isWall = moveWall;
+        player_Input.isWall = moveWall;
         _player_rigid.isKinematic = moveWall;
         _player_rigid.useGravity = !moveWall;
         raycast_Wall_Object = wallObj;
