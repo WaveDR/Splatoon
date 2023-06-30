@@ -157,7 +157,7 @@ public class PlayerShooter : MonoBehaviour
     public IEnumerator KillLog(string name)
     {
         killLog_Obj.SetActive(true);
-        killLog_UI.text = $"{name}¸¦ ¾²·¯¶ß·È´Ù!";
+        killLog_UI.text = $"{name}(À»)¸¦ ¾²·¯¶ß·È´Ù!";
 
         yield return new WaitForSeconds(3f);
 
@@ -365,6 +365,5 @@ public class PlayerShooter : MonoBehaviour
             ammo_Back.transform.localScale =
            new Vector3(ammo_Back.transform.localScale.x, weapon.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
         }
-
     }
 }

@@ -494,4 +494,9 @@ public class PlayerController : Living_Entity, IPlayer
     } //기본 상태 변환
 
     #endregion
+
+    public void Manager_Import_Data()
+    {
+        GameManager.Instance.players.Add(gameObject.GetComponent<PlayerController>());
+    }
 }

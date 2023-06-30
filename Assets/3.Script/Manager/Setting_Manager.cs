@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Setting_Manager : MonoBehaviour
 {
+    public GameObject player_Prefabs;
     public PlayerShooter player_shot;
     public PlayerTeams player_Team;
     public PlayerInput player_Input;
@@ -24,16 +25,20 @@ public class Setting_Manager : MonoBehaviour
     public EWeapon weapon;
     public string player_Name;
 
+    public Photon_Manager photon_Manager;
+
     public Color32 team_Yellow = new Color32(253, 242, 63, 255);
     public Color32 team_Blue = new Color32(129, 67, 255, 255);
     private void Awake()
     {
-        GameManager.Instance.SetCursorState(false);
+
+        //GameManager.Instance.SetCursorState(false);
 
         //플레이어 스크립트 넣어주기
-        player_shot = FindObjectOfType<PlayerShooter>();
-        player_Team = FindObjectOfType<PlayerTeams>();
-        player_Input = FindObjectOfType<PlayerInput>();
+        photon_Manager = FindObjectOfType<Photon_Manager>();
+        player_shot = player_Prefabs.GetComponent<PlayerShooter>();
+        player_Team = player_Prefabs.GetComponent<PlayerTeams>();
+        player_Input = player_Prefabs.GetComponent<PlayerInput>();
         #region UI 초기화 
         reset_Obj(0);
         stage_Lobby[0].SetActive(true);
@@ -163,28 +168,24 @@ public class Setting_Manager : MonoBehaviour
 
     public void MoveScene()
     {
-        GameManager.Instance.SetCursorState(true);
+       // GameManager.Instance.SetCursorState(true);
         //나중에 네트워크에 넣을 정보값들
 
         player_Input.player_Name = player_Name;
         player_Team.team = team;
         player_shot.WeaponType = weapon;
 
+        photon_Manager.Connect();
         //로딩 UI 켜기
         loading_Page.SetActive(true);
-
-        //플레이어 무기 재활성화
-        player_shot.gameObject.SetActive(false);
-        player_shot.gameObject.SetActive(true);
 
         //로비 오브젝트 비활성화, 대기실 오브젝트 활성화
         stage_Lobby[1].SetActive(true);
         stage_Lobby[0].SetActive(false);
 
-
         //1.5초 후에 로딩씬 끄기
         Invoke("LoadingOff",2f);
-
+        //Instantiate(player_Prefabs, Vector3.zero, Quaternion.identity);
         //로비 UI 비활성화
         gameObject.SetActive(false);
     }
@@ -195,5 +196,6 @@ public class Setting_Manager : MonoBehaviour
 
         //플레이어 UI 켜기
         player_shot.skill_UI_Obj.SetActive(true);
+
     }
 }

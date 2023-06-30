@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     public GameObject map_Camera;
 
     [Header("Player")]
-    public PlayerController[] players;
+    public List<PlayerController> players = new List<PlayerController>();
     public Player_Info player_Data;
 
     public Dictionary<int, Player_Info> player_Info = new Dictionary<int, Player_Info>();
@@ -100,9 +100,8 @@ public class GameManager : MonoBehaviour
         deadLine = GameObject.FindGameObjectWithTag("DeadLine").GetComponent<MeshRenderer>();
         map_Camera = GameObject.FindGameObjectWithTag("MapCamera");
         ui_Anim = GameObject.FindGameObjectWithTag("TimeUI").GetComponent<Animator>();
-        players = FindObjectsOfType<PlayerController>();
         mvp_Model = transform.GetComponentInChildren<Player_MVP>();
-
+        players.Add(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>());
         //Animator
         TryGetComponent(out manager_Anim);
         teamYellow_Anim = transform.GetChild(0).GetComponent<WinAnim>();
@@ -219,6 +218,7 @@ public class GameManager : MonoBehaviour
             foreach (PlayerController player in players)
             {
                 player.isStop = false;
+                player._player_shot.name_UI.text = "¿µ¿ªÀ» ÀÜ¶à È®º¸ÇØ¶ó!";
             }
         }
     }
@@ -296,9 +296,9 @@ public class GameManager : MonoBehaviour
 
 
         //Player Data Setup
-        int[] player_Score = new int[players.Length];
+        int[] player_Score = new int[players.Count];
 
-        for (int i = 0; i < players.Length; i++)
+        for (int i = 0; i < players.Count; i++)
         {
             List_In_Player(players[i]._player_shot.player_ScoreSet, players[i]);
             player_Score[i] = players[i]._player_shot.player_ScoreSet;
