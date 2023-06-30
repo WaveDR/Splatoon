@@ -10,6 +10,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
 
     public int max_Player;
     public ServerSettings setting = null;
+    public GameObject matching_UI;
 
     //Player Prefabs
 
@@ -30,6 +31,18 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     #region 서버 관련 CallBack Method
     //Connect Tto Master -
 
+    public void SetRoom_MaxPlayer(int i)
+    {
+        max_Player = i;
+        matching_UI.SetActive(false);
+        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = max_Player });
+        Debug.Log("Created Room");
+    }
+
+    public void Matching_Room()
+    {
+        Connect();
+    }
     public void Connect()
     {
         PhotonNetwork.GameVersion = game_Version;
@@ -65,8 +78,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     {
         base.OnJoinRandomFailed(returnCode, message);
         Debug.Log("Not Empty Room...");
-        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = max_Player });
-        Debug.Log("Created Room");
+
     }
 
     public override void OnJoinedRoom()

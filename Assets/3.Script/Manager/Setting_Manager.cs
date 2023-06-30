@@ -15,15 +15,16 @@ public class Setting_Manager : MonoBehaviour
     [SerializeField] private GameObject[] playerSelect_Weapon;
     [SerializeField] private GameObject[] stage_Lobby;
     [SerializeField] private GameObject loading_Page;
+    [SerializeField] private GameObject Matching_Obj;
     [SerializeField] private ParticleSystem select_Effect;
     [SerializeField] private Text npc_Text;
     [SerializeField] private Text back_Text;
+    [SerializeField] private InputField player_Name;
     [SerializeField] private Image[] images;
     [SerializeField] private int page_Num;
 
     public ETeam team;
     public EWeapon weapon;
-    public string player_Name;
 
     public Photon_Manager photon_Manager;
 
@@ -43,7 +44,7 @@ public class Setting_Manager : MonoBehaviour
         stage_Lobby[0].SetActive(true);
         stage_Lobby[1].SetActive(false);
         loading_Page.SetActive(false);
-        player_shot.skill_UI_Obj.SetActive(false);
+        Matching_Obj.SetActive(false);
         page_Num = 0;
         back_Text.text = "로비실";
         foreach (GameObject obj in playerSelect_Weapon)
@@ -51,6 +52,7 @@ public class Setting_Manager : MonoBehaviour
             obj.SetActive(true);
         }
         #endregion
+
     }
     public void Select_Team(string team)
     {
@@ -96,11 +98,6 @@ public class Setting_Manager : MonoBehaviour
         reset_Obj(2);
     }
 
-
-    public void Write_Name(string name)
-    {
-        player_Name = name;
-    }
     public void Back_Page()
     {
         switch (page_Num)
@@ -173,11 +170,10 @@ public class Setting_Manager : MonoBehaviour
        // GameManager.Instance.SetCursorState(true);
         //나중에 네트워크에 넣을 정보값들
 
-        player_Input.player_Name = player_Name;
+        player_Input.player_Name = player_Name.text;
         player_Team.team = team;
         player_shot.WeaponType = weapon;
 
-        photon_Manager.Connect();
         //로딩 UI 켜기
         loading_Page.SetActive(true);
 
@@ -187,10 +183,10 @@ public class Setting_Manager : MonoBehaviour
 
         //1.5초 후에 로딩씬 끄기
         Invoke("LoadingOff",2f);
-        //Instantiate(player_Prefabs, Vector3.zero, Quaternion.identity);
+        Instantiate(player_Prefabs, Vector3.zero, Quaternion.identity);
         //로비 UI 비활성화
-        gameObject.SetActive(false);
         BGM_Manager.Instance.Play_Sound_BGM("UI_Click");
+        gameObject.SetActive(false);
 
     }
 
@@ -200,6 +196,7 @@ public class Setting_Manager : MonoBehaviour
 
         //플레이어 UI 켜기
         player_shot.skill_UI_Obj.SetActive(true);
+        Matching_Obj.SetActive(true);
 
     }
 }
