@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 [System.Serializable]
@@ -16,6 +17,12 @@ public class Sound_Manager : MonoBehaviour
     public Sound[] effect_Sounds;
     public string[] play_SoundName;
 
+    private void Start()
+    {
+        play_SoundName = new string[audio_Source_Effects.Length];
+    }
+
+
 
     public void Play_SoundEffect(string name)
     {
@@ -23,9 +30,10 @@ public class Sound_Manager : MonoBehaviour
         {
             if (name == effect_Sounds[i].sound_Name)
             {
+
                 for (int j = 0; j < audio_Source_Effects.Length; j++)
                 {
-                    if (audio_Source_Effects[j].isPlaying)
+                    if (!audio_Source_Effects[j].isPlaying)
                     {
                         play_SoundName[j] = effect_Sounds[i].sound_Name;
                         audio_Source_Effects[j].clip = effect_Sounds[i].clip;
@@ -40,7 +48,8 @@ public class Sound_Manager : MonoBehaviour
         Debug.Log(name + "Sound Manager에 등록되지 않은 SoundSource입니다!");
     }
 
- 
+
+
     public void Stop_All_Sound_Effect()
     {
         for (int i = 0; i < audio_Source_Effects.Length; i++)
@@ -48,7 +57,6 @@ public class Sound_Manager : MonoBehaviour
             audio_Source_Effects[i].Stop();
         }
     }
-
 
     public void Stop_Sound_Effect(string name)
     {

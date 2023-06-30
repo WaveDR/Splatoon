@@ -71,6 +71,7 @@ public class Bullet : MonoBehaviour
     public void Player_Kill(string name)
     {
         StartCoroutine(player_Shot.KillLog(name));
+        player_Shot.Player_Con.ES_Manager.Play_SoundEffect("Player_Kill");
     }
     private void OnDisable()
     {

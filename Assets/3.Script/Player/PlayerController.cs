@@ -33,6 +33,8 @@ public class PlayerController : Living_Entity, IPlayer
     private float plusTime;
 
     public Bullet deathEffect;
+
+    public Sound_Manager ES_Manager;
     // Start is called before the first frame update
     void Awake()
     {
@@ -51,6 +53,8 @@ public class PlayerController : Living_Entity, IPlayer
             hitEffect[i] = hitEffect[0].transform.GetChild(i).GetComponent<ParticleSystem>();
         }
         deathEffect = transform.GetChild(transform.childCount -1).GetComponent<Bullet>();
+
+        ES_Manager = GetComponentInChildren<Sound_Manager>();
     }
 
     protected override void OnEnable()
@@ -96,7 +100,7 @@ public class PlayerController : Living_Entity, IPlayer
     {
         dmgBullet = other.GetComponent<Bullet>();
 
-        if (dmgBullet.team.team != player_Team.team)
+        if (dmgBullet.team.team != player_Team.team && !isDead)
         {
             OnDamage(dmgBullet.dmg);
         }
@@ -178,6 +182,8 @@ public class PlayerController : Living_Entity, IPlayer
 
     public override void OnDamage(float damage)
     {
+        base.OnDamage(damage);
+
         if(player_Team.team == ETeam.Blue)
         {
             foreach(ParticleSystem par in hitEffect)
@@ -197,12 +203,12 @@ public class PlayerController : Living_Entity, IPlayer
           
         if (!isDead)
         {
+            ES_Manager.Play_SoundEffect("Player_Hit");
             _player_Anim.SetTrigger("Hit");
             hitEffect[0].Play();
         }
  
 
-        base.OnDamage(damage);
     }
     public override void RestoreHp(float newHealth)
     {
@@ -215,6 +221,9 @@ public class PlayerController : Living_Entity, IPlayer
         Transform_Stat(0, 0, false, false);
         deathEffect.particle.Play();
         dmgBullet.Player_Kill(player_Input.player_Name);
+
+        ES_Manager.Play_SoundEffect("Player_Death");
+
         StartCoroutine(_player_shot.Enemy_Score(dmgBullet.player_Shot.player_Input.player_Name, dmgBullet.player_Shot.player_ScoreSet));
     }
     public void Respawn(ETeam team, bool falling)
@@ -462,6 +471,8 @@ public class PlayerController : Living_Entity, IPlayer
                 hitEffect[0].transform.localPosition = new Vector3(0, 1.5f, 0.46f);
 
             }
+            ES_Manager.Stop_All_Sound_Effect();
+            ES_Manager.Play_SoundEffect("Player_Hide");
 
             player_Wave[2].Play(); //1회만 실행되는 소환 이펙트
         }

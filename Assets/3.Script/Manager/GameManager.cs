@@ -220,6 +220,8 @@ public class GameManager : MonoBehaviour
                 player.isStop = false;
                 player._player_shot.name_UI.text = "영역을 잔뜩 확보해라!";
             }
+
+            BGM_Manager.Instance.Play_Sound_BGM("BGM_Game");
         }
     }
     public void EndCount() //Game End CountDown
@@ -231,7 +233,6 @@ public class GameManager : MonoBehaviour
         {
             ui_Anim.SetBool("Count", false);
             ui_Anim.SetBool("TimeOut", true);
-
             StartCoroutine(GameStop());
             gameEnd = true;
         }
@@ -239,9 +240,13 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator GameStop()
     {
+
+        BGM_Manager.Instance.Stop_All_Sound_BGM();
+        BGM_Manager.Instance.Play_Sound_BGM("UI_Finish");
         //화면 전환되는 시간
         foreach (PlayerController player in players)
         {
+            player.player_Input.fire = false;
             player.isStop = true;
         }
         yield return new WaitForSeconds(5f); //맵 확인하는 시간
@@ -262,11 +267,14 @@ public class GameManager : MonoBehaviour
         manager_Anim.SetBool("GameEnd", true);
 
         yield return new WaitForSeconds(1f); //Score Gage Charged
+        BGM_Manager.Instance.Play_Sound_BGM("UI_Gage");
         chargeCall = true;
         
 
         yield return new WaitForSeconds(3f); //Result
         chargeCall = false;
+        BGM_Manager.Instance.Stop_All_Sound_BGM();
+        BGM_Manager.Instance.Play_Sound_BGM("UI_Splash");
 
         float color_Count = (Check_Color(ETeam.Blue) + Check_Color(ETeam.Yellow)) / 100;
         float yellow_Score = Mathf.Floor(((Check_Color(ETeam.Yellow) / color_Count)) * 10f) / 10f;
@@ -293,8 +301,7 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
         ui_Anim.SetBool("Score", false);
-
-
+        BGM_Manager.Instance.Play_Sound_BGM("UI_Victory");
         //Player Data Setup
         int[] player_Score = new int[players.Count];
 

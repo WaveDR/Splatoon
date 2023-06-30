@@ -21,8 +21,14 @@ public class BGM_Manager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
 
+        Play_Sound_BGM("BGM_Lobby");
+
+    }
+    private void Start()
+    {
+        play_SoundName = new string[audio_Source_Bgms.Length];
+    }
     public void Play_Sound_BGM(string name)
     {
         for (int i = 0; i < bgm_Sounds.Length; i++)
@@ -31,7 +37,7 @@ public class BGM_Manager : MonoBehaviour
             {
                 for (int j = 0; j < audio_Source_Bgms.Length; j++)
                 {
-                    if (audio_Source_Bgms[j].isPlaying)
+                    if (!audio_Source_Bgms[j].isPlaying)
                     {
                         play_SoundName[j] = bgm_Sounds[i].sound_Name;
                         audio_Source_Bgms[j].clip = bgm_Sounds[i].clip;

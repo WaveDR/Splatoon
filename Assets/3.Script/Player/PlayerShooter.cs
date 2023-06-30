@@ -19,6 +19,7 @@ public class PlayerShooter : MonoBehaviour
 
     private bool _isFire;
     private bool _isCharge;
+    private bool _isCharge_Sfx;
     private float _jumpRot;
     private float weapon_JumpRot
     {
@@ -77,6 +78,7 @@ public class PlayerShooter : MonoBehaviour
 
     [Header("Player Component")]
     private PlayerController _Player_Con;
+    public PlayerController Player_Con => _Player_Con;
     private PlayerInput _player_Input;
     private Animator _player_Anim;
 
@@ -138,7 +140,7 @@ public class PlayerShooter : MonoBehaviour
 
     void Update()
     {
-        if (!_Player_Con.isStop)
+        if (!Player_Con.isStop || !_Player_Con.isDead)
         {
             Fire_Paint();
             WarningAmmo();
@@ -219,8 +221,6 @@ public class PlayerShooter : MonoBehaviour
 
     private void Fire_Paint()
     {
-
-      
         switch (WeaponType)
         {
             case EWeapon.Gun:
@@ -236,6 +236,10 @@ public class PlayerShooter : MonoBehaviour
 
                     if (fireRateTime >= fireMaxTime && weapon.weapon_CurAmmo > 0)
                     {
+                     
+                        _Player_Con.ES_Manager.Play_SoundEffect("Weapon_Gun");
+                        _Player_Con.ES_Manager.Stop_Sound_Effect("Floor_Hit");
+                        _Player_Con.ES_Manager.Play_SoundEffect("Floor_Hit");
                         _player_Anim.SetBool("isFire", true);
                         weapon.Shot();
                         fireRateTime = 0;
@@ -250,17 +254,18 @@ public class PlayerShooter : MonoBehaviour
                 {
                     fireRateTime = 0;
                     _player_Anim.SetBool("isFire", false);
+
                     _isFire = false;
                 }
                 break;
 
             case EWeapon.Bow:
 
-                if (_Player_Con._isJump && weapon_JumpRot < 0) // 점프 O
+                if (Player_Con._isJump && weapon_JumpRot < 0) // 점프 O
                 {
                     weapon.transform.localEulerAngles = new Vector3(0, 0, weapon_JumpRot += 540 * Time.deltaTime);
                 }
-                else if (!_Player_Con._isJump && weapon_JumpRot > -90) //점프 X
+                else if (!Player_Con._isJump && weapon_JumpRot > -90) //점프 X
                 {
                     weapon.transform.localEulerAngles = new Vector3(0, 0, weapon_JumpRot -= 540 * Time.deltaTime);
                 }
@@ -271,12 +276,21 @@ public class PlayerShooter : MonoBehaviour
                     bowAim_UI.fillAmount = fireRateTime;
                     _isFire = true;
                     _player_Anim.SetTrigger("Reload_Bow");
+
+                    if (!_isCharge_Sfx)
+                    {
+                        _Player_Con.ES_Manager.Stop_Sound_Effect("Weapon_Charge");
+                        _Player_Con.ES_Manager.Play_SoundEffect("Weapon_Charge");
+                        _isCharge_Sfx = true;
+                    }
+             
                 }
                 if (fireRateTime >= fireMaxTime && weapon.weapon_CurAmmo > 0)
                 {
                     if (!_isCharge)
                     {
                         _Charge_Effect.Play();
+  
                         _isCharge = true;
                     }
 
@@ -284,10 +298,15 @@ public class PlayerShooter : MonoBehaviour
                     if (_player_Input.fUp)
                     {
                         _player_Anim.SetBool("isFire", true);
+                        _Player_Con.ES_Manager.Stop_Sound_Effect("Weapon_Bow");
+                        _Player_Con.ES_Manager.Play_SoundEffect("Weapon_Bow");
+                        _Player_Con.ES_Manager.Stop_Sound_Effect("Floor_Hit");
+                        _Player_Con.ES_Manager.Play_SoundEffect("Floor_Hit");
                         fireRateTime = 0;
                         bowAim_UI.fillAmount = fireRateTime;
                         weapon.Shot();
                         _isCharge = false;
+                        _isCharge_Sfx = false;
                     }
                 }
                 else if ((fireRateTime < fireMaxTime || weapon.weapon_CurAmmo <= 0) && _player_Input.fUp)
@@ -295,11 +314,18 @@ public class PlayerShooter : MonoBehaviour
                     fireRateTime = 0;
                     bowAim_UI.fillAmount = fireRateTime;
                     _player_Anim.SetBool("isFire", false);
+                    
+                    _Player_Con.ES_Manager.Stop_Sound_Effect("Weapon_Charge");
+                    _Player_Con.ES_Manager.Stop_Sound_Effect("Weapon_Not_Ammo");
+                    _Player_Con.ES_Manager.Play_SoundEffect("Weapon_Not_Ammo");
+
                     _isFire = false;
+                    _isCharge_Sfx = false;
                 }
                 else
                 {
                     _player_Anim.SetBool("isFire", false);
+
                 }
 
                 if (_player_Input.squid_Form)
@@ -307,6 +333,7 @@ public class PlayerShooter : MonoBehaviour
                     fireRateTime = 0;
                     _player_Anim.SetBool("isFire", false);
                     _isFire = false;
+                    _isCharge_Sfx = false;
                 }
 
                 break;
@@ -325,6 +352,8 @@ public class PlayerShooter : MonoBehaviour
                         _combo_Num++;
                         combo_ResetTime = 0;
                         _player_Anim.SetInteger("Brush_Combo", _combo_Num);
+                        _Player_Con.ES_Manager.Stop_Sound_Effect("Weapon_Brush");
+                        _Player_Con.ES_Manager.Play_SoundEffect("Weapon_Brush");
                         _combo_Attack = false;
                     }
 
@@ -345,8 +374,9 @@ public class PlayerShooter : MonoBehaviour
                     _isFire = false;
                     _combo_Attack = false;
                     _player_Anim.SetInteger("Brush_Combo", 0);
+
                 }
-        
+
                 break;
         }
         ammoBack_UI.fillAmount = weapon.weapon_CurAmmo * 0.01f;

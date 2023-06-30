@@ -48,12 +48,11 @@ public class Living_Entity : MonoBehaviour, IDamage
     }
     public virtual void Player_Die()
     {
+        isDead = true;
+
         if(onDeath != null)
         {
             onDeath();
         }
-
-
-        isDead = true;
     }
 }

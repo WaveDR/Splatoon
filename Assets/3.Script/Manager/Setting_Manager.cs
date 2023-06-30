@@ -31,7 +31,6 @@ public class Setting_Manager : MonoBehaviour
     public Color32 team_Blue = new Color32(129, 67, 255, 255);
     private void Awake()
     {
-
         //GameManager.Instance.SetCursorState(false);
 
         //플레이어 스크립트 넣어주기
@@ -93,6 +92,7 @@ public class Setting_Manager : MonoBehaviour
                 break;
         }
         page_Num++;
+
         reset_Obj(2);
     }
 
@@ -122,6 +122,7 @@ public class Setting_Manager : MonoBehaviour
                 npc_Text.text = "무기 바꾸려고? \n 거기서 거기라니까~?";
                 break;
         }
+
     }
     private EWeapon btn_weapon(int i, EWeapon weapon, bool back)
     {
@@ -164,6 +165,7 @@ public class Setting_Manager : MonoBehaviour
                 npc_Text.text = "좋아. 마지막이야. \n 이제 저 단말기에 너의 이름을 적어.";
                 break;
         }
+        BGM_Manager.Instance.Play_Sound_BGM("UI_Click");
     }
 
     public void MoveScene()
@@ -188,6 +190,8 @@ public class Setting_Manager : MonoBehaviour
         //Instantiate(player_Prefabs, Vector3.zero, Quaternion.identity);
         //로비 UI 비활성화
         gameObject.SetActive(false);
+        BGM_Manager.Instance.Play_Sound_BGM("UI_Click");
+
     }
 
     private void LoadingOff()

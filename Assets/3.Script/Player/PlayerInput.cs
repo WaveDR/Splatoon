@@ -64,12 +64,14 @@ public class PlayerInput : MonoBehaviour
         move_Ver = Input.GetAxis(move_Ver_S);
 
         jDown = Input.GetButtonDown("Jump");
-        fire = Input.GetButton("Fire1");
-        fUp = Input.GetButtonUp("Fire1");
-        fDown = Input.GetButtonDown("Fire1");
-        squid_Form = Input.GetButton("Run");
 
-
+        if (!_player_Con.isDead)
+        {
+            fire = Input.GetButton("Fire1");
+            fUp = Input.GetButtonUp("Fire1");
+            fDown = Input.GetButtonDown("Fire1");
+            squid_Form = Input.GetButton("Run");
+        }
        //move_Vec.x = move_Hor;
        //move_Vec.z = move_Ver;
 
