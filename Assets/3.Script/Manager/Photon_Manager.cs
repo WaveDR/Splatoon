@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 
@@ -9,20 +11,23 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     private readonly string game_Version = "1";
 
     public int max_Player;
+    public bool isCreateRoom;
     public ServerSettings setting = null;
     public GameObject matching_UI;
 
     //Player Prefabs
 
     public GameObject playerPrefabs;
+    public Text stateUI;
 
 
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
     }
     private void Start()
     {
-        //Connect();
+         //Connect();
     }
     private void OnApplicationQuit()
     {
@@ -34,9 +39,11 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     public void SetRoom_MaxPlayer(int i)
     {
         max_Player = i;
-        matching_UI.SetActive(false);
+        isCreateRoom = true;
         PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = max_Player });
         Debug.Log("Created Room");
+        stateUI.text = "방 생성";
+        matching_UI.SetActive(false);
     }
 
     public void Matching_Room()
@@ -52,6 +59,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         PhotonNetwork.ConnectToMaster(setting.AppSettings.Server, setting.AppSettings.Port,"");
 
         Debug.Log("Connect to Master Server...");
+        stateUI.text = "서버에 연결합니다...";
     }
 
     public void DisConnect()
@@ -65,12 +73,14 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     {
         base.OnConnectedToMaster();
         Debug.Log("Connect To Master Server Join.");
-
+        stateUI.text = "서버에 연결됐습니다.";
         PhotonNetwork.JoinLobby();
     }
     public override void OnJoinedLobby()
     {
         Debug.Log("Join Lobby Zone");
+        stateUI.text = "로비에 연결됐습니다.";
+
         base.OnJoinedLobby();
         PhotonNetwork.JoinRandomRoom();
     }
@@ -78,6 +88,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     {
         base.OnJoinRandomFailed(returnCode, message);
         Debug.Log("Not Empty Room...");
+        stateUI.text = "2인 방";
 
     }
 
@@ -85,9 +96,28 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         Debug.Log("Room Join Success");
+        stateUI.text = "방에 입장합니다.";
+
+        StartCoroutine(Player_Spawn());
+    }
+    IEnumerator Player_Spawn()
+    {
+        yield return new WaitForSeconds(1f);
         PhotonNetwork.Instantiate(playerPrefabs.name, Vector3.zero, Quaternion.identity);
-        
+        GameManager.Instance.FindPlayer();
+        GameManager.Instance.SetPlayerPos();
     }
 
+    private void Update()
+    {
+        if (isCreateRoom && PhotonNetwork.InRoom)
+        {
+            if (PhotonNetwork.CurrentRoom.PlayerCount >= max_Player)
+            {
+                SceneManager.LoadScene("InGame");
+            
+            }
+        }
+    }
     #endregion
 }

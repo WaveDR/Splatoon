@@ -11572,7 +11572,7 @@ MonoBehaviour:
   isWall_Hor: 0
   isWall_Left: 0
   squid_FinalRot: 0
-  player_Name: 
+  player_Name: No Name
 --- !u!114 &1773349895887027399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11639,7 +11639,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   isDead: 0
-  isStop: 0
+  isStop: 1
   player_Team: {fileID: 0}
   _isJump: 0
   isWall: 0
@@ -11694,7 +11694,7 @@ MonoBehaviour:
   - {fileID: 4898723398910590794}
   - {fileID: 3460124255464657954}
   - {fileID: 8729590655694549622}
-  WeaponType: 2
+  WeaponType: 1
   weapon: {fileID: 0}
   weaponNum: 0
   ammo_Back: {fileID: 1773349895312559445}
@@ -11740,7 +11740,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon_DirY: {fileID: 0}
   player_DirY: {fileID: 1773349896258908904}
-  cam_Obj: {fileID: 0}
+  cam_Obj: {fileID: 7051375226883415567, guid: 3e0d81e65effee04aa085c68c0784517, type: 3}
   eulerX: 0
   _eulerY: 0
   rotateSpeed: 50
@@ -14101,7 +14101,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1773349896650636853
 Transform:
   m_ObjectHideFlags: 0

@@ -170,8 +170,17 @@ public class Setting_Manager : MonoBehaviour
        // GameManager.Instance.SetCursorState(true);
         //나중에 네트워크에 넣을 정보값들
 
-        player_Input.player_Name = player_Name.text;
+        if (player_Name.text == null || player_Name.text == " " || player_Name.text == "")
+        {
+            player_Input.player_Name = "No Name";
+        }
+        else
+        {
+            player_Input.player_Name = player_Name.text;
+        }
+
         player_Team.team = team;
+
         player_shot.WeaponType = weapon;
 
         //로딩 UI 켜기
@@ -183,7 +192,7 @@ public class Setting_Manager : MonoBehaviour
 
         //1.5초 후에 로딩씬 끄기
         Invoke("LoadingOff",2f);
-        Instantiate(player_Prefabs, Vector3.zero, Quaternion.identity);
+        //Instantiate(player_Prefabs, Vector3.zero, Quaternion.identity);
         //로비 UI 비활성화
         BGM_Manager.Instance.Play_Sound_BGM("UI_Click");
         gameObject.SetActive(false);

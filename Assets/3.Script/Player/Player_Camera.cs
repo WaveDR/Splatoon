@@ -6,7 +6,7 @@ public class Player_Camera : MonoBehaviour
 {
     public Shot_System weapon_DirY;
     public Transform player_DirY;
-    public GameObject cam_Obj;
+    public Cinemachine.CinemachineVirtualCamera cam_Obj;
     public float eulerX;
     public float _eulerY;
     public float eulerY
@@ -24,6 +24,7 @@ public class Player_Camera : MonoBehaviour
     private void Awake()
     {
         TryGetComponent(out _player_Con);
+        SelectCamera();
     }
 
     // Update is called once per frame
@@ -44,5 +45,12 @@ public class Player_Camera : MonoBehaviour
             weapon_DirY.transform.localRotation = Quaternion.Euler(eulerY,0 , -90f);
         else if (weapon_DirY.weaponType == EWeapon.Gun)
             weapon_DirY.transform.localRotation = Quaternion.Euler(eulerY, 0, 0);
+    }
+
+    public void SelectCamera()
+    {
+        cam_Obj = GameObject.FindGameObjectWithTag("PlayerCam").GetComponent<Cinemachine.CinemachineVirtualCamera>();
+        cam_Obj.Follow = player_DirY;
+        cam_Obj.LookAt = player_DirY;
     }
 }

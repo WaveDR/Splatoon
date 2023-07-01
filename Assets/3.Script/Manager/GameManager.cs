@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     public GameObject map_Camera;
 
     [Header("Player")]
-    public List<PlayerController> players = new List<PlayerController>();
+    public PlayerController[] players;
     public Player_Info player_Data;
 
     public Dictionary<int, Player_Info> player_Info = new Dictionary<int, Player_Info>();
@@ -57,6 +57,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Text[] mvp_Data;
 
+    [SerializeField] private Image[] yellow_Player_UI;
+    [SerializeField] private Image[] blue_Player_UI;
+
+    [SerializeField] private Sprite[] weapon_UI;
 
     [Header("Character Anim")]
     [SerializeField] private Animator ui_Anim;
@@ -82,10 +86,15 @@ public class GameManager : MonoBehaviour
         }
     }
     private bool chargeCall;
+
+    public bool isLobby;
     
     [Header("SpawnPos")]
-    public Vector3 yellowSpawn = new Vector3(0,3.6f,-60f);
-    public Vector3 blueSpawn = new Vector3(0, 3.6f, 60f);
+    [SerializeField] private Vector3[] _team_Yellow_Spawn;
+    [SerializeField] private Vector3[] _team_Blue_Spawn;
+
+    public Vector3[] team_Yellow_Spawn => _team_Yellow_Spawn;
+    public Vector3[] team_Blue_Spawn => _team_Blue_Spawn;
     public MeshRenderer deadLine;
     public bool gameStart;
     public bool gameEnd;
@@ -93,15 +102,15 @@ public class GameManager : MonoBehaviour
     [Header("Particle")]
     [SerializeField] private ParticleSystem yellow_WinEffect;
     [SerializeField] private ParticleSystem blue_WinEffect;
-
     private void Awake()
     {
         //GetComponent
         deadLine = GameObject.FindGameObjectWithTag("DeadLine").GetComponent<MeshRenderer>();
         map_Camera = GameObject.FindGameObjectWithTag("MapCamera");
-        ui_Anim = GameObject.FindGameObjectWithTag("TimeUI").GetComponent<Animator>();
         mvp_Model = transform.GetComponentInChildren<Player_MVP>();
-        players.Add(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>());
+
+        if(!isLobby) ui_Anim = GameObject.FindGameObjectWithTag("TimeUI").GetComponent<Animator>();
+
         //Animator
         TryGetComponent(out manager_Anim);
         teamYellow_Anim = transform.GetChild(0).GetComponent<WinAnim>();
@@ -109,63 +118,241 @@ public class GameManager : MonoBehaviour
         mvp_Anim = transform.GetChild(2).GetComponent<Animator>();
         teamYellow_Anim.gameObject.SetActive(false);
         teamBlue_Anim.gameObject.SetActive(false);
+
+        //Set Pos
+
+        _team_Yellow_Spawn = new Vector3[4];
+        _team_Blue_Spawn = new Vector3[4];
+
+        _team_Yellow_Spawn[0] = new Vector3(-5.46f, 3.6f, -60);
+        _team_Yellow_Spawn[1] = new Vector3(-1.46f, 3.6f, -60);
+        _team_Yellow_Spawn[2] = new Vector3(2.3f, 3.6f, -60);
+        _team_Yellow_Spawn[3] = new Vector3(6.04f, 3.6f, -60);
+
+        _team_Blue_Spawn[0] = new Vector3(-6.34f, 3.6f, 60);
+        _team_Blue_Spawn[1] = new Vector3(-2.34f, 3.6f, 60);
+        _team_Blue_Spawn[2] = new Vector3(1.41f, 3.6f, 60);
+        _team_Blue_Spawn[3] = new Vector3(5.16f, 3.6f, 60);
+    }
+    private void OnEnable()
+    {
+        deadLine.enabled = false; //데드라인 메쉬 비활성화
+        deltaTime = startTimer; //시작 전 카운트  
+
+        if (!isLobby)
+        {
+            count_Image.gameObject.SetActive(true); //카운트 다운 이미지 켜기
+            scoreGage_Blue.fillAmount = 0; //스코어 게이지 초기화
+            scoreGage_Yellow.fillAmount = 0;
+        }
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        if (!isLobby)
+        {
+            if (Input.GetKey(KeyCode.Escape)) SetCursorState(false);
+
+            else SetCursorState(true);
+
+            if (!gameStart) StartCount();
+            else if (!gameEnd) EndCount();
+
+            EndScoreCharge(chargeCall);
+        }
     }
 
+    //============================================        ↑ CallBack   |   Nomal ↓        ========================================================
+
+    public void FindPlayer()
+    {
+        players = FindObjectsOfType<PlayerController>();
+    }
+
+    public void Player_Dead_Check()
+    {
+        for (int i = 0; i < players.Length; i++)
+        {
+            Player_Respawn_UI(i, players[i].isDead);
+        }
+    }
+    public void Player_Respawn_UI(int i, bool isDead)
+    {
+        if (isDead)
+        {
+            if (players[i].player_Team.team == ETeam.Yellow)
+            {
+                Image img = yellow_Player_UI[i].transform.parent.GetComponent<Image>();
+                img.color = Color.gray;
+            }
+            else if (players[i].player_Team.team == ETeam.Blue)
+            {
+                Image img = blue_Player_UI[i].transform.parent.GetComponent<Image>();
+                img.color = Color.gray;
+            }
+        }
+        else
+        {
+            if (players[i].player_Team.team == ETeam.Yellow)
+            {
+                Image img = yellow_Player_UI[i].transform.parent.GetComponent<Image>();
+                img.color = players[i].player_Team.team_Yellow;
+            }
+            else if (players[i].player_Team.team == ETeam.Blue)
+            {
+                Image img = blue_Player_UI[i].transform.parent.GetComponent<Image>();
+                img.color = players[i].player_Team.team_Blue;
+            }
+        }
+  
+    }
+    public void SetPlayerPos()
+    {
+
+        int positionNum_Yellow = 0;
+        int positionNum_Blue = 0;
+        foreach (PlayerController player in players)
+        {
+            player.UI_OnOFf(true);
+            //MapCam(false, player._player_shot.playerCam.cam_Obj);
+        }
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (players[i].player_Team.team == ETeam.Yellow)
+            {
+                if (i >= 5)
+                {
+                    players[i].player_Team.team = ETeam.Blue;
+                    i--;
+                    continue;
+                }
+
+                if (!isLobby)
+                {
+                    switch (players[i]._player_shot.WeaponType)
+                    {
+                        case EWeapon.Brush:
+                            yellow_Player_UI[positionNum_Yellow].sprite = weapon_UI[0];
+                            break;
+                        case EWeapon.Gun:
+                            yellow_Player_UI[positionNum_Yellow].sprite = weapon_UI[1];
+                            break;
+                        case EWeapon.Bow:
+                            yellow_Player_UI[positionNum_Yellow].sprite = weapon_UI[2];
+                            break;
+                    }
+                }
+           
+
+                players[i].transform.position = team_Yellow_Spawn[positionNum_Yellow];
+                players[i].transform.localRotation = Quaternion.identity;
+                positionNum_Yellow++;
+            }
+            else
+            {
+                if (i >= 5)
+                {
+                    players[i].player_Team.team = ETeam.Yellow;
+                    i--;
+                    continue;
+                }
+
+                if (!isLobby)
+                {
+
+                    switch (players[i]._player_shot.WeaponType)
+                    {
+                        case EWeapon.Brush:
+                            blue_Player_UI[positionNum_Blue].sprite = weapon_UI[0];
+                            break;
+                        case EWeapon.Gun:
+                            blue_Player_UI[positionNum_Blue].sprite = weapon_UI[1];
+                            break;
+                        case EWeapon.Bow:
+                            blue_Player_UI[positionNum_Blue].sprite = weapon_UI[2];
+                            break;
+                    }
+                }
+                players[i].transform.position = team_Blue_Spawn[positionNum_Blue];
+                players[i].transform.localRotation = Quaternion.identity;
+                players[i].transform.localRotation = Quaternion.Euler(0,180,0);
+                positionNum_Blue++;
+            }
+        }
+    }
     private void List_In_Player(int score, PlayerController player_data)
     {
         player_Info[score] = new Player_Info(player_data.player_Team.team, player_data._player_shot.WeaponType,
             player_data.player_Input.player_Name, player_data._player_shot.player_ScoreSet);
     }
 
-    private void OnEnable()
-    {
-        deltaTime = startTimer; //시작 전 카운트 
-        deadLine.enabled = false; //데드라인 메쉬 비활성화
-        count_Image.gameObject.SetActive(true); //카운트 다운 이미지 켜기
-        scoreGage_Blue.fillAmount = 0; //스코어 게이지 초기화
-        scoreGage_Yellow.fillAmount = 0;
-    }
+    //======================================================================  Time Late Method
 
-    private void Start()
+    public void StartCount() //Game Start CountDown
     {
-        foreach(PlayerController player in players)
+        deltaTime -= Time.deltaTime;
+        
+        foreach (PlayerController player in players)
         {
-            player.UI_OnOFf(true);
-            MapCam(false, player._player_shot.playerCam.cam_Obj);
+            player.isStop = true;
+            player._player_shot.playerCam.SelectCamera();
+            MapCam(false, player._player_shot.playerCam.cam_Obj.gameObject);
+        } //Player Move Limit
+
+        if (deltaTime <= 10 && deltaTime > 0) //CountDown Call
+        {
+            CountDown((int)deltaTime);
         }
-    } //Cam 초기화
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.Escape)) SetCursorState(false);
+        if (deltaTime <= 0) //GameStart Action
+        {
+            ui_Anim.SetBool("Count", false);
+            count_Image.gameObject.SetActive(false);
+            ui_Anim.SetTrigger("GameStart");
+            deltaTime = endTimer;
+            foreach (PlayerController player in players)
+            {
+                player.isStop = false;
+                player._player_shot.name_UI.text = "영역을 잔뜩 확보해라!";
+            }
 
-        else  SetCursorState(true);
-
-        if (!gameStart)  StartCount();
-        else if (!gameEnd) EndCount();
-
-        EndScoreCharge(chargeCall);
+            BGM_Manager.Instance.Stop_All_Sound_BGM();
+            BGM_Manager.Instance.Play_Sound_BGM("BGM_Game");
+            gameStart = true;
+        }
     }
+    public void EndCount() //Game End CountDown
+    {
+        deltaTime -= Time.deltaTime;
+        TimeSet();
 
+        if (deltaTime <= 0)
+        {
+            ui_Anim.SetBool("Count", false);
+            ui_Anim.SetBool("TimeOut", true);
+            StartCoroutine(GameStop());
+            gameEnd = true;
+        }
+    }
     private void TimeSet() //Time UI Setting
     {
         _Sec = (int)deltaTime % 60;
         _Min = (int)deltaTime / 60;
         timeText.text = $"{ _Min}:{_Sec.ToString("D2")}";
 
-        if (deltaTime <= 61 && deltaTime > 10) 
+        if (deltaTime <= 61 && deltaTime > 10)
         {
             ui_Anim.SetBool("One_Min", true);
             timeText.color = players[0].player_Team.team_Yellow;
         }   //1 Min Warning
-        if (deltaTime <= 11 && deltaTime > 1)  
-            {
+        if (deltaTime <= 11 && deltaTime > 1)
+        {
             ui_Anim.SetBool("One_Min", false);
             count_Image.gameObject.SetActive(true);
-            CountDown((int)deltaTime -1);
+            CountDown((int)deltaTime - 1);
         }    //10 Sec. NumColor = Yellow
-        else if(deltaTime <= 1)
+        else if (deltaTime <= 1)
         {
             count_Image.gameObject.SetActive(false);
             ui_Anim.SetBool("Count", false);
@@ -174,7 +361,7 @@ public class GameManager : MonoBehaviour
     }
     private void CountDown(int count) //Count Down Image
     {
-        if(count <11 && count > -1)
+        if (count < 11 && count > -1)
         {
             ui_Anim.SetBool("Count", true);
             count_Image.sprite = count_Sprite[count];
@@ -194,50 +381,7 @@ public class GameManager : MonoBehaviour
         else return;
     }
 
-    public void StartCount() //Game Start CountDown
-    {
-        deltaTime -= Time.deltaTime;
-        
-        foreach (PlayerController player in players)
-        {
-            player.isStop = true;
-        } //Player Move Limit
-
-        if (deltaTime <= 10 && deltaTime > 0) //CountDown Call
-        {
-            CountDown((int)deltaTime);
-        }
-
-        if (deltaTime <= 0) //GameStart Action
-        {
-            ui_Anim.SetBool("Count", false);
-            count_Image.gameObject.SetActive(false);
-            ui_Anim.SetTrigger("GameStart");
-            deltaTime = endTimer;
-            gameStart = true;
-            foreach (PlayerController player in players)
-            {
-                player.isStop = false;
-                player._player_shot.name_UI.text = "영역을 잔뜩 확보해라!";
-            }
-
-            BGM_Manager.Instance.Play_Sound_BGM("BGM_Game");
-        }
-    }
-    public void EndCount() //Game End CountDown
-    {
-        deltaTime -= Time.deltaTime;
-        TimeSet();
-
-        if (deltaTime <= 0)
-        {
-            ui_Anim.SetBool("Count", false);
-            ui_Anim.SetBool("TimeOut", true);
-            StartCoroutine(GameStop());
-            gameEnd = true;
-        }
-    }
-
+    //======================================================================  Ending Method
     public IEnumerator GameStop()
     {
 
@@ -258,7 +402,7 @@ public class GameManager : MonoBehaviour
         foreach (PlayerController player in players)
         {
             player.UI_OnOFf(false);
-            MapCam(true, player._player_shot.playerCam.cam_Obj);
+            MapCam(true, player._player_shot.playerCam.cam_Obj.gameObject);
         } //맵캠으로 변경 / 플레이어 ui 비활성화
 
         
@@ -301,11 +445,11 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
         ui_Anim.SetBool("Score", false);
-        BGM_Manager.Instance.Play_Sound_BGM("UI_Victory");
+        BGM_Manager.Instance.Play_Sound_BGM("BGM_Victory");
         //Player Data Setup
-        int[] player_Score = new int[players.Count];
+        int[] player_Score = new int[players.Length];
 
-        for (int i = 0; i < players.Count; i++)
+        for (int i = 0; i < players.Length; i++)
         {
             List_In_Player(players[i]._player_shot.player_ScoreSet, players[i]);
             player_Score[i] = players[i]._player_shot.player_ScoreSet;
@@ -357,6 +501,8 @@ public class GameManager : MonoBehaviour
         ui_Anim.SetBool("isMVP", true);
         mvp_Anim.SetBool("Dance", true);
     }
+
+    //======================================================================  ETC
     public float Check_Color(ETeam team)
     {
         int teamScore = 0;

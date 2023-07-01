@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : Living_Entity, IPlayer
@@ -207,7 +205,6 @@ public class PlayerController : Living_Entity, IPlayer
             _player_Anim.SetTrigger("Hit");
             hitEffect[0].Play();
         }
- 
 
     }
     public override void RestoreHp(float newHealth)
@@ -221,7 +218,7 @@ public class PlayerController : Living_Entity, IPlayer
         Transform_Stat(0, 0, false, false);
         deathEffect.particle.Play();
         dmgBullet.Player_Kill(player_Input.player_Name);
-
+        GameManager.Instance.Player_Dead_Check(); //Player Dead UI;
         ES_Manager.Play_SoundEffect("Player_Death");
 
         StartCoroutine(_player_shot.Enemy_Score(dmgBullet.player_Shot.player_Input.player_Name, dmgBullet.player_Shot.player_ScoreSet));
@@ -229,11 +226,11 @@ public class PlayerController : Living_Entity, IPlayer
     public void Respawn(ETeam team, bool falling)
     {
         plusTime += Time.deltaTime;
-        if(plusTime >= 1)
+        if (plusTime >= 1)
         {
             _player_shot.playerCam.cam_Obj.gameObject.SetActive(false);
         }
-        GameManager.Instance.MapCam(true, _player_shot.playerCam.cam_Obj);
+        GameManager.Instance.MapCam(true, _player_shot.playerCam.cam_Obj.gameObject);
         if (!falling)
         {
             if (plusTime >= spawnTime)
@@ -242,16 +239,16 @@ public class PlayerController : Living_Entity, IPlayer
                 if (team == ETeam.Yellow)
                 {
                     transform.rotation = Quaternion.identity;
-                    transform.position = GameManager.Instance.yellowSpawn;
+                    transform.position = GameManager.Instance.team_Yellow_Spawn[Random.Range(0,3)];
                 }
                 else 
                 {
                     transform.rotation = Quaternion.Euler(0,180,0);
-                    transform.position = GameManager.Instance.blueSpawn;
+                    transform.position = GameManager.Instance.team_Blue_Spawn[Random.Range(0, 3)];
                 }
 
                 //카메라 전환
-                GameManager.Instance.MapCam(false, _player_shot.playerCam.cam_Obj);
+                GameManager.Instance.MapCam(false, _player_shot.playerCam.cam_Obj.gameObject);
 
                 //리스폰 시간 초기화
                 spawnTime = 5f;
@@ -263,10 +260,12 @@ public class PlayerController : Living_Entity, IPlayer
                 Transform_Stat(0, player_Stat.moveZone_Speed, false, true);
                 //리턴
                 isDead = false;
+                GameManager.Instance.Player_Dead_Check(); //Player Dead UI;
+
                 return;
             }
         }
-        else
+        else //맵 밖으로 떨어질 때
         {
             if (plusTime >= spawnTime)
             {
@@ -274,15 +273,15 @@ public class PlayerController : Living_Entity, IPlayer
                 if (player_Team.team == ETeam.Yellow)
                 {
                     transform.rotation = Quaternion.identity;
-                    transform.position = GameManager.Instance.yellowSpawn;
+                    transform.position = GameManager.Instance.team_Yellow_Spawn[Random.Range(0, 3)];
                 }
                 else
                 {
                     transform.rotation = Quaternion.Euler(0, 180, 0);
-                    transform.position = GameManager.Instance.blueSpawn;
+                    transform.position = GameManager.Instance.team_Blue_Spawn[Random.Range(0, 3)];
                 }
                 //카메라 전환
-                GameManager.Instance.MapCam(false, _player_shot.playerCam.cam_Obj);
+                GameManager.Instance.MapCam(false, _player_shot.playerCam.cam_Obj.gameObject);
                 //리스폰 초기화, 리턴
                 spawnTime = 5f;
                 plusTime = 0;
@@ -506,8 +505,4 @@ public class PlayerController : Living_Entity, IPlayer
 
     #endregion
 
-    public void Manager_Import_Data()
-    {
-        GameManager.Instance.players.Add(gameObject.GetComponent<PlayerController>());
-    }
 }

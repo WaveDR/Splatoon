@@ -8,6 +8,7 @@ TagManager:
   - DeadLine
   - MapCamera
   - TimeUI
+  - PlayerCam
   layers:
   - Default
   - TransparentFX
