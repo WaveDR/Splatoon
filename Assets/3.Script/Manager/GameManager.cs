@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
         }
     }
     private bool chargeCall;
+    private bool isStart;
 
     public bool isLobby;
     
@@ -139,12 +140,6 @@ public class GameManager : MonoBehaviour
         deadLine.enabled = false; //데드라인 메쉬 비활성화
         deltaTime = startTimer; //시작 전 카운트  
 
-        if (!isLobby)
-        {
-            count_Image.gameObject.SetActive(true); //카운트 다운 이미지 켜기
-            scoreGage_Blue.fillAmount = 0; //스코어 게이지 초기화
-            scoreGage_Yellow.fillAmount = 0;
-        }
     }
     // Update is called once per frame
     void Update()
@@ -291,6 +286,16 @@ public class GameManager : MonoBehaviour
 
     public void StartCount() //Game Start CountDown
     {
+        if (!isStart)
+        {
+            SetPlayerPos();
+            count_Image.gameObject.SetActive(true); //카운트 다운 이미지 켜기
+            scoreGage_Blue.fillAmount = 0; //스코어 게이지 초기화
+            scoreGage_Yellow.fillAmount = 0;
+            isStart = true;
+            
+        }
+
         deltaTime -= Time.deltaTime;
         
         foreach (PlayerController player in players)
