@@ -7858,7 +7858,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8545126424324422946, guid: e873028ed40924f479a022b78f675c42, type: 3}
       propertyPath: isLobby
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8545126424324422946, guid: e873028ed40924f479a022b78f675c42, type: 3}
       propertyPath: ui_Anim

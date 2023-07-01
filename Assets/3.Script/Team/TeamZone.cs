@@ -8,7 +8,7 @@ public class TeamZone : MonoBehaviour
 {
     public ETeam team;
     private Bullet bullet;
-
+    
     void Start()
     {
         
@@ -31,6 +31,8 @@ public class TeamZone : MonoBehaviour
         if(team != ETeam.Static)
         team = bullet.bulletType;
         //팀 판별 로직 구현할것
+
+        if(!GameManager.Instance.isLobby)
         bullet.player_Shot.player_Score++;
     }
 }

@@ -11639,7 +11639,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   isDead: 0
-  isStop: 1
+  isStop: 0
   player_Team: {fileID: 0}
   _isJump: 0
   isWall: 0

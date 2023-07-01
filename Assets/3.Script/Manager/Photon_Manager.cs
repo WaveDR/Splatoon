@@ -8,6 +8,7 @@ using Photon.Realtime;
 
 public class Photon_Manager : MonoBehaviourPunCallbacks
 {
+    public Photon_Manager Instance = null;
     private readonly string game_Version = "1";
 
     public int max_Player;
@@ -23,7 +24,16 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if(Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     private void Start()
     {
