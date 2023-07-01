@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
     private int _Min;
     private int _Sec;
     private float _Time;
+    private float _BeepTime;
     private float _Charging_Score;
     private float deltaTime
     {
@@ -161,6 +162,7 @@ public class GameManager : MonoBehaviour
 
     public void FindPlayer()
     {
+        players = null;
         players = FindObjectsOfType<PlayerController>();
     }
 
@@ -203,7 +205,7 @@ public class GameManager : MonoBehaviour
     }
     public void SetPlayerPos()
     {
-
+        FindPlayer();
         int positionNum_Yellow = 0;
         int positionNum_Blue = 0;
         foreach (PlayerController player in players)
@@ -289,6 +291,7 @@ public class GameManager : MonoBehaviour
         if (!isStart)
         {
             PaintTarget.ClearAllPaint();
+            BGM_Manager.Instance.Stop_All_Sound_BGM();
             foreach(TeamZone teamZone in nodes)
             {
                 teamZone.team = ETeam.Etc;
@@ -312,6 +315,7 @@ public class GameManager : MonoBehaviour
 
         if (deltaTime <= 10 && deltaTime > 0) //CountDown Call
         {
+            _BeepTime += Time.deltaTime;
             CountDown((int)deltaTime);
         }
 
@@ -328,6 +332,7 @@ public class GameManager : MonoBehaviour
             }
 
             BGM_Manager.Instance.Stop_All_Sound_BGM();
+            BGM_Manager.Instance.Play_Sound_BGM("UI_Finish");
             BGM_Manager.Instance.Play_Sound_BGM("BGM_Game");
             gameStart = true;
         }
@@ -360,6 +365,8 @@ public class GameManager : MonoBehaviour
         {
             ui_Anim.SetBool("One_Min", false);
             count_Image.gameObject.SetActive(true);
+
+            _BeepTime += Time.deltaTime;
             CountDown((int)deltaTime - 1);
         }    //10 Sec. NumColor = Yellow
         else if (deltaTime <= 1)
@@ -375,6 +382,12 @@ public class GameManager : MonoBehaviour
         {
             ui_Anim.SetBool("Count", true);
             count_Image.sprite = count_Sprite[count];
+
+            if(_BeepTime >= 1)
+            {
+                BGM_Manager.Instance.Play_Sound_BGM("UI_Beep");
+                _BeepTime = 0;
+            }
         }
     }
     private void EndScoreCharge(bool call) //27.7% Production
@@ -394,7 +407,7 @@ public class GameManager : MonoBehaviour
     //======================================================================  Ending Method
     public IEnumerator GameStop()
     {
-
+        FindPlayer();
         BGM_Manager.Instance.Stop_All_Sound_BGM();
         BGM_Manager.Instance.Play_Sound_BGM("UI_Finish");
         //화면 전환되는 시간

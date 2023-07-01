@@ -107,12 +107,12 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         base.OnJoinedRoom();
         Debug.Log("Room Join Success");
         stateUI.text = "방에 입장합니다.";
-        SceneManager.LoadScene("InGame");
+        LoadingScene.LoadScene("InGame");
         StartCoroutine(Player_Spawn());
     }
     IEnumerator Player_Spawn()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         PhotonNetwork.Instantiate(playerPrefabs.name, Vector3.zero, Quaternion.identity);
         GameManager.Instance.FindPlayer();
         GameManager.Instance.SetPlayerPos();

@@ -18,20 +18,27 @@ public class Create_RoomUI : MonoBehaviour
     {
         num++;
         ui_Anim.SetInteger("CreateRoom", num);
+        BGM_Manager.Instance.Play_Sound_BGM("UI_Click");
 
         if (num >= 5) num = 0;
     }
     
     public void Create_Room_Open()
     {
+        BGM_Manager.Instance.Play_Sound_BGM("UI_Click");
+
         create_Room.SetActive(true);
     }
     public void Create_Room_Close()
     {
+        BGM_Manager.Instance.Play_Sound_BGM("UI_Click");
+
         create_Room.SetActive(false);
     }
     public void Matching(bool isMatch)
     {
+        BGM_Manager.Instance.Play_Sound_BGM("UI_Click");
+
         ui_Anim.SetBool("isMatch", isMatch);
 
         if (!isMatch) notMatch.SetActive(false);
