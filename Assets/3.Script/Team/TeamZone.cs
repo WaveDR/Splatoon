@@ -8,7 +8,6 @@ public class TeamZone : MonoBehaviour
 {
     public ETeam team;
     private Bullet bullet;
-    
     void Start()
     {
         

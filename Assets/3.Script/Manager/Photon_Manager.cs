@@ -8,7 +8,7 @@ using Photon.Realtime;
 
 public class Photon_Manager : MonoBehaviourPunCallbacks
 {
-    public Photon_Manager Instance = null;
+    public static Photon_Manager Instance = null;
     private readonly string game_Version = "1";
 
     public int max_Player;

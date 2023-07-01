@@ -288,6 +288,11 @@ public class GameManager : MonoBehaviour
     {
         if (!isStart)
         {
+            PaintTarget.ClearAllPaint();
+            foreach(TeamZone teamZone in nodes)
+            {
+                teamZone.team = ETeam.Etc;
+            }
             SetPlayerPos();
             count_Image.gameObject.SetActive(true); //카운트 다운 이미지 켜기
             scoreGage_Blue.fillAmount = 0; //스코어 게이지 초기화
