@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using System;
+using Photon.Pun;
 
 
 [Serializable]
@@ -15,7 +16,7 @@ public class Player_Info
     public string name;
     public int score;
 }
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPun
 {
     public static GameManager _instance = null;
     public static GameManager Instance
@@ -145,20 +146,31 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isLobby)
-        {
-            if (Input.GetKey(KeyCode.Escape)) SetCursorState(false);
-
-            else SetCursorState(true);
-
-            if (!gameStart) StartCount();
-            else if (!gameEnd) EndCount();
-
-            EndScoreCharge(chargeCall);
-        }
+        GameStream();
     }
 
     //============================================        ก่ CallBack   |   Nomal ก้        ========================================================
+
+    [PunRPC]
+    public void GameStream()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (!isLobby)
+            {
+                if (Input.GetKey(KeyCode.Escape)) SetCursorState(false);
+
+                else SetCursorState(true);
+
+                if (!gameStart) StartCount();
+                else if (!gameEnd) EndCount();
+
+                EndScoreCharge(chargeCall);
+            }
+            photonView.RPC("GameStream", RpcTarget.Others);
+        }
+     
+    }
 
     public void FindPlayer()
     {

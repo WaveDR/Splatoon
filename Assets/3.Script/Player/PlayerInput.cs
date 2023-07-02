@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class PlayerInput : MonoBehaviour
+public class PlayerInput : MonoBehaviourPun
 {
     [SerializeField] private string move_Hor_S;
     [SerializeField] private string move_Ver_S;
@@ -53,6 +54,9 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (!photonView.IsMine) return;
+
         if (_player_Con.isStop)
         {
             move_Hor = 0;

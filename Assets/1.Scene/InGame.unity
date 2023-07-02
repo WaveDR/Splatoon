@@ -7820,6 +7820,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6972433185091145493, guid: e873028ed40924f479a022b78f675c42, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8545126424324422945, guid: e873028ed40924f479a022b78f675c42, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -7865,10 +7869,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8545126424324422946, guid: e873028ed40924f479a022b78f675c42, type: 3}
-      propertyPath: isLobby
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8545126424324422946, guid: e873028ed40924f479a022b78f675c42, type: 3}
       propertyPath: ui_Anim
       value: 
       objectReference: {fileID: 1731183858}
@@ -7876,10 +7876,6 @@ PrefabInstance:
       propertyPath: timeText
       value: 
       objectReference: {fileID: 1678638154}
-    - target: {fileID: 8545126424324422946, guid: e873028ed40924f479a022b78f675c42, type: 3}
-      propertyPath: startTimer
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 8545126424324422946, guid: e873028ed40924f479a022b78f675c42, type: 3}
       propertyPath: count_Image
       value: 
@@ -14820,6 +14816,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2035016666, guid: f3345eca21c433a42b46e560729dd1b4, type: 3}
+      propertyPath: sceneViewId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1473879080794875528, guid: f3345eca21c433a42b46e560729dd1b4, type: 3}
       propertyPath: m_Name
       value: Time_UI

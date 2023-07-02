@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using Photon.Pun;
 public class PlayerController : Living_Entity, IPlayer
 {
     [Header("Player Stat")]
@@ -20,7 +20,7 @@ public class PlayerController : Living_Entity, IPlayer
     private Rigidbody _player_rigid;
     public PlayerShooter _player_shot;
     private Animator _player_Anim;
-    
+
     private float _player_Speed;
     private bool _Wall_RacastOn;
     private Bullet dmgBullet; //맞을 때 받을 데미지값 가져오기
@@ -50,7 +50,7 @@ public class PlayerController : Living_Entity, IPlayer
         {
             hitEffect[i] = hitEffect[0].transform.GetChild(i).GetComponent<ParticleSystem>();
         }
-        deathEffect = transform.GetChild(transform.childCount -1).GetComponent<Bullet>();
+        deathEffect = transform.GetChild(transform.childCount - 1).GetComponent<Bullet>();
 
         ES_Manager = GetComponentInChildren<Sound_Manager>();
     }
@@ -69,6 +69,8 @@ public class PlayerController : Living_Entity, IPlayer
     // Update is called once per frame
     void Update()
     {
+        if (!photonView.IsMine) return;
+
         if (!isStop)
         {
             if (isFalling) Respawn(player_Team.team, true); //맵 밖으로 떨어질 때
@@ -96,24 +98,29 @@ public class PlayerController : Living_Entity, IPlayer
 
     private void OnParticleCollision(GameObject other)
     {
-        dmgBullet = other.GetComponent<Bullet>();
-
-        if (dmgBullet.team.team != player_Team.team && !isDead)
+        if (PhotonNetwork.IsMasterClient)
         {
-            OnDamage(dmgBullet.dmg);
+            dmgBullet = other.GetComponent<Bullet>();
+
+            if (dmgBullet.team.team != player_Team.team && !isDead)
+            {
+                OnDamage(dmgBullet.dmg);
+            }
         }
     }
     private void OnCollisionEnter(Collision collision)
     {
+        if (!photonView.IsMine) return;
         if (collision.gameObject.CompareTag("DeadLine"))
         {
             spawnTime = 3;
             isFalling = true;
-        } 
+        }
     }
 
     private void OnCollisionStay(Collision collision)
     {
+        if (!photonView.IsMine) return;
         if (collision.gameObject.CompareTag("Wall"))
         {
             //_isJump = false;
@@ -127,6 +134,7 @@ public class PlayerController : Living_Entity, IPlayer
     }
     private void OnCollisionExit(Collision collision)
     {
+        if (!photonView.IsMine) return;
         if (collision.gameObject.CompareTag("Wall")) // 건물 끄트머리에 도달할 시
         {
             MoveWall(false, null);
@@ -135,7 +143,7 @@ public class PlayerController : Living_Entity, IPlayer
 
     //============================================        ↑ 콜백 메서드   |  일반 메서드 ↓        ========================================================
 
-    
+
     private void Player_Jump()
     {
         if (player_Input.jDown && !_isJump)
@@ -182,9 +190,9 @@ public class PlayerController : Living_Entity, IPlayer
     {
         base.OnDamage(damage);
 
-        if(player_Team.team == ETeam.Blue)
+        if (player_Team.team == ETeam.Blue)
         {
-            foreach(ParticleSystem par in hitEffect)
+            foreach (ParticleSystem par in hitEffect)
             {
                 var hit = par.main;
                 hit.startColor = (Color)player_Team.team_Yellow;
@@ -198,7 +206,7 @@ public class PlayerController : Living_Entity, IPlayer
                 hit.startColor = (Color)player_Team.team_Blue;
             }
         }
-          
+
         if (!isDead)
         {
             ES_Manager.Play_SoundEffect("Player_Hit");
@@ -207,6 +215,8 @@ public class PlayerController : Living_Entity, IPlayer
         }
 
     }
+
+
     public override void RestoreHp(float newHealth)
     {
         base.RestoreHp(newHealth);
@@ -225,68 +235,73 @@ public class PlayerController : Living_Entity, IPlayer
     }
     public void Respawn(ETeam team, bool falling)
     {
-        plusTime += Time.deltaTime;
-        if (plusTime >= 1)
+        if (photonView.IsMine)
         {
-            _player_shot.playerCam.cam_Obj.gameObject.SetActive(false);
-        }
-        GameManager.Instance.MapCam(true, _player_shot.playerCam.cam_Obj.gameObject);
-        if (!falling)
-        {
-            if (plusTime >= spawnTime)
+
+
+            plusTime += Time.deltaTime;
+            if (plusTime >= 1)
             {
-                //팀 구분
-                if (team == ETeam.Yellow)
-                {
-                    transform.rotation = Quaternion.identity;
-                    transform.position = GameManager.Instance.team_Yellow_Spawn[Random.Range(0,3)];
-                }
-                else 
-                {
-                    transform.rotation = Quaternion.Euler(0,180,0);
-                    transform.position = GameManager.Instance.team_Blue_Spawn[Random.Range(0, 3)];
-                }
-
-                //카메라 전환
-                GameManager.Instance.MapCam(false, _player_shot.playerCam.cam_Obj.gameObject);
-
-                //리스폰 시간 초기화
-                spawnTime = 5f;
-                plusTime = 0;
-
-                //플레이어 스탯 초기화
-                player_CurHealth = player_Stat.max_Heath;
-                _player_shot.weapon.weapon_CurAmmo = _player_shot.weapon.weapon_MaxAmmo;
-                Transform_Stat(0, player_Stat.moveZone_Speed, false, true);
-                //리턴
-                isDead = false;
-                GameManager.Instance.Player_Dead_Check(); //Player Dead UI;
-
-                return;
+                _player_shot.playerCam.cam_Obj.gameObject.SetActive(false);
             }
-        }
-        else //맵 밖으로 떨어질 때
-        {
-            if (plusTime >= spawnTime)
+            GameManager.Instance.MapCam(true, _player_shot.playerCam.cam_Obj.gameObject);
+            if (!falling)
             {
-                //팀 구분
-                if (player_Team.team == ETeam.Yellow)
+                if (plusTime >= spawnTime)
                 {
-                    transform.rotation = Quaternion.identity;
-                    transform.position = GameManager.Instance.team_Yellow_Spawn[Random.Range(0, 3)];
+                    //팀 구분
+                    if (team == ETeam.Yellow)
+                    {
+                        transform.rotation = Quaternion.identity;
+                        transform.position = GameManager.Instance.team_Yellow_Spawn[Random.Range(0, 3)];
+                    }
+                    else
+                    {
+                        transform.rotation = Quaternion.Euler(0, 180, 0);
+                        transform.position = GameManager.Instance.team_Blue_Spawn[Random.Range(0, 3)];
+                    }
+
+                    //카메라 전환
+                    GameManager.Instance.MapCam(false, _player_shot.playerCam.cam_Obj.gameObject);
+
+                    //리스폰 시간 초기화
+                    spawnTime = 5f;
+                    plusTime = 0;
+
+                    //플레이어 스탯 초기화
+                    player_CurHealth = player_Stat.max_Heath;
+                    _player_shot.weapon.weapon_CurAmmo = _player_shot.weapon.weapon_MaxAmmo;
+                    Transform_Stat(0, player_Stat.moveZone_Speed, false, true);
+                    //리턴
+                    isDead = false;
+                    GameManager.Instance.Player_Dead_Check(); //Player Dead UI;
+
+                    return;
                 }
-                else
+            }
+            else //맵 밖으로 떨어질 때
+            {
+                if (plusTime >= spawnTime)
                 {
-                    transform.rotation = Quaternion.Euler(0, 180, 0);
-                    transform.position = GameManager.Instance.team_Blue_Spawn[Random.Range(0, 3)];
+                    //팀 구분
+                    if (player_Team.team == ETeam.Yellow)
+                    {
+                        transform.rotation = Quaternion.identity;
+                        transform.position = GameManager.Instance.team_Yellow_Spawn[Random.Range(0, 3)];
+                    }
+                    else
+                    {
+                        transform.rotation = Quaternion.Euler(0, 180, 0);
+                        transform.position = GameManager.Instance.team_Blue_Spawn[Random.Range(0, 3)];
+                    }
+                    //카메라 전환
+                    GameManager.Instance.MapCam(false, _player_shot.playerCam.cam_Obj.gameObject);
+                    //리스폰 초기화, 리턴
+                    spawnTime = 5f;
+                    plusTime = 0;
+                    isFalling = false;
+                    return;
                 }
-                //카메라 전환
-                GameManager.Instance.MapCam(false, _player_shot.playerCam.cam_Obj.gameObject);
-                //리스폰 초기화, 리턴
-                spawnTime = 5f;
-                plusTime = 0;
-                isFalling = false;
-                return;
             }
         }
     } //리스폰
@@ -382,7 +397,7 @@ public class PlayerController : Living_Entity, IPlayer
     }                //Ray로 바닥 확인
     private void RaycastWall(bool SquidForm)
     {
-        if(player_Input.move_Vec == transform.forward)
+        if (player_Input.move_Vec == transform.forward)
         {
             player_Input.isWall_Hor = false;
             player_Input.isWall_Left = false;
@@ -454,53 +469,58 @@ public class PlayerController : Living_Entity, IPlayer
         raycast_Wall_Object = wallObj;
     }  //벽에 닿았을 시 상태 변환
 
+
     public void Transform_Stat(int ammo, float speed, bool Squid, bool Human)
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.LeftShift))
+        if (PhotonNetwork.IsMasterClient)
         {
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.LeftShift))
             {
-                _player_shot.ammoBack_UI.transform.parent.gameObject.SetActive(true);
-                hitEffect[0].transform.localPosition = new Vector3(0, 0.4f, 0.46f);
+                if (Input.GetKeyDown(KeyCode.LeftShift))
+                {
+                    _player_shot.ammoBack_UI.transform.parent.gameObject.SetActive(true);
+                    hitEffect[0].transform.localPosition = new Vector3(0, 0.4f, 0.46f);
+                }
+
+                if (Input.GetKeyUp(KeyCode.LeftShift))
+                {
+                    _player_shot.ammoBack_UI.transform.parent.gameObject.SetActive(false);
+                    hitEffect[0].transform.localPosition = new Vector3(0, 1.5f, 0.46f);
+
+                }
+                ES_Manager.Stop_All_Sound_Effect();
+                ES_Manager.Play_SoundEffect("Player_Hide");
+
+                player_Wave[2].Play(); //1회만 실행되는 소환 이펙트
             }
 
-            if (Input.GetKeyUp(KeyCode.LeftShift))
+            _player_shot.Reload_Ammo(ammo); // 재장전
+            _player_Speed = speed;
+
+            Transform_Mesh(Squid, Human);   //형태 변형
+
+            if (Human)
             {
-                _player_shot.ammoBack_UI.transform.parent.gameObject.SetActive(false);
-                hitEffect[0].transform.localPosition = new Vector3(0, 1.5f, 0.46f);
-
+                player_Wave[1].Stop();
+                player_Wave[0].Play(); // 인간 발걸음
             }
-            ES_Manager.Stop_All_Sound_Effect();
-            ES_Manager.Play_SoundEffect("Player_Hide");
-
-            player_Wave[2].Play(); //1회만 실행되는 소환 이펙트
-        }
-
-        _player_shot.Reload_Ammo(ammo); // 재장전
-        _player_Speed = speed;
-
-        Transform_Mesh(Squid, Human);   //형태 변형
-
-        if (Human)
-        {
-            player_Wave[1].Stop();
-            player_Wave[0].Play(); // 인간 발걸음
-        }
-        else
-        {
-
-            player_Wave[0].Stop();
-            player_Wave[1].Play(); // 오징어 발걸음
-        }
-
-        void Transform_Mesh(bool squid, bool human)
-        {
-            foreach (GameObject obj in human_Object)
+            else
             {
-                obj.SetActive(human);
+
+                player_Wave[0].Stop();
+                player_Wave[1].Play(); // 오징어 발걸음
             }
-            squid_Object.SetActive(squid);
+
+            void Transform_Mesh(bool squid, bool human)
+            {
+                foreach (GameObject obj in human_Object)
+                {
+                    obj.SetActive(human);
+                }
+                squid_Object.SetActive(squid);
+            }
         }
+      
     } //기본 상태 변환
 
     #endregion

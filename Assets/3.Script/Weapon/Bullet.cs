@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviourPun
 {
     public ETeam bulletType;
 
@@ -23,6 +24,7 @@ public class Bullet : MonoBehaviour
 
     private void OnEnable()
     {
+        if (!photonView.IsMine) return;
         player_Shot = GetComponentInParent<PlayerShooter>();
         team = GetComponentInParent<PlayerTeams>();
 

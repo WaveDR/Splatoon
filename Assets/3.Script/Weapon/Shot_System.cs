@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class Shot_System : MonoBehaviour
+public class Shot_System : MonoBehaviourPun,IPunObservable
 {
     public EWeapon weaponType;
     public WeaponStat weapon_Stat;
@@ -28,9 +29,26 @@ public class Shot_System : MonoBehaviour
         firePoint_Files_Blue = transform.GetChild(1);
     }
 
+   public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(weapon_CurAmmo);
+            stream.SendNext(weaponType);
+            stream.SendNext(weapon_Stat);
+        }
+        else
+        {
+            weapon_CurAmmo = (int)stream.ReceiveNext();
+            weaponType = (EWeapon) stream.ReceiveNext();
+            weapon_Stat = (WeaponStat)stream.ReceiveNext();
+        }
+    }
+
     // Update is called once per frame
     void OnEnable()
     {
+        if (!photonView.IsMine) return;
         Weapon_Color_Change();
     }
 
@@ -84,22 +102,29 @@ public class Shot_System : MonoBehaviour
         }
    
     }
+
+
+   // [PunRPC]
     public void Shot()
     {
-        if(weapon_CurAmmo > 0)
+        if (PhotonNetwork.IsMasterClient)
         {
-            foreach (Bullet shot in firePoint)
+            if (weapon_CurAmmo > 0)
             {
-                shot.particle.Play();
+                foreach (Bullet shot in firePoint)
+                {
+                    shot.particle.Play();
+                }
+                weapon_CurAmmo -= weapon_Stat.use_Ammo;
             }
-            weapon_CurAmmo -= weapon_Stat.use_Ammo;
-        }
-        else
-        {
-            Debug.Log("총알이 없습니다!");
-            weapon_CurAmmo = 0;
-            return;
-            //나중에 인게임 연출도 해줄것
+            else
+            {
+                Debug.Log("총알이 없습니다!");
+                weapon_CurAmmo = 0;
+                return;
+                //나중에 인게임 연출도 해줄것
+            }
+            //photonView.RPC("Shot", RpcTarget.Others);
         }
     }
 }

@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public enum EWeapon { Brush, Gun, Bow }
-public class PlayerShooter : MonoBehaviour
+public class PlayerShooter : MonoBehaviourPun
 {
     [Header("Weapon")]
 
@@ -96,6 +97,8 @@ public class PlayerShooter : MonoBehaviour
 
     private void OnEnable()
     {
+
+        if (!photonView.IsMine) return;
         //선택에 따라 활성화 disable도 동일한 방식
 
         switch (WeaponType)
@@ -140,6 +143,8 @@ public class PlayerShooter : MonoBehaviour
 
     void Update()
     {
+        if (!photonView.IsMine) return;
+
         if (!Player_Con.isStop || !_Player_Con.isDead)
         {
             Fire_Paint();
@@ -193,10 +198,12 @@ public class PlayerShooter : MonoBehaviour
     }
     private void OnDisable()
     {
+        if (!photonView.IsMine) return;
         weapon_Obj[weaponNum].SetActive(false);
     }
     private void OnAnimatorIK(int layerIndex)
     {
+
         if (WeaponType != EWeapon.Brush)
         {
             // 총의 기준점을 3D 모델 오른쪽 팔꿈치로 이동
@@ -386,6 +393,7 @@ public class PlayerShooter : MonoBehaviour
     {
         weapon.Shot();
     }
+
     public void Reload_Ammo(int speed)
     {
         if (weapon.weapon_CurAmmo <= weapon.weapon_MaxAmmo && !_isFire)
