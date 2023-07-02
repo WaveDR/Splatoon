@@ -107,7 +107,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         base.OnJoinedRoom();
         Debug.Log("Room Join Success");
         stateUI.text = "방에 입장합니다.";
-        LoadingScene.LoadScene("InGame");
+        SceneManager.LoadScene("InGame");
         StartCoroutine(Player_Spawn());
     }
     IEnumerator Player_Spawn()
