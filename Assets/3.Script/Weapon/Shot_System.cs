@@ -39,8 +39,6 @@ public class Shot_System : MonoBehaviourPun,IPunObservable
         else
         {
             weapon_CurAmmo = (int)stream.ReceiveNext();
-
-
         }
     }
 
@@ -105,8 +103,6 @@ public class Shot_System : MonoBehaviourPun,IPunObservable
 
     public void Shot()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
             if (weapon_CurAmmo > 0)
             {
                 ShotEffect();
@@ -119,7 +115,7 @@ public class Shot_System : MonoBehaviourPun,IPunObservable
                 return;
                 //나중에 인게임 연출도 해줄것
             }
-        }
+  
     }
     [PunRPC]
     public void ShotEffect()

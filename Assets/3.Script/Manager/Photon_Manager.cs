@@ -54,7 +54,6 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         Debug.Log("Created Room");
         stateUI.text = "¹æ »ý¼º";
         matching_UI.SetActive(false);
-        matching_UI.transform.parent.gameObject.SetActive(false);
         PhotonNetwork.LoadLevel("InGame");
 
     }
@@ -128,6 +127,8 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         {
             if (PhotonNetwork.CurrentRoom.PlayerCount >= max_Player)
             {
+                matching_UI.transform.parent.gameObject.SetActive(false);
+
                 GameManager.Instance.isLobby = false;
             }
         }
