@@ -119,7 +119,6 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         Debug.Log("Room Join Success");
         stateUI.text = "방에 입장합니다.";
 
-        photonView.RPC("Set_PlayerInfo", RpcTarget.All);
         //나중에 입장한 플레이어 모으기 && 다 모이면 게임 시작 누를 수 있도록 수정예정
         StartCoroutine(Player_Spawn());
     }
@@ -128,11 +127,12 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     {
         yield return new WaitForSeconds(1f);
 
-        PhotonNetwork.Instantiate(playerPrefabs.name, Vector3.zero, Quaternion.identity);
+        GameObject player = PhotonNetwork.Instantiate(playerPrefabs.name, Vector3.zero, Quaternion.identity);
+
+        photonView.RPC("Set_PlayerInfo", RpcTarget.Others, player);
 
         GameManager.Instance.FindPlayer();
         GameManager.Instance.SetPlayerPos();
-        photonView.RPC("Player_Spawn", RpcTarget.Others);
     }
 
     private void Update()
@@ -148,11 +148,11 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     #endregion
 
     [PunRPC]
-    public void Set_PlayerInfo()
+    public void Set_PlayerInfo( GameObject player)
     {
-        player_shot = playerPrefabs.GetComponent<PlayerShooter>();
-        player_team = playerPrefabs.GetComponent<PlayerTeams>();
-        player_Input = playerPrefabs.GetComponent<PlayerInput>();
+        player_shot = player.GetComponent<PlayerShooter>();
+        player_team = player.GetComponent<PlayerTeams>();
+        player_Input = player.GetComponent<PlayerInput>();
 
         player_team.team = set_Manager.team;
         player_shot.WeaponType = set_Manager.weapon;
