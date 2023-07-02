@@ -112,7 +112,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     }
     IEnumerator Player_Spawn()
     {
-        yield return new WaitForSeconds(3f);
+        yield return null;
         PhotonNetwork.Instantiate(playerPrefabs.name, Vector3.zero, Quaternion.identity);
         GameManager.Instance.FindPlayer();
         GameManager.Instance.SetPlayerPos();
