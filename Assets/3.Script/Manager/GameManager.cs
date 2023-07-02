@@ -334,6 +334,7 @@ public class GameManager : MonoBehaviourPun
 
         if (deltaTime <= 0) //GameStart Action
         {
+            FindPlayer();
             ui_Anim.SetBool("Count", false);
             count_Image.gameObject.SetActive(false);
             ui_Anim.SetTrigger("GameStart");
