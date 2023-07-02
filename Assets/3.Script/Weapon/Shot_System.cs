@@ -110,7 +110,7 @@ public class Shot_System : MonoBehaviourPun,IPunObservable
         {
             if (weapon_CurAmmo > 0)
             {
-                photonView.RPC("ShotEffect", RpcTarget.All);
+                ShotEffect();
                 weapon_CurAmmo -= weapon_Stat.use_Ammo;
             }
             else

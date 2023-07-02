@@ -11695,7 +11695,7 @@ MonoBehaviour:
   - {fileID: 4898723398910590794}
   - {fileID: 3460124255464657954}
   - {fileID: 8729590655694549622}
-  WeaponType: 0
+  WeaponType: 1
   weapon: {fileID: 0}
   weaponNum: 0
   ammo_Back: {fileID: 1773349895312559445}
