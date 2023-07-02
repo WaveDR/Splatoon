@@ -20,12 +20,14 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     //Player Prefabs
 
     public GameObject playerPrefabs;
+    public EWeapon player_weapon;
+    public ETeam player_team;
+    public string player_name;
     public Text stateUI;
-
 
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
@@ -107,6 +109,8 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
 
     }
 
+
+
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
@@ -115,17 +119,22 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         //나중에 입장한 플레이어 모으기 && 다 모이면 게임 시작 누를 수 있도록 수정예정
         StartCoroutine(Player_Spawn());
     }
+ 
     IEnumerator Player_Spawn()
     {
         yield return new WaitForSeconds(1f);
-       GameObject playerPrefab = PhotonNetwork.Instantiate(playerPrefabs.name, Vector3.zero, Quaternion.identity);
 
+
+        GameObject playerPrefab = PhotonNetwork.Instantiate(playerPrefabs.name, Vector3.zero, Quaternion.identity);
         PlayerController playerCon = playerPrefab.GetComponent<PlayerController>();
-        playerCon.photonView.RPC("Player_Data_SetUp", RpcTarget.All,
-            set_Manager.team, set_Manager.weapon, set_Manager.player_Name.text);
+        playerCon.player_Team.team = player_team;
+        playerCon._player_shot.WeaponType = player_weapon;
+        playerCon.player_Input.player_Name = name;
+
 
         GameManager.Instance.FindPlayer();
         GameManager.Instance.SetPlayerPos();
+        photonView.RPC("Player_Spawn", RpcTarget.Others);
     }
 
     private void Update()
@@ -139,4 +148,12 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         }
     }
     #endregion
+
+    public void Set_PlayerInfo(ETeam team, EWeapon weapon, string name)
+    {
+        player_team = team;
+        player_weapon = weapon;
+        player_name = name;
+    }
+
 }

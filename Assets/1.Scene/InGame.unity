@@ -532,6 +532,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1775522003}
     m_Modifications:
+    - target: {fileID: 74686861704087803, guid: bee586517192ba9468253924a84bdf91, type: 3}
+      propertyPath: sceneViewId
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5777034218105252643, guid: bee586517192ba9468253924a84bdf91, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -626,6 +630,10 @@ PrefabInstance:
     - target: {fileID: 326774955524934871, guid: 681dac176573a08429dbffeccf3afd03, type: 3}
       propertyPath: autoRandomSeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 702567073968427483, guid: 681dac176573a08429dbffeccf3afd03, type: 3}
+      propertyPath: sceneViewId
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 887589502566758809, guid: 681dac176573a08429dbffeccf3afd03, type: 3}
       propertyPath: playOnAwake
@@ -7476,6 +7484,10 @@ PrefabInstance:
     - target: {fileID: 2619275470460700767, guid: 6159e53a9ee5f0440817aea79ccbbdb8, type: 3}
       propertyPath: TriggerModule.outside
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2739868420021979446, guid: 6159e53a9ee5f0440817aea79ccbbdb8, type: 3}
+      propertyPath: sceneViewId
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2925335314676409176, guid: 6159e53a9ee5f0440817aea79ccbbdb8, type: 3}
       propertyPath: m_Name

@@ -42,6 +42,12 @@ MonoBehaviour:
   - GameStream
   - ChangeZone
   - ShotEffect
+  - MoveScene
+  - Player_Set
+  - LoadingOff
+  - RPC_PlayerData
+  - Player_Spawn
+  - PlayerData
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

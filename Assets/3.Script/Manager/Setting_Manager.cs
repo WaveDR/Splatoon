@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 public class Setting_Manager : MonoBehaviour
 {
@@ -32,13 +33,15 @@ public class Setting_Manager : MonoBehaviour
     public Color32 team_Blue = new Color32(129, 67, 255, 255);
     private void Awake()
     {
+        player_shot = player_Prefabs.GetComponent<PlayerShooter>();
+        player_Team = player_Prefabs.GetComponent<PlayerTeams>();
+        player_Input = player_Prefabs.GetComponent<PlayerInput>();
+
         //GameManager.Instance.SetCursorState(false);
 
         //플레이어 스크립트 넣어주기
         photon_Manager = FindObjectOfType<Photon_Manager>();
-        player_shot = player_Prefabs.GetComponent<PlayerShooter>();
-        player_Team = player_Prefabs.GetComponent<PlayerTeams>();
-        player_Input = player_Prefabs.GetComponent<PlayerInput>();
+ 
         #region UI 초기화 
         reset_Obj(0);
         stage_Lobby[0].SetActive(true);
@@ -167,12 +170,13 @@ public class Setting_Manager : MonoBehaviour
 
     public void MoveScene()
     {
-       // GameManager.Instance.SetCursorState(true);
+        // GameManager.Instance.SetCursorState(true);
         //나중에 네트워크에 넣을 정보값들
 
         if (player_Name.text == null || player_Name.text == " " || player_Name.text == "")
         {
-            player_Input.player_Name = "No Name";
+            player_Name.text = "No Name";
+            player_Input.player_Name = player_Name.text;
         }
         else
         {
@@ -182,6 +186,8 @@ public class Setting_Manager : MonoBehaviour
         player_Team.team = team;
 
         player_shot.WeaponType = weapon;
+
+        Photon_Manager.Instance.Set_PlayerInfo(team, weapon, player_Name.text);
 
         //로딩 UI 켜기
         loading_Page.SetActive(true);
@@ -198,7 +204,7 @@ public class Setting_Manager : MonoBehaviour
         gameObject.SetActive(false);
 
     }
-
+  
     private void LoadingOff()
     {
         loading_Page.SetActive(false);
@@ -206,6 +212,5 @@ public class Setting_Manager : MonoBehaviour
         //플레이어 UI 켜기
         player_shot.skill_UI_Obj.SetActive(true);
         Matching_Obj.SetActive(true);
-
     }
 }
