@@ -23,8 +23,7 @@ public class TeamZone : MonoBehaviourPun
     [PunRPC]
     public void ChangeZone(Bullet bullet)
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
+
             if (team != ETeam.Static)
                 team = bullet.bulletType;
             //팀 판별 로직 구현할것
@@ -32,9 +31,7 @@ public class TeamZone : MonoBehaviourPun
             if (!GameManager.Instance.isLobby)
                 bullet.player_Shot.player_Score++;
 
-            photonView.RPC("ChangeZone", RpcTarget.Others, bullet);
-        }
-      
+           // photonView.RPC("ChangeZone", RpcTarget.Others, bullet);
     }
     private void OnParticleCollision(GameObject other)
     {
