@@ -31,15 +31,6 @@ public class Shot_System : MonoBehaviourPun,IPunObservable
 
    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(weapon_CurAmmo);
-
-        }
-        else
-        {
-            weapon_CurAmmo = (int)stream.ReceiveNext();
-        }
     }
 
     // Update is called once per frame

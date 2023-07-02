@@ -127,8 +127,6 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         {
             if (PhotonNetwork.CurrentRoom.PlayerCount >= max_Player)
             {
-                matching_UI.transform.parent.gameObject.SetActive(false);
-
                 GameManager.Instance.isLobby = false;
             }
         }

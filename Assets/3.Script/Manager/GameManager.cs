@@ -303,6 +303,7 @@ public class GameManager : MonoBehaviourPun
         if (!isStart)
         {
             PaintTarget.ClearAllPaint();
+            UI_Out();
             BGM_Manager.Instance.Stop_All_Sound_BGM();
             foreach(TeamZone teamZone in nodes)
             {
@@ -569,4 +570,9 @@ public class GameManager : MonoBehaviourPun
 
         }
     } //카메라 메서드
+
+    public void UI_Out()
+    {
+        Photon_Manager.Instance.matching_UI.transform.parent.gameObject.SetActive(false);
+    }
 }
