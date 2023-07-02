@@ -20,9 +20,12 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     //Player Prefabs
 
     public GameObject playerPrefabs;
-    public EWeapon player_weapon;
-    public ETeam player_team;
-    public string player_name;
+
+    public PlayerController player_Con;
+    public PlayerInput player_Input;
+    public PlayerTeams player_team;
+    public PlayerShooter player_shot;
+
     public Text stateUI;
 
     private void Awake()
@@ -106,7 +109,6 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         base.OnJoinRandomFailed(returnCode, message);
         Debug.Log("Not Empty Room...");
         stateUI.text = "2인 방";
-
     }
 
 
@@ -116,6 +118,8 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         base.OnJoinedRoom();
         Debug.Log("Room Join Success");
         stateUI.text = "방에 입장합니다.";
+
+        photonView.RPC("Set_PlayerInfo", RpcTarget.All);
         //나중에 입장한 플레이어 모으기 && 다 모이면 게임 시작 누를 수 있도록 수정예정
         StartCoroutine(Player_Spawn());
     }
@@ -124,13 +128,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     {
         yield return new WaitForSeconds(1f);
 
-
-        GameObject playerPrefab = PhotonNetwork.Instantiate(playerPrefabs.name, Vector3.zero, Quaternion.identity);
-        PlayerController playerCon = playerPrefab.GetComponent<PlayerController>();
-        playerCon.player_Team.team = player_team;
-        playerCon._player_shot.WeaponType = player_weapon;
-        playerCon.player_Input.player_Name = name;
-
+        PhotonNetwork.Instantiate(playerPrefabs.name, Vector3.zero, Quaternion.identity);
 
         GameManager.Instance.FindPlayer();
         GameManager.Instance.SetPlayerPos();
@@ -149,11 +147,16 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     }
     #endregion
 
-    public void Set_PlayerInfo(ETeam team, EWeapon weapon, string name)
+    [PunRPC]
+    public void Set_PlayerInfo()
     {
-        player_team = team;
-        player_weapon = weapon;
-        player_name = name;
+        player_shot = playerPrefabs.GetComponent<PlayerShooter>();
+        player_team = playerPrefabs.GetComponent<PlayerTeams>();
+        player_Input = playerPrefabs.GetComponent<PlayerInput>();
+
+        player_team.team = set_Manager.team;
+        player_shot.WeaponType = set_Manager.weapon;
+        player_Input.player_Name = set_Manager.player_Name.text;
     }
 
 }

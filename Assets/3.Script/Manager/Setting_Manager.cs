@@ -187,8 +187,6 @@ public class Setting_Manager : MonoBehaviour
 
         player_shot.WeaponType = weapon;
 
-        Photon_Manager.Instance.Set_PlayerInfo(team, weapon, player_Name.text);
-
         //로딩 UI 켜기
         loading_Page.SetActive(true);
 
