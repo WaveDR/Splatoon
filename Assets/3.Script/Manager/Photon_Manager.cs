@@ -9,6 +9,7 @@ using Photon.Realtime;
 public class Photon_Manager : MonoBehaviourPunCallbacks
 {
     public static Photon_Manager Instance = null;
+    public Setting_Manager set_Manager;
     private readonly string game_Version = "1";
 
     public int max_Player;
@@ -34,6 +35,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         {
             Destroy(gameObject);
         }
+        set_Manager.GetComponentInChildren<Setting_Manager>();
     }
     private void Start()
     {
@@ -118,9 +120,9 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(1f);
         PhotonNetwork.Instantiate(playerPrefabs.name, Vector3.zero, Quaternion.identity);
 
-        PlayerController playerCon = playerPrefabs.GetComponent < PlayerController>();
-        playerCon.photonView.RPC("Player_Data_SetUp", RpcTarget.All, 
-            playerCon.player_Team.team, playerCon._player_shot.WeaponType, playerCon.player_Input.player_Name);
+        PlayerController playerCon = playerPrefabs.GetComponent<PlayerController>();
+        playerCon.photonView.RPC("Player_Data_SetUp", RpcTarget.All,
+            set_Manager.team, set_Manager.weapon, set_Manager.player_Name.text);
 
         GameManager.Instance.FindPlayer();
         GameManager.Instance.SetPlayerPos();

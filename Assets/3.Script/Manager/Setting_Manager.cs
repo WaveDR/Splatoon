@@ -19,9 +19,9 @@ public class Setting_Manager : MonoBehaviour
     [SerializeField] private ParticleSystem select_Effect;
     [SerializeField] private Text npc_Text;
     [SerializeField] private Text back_Text;
-    [SerializeField] private InputField player_Name;
     [SerializeField] private Image[] images;
     [SerializeField] private int page_Num;
+    public InputField player_Name;
 
     public ETeam team;
     public EWeapon weapon;
