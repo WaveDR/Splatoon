@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class PlayerTeams : MonoBehaviour
+public class PlayerTeams : MonoBehaviourPun
 {
     public ETeam team;
     [SerializeField] private PlayerController _player_Con;
@@ -26,6 +27,8 @@ public class PlayerTeams : MonoBehaviour
     }
     private void OnEnable()
     {
+
+        if (!photonView.IsMine) return;
         Player_ColorSet();
     }
 

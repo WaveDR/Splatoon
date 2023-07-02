@@ -31,6 +31,7 @@ public class Player_Camera : MonoBehaviourPun
     // Update is called once per frame
     void LateUpdate()
     {
+        if (!photonView.IsMine) return;
         if(!_player_Con.isStop)
         CameraRotation();
     }
