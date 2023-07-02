@@ -24213,7 +24213,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletType: 0
   team: {fileID: 0}
+  player_Shot: {fileID: 0}
   particle: {fileID: 0}
+  color: []
   dmg: 0
   brush: 0
+  deathEffect: 0
   players: []

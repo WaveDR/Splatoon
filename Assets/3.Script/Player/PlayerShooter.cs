@@ -138,6 +138,8 @@ public class PlayerShooter : MonoBehaviourPun
         name_UI.text = _player_Input.player_Name;
         killLog_Obj.SetActive(false);
         enemyData_Obj.SetActive(false);
+
+
     }
 
     void Update()

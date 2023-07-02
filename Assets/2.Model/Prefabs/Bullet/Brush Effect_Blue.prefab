@@ -14764,7 +14764,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -19520,9 +19520,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletType: 0
   team: {fileID: 0}
+  player_Shot: {fileID: 0}
   particle: {fileID: 0}
+  color: []
   dmg: 0
   brush: 0
+  deathEffect: 0
   players: []
 --- !u!1 &173718366088692820
 GameObject:

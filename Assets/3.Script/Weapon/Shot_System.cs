@@ -104,18 +104,13 @@ public class Shot_System : MonoBehaviourPun,IPunObservable
     }
 
 
-   // [PunRPC]
     public void Shot()
     {
         if (PhotonNetwork.IsMasterClient)
         {
             if (weapon_CurAmmo > 0)
             {
-                foreach (Bullet shot in firePoint)
-                {
-                    shot.particle.Play();
-
-                }
+                photonView.RPC("ShotEffect", RpcTarget.All);
                 weapon_CurAmmo -= weapon_Stat.use_Ammo;
             }
             else
@@ -125,7 +120,17 @@ public class Shot_System : MonoBehaviourPun,IPunObservable
                 return;
                 //나중에 인게임 연출도 해줄것
             }
-            photonView.RPC("Shot", RpcTarget.All);
         }
+    }
+    [PunRPC]
+
+    public void ShotEffect()
+    {
+
+        foreach (Bullet shot in firePoint)
+        {
+            shot.particle.Play();
+        }
+        
     }
 }
