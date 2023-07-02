@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class Shot_System : MonoBehaviourPun,IPunObservable
+public class Shot_System : MonoBehaviourPun
 {
     public EWeapon weaponType;
     public WeaponStat weapon_Stat;
@@ -27,22 +27,6 @@ public class Shot_System : MonoBehaviourPun,IPunObservable
 
         firePoint_Files_Yellow = transform.GetChild(0);
         firePoint_Files_Blue = transform.GetChild(1);
-    }
-
-   public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(weapon_CurAmmo);
-            stream.SendNext(weaponType);
-            stream.SendNext(weapon_Stat);
-        }
-        else
-        {
-            weapon_CurAmmo = (int)stream.ReceiveNext();
-            weaponType = (EWeapon) stream.ReceiveNext();
-            weapon_Stat = (WeaponStat)stream.ReceiveNext();
-        }
     }
 
     // Update is called once per frame
@@ -123,7 +107,6 @@ public class Shot_System : MonoBehaviourPun,IPunObservable
         }
     }
     [PunRPC]
-
     public void ShotEffect()
     {
 
