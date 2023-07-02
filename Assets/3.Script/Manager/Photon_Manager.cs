@@ -54,6 +54,8 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         Debug.Log("Created Room");
         stateUI.text = "방 생성";
         matching_UI.SetActive(false);
+        matching_UI.transform.parent.gameObject.SetActive(false);
+        PhotonNetwork.LoadLevel("InGame");
 
     }
 
@@ -109,7 +111,6 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         base.OnJoinedRoom();
         Debug.Log("Room Join Success");
         stateUI.text = "방에 입장합니다.";
-        PhotonNetwork.LoadLevel("InGame");
         //나중에 입장한 플레이어 모으기 && 다 모이면 게임 시작 누를 수 있도록 수정예정
         StartCoroutine(Player_Spawn());
     }
