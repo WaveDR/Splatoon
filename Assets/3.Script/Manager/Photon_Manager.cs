@@ -21,11 +21,6 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
 
     public GameObject playerPrefabs;
 
-    public PlayerController player_Con;
-    public PlayerInput player_Input;
-    public PlayerTeams player_team;
-    public PlayerShooter player_shot;
-
     public Text stateUI;
 
     private void Awake()
@@ -128,8 +123,9 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(1f);
 
         GameObject player = PhotonNetwork.Instantiate(playerPrefabs.name, Vector3.zero, Quaternion.identity);
-
-        photonView.RPC("Set_PlayerInfo", RpcTarget.Others, player);
+        PlayerController player_Con = player.GetComponent<PlayerController>();
+        player_Con.photonView.RPC("Set_PlayerInfo", RpcTarget.Others, 
+            player_Con.player_Team.team,player_Con._player_shot.WeaponType,player_Con.player_Input.player_Name);
 
         GameManager.Instance.FindPlayer();
         GameManager.Instance.SetPlayerPos();
@@ -146,17 +142,4 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         }
     }
     #endregion
-
-    [PunRPC]
-    public void Set_PlayerInfo( GameObject player)
-    {
-        player_shot = player.GetComponent<PlayerShooter>();
-        player_team = player.GetComponent<PlayerTeams>();
-        player_Input = player.GetComponent<PlayerInput>();
-
-        player_team.team = set_Manager.team;
-        player_shot.WeaponType = set_Manager.weapon;
-        player_Input.player_Name = set_Manager.player_Name.text;
-    }
-
 }
