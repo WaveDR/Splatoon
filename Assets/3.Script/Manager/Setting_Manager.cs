@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
-public class Setting_Manager : MonoBehaviour
+public class Setting_Manager : MonoBehaviourPun
 {
     public GameObject player_Prefabs;
     public PlayerShooter player_shot;
@@ -167,8 +168,10 @@ public class Setting_Manager : MonoBehaviour
 
     public void MoveScene()
     {
-       // GameManager.Instance.SetCursorState(true);
+        // GameManager.Instance.SetCursorState(true);
         //나중에 네트워크에 넣을 정보값들
+
+        if (!photonView.IsMine) return;
 
         if (player_Name.text == null || player_Name.text == " " || player_Name.text == "")
         {

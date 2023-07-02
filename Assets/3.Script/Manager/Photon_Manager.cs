@@ -59,6 +59,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
 
     public void Matching_Room()
     {
+        
         Connect();
     }
     public void Connect()

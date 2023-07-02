@@ -340,6 +340,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2581460151475190242}
   - component: {fileID: 2925335314676409177}
+  - component: {fileID: 2739868420021979446}
   m_Layer: 0
   m_Name: Weapon_Gun
   m_TagString: Untagged
@@ -382,8 +383,34 @@ MonoBehaviour:
   weapon_Stat: {fileID: 11400000, guid: 8ff388d56cbe22a4ba363178c5b7f718, type: 2}
   weapon_MaxAmmo: 0
   weapon_CurAmmo: 0
+  firePoint_Files_Yellow: {fileID: 0}
+  firePoint_Files_Blue: {fileID: 0}
   firePoint_Files: {fileID: 0}
   firePoint: []
+  team: {fileID: 0}
+--- !u!114 &2739868420021979446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925335314676409176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 2925335314676409177}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &5483126879603599698
 GameObject:
   m_ObjectHideFlags: 0
@@ -764,6 +791,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gun Effect_Blue
       objectReference: {fileID: 0}
+    - target: {fileID: 6913559317335600950, guid: 02b05368fb49f0b4f9ef66954ec193e4, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6913559317335600950, guid: 02b05368fb49f0b4f9ef66954ec193e4, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.g
+      value: 0.2627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 6913559317335600950, guid: 02b05368fb49f0b4f9ef66954ec193e4, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.r
+      value: 0.5058824
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02b05368fb49f0b4f9ef66954ec193e4, type: 3}
 --- !u!4 &6016783226460679013 stripped
@@ -835,8 +874,12 @@ PrefabInstance:
       value: -300
       objectReference: {fileID: 0}
     - target: {fileID: 6976729538358293074, guid: 49fad600b414e2e4086b33abb613e96b, type: 3}
-      propertyPath: TriggerModule.enabled
+      propertyPath: TriggerModule.inside
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6976729538358293074, guid: 49fad600b414e2e4086b33abb613e96b, type: 3}
+      propertyPath: TriggerModule.enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6976729538358293074, guid: 49fad600b414e2e4086b33abb613e96b, type: 3}
       propertyPath: ForceModule.x.minScalar
