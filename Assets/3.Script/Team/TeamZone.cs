@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 public enum ETeam {Blue, Yellow, Etc, Static}
 
-public class TeamZone : MonoBehaviourPun,IPunObservable
+public class TeamZone : MonoBehaviourPun
 {
     public ETeam team;
     private Bullet bullet;
@@ -36,15 +36,5 @@ public class TeamZone : MonoBehaviourPun,IPunObservable
         ChangeZone(bullet);
     }
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(team);
-        }
-        else
-        {
-            team = (ETeam) stream.ReceiveNext();
-        }
-    }
+
 }

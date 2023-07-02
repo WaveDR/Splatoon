@@ -114,6 +114,7 @@ public class Shot_System : MonoBehaviourPun,IPunObservable
                 foreach (Bullet shot in firePoint)
                 {
                     shot.particle.Play();
+
                 }
                 weapon_CurAmmo -= weapon_Stat.use_Ammo;
             }
@@ -124,7 +125,7 @@ public class Shot_System : MonoBehaviourPun,IPunObservable
                 return;
                 //나중에 인게임 연출도 해줄것
             }
-            //photonView.RPC("Shot", RpcTarget.Others);
+            photonView.RPC("Shot", RpcTarget.All);
         }
     }
 }
