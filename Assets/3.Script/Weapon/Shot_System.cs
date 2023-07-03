@@ -80,7 +80,7 @@ public class Shot_System : MonoBehaviourPun, IPunObservable
             {
                 firePoint[i] = firePoint_Files.GetChild(i).gameObject.GetComponent<Bullet>();
                 firePoint[i].dmg = weapon_Stat.weapon_Dmg;
-                firePoint[i].Bullet_Set();
+               // firePoint[i].Bullet_Set();
                 firePoint[i].photonView.RPC("Bullet_Set", RpcTarget.AllBuffered);
             }
         }
@@ -104,12 +104,6 @@ public class Shot_System : MonoBehaviourPun, IPunObservable
             weapon_CurAmmo = 0;
             return;
         }
-    }
-
-    [PunRPC]
-    public void shot_Server()
-    {
-      
     }
 
 }
