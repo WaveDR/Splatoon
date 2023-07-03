@@ -33,7 +33,7 @@ public class Shot_System : MonoBehaviourPun, IPunObservable
         }
         else
         {
-          //  weapon_CurAmmo = (float)stream.ReceiveNext();
+            weapon_CurAmmo = (float)stream.ReceiveNext();
             player_Shot.player_Score = (int)stream.ReceiveNext();
         }
 
@@ -84,13 +84,19 @@ public class Shot_System : MonoBehaviourPun, IPunObservable
                 firePoint[i].photonView.RPC("Bullet_Set", RpcTarget.AllBuffered);
             }
         }
+
     }
+
+    [PunRPC]
     public void Shot()
     {
         if (weapon_CurAmmo > 0)
         {
             weapon_CurAmmo -= weapon_Stat.use_Ammo;
-            photonView.RPC("Shot_Server", RpcTarget.AllBuffered);
+            foreach (Bullet shot in firePoint)
+            {
+                shot.particle.Play();
+            }
         }
         else
         {
@@ -98,12 +104,5 @@ public class Shot_System : MonoBehaviourPun, IPunObservable
             return;
         }
     }
-    [PunRPC]
-    public void Shot_Server()
-    {
-        foreach (Bullet shot in firePoint)
-        {
-            shot.particle.Play();
-        }
-    }
+
 }
