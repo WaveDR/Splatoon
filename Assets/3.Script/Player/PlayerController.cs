@@ -149,9 +149,10 @@ public class PlayerController : Living_Entity, IPlayer
         player_Team.team = team;
         _player_shot.WeaponType = weapon;
         player_Input.player_Name = name;
-
-        _player_shot.photonView.RPC("WeaponSet", RpcTarget.Others);
+        player_Team.Player_ColorSet();
+        _player_shot.WeaponSet();
         player_Team.photonView.RPC("Player_ColorSet", RpcTarget.Others);
+        _player_shot.photonView.RPC("WeaponSet", RpcTarget.Others);
     }
 
     private void Player_Jump()

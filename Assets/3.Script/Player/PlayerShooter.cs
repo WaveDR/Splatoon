@@ -100,7 +100,7 @@ public class PlayerShooter : MonoBehaviourPun
         //선택에 따라 활성화 disable도 동일한 방식
 
         if (!photonView.IsMine) return;
-      
+        WeaponSet();
     }
     [PunRPC]
     public void WeaponSet()
