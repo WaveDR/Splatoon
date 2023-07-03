@@ -53,6 +53,7 @@ public class Living_Entity : MonoBehaviourPun, IDamage
             }
     }
 
+    [PunRPC]
     public virtual void RestoreHp(float newHealth)
     {
         if (isDead) return;

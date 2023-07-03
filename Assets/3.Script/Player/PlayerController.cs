@@ -229,7 +229,7 @@ public class PlayerController : Living_Entity, IPlayer
 
     }
 
-
+    [PunRPC]
     public override void RestoreHp(float newHealth)
     {
         base.RestoreHp(newHealth);
@@ -239,6 +239,7 @@ public class PlayerController : Living_Entity, IPlayer
     {
         base.Player_Die();
         Transform_Stat(0, 0, false, false);
+        photonView.RPC("Transform_Stat", RpcTarget.All, 0, 0, false, false);
         deathEffect.particle.Play();
         dmgBullet.Player_Kill(player_Input.player_Name);
         GameManager.Instance.Player_Dead_Check(); //Player Dead UI;
@@ -349,13 +350,18 @@ public class PlayerController : Living_Entity, IPlayer
                 if (SquidForm)// 오징어 형태
                 {
                     Transform_Stat(30, player_Stat.dashSpeed, false, false);
+                    photonView.RPC("Transform_Stat", RpcTarget.All, 30, player_Stat.dashSpeed, false, false);
+
                     RestoreHp(recovery_Speed * 3);
+                    photonView.RPC("RestoreHp", RpcTarget.All, recovery_Speed * 3);
                 }
 
                 else //사람 형태
                 {
                     Transform_Stat(20, player_Stat.moveZone_Speed, false, true);
+                    photonView.RPC("Transform_Stat", RpcTarget.All, 20, player_Stat.moveZone_Speed, false, true);
                     RestoreHp(recovery_Speed);
+                    photonView.RPC("RestoreHp", RpcTarget.All, recovery_Speed);
                 }
             }
 
@@ -364,11 +370,15 @@ public class PlayerController : Living_Entity, IPlayer
                 if (SquidForm)// 오징어 형태
                 {
                     Transform_Stat(3, player_Stat.moveZone_Speed, true, false);
+                    photonView.RPC("Transform_Stat", RpcTarget.All, 3, player_Stat.moveZone_Speed, true, false);
+
                 }
 
                 else //사람 형태
                 {
                     Transform_Stat(3, player_Stat.moveZone_Speed, false, true);
+                    photonView.RPC("Transform_Stat", RpcTarget.All, 3, player_Stat.moveZone_Speed, false, true);
+
                 }
 
                 for (int i = 0; i < player_Wave.Length - 1; i++)
@@ -382,11 +392,15 @@ public class PlayerController : Living_Entity, IPlayer
                 if (SquidForm)// 오징어 형태
                 {
                     Transform_Stat(0, player_Stat.enemyZone_Speed, true, false);
+                    photonView.RPC("Transform_Stat", RpcTarget.All,0, player_Stat.enemyZone_Speed, true, false);
+
                 }
 
                 else //사람 형태
                 {
                     Transform_Stat(0, player_Stat.enemyZone_Speed, false, true);
+                    photonView.RPC("Transform_Stat", RpcTarget.All,0, player_Stat.enemyZone_Speed, false, true);
+
                 }
             }
         }
@@ -398,11 +412,15 @@ public class PlayerController : Living_Entity, IPlayer
             if (SquidForm)// 오징어 형태
             {
                 Transform_Stat(0, player_Stat.dashSpeed, true, false);
+                photonView.RPC("Transform_Stat", RpcTarget.All, 0, player_Stat.dashSpeed, true, false);
+
             }
 
             else //사람 형태
             {
                 Transform_Stat(0, player_Stat.moveZone_Speed, false, true);
+                photonView.RPC("Transform_Stat", RpcTarget.All, 0, player_Stat.moveZone_Speed, false, true);
+
             }
         }
 
@@ -459,12 +477,16 @@ public class PlayerController : Living_Entity, IPlayer
                 if (SquidForm)// 오징어 형태
                 {
                     Transform_Stat(30, player_Stat.dashSpeed, false, false);
+                    photonView.RPC("Transform_Stat", RpcTarget.All, 30, player_Stat.dashSpeed, false, false);
                     RestoreHp(recovery_Speed * 3);
+                    photonView.RPC("RestoreHp", RpcTarget.All, recovery_Speed * 3);
+
                 }
 
                 else //사람 형태
                 {
                     Transform_Stat(20, player_Stat.moveZone_Speed, false, true);
+                    photonView.RPC("Transform_Stat", RpcTarget.All, 20, player_Stat.moveZone_Speed, false, true);
                     RestoreHp(recovery_Speed);
                 }
             }
@@ -488,7 +510,7 @@ public class PlayerController : Living_Entity, IPlayer
         raycast_Wall_Object = wallObj;
     }  //벽에 닿았을 시 상태 변환
 
-
+    [PunRPC]
     public void Transform_Stat(int ammo, float speed, bool Squid, bool Human)
     {
         if (PhotonNetwork.IsMasterClient)
