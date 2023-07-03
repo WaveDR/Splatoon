@@ -100,6 +100,11 @@ public class PlayerShooter : MonoBehaviourPun
         //선택에 따라 활성화 disable도 동일한 방식
 
         if (!photonView.IsMine) return;
+      
+    }
+    [PunRPC]
+    public void WeaponSet()
+    {
         switch (WeaponType)
         {
             case EWeapon.Brush:
@@ -138,8 +143,6 @@ public class PlayerShooter : MonoBehaviourPun
         name_UI.text = _player_Input.player_Name;
         killLog_Obj.SetActive(false);
         enemyData_Obj.SetActive(false);
-
-
     }
 
     void Update()
