@@ -20,7 +20,7 @@ MonoBehaviour:
     AppVersion: 
     UseNameServer: 0
     FixedRegion: 
-    Server: 3.144.75.230
+    Server: 3.142.42.41
     Port: 5055
     ProxyServer: 
     Protocol: 0
@@ -51,6 +51,14 @@ MonoBehaviour:
   - Set_PlayerInfo
   - Player_ColorSet
   - WeaponSet
+  - Bullet_Set
+  - Reload_Ammo
+  - RestoreHp
+  - Score_Plus
+  - Shot
+  - Transform_Mesh
+  - Transform_Stat
+  - Weapon_Color_Change
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
