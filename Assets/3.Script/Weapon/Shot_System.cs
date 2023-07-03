@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class Shot_System : MonoBehaviourPun,IPunObservable
+public class Shot_System : MonoBehaviourPun, IPunObservable
 {
     public EWeapon weaponType;
     public WeaponStat weapon_Stat;
@@ -18,13 +18,13 @@ public class Shot_System : MonoBehaviourPun,IPunObservable
 
     public PlayerTeams team;
 
-  // Start is called before the first frame update
+    // Start is called before the first frame update
     void Awake()
     {
         player_Shot = GetComponentInParent<PlayerShooter>();
     }
 
-   public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
         {
@@ -33,8 +33,8 @@ public class Shot_System : MonoBehaviourPun,IPunObservable
         }
         else
         {
-            weapon_CurAmmo = (float) stream.ReceiveNext();
-            player_Shot.player_Score = (int) stream.ReceiveNext();
+          //  weapon_CurAmmo = (float)stream.ReceiveNext();
+            player_Shot.player_Score = (int)stream.ReceiveNext();
         }
 
     }
@@ -84,47 +84,26 @@ public class Shot_System : MonoBehaviourPun,IPunObservable
                 firePoint[i].photonView.RPC("Bullet_Set", RpcTarget.AllBuffered);
             }
         }
-   
     }
-    public void Charge_Ready(bool ready)
+    public void Shot()
     {
-        if (ready)
+        if (weapon_CurAmmo > 0)
         {
-            foreach (Bullet shot in firePoint)
-            {
-                ParticleSystem par = shot.particle.transform.GetChild(1).GetComponent<ParticleSystem>();
-                par.Play();
-            }
+            weapon_CurAmmo -= weapon_Stat.use_Ammo;
+            photonView.RPC("Shot_Server", RpcTarget.AllBuffered);
         }
         else
         {
-            foreach (Bullet shot in firePoint)
-            {
-                ParticleSystem par = shot.particle.transform.GetChild(1).GetComponent<ParticleSystem>();
-                par.Play();
-            }
+            weapon_CurAmmo = 0;
+            return;
         }
-   
     }
-
     [PunRPC]
-    public void Shot()
+    public void Shot_Server()
     {
-            if (weapon_CurAmmo > 0)
-            {
-            foreach (Bullet shot in firePoint)
-                {
-                    shot.particle.Play();
-                }
-                weapon_CurAmmo -= weapon_Stat.use_Ammo;
-            }
-            else
-            {
-                Debug.Log("총알이 없습니다!");
-                weapon_CurAmmo = 0;
-                return;
-                //나중에 인게임 연출도 해줄것
-            }
-  
+        foreach (Bullet shot in firePoint)
+        {
+            shot.particle.Play();
+        }
     }
 }
