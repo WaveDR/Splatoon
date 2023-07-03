@@ -157,8 +157,8 @@ public class GameManager : MonoBehaviourPun
 
                 else SetCursorState(true);
 
-            if (!gameStart) photonView.RPC("StartCount", RpcTarget.AllBuffered);
-            else if (!gameEnd) photonView.RPC("EndCount", RpcTarget.AllBuffered);
+                if (!gameStart) StartCount();
+                else if (!gameEnd) EndCount();
 
                 EndScoreCharge(chargeCall);
             }
@@ -211,7 +211,7 @@ public class GameManager : MonoBehaviourPun
     [PunRPC]
     public void SetPlayerPos()
     {
-        GameManager.Instance.photonView.RPC("FindPlayer", RpcTarget.AllBuffered);
+        photonView.RPC("FindPlayer", RpcTarget.AllBuffered);
         int positionNum_Yellow = 0;
         int positionNum_Blue = 0;
 
@@ -293,7 +293,6 @@ public class GameManager : MonoBehaviourPun
 
     //======================================================================  Time Late Method
 
-    [PunRPC]
     public void StartCount() //Game Start CountDown
     {
         if (!isStart)
@@ -409,19 +408,14 @@ public class GameManager : MonoBehaviourPun
     {
         if (call && _Charging_Score <= 27.3f)
         {
-            photonView.RPC("EndScoreCharge_Server", RpcTarget.AllBuffered);
+            _Charging_Score += Time.deltaTime * 35;
+
+            scoreGage_Yellow.fillAmount = _Charging_Score / 100;
+            scoreGage_Blue.fillAmount = _Charging_Score / 100;
+            scoreCount_Yellow.text = $"{Mathf.Floor(_Charging_Score * 10f) / 10f}" + "%";
+            scoreCount_Blue.text = $"{Mathf.Floor(_Charging_Score * 10f) / 10f}" + "%";
         }
         else return;
-    }
-
-    public void EndScoreCharge_Server()
-    {
-        _Charging_Score += Time.deltaTime * 35;
-
-        scoreGage_Yellow.fillAmount = _Charging_Score / 100;
-        scoreGage_Blue.fillAmount = _Charging_Score / 100;
-        scoreCount_Yellow.text = $"{Mathf.Floor(_Charging_Score * 10f) / 10f}" + "%";
-        scoreCount_Blue.text = $"{Mathf.Floor(_Charging_Score * 10f) / 10f}" + "%";
     }
 
     //======================================================================  Ending Method

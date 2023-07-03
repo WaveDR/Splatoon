@@ -23,6 +23,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
 
     public Text stateUI;
 
+    private bool isReady;
     private void Awake()
     {
         if (Instance == null)
@@ -133,11 +134,17 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     {
         if (isCreateRoom && PhotonNetwork.InRoom)
         {
-            if (PhotonNetwork.CurrentRoom.PlayerCount >= max_Player)
+            if (PhotonNetwork.CurrentRoom.PlayerCount >= max_Player && !isReady)
             {
-                GameManager.Instance.isLobby = false;
+                photonView.RPC("GameStart", RpcTarget.AllBuffered);
             }
         }
     }
+    [PunRPC]
+    public void GameStart()
+    {
+        GameManager.Instance.isLobby = false;
+        isReady = true;
+    } 
     #endregion
 }
