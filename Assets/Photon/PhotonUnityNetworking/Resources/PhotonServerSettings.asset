@@ -48,6 +48,7 @@ MonoBehaviour:
   - RPC_PlayerData
   - Player_Spawn
   - PlayerData
+  - Set_PlayerInfo
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

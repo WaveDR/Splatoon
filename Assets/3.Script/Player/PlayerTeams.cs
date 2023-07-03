@@ -29,9 +29,12 @@ public class PlayerTeams : MonoBehaviourPun
     {
 
         if (!photonView.IsMine) return;
-        Player_ColorSet();
+
+        photonView.RPC("PlayeR_ColorSet", RpcTarget.Others);
+        //Player_ColorSet();
     }
 
+    [PunRPC]
     public void Player_ColorSet()
     {
         switch (team)
