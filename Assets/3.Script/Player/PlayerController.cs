@@ -558,6 +558,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
             {
                 if (SquidForm)// 오징어 형태
                 {
+
                     RestoreHp(recovery_Speed * 3);
 
                     Transform_Stat(30, player_Stat.dashSpeed, false, false);
