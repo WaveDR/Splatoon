@@ -11586,7 +11586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5ccb45f8032e434a8ebdd6040d3d9cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 0
+  team: 1
   _player_Con: {fileID: 0}
   _player_Shooter: {fileID: 0}
   _player_Color_Par:
@@ -11695,7 +11695,7 @@ MonoBehaviour:
   - {fileID: 4898723398910590794}
   - {fileID: 3460124255464657954}
   - {fileID: 8729590655694549622}
-  WeaponType: 1
+  WeaponType: 2
   weapon: {fileID: 0}
   weaponNum: 0
   ammo_Back: {fileID: 1773349895312559445}
