@@ -16,6 +16,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     public bool isCreateRoom;
     public ServerSettings setting = null;
     public GameObject matching_UI;
+    public GameObject time_UI;
 
     //Player Prefabs
 
@@ -30,13 +31,13 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-
         }
         else
         {
             Destroy(gameObject);
         }
         set_Manager.GetComponentInChildren<Setting_Manager>();
+        time_UI.SetActive(false);
     }
     private void Start()
     {
@@ -57,6 +58,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         Debug.Log("Created Room");
         stateUI.text = "¹æ »ý¼º";
         PhotonNetwork.LoadLevel("InGame");
+        time_UI.SetActive(true);
         matching_UI.SetActive(false);
     }
 
