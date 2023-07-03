@@ -3489,6 +3489,8 @@ GameObject:
   - component: {fileID: 1473879080794875529}
   - component: {fileID: 1731183858}
   - component: {fileID: 1473879081547496425}
+  - component: {fileID: 1552531254}
+  - component: {fileID: 9008300469998959212}
   m_Layer: 5
   m_Name: Time_UI
   m_TagString: TimeUI
@@ -3655,6 +3657,54 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1552531254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473879080794875528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 1
+    Name: Count
+  - Type: 9
+    SynchronizeType: 1
+    Name: GameStart
+  - Type: 4
+    SynchronizeType: 1
+    Name: One_Min
+  - Type: 4
+    SynchronizeType: 1
+    Name: TimeOut
+  - Type: 4
+    SynchronizeType: 1
+    Name: Score
+  - Type: 4
+    SynchronizeType: 1
+    Name: isMVP
+  m_SynchronizeLayers:
+  - SynchronizeType: 2
+    LayerIndex: 0
+--- !u!114 &9008300469998959212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473879080794875528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37cbe484261140242b1f96b0265d908d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1473879081373085637
 GameObject:
   m_ObjectHideFlags: 0
