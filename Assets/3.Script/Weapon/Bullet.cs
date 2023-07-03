@@ -25,16 +25,22 @@ public class Bullet : MonoBehaviourPun
     private void OnEnable()
     {
         if (!photonView.IsMine) return;
+        Bullet_Set();
+    }
+
+    [PunRPC]
+    public void Bullet_Set()
+    {
         player_Shot = GetComponentInParent<PlayerShooter>();
         team = GetComponentInParent<PlayerTeams>();
 
-        if(deathEffect)
+        if (deathEffect)
         {
             if (team.team == ETeam.Blue) bulletType = ETeam.Yellow;
             else bulletType = ETeam.Blue;
         }
         else
-        bulletType = team.team;
+            bulletType = team.team;
 
         if (!brush)
         {
