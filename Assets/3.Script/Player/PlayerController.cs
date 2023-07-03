@@ -368,18 +368,18 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
                 if (SquidForm)// 오징어 형태
                 {
                     Transform_Stat(30, player_Stat.dashSpeed, false, false);
-                    photonView.RPC("Transform_Stat", RpcTarget.All, 30, player_Stat.dashSpeed, false, false);
+                 
 
                     RestoreHp(recovery_Speed * 3);
-                    photonView.RPC("RestoreHp", RpcTarget.All, recovery_Speed * 3);
+                   
                 }
 
                 else //사람 형태
                 {
                     Transform_Stat(20, player_Stat.moveZone_Speed, false, true);
-                    photonView.RPC("Transform_Stat", RpcTarget.All, 20, player_Stat.moveZone_Speed, false, true);
+                  
                     RestoreHp(recovery_Speed);
-                    photonView.RPC("RestoreHp", RpcTarget.All, recovery_Speed);
+            
                 }
             }
 
@@ -388,14 +388,14 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
                 if (SquidForm)// 오징어 형태
                 {
                     Transform_Stat(3, player_Stat.moveZone_Speed, true, false);
-                    photonView.RPC("Transform_Stat", RpcTarget.All, 3, player_Stat.moveZone_Speed, true, false);
+            
 
                 }
 
                 else //사람 형태
                 {
                     Transform_Stat(3, player_Stat.moveZone_Speed, false, true);
-                    photonView.RPC("Transform_Stat", RpcTarget.All, 3, player_Stat.moveZone_Speed, false, true);
+                 
 
                 }
 
@@ -410,14 +410,14 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
                 if (SquidForm)// 오징어 형태
                 {
                     Transform_Stat(0, player_Stat.enemyZone_Speed, true, false);
-                    photonView.RPC("Transform_Stat", RpcTarget.All,0, player_Stat.enemyZone_Speed, true, false);
+                   
 
                 }
 
                 else //사람 형태
                 {
                     Transform_Stat(0, player_Stat.enemyZone_Speed, false, true);
-                    photonView.RPC("Transform_Stat", RpcTarget.All,0, player_Stat.enemyZone_Speed, false, true);
+                   
 
                 }
             }
@@ -430,14 +430,14 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
             if (SquidForm)// 오징어 형태
             {
                 Transform_Stat(0, player_Stat.dashSpeed, true, false);
-                photonView.RPC("Transform_Stat", RpcTarget.All, 0, player_Stat.dashSpeed, true, false);
+                
 
             }
 
             else //사람 형태
             {
                 Transform_Stat(0, player_Stat.moveZone_Speed, false, true);
-                photonView.RPC("Transform_Stat", RpcTarget.All, 0, player_Stat.moveZone_Speed, false, true);
+              
 
             }
         }
@@ -495,16 +495,16 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
                 if (SquidForm)// 오징어 형태
                 {
                     Transform_Stat(30, player_Stat.dashSpeed, false, false);
-                    photonView.RPC("Transform_Stat", RpcTarget.All, 30, player_Stat.dashSpeed, false, false);
+                    
                     RestoreHp(recovery_Speed * 3);
-                    photonView.RPC("RestoreHp", RpcTarget.All, recovery_Speed * 3);
+                   
 
                 }
 
                 else //사람 형태
                 {
                     Transform_Stat(20, player_Stat.moveZone_Speed, false, true);
-                    photonView.RPC("Transform_Stat", RpcTarget.All, 20, player_Stat.moveZone_Speed, false, true);
+                    
                     RestoreHp(recovery_Speed);
                 }
             }
@@ -554,11 +554,11 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
             }
 
             _player_shot.Reload_Ammo(ammo); // 재장전
-            _player_shot.photonView.RPC("Reload_Ammo",RpcTarget.All, ammo); // 재장전
+            // 재장전
             _player_Speed = speed;
 
             Transform_Mesh(Squid, Human);   //형태 변형
-            photonView.RPC("Transform_Mesh", RpcTarget.All, Squid, Human);   //형태 변형
+             //형태 변형
 
             if (Human)
             {
