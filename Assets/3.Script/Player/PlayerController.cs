@@ -100,15 +100,14 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
 
     private void OnParticleCollision(GameObject other)
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
+ 
             dmgBullet = other.GetComponent<Bullet>();
 
             if (dmgBullet.team.team != player_Team.team && !isDead)
             {
                 OnDamage(dmgBullet.dmg);
             }
-        }
+     
     }
     private void OnCollisionEnter(Collision collision)
     {

@@ -63,6 +63,9 @@ MonoBehaviour:
   - SetPlayerPos
   - FindPlayer
   - UI_Out
+  - Reload_Ammo_Server
+  - Shot_Server
+  - shot_Server
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
