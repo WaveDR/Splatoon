@@ -25,7 +25,7 @@ public class Bullet : MonoBehaviourPun
     private void OnEnable()
     {
         if (!photonView.IsMine) return;
-        Bullet_Set();
+        //Bullet_Set();
     }
 
     [PunRPC]

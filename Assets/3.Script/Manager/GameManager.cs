@@ -157,8 +157,8 @@ public class GameManager : MonoBehaviourPun
 
                 else SetCursorState(true);
 
-                if (!gameStart) StartCount();
-                else if (!gameEnd) EndCount();
+            if (!gameStart) photonView.RPC("StartCount", RpcTarget.AllBuffered);
+            else if (!gameEnd) photonView.RPC("EndCount", RpcTarget.AllBuffered);
 
                 EndScoreCharge(chargeCall);
             }
@@ -285,7 +285,7 @@ public class GameManager : MonoBehaviourPun
             }
         }
     }
-    private void List_In_Player(int score, PlayerController player_data)
+    public void List_In_Player(int score, PlayerController player_data)
     {
         player_Info[score] = new Player_Info(player_data.player_Team.team, player_data._player_shot.WeaponType,
             player_data.player_Input.player_Name, player_data._player_shot.player_ScoreSet);
@@ -293,6 +293,7 @@ public class GameManager : MonoBehaviourPun
 
     //======================================================================  Time Late Method
 
+    [PunRPC]
     public void StartCount() //Game Start CountDown
     {
         if (!isStart)
@@ -408,14 +409,19 @@ public class GameManager : MonoBehaviourPun
     {
         if (call && _Charging_Score <= 27.3f)
         {
-            _Charging_Score += Time.deltaTime * 35;
-
-            scoreGage_Yellow.fillAmount = _Charging_Score / 100;
-            scoreGage_Blue.fillAmount = _Charging_Score / 100;
-            scoreCount_Yellow.text = $"{Mathf.Floor(_Charging_Score * 10f) / 10f}" + "%";
-            scoreCount_Blue.text = $"{Mathf.Floor(_Charging_Score * 10f) / 10f}" + "%";
+            photonView.RPC("EndScoreCharge_Server", RpcTarget.AllBuffered);
         }
         else return;
+    }
+
+    public void EndScoreCharge_Server()
+    {
+        _Charging_Score += Time.deltaTime * 35;
+
+        scoreGage_Yellow.fillAmount = _Charging_Score / 100;
+        scoreGage_Blue.fillAmount = _Charging_Score / 100;
+        scoreCount_Yellow.text = $"{Mathf.Floor(_Charging_Score * 10f) / 10f}" + "%";
+        scoreCount_Blue.text = $"{Mathf.Floor(_Charging_Score * 10f) / 10f}" + "%";
     }
 
     //======================================================================  Ending Method
