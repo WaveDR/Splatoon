@@ -59,6 +59,10 @@ MonoBehaviour:
   - Transform_Mesh
   - Transform_Stat
   - Weapon_Color_Change
+  - TransSquid_Server
+  - SetPlayerPos
+  - FindPlayer
+  - UI_Out
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

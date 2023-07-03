@@ -9,7 +9,7 @@ public class Shot_System : MonoBehaviourPun,IPunObservable
     public WeaponStat weapon_Stat;
     public int weapon_MaxAmmo;
     public float weapon_CurAmmo;
-
+    public PlayerShooter player_Shot;
     [SerializeField] private Transform firePoint_Files_Yellow;
     [SerializeField] private Transform firePoint_Files_Blue;
     [SerializeField] private Transform firePoint_Files;
@@ -21,11 +21,22 @@ public class Shot_System : MonoBehaviourPun,IPunObservable
   // Start is called before the first frame update
     void Awake()
     {
-
+        player_Shot = GetComponentInParent<PlayerShooter>();
     }
 
    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(weapon_CurAmmo);
+            stream.SendNext(player_Shot.player_Score);
+        }
+        else
+        {
+            weapon_CurAmmo =(int) stream.ReceiveNext();
+            player_Shot.player_Score = (int) stream.ReceiveNext();
+        }
+
     }
 
     // Update is called once per frame
