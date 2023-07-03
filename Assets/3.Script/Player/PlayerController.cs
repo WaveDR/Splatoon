@@ -170,8 +170,8 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         player_Team.Player_ColorSet();
         _player_shot.WeaponSet();
 
-        player_Team.photonView.RPC("Player_ColorSet", RpcTarget.AllViaServer);
-        _player_shot.photonView.RPC("WeaponSet", RpcTarget.AllViaServer);
+        player_Team.photonView.RPC("Player_ColorSet", RpcTarget.AllBuffered);
+        _player_shot.photonView.RPC("WeaponSet", RpcTarget.AllBuffered);
     }
 
 
