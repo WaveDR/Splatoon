@@ -539,7 +539,7 @@ public class PlayerController : Living_Entity, IPlayer
             _player_shot.photonView.RPC("Reload_Ammo",RpcTarget.All, ammo); // 재장전
             _player_Speed = speed;
 
-            Transform_Mesh(Squid, Human);   //형태 변형
+            photonView.RPC("Transform_Mesh",RpcTarget.All, Human);   //형태 변형
 
             if (Human)
             {
@@ -553,18 +553,18 @@ public class PlayerController : Living_Entity, IPlayer
                 player_Wave[1].Play(); // 오징어 발걸음
             }
 
-            void Transform_Mesh(bool squid, bool human)
-            {
-                foreach (GameObject obj in human_Object)
-                {
-                    obj.SetActive(human);
-                }
-                squid_Object.SetActive(squid);
-            }
+ 
         }
       
     } //기본 상태 변환
-
+    public void Transform_Mesh(bool squid, bool human)
+    {
+        foreach (GameObject obj in human_Object)
+        {
+            obj.SetActive(human);
+        }
+        squid_Object.SetActive(squid);
+    }
     #endregion
 
 }
