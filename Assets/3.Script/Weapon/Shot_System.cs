@@ -94,7 +94,7 @@ public class Shot_System : MonoBehaviourPun,IPunObservable
    
     }
 
-
+    [PunRPC]
     public void Shot()
     {
             if (weapon_CurAmmo > 0)
@@ -111,7 +111,6 @@ public class Shot_System : MonoBehaviourPun,IPunObservable
             }
   
     }
-    [PunRPC]
     public void ShotEffect()
     {
         foreach (Bullet shot in firePoint)
