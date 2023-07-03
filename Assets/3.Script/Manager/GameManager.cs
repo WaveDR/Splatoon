@@ -149,7 +149,6 @@ public class GameManager : MonoBehaviourPun
 
     //============================================        ↑ CallBack   |   Nomal ↓        ========================================================
 
-    [PunRPC]
     public void GameStream()
     {
             if (!isLobby)
@@ -165,6 +164,7 @@ public class GameManager : MonoBehaviourPun
             }
     }
 
+    [PunRPC]
     public void FindPlayer()
     {
         players = null;
@@ -211,7 +211,7 @@ public class GameManager : MonoBehaviourPun
     [PunRPC]
     public void SetPlayerPos()
     {
-        FindPlayer();
+        GameManager.Instance.photonView.RPC("FindPlayer", RpcTarget.AllBuffered);
         int positionNum_Yellow = 0;
         int positionNum_Blue = 0;
 
@@ -330,7 +330,7 @@ public class GameManager : MonoBehaviourPun
 
         if (deltaTime <= 0) //GameStart Action
         {
-            FindPlayer();
+            GameManager.Instance.photonView.RPC("FindPlayer", RpcTarget.AllBuffered);
             ui_Anim.SetBool("Count", false);
             count_Image.gameObject.SetActive(false);
             ui_Anim.SetTrigger("GameStart");
@@ -417,7 +417,7 @@ public class GameManager : MonoBehaviourPun
     //======================================================================  Ending Method
     public IEnumerator GameStop()
     {
-        FindPlayer();
+        GameManager.Instance.photonView.RPC("FindPlayer", RpcTarget.AllBuffered);
         BGM_Manager.Instance.Stop_All_Sound_BGM();
         BGM_Manager.Instance.Play_Sound_BGM("UI_Finish");
         //화면 전환되는 시간
