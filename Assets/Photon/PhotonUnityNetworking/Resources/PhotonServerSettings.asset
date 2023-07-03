@@ -67,6 +67,8 @@ MonoBehaviour:
   - Shot_Server
   - shot_Server
   - Reload_Server
+  - StartCount
+  - GameStart
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
