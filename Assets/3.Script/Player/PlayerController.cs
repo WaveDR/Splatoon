@@ -514,6 +514,7 @@ public class PlayerController : Living_Entity, IPlayer
             }
 
             _player_shot.Reload_Ammo(ammo); // 재장전
+            _player_shot.photonView.RPC("Reload_Ammo",RpcTarget.All, ammo); // 재장전
             _player_Speed = speed;
 
             Transform_Mesh(Squid, Human);   //형태 변형
