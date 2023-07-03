@@ -144,7 +144,7 @@ public class PlayerShooter : MonoBehaviourPun
         killLog_Obj.SetActive(false);
         enemyData_Obj.SetActive(false);
 
-        weapon.photonView.RPC("Weapon_Color_Change", RpcTarget.Others);
+        weapon.photonView.RPC("Weapon_Color_Change", RpcTarget.AllViaServer);
 
     }
 

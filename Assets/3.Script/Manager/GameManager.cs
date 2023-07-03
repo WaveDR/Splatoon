@@ -167,7 +167,7 @@ public class GameManager : MonoBehaviourPun
 
                 EndScoreCharge(chargeCall);
             }
-            photonView.RPC("GameStream", RpcTarget.Others);
+            photonView.RPC("GameStream", RpcTarget.AllViaServer);
         }
      
     }
