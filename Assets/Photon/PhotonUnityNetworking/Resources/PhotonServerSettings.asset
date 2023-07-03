@@ -66,6 +66,7 @@ MonoBehaviour:
   - Reload_Ammo_Server
   - Shot_Server
   - shot_Server
+  - Reload_Server
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
