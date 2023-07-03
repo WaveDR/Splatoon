@@ -1,6 +1,6 @@
 using UnityEngine;
 using Photon.Pun;
-public class PlayerController : Living_Entity, IPlayer, IPunObservable
+public class PlayerController : Living_Entity, IPlayer
 {
     [Header("Player Stat")]
     public PlayerTeams player_Team;
@@ -141,22 +141,6 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         }
     }
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(player_Team.team);
-            stream.SendNext(_player_shot.WeaponType);
-            stream.SendNext(player_Input.player_Name);
-        }
-
-        else
-        {
-            player_Team.team = (ETeam)stream.ReceiveNext();
-            _player_shot.WeaponType = (EWeapon)stream.ReceiveNext();
-            player_Input.player_Name = (string)stream.ReceiveNext();
-        }
-    }
 
     //============================================        ↑ 콜백 메서드   |  일반 메서드 ↓        ========================================================
 
