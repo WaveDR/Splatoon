@@ -24,11 +24,12 @@ public class TeamZone : MonoBehaviourPun
     {
             if (team != ETeam.Static)
                 team = bullet.bulletType;
-            //팀 판별 로직 구현할것
+        //팀 판별 로직 구현할것
 
-            if (!GameManager.Instance.isLobby)
-                bullet.player_Shot.player_Score++;
-           
+        if (!GameManager.Instance.isLobby)
+            bullet.photonView.RPC("Score_Plus", RpcTarget.Others);
+
+
     }
     private void OnParticleCollision(GameObject other)
     {

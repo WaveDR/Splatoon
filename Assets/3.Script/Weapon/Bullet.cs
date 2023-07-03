@@ -69,6 +69,11 @@ public class Bullet : MonoBehaviourPun
             }
         }
     }
+    [PunRPC]
+    public void Score_Plus()
+    {
+        player_Shot.player_Score++;
+    }
 
     public void Player_Kill(string name)
     {
