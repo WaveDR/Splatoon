@@ -30,7 +30,7 @@ public class PlayerTeams : MonoBehaviourPun
 
        //if (!photonView.IsMine) return;
 
-        photonView.RPC("Player_ColorSet", RpcTarget.All);
+        photonView.RPC("Player_ColorSet", RpcTarget.Others);
         //Player_ColorSet();
     }
 

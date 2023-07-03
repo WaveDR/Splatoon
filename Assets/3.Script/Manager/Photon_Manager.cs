@@ -124,6 +124,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
 
         GameObject player = PhotonNetwork.Instantiate(playerPrefabs.name, Vector3.zero, Quaternion.identity);
         PlayerController player_Con = player.GetComponent<PlayerController>();
+
         player_Con.photonView.RPC("Player_Set", RpcTarget.Others, 
             player_Con.player_Team.team,player_Con._player_shot.WeaponType,player_Con.player_Input.player_Name);
 

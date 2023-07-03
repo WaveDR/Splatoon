@@ -49,6 +49,7 @@ MonoBehaviour:
   - Player_Spawn
   - PlayerData
   - Set_PlayerInfo
+  - Player_ColorSet
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
