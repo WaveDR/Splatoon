@@ -11777,7 +11777,7 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: 0
-  Synchronization: 3
+  Synchronization: 2
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
@@ -17941,6 +17941,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2739868420021979446, guid: 6159e53a9ee5f0440817aea79ccbbdb8, type: 3}
+      propertyPath: Synchronization
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2739868420021979446, guid: 6159e53a9ee5f0440817aea79ccbbdb8, type: 3}
+      propertyPath: ObservedComponents.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2925335314676409176, guid: 6159e53a9ee5f0440817aea79ccbbdb8, type: 3}
       propertyPath: m_Name
       value: Weapon_Gun
@@ -18331,6 +18339,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1773349896739185487}
     m_Modifications:
+    - target: {fileID: 702567073968427483, guid: 681dac176573a08429dbffeccf3afd03, type: 3}
+      propertyPath: Synchronization
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 702567073968427483, guid: 681dac176573a08429dbffeccf3afd03, type: 3}
+      propertyPath: ObservedComponents.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7041809192665240369, guid: 681dac176573a08429dbffeccf3afd03, type: 3}
       propertyPath: m_Name
       value: Weapon_Bow

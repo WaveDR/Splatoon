@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class Shot_System : MonoBehaviourPun, IPunObservable
+public class Shot_System : MonoBehaviourPun
 {
     public EWeapon weaponType;
     public WeaponStat weapon_Stat;
@@ -24,20 +24,6 @@ public class Shot_System : MonoBehaviourPun, IPunObservable
         player_Shot = GetComponentInParent<PlayerShooter>();
     }
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(weapon_CurAmmo);
-            stream.SendNext(player_Shot.player_Score);
-        }
-        else
-        {
-            weapon_CurAmmo = (float)stream.ReceiveNext();
-            player_Shot.player_Score = (int)stream.ReceiveNext();
-        }
-
-    }
 
     // Update is called once per frame
     void OnEnable()
