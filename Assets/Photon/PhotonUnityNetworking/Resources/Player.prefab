@@ -11586,7 +11586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5ccb45f8032e434a8ebdd6040d3d9cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 1
+  team: 0
   _player_Con: {fileID: 0}
   _player_Shooter: {fileID: 0}
   _player_Color_Par:
@@ -11777,7 +11777,7 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: 0
-  Synchronization: 2
+  Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
@@ -18803,6 +18803,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1773349896250579023}
     m_Modifications:
+    - target: {fileID: 74686861704087803, guid: bee586517192ba9468253924a84bdf91, type: 3}
+      propertyPath: Synchronization
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 74686861704087803, guid: bee586517192ba9468253924a84bdf91, type: 3}
+      propertyPath: ObservedComponents.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5777034218105252643, guid: bee586517192ba9468253924a84bdf91, type: 3}
       propertyPath: m_RootOrder
       value: 5
