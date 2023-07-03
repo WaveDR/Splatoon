@@ -33,7 +33,7 @@ public class Shot_System : MonoBehaviourPun,IPunObservable
         }
         else
         {
-            weapon_CurAmmo =(int) stream.ReceiveNext();
+            weapon_CurAmmo = (float) stream.ReceiveNext();
             player_Shot.player_Score = (int) stream.ReceiveNext();
         }
 
@@ -112,7 +112,10 @@ public class Shot_System : MonoBehaviourPun,IPunObservable
     {
             if (weapon_CurAmmo > 0)
             {
-                ShotEffect();
+            foreach (Bullet shot in firePoint)
+                {
+                    shot.particle.Play();
+                }
                 weapon_CurAmmo -= weapon_Stat.use_Ammo;
             }
             else
@@ -123,13 +126,5 @@ public class Shot_System : MonoBehaviourPun,IPunObservable
                 //나중에 인게임 연출도 해줄것
             }
   
-    }
-    public void ShotEffect()
-    {
-        foreach (Bullet shot in firePoint)
-        {
-            shot.particle.Play();
-        }
-        
     }
 }

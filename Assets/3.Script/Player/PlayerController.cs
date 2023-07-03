@@ -370,10 +370,15 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
             {
                 if (SquidForm)// 오징어 형태
                 {
-                    Transform_Stat(30, player_Stat.dashSpeed, false, false);
-                 
+                    if (_isFloor)
+                    {
+                        _isHuman = false;
+                        _isFloor = false;
+                    }
 
+                    Transform_Stat(30, player_Stat.dashSpeed, false, false);
                     RestoreHp(recovery_Speed * 3);
+
 
                     if (!_isHuman)
                     {
@@ -438,6 +443,13 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
             {
                 if (SquidForm)// 오징어 형태
                 {
+
+                    if (!_isFloor)
+                    {
+                        _isHuman = false;
+                        _isFloor = true;
+                    }
+
                     Transform_Stat(0, player_Stat.enemyZone_Speed, true, false);
 
                     if (!_isHuman)
@@ -463,10 +475,17 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         else //공중에 있을 때
         {
             _isJump = true;
+           
             raycast_Object = null;
 
             if (SquidForm)// 오징어 형태
             {
+                if (!_isFloor)
+                {
+                    _isHuman = false;
+                    _isFloor = true;
+                }
+
                 Transform_Stat(0, player_Stat.dashSpeed, true, false);
 
                 if (!_isHuman)
@@ -601,7 +620,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
                 {
                     _player_shot.ammoBack_UI.transform.parent.gameObject.SetActive(false);
                     hitEffect[0].transform.localPosition = new Vector3(0, 1.5f, 0.46f);
-
+                    _isFloor = false;
                 }
                 ES_Manager.Stop_All_Sound_Effect();
                 ES_Manager.Play_SoundEffect("Player_Hide");
