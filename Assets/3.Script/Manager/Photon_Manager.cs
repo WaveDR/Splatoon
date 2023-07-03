@@ -97,6 +97,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
 
         base.OnJoinedLobby();
         PhotonNetwork.JoinRandomRoom();
+
     }
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
@@ -113,6 +114,14 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
 
         //나중에 입장한 플레이어 모으기 && 다 모이면 게임 시작 누를 수 있도록 수정예정
         StartCoroutine(Player_Spawn());
+
+        if (isCreateRoom && PhotonNetwork.InRoom)
+        {
+            if (PhotonNetwork.CurrentRoom.PlayerCount >= max_Player && !isReady)
+            {
+                photonView.RPC("GameStart", RpcTarget.AllBuffered);
+            }
+        }
     }
  
     IEnumerator Player_Spawn()
@@ -128,17 +137,6 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         GameManager.Instance.photonView.RPC("SetPlayerPos", RpcTarget.AllBuffered);
         GameManager.Instance.photonView.RPC("UI_Out", RpcTarget.AllBuffered);
 
-    }
-
-    private void Update()
-    {
-        if (isCreateRoom && PhotonNetwork.InRoom)
-        {
-            if (PhotonNetwork.CurrentRoom.PlayerCount >= max_Player && !isReady)
-            {
-                photonView.RPC("GameStart", RpcTarget.AllBuffered);
-            }
-        }
     }
     [PunRPC]
     public void GameStart()

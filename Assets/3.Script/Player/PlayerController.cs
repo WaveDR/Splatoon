@@ -659,7 +659,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
             obj.SetActive(human);
         }
         squid_Object.SetActive(squid);
-        Debug.LogError("형태변환");
+       // Debug.LogError("형태변환");
     }
     #endregion
 

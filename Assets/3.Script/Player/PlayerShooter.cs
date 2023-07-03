@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 
 public enum EWeapon { Brush, Gun, Bow }
-public class PlayerShooter : MonoBehaviourPun,IPunObservable
+public class PlayerShooter : MonoBehaviourPun
 {
     [Header("Weapon")]
 
@@ -94,21 +94,6 @@ public class PlayerShooter : MonoBehaviourPun,IPunObservable
         TryGetComponent(out _player_Anim);
         TryGetComponent(out playerCam);
     }
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(_player_ScoreSet);
-
-        }
-        else
-        {
-            _player_ScoreSet = (int) stream.ReceiveNext();
-
-        }
-    }
-
     private void OnEnable()
     {
         //선택에 따라 활성화 disable도 동일한 방식
@@ -421,8 +406,8 @@ public class PlayerShooter : MonoBehaviourPun,IPunObservable
     {
         if (weapon.weapon_CurAmmo <= weapon.weapon_MaxAmmo && !_isFire)
         {
-            photonView.RPC("Reload_Server", RpcTarget.AllBuffered, speed);
-
+            //photonView.RPC("Reload_Server", RpcTarget.AllBuffered, speed);
+            Reload_Server(speed);
             ammo_Back.transform.localScale =
            new Vector3(ammo_Back.transform.localScale.x, weapon.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
         }
