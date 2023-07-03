@@ -146,15 +146,18 @@ public class PlayerController : Living_Entity, IPlayer
     [PunRPC]
     public void Player_Set(ETeam team, EWeapon weapon, string name)
     {
-        player_Team.team = team;
-        _player_shot.WeaponType = weapon;
-        player_Input.player_Name = name;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            player_Team.team = team;
+            _player_shot.WeaponType = weapon;
+            player_Input.player_Name = name;
 
-        player_Team.Player_ColorSet();
-        _player_shot.WeaponSet();
+            player_Team.Player_ColorSet();
+            _player_shot.WeaponSet();
 
-        player_Team.photonView.RPC("Player_ColorSet", RpcTarget.Others);
-        _player_shot.photonView.RPC("WeaponSet", RpcTarget.Others);
+            player_Team.photonView.RPC("Player_ColorSet", RpcTarget.All);
+            _player_shot.photonView.RPC("WeaponSet", RpcTarget.All);
+        }
     }
 
     private void Player_Jump()
@@ -539,7 +542,8 @@ public class PlayerController : Living_Entity, IPlayer
             _player_shot.photonView.RPC("Reload_Ammo",RpcTarget.All, ammo); // 재장전
             _player_Speed = speed;
 
-            photonView.RPC("Transform_Mesh",RpcTarget.All, Human);   //형태 변형
+            Transform_Mesh(Squid, Human);   //형태 변형
+            photonView.RPC("Transform_Mesh", RpcTarget.All, Squid, Human);   //형태 변형
 
             if (Human)
             {
@@ -557,13 +561,18 @@ public class PlayerController : Living_Entity, IPlayer
         }
       
     } //기본 상태 변환
+    [PunRPC]
     public void Transform_Mesh(bool squid, bool human)
     {
-        foreach (GameObject obj in human_Object)
+        if (PhotonNetwork.IsMasterClient)
         {
-            obj.SetActive(human);
+            foreach (GameObject obj in human_Object)
+            {
+                obj.SetActive(human);
+            }
+            squid_Object.SetActive(squid);
         }
-        squid_Object.SetActive(squid);
+  
     }
     #endregion
 
