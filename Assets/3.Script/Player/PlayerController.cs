@@ -146,18 +146,15 @@ public class PlayerController : Living_Entity, IPlayer
     [PunRPC]
     public void Player_Set(ETeam team, EWeapon weapon, string name)
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            player_Team.team = team;
-            _player_shot.WeaponType = weapon;
-            player_Input.player_Name = name;
+        player_Team.team = team;
+        _player_shot.WeaponType = weapon;
+        player_Input.player_Name = name;
 
-            player_Team.Player_ColorSet();
-            _player_shot.WeaponSet();
+        player_Team.Player_ColorSet();
+        _player_shot.WeaponSet();
 
-            player_Team.photonView.RPC("Player_ColorSet", RpcTarget.All);
-            _player_shot.photonView.RPC("WeaponSet", RpcTarget.All);
-        }
+        player_Team.photonView.RPC("Player_ColorSet", RpcTarget.Others);
+        _player_shot.photonView.RPC("WeaponSet", RpcTarget.Others);
     }
 
     private void Player_Jump()
