@@ -408,10 +408,16 @@ public class PlayerShooter : MonoBehaviourPun
     {
         if (weapon.weapon_CurAmmo <= weapon.weapon_MaxAmmo && !_isFire)
         {
-            weapon.weapon_CurAmmo += Time.deltaTime * speed;
+            photonView.RPC("Reload_Server", RpcTarget.AllBuffered, speed);
 
             ammo_Back.transform.localScale =
            new Vector3(ammo_Back.transform.localScale.x, weapon.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
         }
+    }
+
+    [PunRPC]
+    public void Reload_Server(int speed)
+    {
+        weapon.weapon_CurAmmo += Time.deltaTime * speed;
     }
 }

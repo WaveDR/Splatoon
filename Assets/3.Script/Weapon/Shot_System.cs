@@ -83,7 +83,6 @@ public class Shot_System : MonoBehaviourPun, IPunObservable
                 firePoint[i].photonView.RPC("Bullet_Set", RpcTarget.AllBuffered);
             }
         }
-
     }
 
     [PunRPC]

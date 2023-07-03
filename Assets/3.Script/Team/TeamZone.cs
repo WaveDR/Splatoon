@@ -26,10 +26,8 @@ public class TeamZone : MonoBehaviourPun
                 team = bullet.bulletType;
         //팀 판별 로직 구현할것
 
-       // if (!GameManager.Instance.isLobby)
-       //     bullet.photonView.RPC("Score_Plus", RpcTarget.AllBuffered);
-
-
+        if (!GameManager.Instance.isLobby)
+            bullet.photonView.RPC("Score_Plus", RpcTarget.AllBuffered);
     }
     private void OnParticleCollision(GameObject other)
     {
