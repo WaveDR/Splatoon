@@ -57,7 +57,6 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         stateUI.text = "¹æ »ý¼º";
         PhotonNetwork.LoadLevel("InGame");
         matching_UI.SetActive(false);
-
     }
 
     public void Matching_Room()
@@ -125,8 +124,9 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         player_Con.photonView.RPC("Player_Set", RpcTarget.AllBuffered, 
             player_Con.player_Team.team,player_Con._player_shot.WeaponType,player_Con.player_Input.player_Name);
 
-        GameManager.Instance.photonView.RPC("FindPlayer",RpcTarget.AllBuffered);
         GameManager.Instance.photonView.RPC("SetPlayerPos", RpcTarget.AllBuffered);
+        GameManager.Instance.photonView.RPC("UI_Out", RpcTarget.AllBuffered);
+
     }
 
     private void Update()
@@ -139,7 +139,5 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
             }
         }
     }
-
-   
     #endregion
 }

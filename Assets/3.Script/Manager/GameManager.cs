@@ -298,13 +298,17 @@ public class GameManager : MonoBehaviourPun
         if (!isStart)
         {
             ui_Anim = GameObject.FindGameObjectWithTag("TimeUI").GetComponent<Animator>();
+
             PaintTarget.ClearAllPaint();
-            UI_Out();
+            photonView.RPC("UI_Out", RpcTarget.AllBuffered);
+ 
             BGM_Manager.Instance.Stop_All_Sound_BGM();
+
             foreach(TeamZone teamZone in nodes)
             {
                 teamZone.team = ETeam.Etc;
             }
+
             photonView.RPC("SetPlayerPos", RpcTarget.AllBuffered);
             count_Image.gameObject.SetActive(true); //카운트 다운 이미지 켜기
             scoreGage_Blue.fillAmount = 0; //스코어 게이지 초기화
@@ -569,6 +573,7 @@ public class GameManager : MonoBehaviourPun
         }
     } //카메라 메서드
 
+    [PunRPC]
     public void UI_Out()
     {
         Photon_Manager.Instance.matching_UI.transform.parent.gameObject.SetActive(false);
