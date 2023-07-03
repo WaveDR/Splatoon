@@ -134,7 +134,6 @@ public class GameManager : MonoBehaviourPun
         _team_Blue_Spawn[1] = new Vector3(-2.34f, 3.6f, 60);
         _team_Blue_Spawn[2] = new Vector3(1.41f, 3.6f, 60);
         _team_Blue_Spawn[3] = new Vector3(5.16f, 3.6f, 60);
-        ui_Anim = GameObject.FindGameObjectWithTag("TimeUI").GetComponent<Animator>();
     }
     private void OnEnable()
     {
@@ -298,6 +297,7 @@ public class GameManager : MonoBehaviourPun
     {
         if (!isStart)
         {
+            ui_Anim = GameObject.FindGameObjectWithTag("TimeUI").GetComponent<Animator>();
 
             PaintTarget.ClearAllPaint();
             photonView.RPC("UI_Out", RpcTarget.AllBuffered);
