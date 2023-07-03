@@ -55,8 +55,9 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = max_Player });
         Debug.Log("Created Room");
         stateUI.text = "¹æ »ý¼º";
-        matching_UI.SetActive(false);
         PhotonNetwork.LoadLevel("InGame");
+        matching_UI.SetActive(false);
+
     }
 
     public void Matching_Room()

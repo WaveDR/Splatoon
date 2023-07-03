@@ -536,6 +536,22 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 416469023722686102, guid: bee586517192ba9468253924a84bdf91, type: 3}
+      propertyPath: sceneViewId
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 1992530430196673652, guid: bee586517192ba9468253924a84bdf91, type: 3}
+      propertyPath: sceneViewId
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 3626183316405027764, guid: bee586517192ba9468253924a84bdf91, type: 3}
+      propertyPath: sceneViewId
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 5591792654322132530, guid: bee586517192ba9468253924a84bdf91, type: 3}
+      propertyPath: sceneViewId
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 5777034218105252643, guid: bee586517192ba9468253924a84bdf91, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -580,9 +596,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 51.069
       objectReference: {fileID: 0}
+    - target: {fileID: 6119192101769042224, guid: bee586517192ba9468253924a84bdf91, type: 3}
+      propertyPath: sceneViewId
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 6586504215621857689, guid: bee586517192ba9468253924a84bdf91, type: 3}
       propertyPath: m_Name
       value: Weapon_Brush
+      objectReference: {fileID: 0}
+    - target: {fileID: 8269181294516363018, guid: bee586517192ba9468253924a84bdf91, type: 3}
+      propertyPath: sceneViewId
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bee586517192ba9468253924a84bdf91, type: 3}
@@ -651,9 +675,29 @@ PrefabInstance:
       propertyPath: autoRandomSeed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3959601556773272867, guid: 681dac176573a08429dbffeccf3afd03, type: 3}
+      propertyPath: sceneViewId
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3959601557961901514, guid: 681dac176573a08429dbffeccf3afd03, type: 3}
+      propertyPath: sceneViewId
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767920382868253976, guid: 681dac176573a08429dbffeccf3afd03, type: 3}
+      propertyPath: sceneViewId
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 7041809192665240369, guid: 681dac176573a08429dbffeccf3afd03, type: 3}
       propertyPath: m_Name
       value: Weapon_Bow
+      objectReference: {fileID: 0}
+    - target: {fileID: 7206867848510696235, guid: 681dac176573a08429dbffeccf3afd03, type: 3}
+      propertyPath: sceneViewId
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7291187523068751329, guid: 681dac176573a08429dbffeccf3afd03, type: 3}
+      propertyPath: sceneViewId
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7706319263360092555, guid: 681dac176573a08429dbffeccf3afd03, type: 3}
       propertyPath: m_RootOrder
@@ -698,6 +742,10 @@ PrefabInstance:
     - target: {fileID: 7706319263360092555, guid: 681dac176573a08429dbffeccf3afd03, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7923566292455413935, guid: 681dac176573a08429dbffeccf3afd03, type: 3}
+      propertyPath: sceneViewId
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 681dac176573a08429dbffeccf3afd03, type: 3}
@@ -7421,6 +7469,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 242201025}
     m_Modifications:
+    - target: {fileID: 183744549369942373, guid: 6159e53a9ee5f0440817aea79ccbbdb8, type: 3}
+      propertyPath: sceneViewId
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2581460151475190242, guid: 6159e53a9ee5f0440817aea79ccbbdb8, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -7552,6 +7604,10 @@ PrefabInstance:
     - target: {fileID: 6016783226442329637, guid: 6159e53a9ee5f0440817aea79ccbbdb8, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.key1.r
       value: 0.5058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 6439839360416441915, guid: 6159e53a9ee5f0440817aea79ccbbdb8, type: 3}
+      propertyPath: sceneViewId
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8593876071274007431, guid: 6159e53a9ee5f0440817aea79ccbbdb8, type: 3}
       propertyPath: InitialModule.startColor.maxGradient.ctime2

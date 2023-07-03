@@ -1,6 +1,6 @@
 using UnityEngine;
 using Photon.Pun;
-public class PlayerController : Living_Entity, IPlayer
+public class PlayerController : Living_Entity, IPlayer, IPunObservable
 {
     [Header("Player Stat")]
     public PlayerTeams player_Team;
@@ -138,6 +138,22 @@ public class PlayerController : Living_Entity, IPlayer
         if (collision.gameObject.CompareTag("Wall")) // 건물 끄트머리에 도달할 시
         {
             MoveWall(false, null);
+        }
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) 
+    {
+        if (stream.IsWriting)
+        {
+             stream.SendNext(player_Team.team);
+             stream.SendNext(_player_shot.WeaponType);
+             stream.SendNext(player_Input.player_Name);
+        }
+        else
+        {
+            player_Team.team = (ETeam)stream.ReceiveNext();
+            _player_shot.WeaponType = (EWeapon)stream.ReceiveNext();
+            player_Input.player_Name = (string)stream.ReceiveNext();
         }
     }
 

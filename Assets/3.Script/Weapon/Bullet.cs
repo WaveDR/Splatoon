@@ -75,6 +75,7 @@ public class Bullet : MonoBehaviourPun
             }
         }
     }
+    
     [PunRPC]
     public void Score_Plus()
     {
