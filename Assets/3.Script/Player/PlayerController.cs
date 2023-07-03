@@ -1,6 +1,6 @@
 using UnityEngine;
 using Photon.Pun;
-public class PlayerController : Living_Entity, IPlayer
+public class PlayerController : Living_Entity, IPlayer, IPunObservable
 {
     [Header("Player Stat")]
     public PlayerTeams player_Team;
@@ -141,6 +141,23 @@ public class PlayerController : Living_Entity, IPlayer
         }
     }
 
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(player_Team.team);
+            stream.SendNext(_player_shot.WeaponType);
+            stream.SendNext(player_Input.player_Name);
+        }
+
+        else
+        {
+            player_Team.team = (ETeam)stream.ReceiveNext();
+            _player_shot.WeaponType = (EWeapon)stream.ReceiveNext();
+            player_Input.player_Name = (string)stream.ReceiveNext();
+        }
+    }
+
     //============================================        ↑ 콜백 메서드   |  일반 메서드 ↓        ========================================================
 
     [PunRPC]
@@ -156,6 +173,7 @@ public class PlayerController : Living_Entity, IPlayer
         player_Team.photonView.RPC("Player_ColorSet", RpcTarget.Others);
         _player_shot.photonView.RPC("WeaponSet", RpcTarget.Others);
     }
+
 
     private void Player_Jump()
     {
