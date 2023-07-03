@@ -112,8 +112,6 @@ public class GameManager : MonoBehaviourPun
         map_Camera = GameObject.FindGameObjectWithTag("MapCamera");
         mvp_Model = transform.GetComponentInChildren<Player_MVP>();
 
-        if(!isLobby) ui_Anim = GameObject.FindGameObjectWithTag("TimeUI").GetComponent<Animator>();
-
         //Animator
         TryGetComponent(out manager_Anim);
         teamYellow_Anim = transform.GetChild(0).GetComponent<WinAnim>();
@@ -154,8 +152,6 @@ public class GameManager : MonoBehaviourPun
     [PunRPC]
     public void GameStream()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
             if (!isLobby)
             {
                 if (Input.GetKey(KeyCode.Escape)) SetCursorState(false);
@@ -167,9 +163,6 @@ public class GameManager : MonoBehaviourPun
 
                 EndScoreCharge(chargeCall);
             }
-            
-        }
-     
     }
 
     public void FindPlayer()
@@ -215,11 +208,13 @@ public class GameManager : MonoBehaviourPun
         }
   
     }
+    [PunRPC]
     public void SetPlayerPos()
     {
         FindPlayer();
         int positionNum_Yellow = 0;
         int positionNum_Blue = 0;
+
         foreach (PlayerController player in players)
         {
             player.UI_OnOFf(true);
@@ -302,6 +297,7 @@ public class GameManager : MonoBehaviourPun
     {
         if (!isStart)
         {
+            ui_Anim = GameObject.FindGameObjectWithTag("TimeUI").GetComponent<Animator>();
             PaintTarget.ClearAllPaint();
             UI_Out();
             BGM_Manager.Instance.Stop_All_Sound_BGM();
@@ -309,7 +305,7 @@ public class GameManager : MonoBehaviourPun
             {
                 teamZone.team = ETeam.Etc;
             }
-            SetPlayerPos();
+            photonView.RPC("SetPlayerPos", RpcTarget.AllBuffered);
             count_Image.gameObject.SetActive(true); //카운트 다운 이미지 켜기
             scoreGage_Blue.fillAmount = 0; //스코어 게이지 초기화
             scoreGage_Yellow.fillAmount = 0;
@@ -436,6 +432,7 @@ public class GameManager : MonoBehaviourPun
         ui_Anim.SetBool("TimeOut", false);
         teamYellow_Anim.gameObject.SetActive(true);
         teamBlue_Anim.gameObject.SetActive(true);
+
         foreach (PlayerController player in players)
         {
             player.UI_OnOFf(false);

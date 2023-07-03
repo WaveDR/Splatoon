@@ -258,9 +258,12 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
     {
         base.Player_Die();
         Transform_Stat(0, 0, false, false);
-        photonView.RPC("Transform_Stat", RpcTarget.All, 0, 0, false, false);
+        Transform_Mesh(false, false);
+
         deathEffect.particle.Play();
-        dmgBullet.Player_Kill(player_Input.player_Name);
+
+        dmgBullet.Player_Kill(player_Input.player_Name); //상대에게 뜨는 킬로그
+
         GameManager.Instance.Player_Dead_Check(); //Player Dead UI;
         ES_Manager.Play_SoundEffect("Player_Death");
 
@@ -270,13 +273,12 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
     {
         if (photonView.IsMine)
         {
-
-
             plusTime += Time.deltaTime;
             if (plusTime >= 1)
             {
                 _player_shot.playerCam.cam_Obj.gameObject.SetActive(false);
             }
+
             GameManager.Instance.MapCam(true, _player_shot.playerCam.cam_Obj.gameObject);
             if (!falling)
             {
