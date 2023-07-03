@@ -605,8 +605,6 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
 
     public void Transform_Stat(int ammo, float speed, bool Squid, bool Human)
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
             if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.LeftShift))
             {
                 if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -646,7 +644,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
                 player_Wave[0].Stop();
                 player_Wave[1].Play(); // 오징어 발걸음
             }
-        }
+     
     } //기본 상태 변환
     
     public void Transform_Mesh(bool squid, bool human)

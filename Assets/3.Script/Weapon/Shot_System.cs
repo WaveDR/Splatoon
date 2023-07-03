@@ -92,7 +92,12 @@ public class Shot_System : MonoBehaviourPun, IPunObservable
     {
         if (weapon_CurAmmo > 0)
         {
-            photonView.RPC("shot_Server", RpcTarget.All);
+            weapon_CurAmmo -= weapon_Stat.use_Ammo;
+
+            foreach (Bullet shot in firePoint)
+            {
+                shot.particle.Play();
+            }
         }
         else
         {
@@ -104,10 +109,7 @@ public class Shot_System : MonoBehaviourPun, IPunObservable
     [PunRPC]
     public void shot_Server()
     {
-        foreach (Bullet shot in firePoint)
-        {
-            shot.particle.Play();
-        }
+      
     }
 
 }
