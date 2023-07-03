@@ -23,6 +23,8 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
 
     private float _player_Speed;
     private bool _Wall_RacastOn;
+    private bool _isHuman;
+    private bool _isFloor;
     private Bullet dmgBullet; //맞을 때 받을 데미지값 가져오기
 
     [SerializeField] private float hp;
@@ -173,7 +175,6 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         player_Team.photonView.RPC("Player_ColorSet", RpcTarget.AllBuffered);
         _player_shot.photonView.RPC("WeaponSet", RpcTarget.AllBuffered);
     }
-
 
     private void Player_Jump()
     {
@@ -371,6 +372,12 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
                  
 
                     RestoreHp(recovery_Speed * 3);
+
+                    if (!_isHuman)
+                    {
+                        Transform_Mesh(false, false);
+                        _isHuman = true;
+                    }
                    
                 }
 
@@ -379,7 +386,12 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
                     Transform_Stat(20, player_Stat.moveZone_Speed, false, true);
                   
                     RestoreHp(recovery_Speed);
-            
+
+                    if (_isHuman)
+                    {
+                        Transform_Mesh(false, true);
+                        _isHuman = false;
+                    }
                 }
             }
 
@@ -387,15 +399,30 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
             {
                 if (SquidForm)// 오징어 형태
                 {
+                    if (!_isFloor)
+                    {
+                        _isHuman = false;
+                        _isFloor = true;
+                    }
+
                     Transform_Stat(3, player_Stat.moveZone_Speed, true, false);
-            
+                    if (!_isHuman)
+                    {
+                        Transform_Mesh(true, false);
+                        _isHuman = true;
+                    }
 
                 }
 
                 else //사람 형태
                 {
                     Transform_Stat(3, player_Stat.moveZone_Speed, false, true);
-                 
+                    if (_isHuman)
+                    {
+                        Transform_Mesh(false, true);
+                        _isHuman = false;
+                    }
+                    _isFloor = false;
 
                 }
 
@@ -410,15 +437,24 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
                 if (SquidForm)// 오징어 형태
                 {
                     Transform_Stat(0, player_Stat.enemyZone_Speed, true, false);
-                   
+
+                    if (!_isHuman)
+                    {
+                        Transform_Mesh(true, false);
+                        _isHuman = true;
+                    }
 
                 }
 
                 else //사람 형태
                 {
                     Transform_Stat(0, player_Stat.enemyZone_Speed, false, true);
-                   
 
+                    if (_isHuman)
+                    {
+                        Transform_Mesh(false, true);
+                        _isHuman = false;
+                    }
                 }
             }
         }
@@ -430,14 +466,22 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
             if (SquidForm)// 오징어 형태
             {
                 Transform_Stat(0, player_Stat.dashSpeed, true, false);
-                
 
+                if (!_isHuman)
+                {
+                    Transform_Mesh(true, false);
+                    _isHuman = true;
+                }
             }
 
             else //사람 형태
             {
                 Transform_Stat(0, player_Stat.moveZone_Speed, false, true);
-              
+                if (_isHuman)
+                {
+                    Transform_Mesh(false, true);
+                    _isHuman = false;
+                }
 
             }
         }
@@ -494,11 +538,15 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
             {
                 if (SquidForm)// 오징어 형태
                 {
-                    Transform_Stat(30, player_Stat.dashSpeed, false, false);
-                    
                     RestoreHp(recovery_Speed * 3);
-                   
 
+                    Transform_Stat(30, player_Stat.dashSpeed, false, false);
+
+                    if (!_isHuman)
+                    {
+                        Transform_Mesh(false, false);
+                        _isHuman = true;
+                    }
                 }
 
                 else //사람 형태
@@ -506,6 +554,12 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
                     Transform_Stat(20, player_Stat.moveZone_Speed, false, true);
                     
                     RestoreHp(recovery_Speed);
+
+                    if (_isHuman)
+                    {
+                        Transform_Mesh(false, true);
+                        _isHuman = false;
+                    }
                 }
             }
 
@@ -528,7 +582,6 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         raycast_Wall_Object = wallObj;
     }  //벽에 닿았을 시 상태 변환
 
-    [PunRPC]
     public void Transform_Stat(int ammo, float speed, bool Squid, bool Human)
     {
         if (PhotonNetwork.IsMasterClient)
@@ -539,6 +592,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
                 {
                     _player_shot.ammoBack_UI.transform.parent.gameObject.SetActive(true);
                     hitEffect[0].transform.localPosition = new Vector3(0, 0.4f, 0.46f);
+
                 }
 
                 if (Input.GetKeyUp(KeyCode.LeftShift))
@@ -557,9 +611,9 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
             // 재장전
             _player_Speed = speed;
 
-            Transform_Mesh(Squid, Human);   //형태 변형
-             //형태 변형
 
+            //형태 변형
+            //Transform_Mesh(Squid, Human);
             if (Human)
             {
                 player_Wave[1].Stop();
@@ -571,23 +625,22 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
                 player_Wave[0].Stop();
                 player_Wave[1].Play(); // 오징어 발걸음
             }
-
- 
         }
-      
     } //기본 상태 변환
-    [PunRPC]
+    
     public void Transform_Mesh(bool squid, bool human)
     {
-        if (PhotonNetwork.IsMasterClient)
+        photonView.RPC("TransSquid_Server", RpcTarget.AllBuffered, squid, human);
+    }
+    [PunRPC]
+    public void TransSquid_Server(bool squid, bool human)
+    {
+        foreach (GameObject obj in human_Object)
         {
-            foreach (GameObject obj in human_Object)
-            {
-                obj.SetActive(human);
-            }
-            squid_Object.SetActive(squid);
+            obj.SetActive(human);
         }
-  
+        squid_Object.SetActive(squid);
+        Debug.LogError("형태변환");
     }
     #endregion
 

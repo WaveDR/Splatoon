@@ -62,7 +62,6 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
 
     public void Matching_Room()
     {
-        
         Connect();
     }
     public void Connect()
@@ -106,8 +105,6 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         stateUI.text = "2¿Œ πÊ";
     }
 
-
-
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
@@ -142,5 +139,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
             }
         }
     }
+
+   
     #endregion
 }
