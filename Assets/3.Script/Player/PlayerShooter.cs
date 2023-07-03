@@ -143,6 +143,8 @@ public class PlayerShooter : MonoBehaviourPun
         name_UI.text = _player_Input.player_Name;
         killLog_Obj.SetActive(false);
         enemyData_Obj.SetActive(false);
+
+        weapon.photonView.RPC("Weapon_Color_Change", RpcTarget.Others);
     }
 
     void Update()

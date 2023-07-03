@@ -21,12 +21,7 @@ public class Shot_System : MonoBehaviourPun,IPunObservable
   // Start is called before the first frame update
     void Awake()
     {
-        team = GetComponentInParent<PlayerTeams>();
-        weapon_MaxAmmo = weapon_Stat.max_Ammo;
-        weapon_CurAmmo = weapon_MaxAmmo;
 
-        firePoint_Files_Yellow = transform.GetChild(0);
-        firePoint_Files_Blue = transform.GetChild(1);
     }
 
    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -40,8 +35,16 @@ public class Shot_System : MonoBehaviourPun,IPunObservable
         Weapon_Color_Change();
     }
 
-    private void Weapon_Color_Change()
+    [PunRPC]
+    public void Weapon_Color_Change()
     {
+        team = GetComponentInParent<PlayerTeams>();
+        weapon_MaxAmmo = weapon_Stat.max_Ammo;
+        weapon_CurAmmo = weapon_MaxAmmo;
+
+        firePoint_Files_Yellow = transform.GetChild(0);
+        firePoint_Files_Blue = transform.GetChild(1);
+
         firePoint_Files = null;
         firePoint_Files_Yellow.gameObject.SetActive(true);
         firePoint_Files_Blue.gameObject.SetActive(true);
