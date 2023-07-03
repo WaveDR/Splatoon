@@ -58,7 +58,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         Debug.Log("Created Room");
         stateUI.text = "방 생성";
         PhotonNetwork.LoadLevel("InGame");
-        time_UI.SetActive(true);
+        
         matching_UI.SetActive(false);
     }
 
@@ -117,7 +117,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         //나중에 입장한 플레이어 모으기 && 다 모이면 게임 시작 누를 수 있도록 수정예정
         StartCoroutine(Player_Spawn());
 
-        if (isCreateRoom && PhotonNetwork.InRoom)
+        if (PhotonNetwork.InRoom)
         {
             if (PhotonNetwork.CurrentRoom.PlayerCount >= max_Player && !isReady)
             {
@@ -143,6 +143,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void GameStart()
     {
+        time_UI.SetActive(true);
         GameManager.Instance.isLobby = false;
         isReady = true;
     } 
