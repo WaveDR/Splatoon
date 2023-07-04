@@ -104,14 +104,8 @@ public class PlayerShooter : MonoBehaviourPun
 
         WeaponSet();
     }
-
-    public void ReSet_Skill_UI()
-    {
-        photonView.RPC("Reset_Skill_Server", RpcTarget.AllBuffered);
-    }
-
     [PunRPC]
-    public void Reset_Skill_Server()
+    public void ReSet_Skill_UI()
     {
         skill_UI = FindObjectsOfType<Player_SettingUI>();
 
@@ -122,6 +116,12 @@ public class PlayerShooter : MonoBehaviourPun
                 skill_UI[i].gameObject.SetActive(false);
             }
         }
+    }
+
+   
+    public void Reset_Skill_Server()
+    {
+       
     }
     [PunRPC]
     public void WeaponSet()
