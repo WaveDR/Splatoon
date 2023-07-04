@@ -143,16 +143,11 @@ public class GameManager : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        if (!isLobby)
-        {
-
-            photonView.RPC("GameStream", RpcTarget.AllBuffered);
-        }
+        GameStream();
     }
 
     //============================================        ก่ CallBack   |   Nomal ก้        ========================================================
 
-    [PunRPC]
     public void GameStream()
     {
             if (!isLobby)
@@ -161,8 +156,8 @@ public class GameManager : MonoBehaviourPun
 
                 else SetCursorState(true);
 
-                if (!gameStart) StartCount();
-                else if (!gameEnd) EndCount();
+            if (!gameStart) photonView.RPC("StartCount", RpcTarget.AllBuffered);
+            else if (!gameEnd) photonView.RPC("EndCount", RpcTarget.AllBuffered);
 
                 EndScoreCharge(chargeCall);
             }
