@@ -17,7 +17,7 @@ public class Player_Info
     public string name;
     public int score;
 }
-public class GameManager : MonoBehaviourPunCallbacks
+public class GameManager : MonoBehaviourPun,IPunObservable
 {
     
     public static GameManager _instance = null;
@@ -140,6 +140,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         _team_Blue_Spawn[2] = new Vector3(1.41f, 3.6f, 60);
         _team_Blue_Spawn[3] = new Vector3(5.16f, 3.6f, 60);
     }
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting) stream.SendNext(deltaTime);
+        else deltaTime = (float) stream.ReceiveNext();
+
+    }
+
 
     public void Start()
     {
