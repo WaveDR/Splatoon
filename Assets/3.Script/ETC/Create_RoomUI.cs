@@ -40,7 +40,7 @@ public class Create_RoomUI : MonoBehaviour
         BGM_Manager.Instance.Play_Sound_BGM("UI_Click");
 
         ui_Anim.SetBool("isMatch", isMatch);
-
+        Photon_Manager.Instance.set_Manager.LoadingOn();
         if (!isMatch) notMatch.SetActive(false);
     }
 }
