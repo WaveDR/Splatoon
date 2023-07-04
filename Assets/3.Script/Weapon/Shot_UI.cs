@@ -8,6 +8,8 @@ using Photon.Pun;
 public class Shot_UI : MonoBehaviourPun
 {
     [Header("Shot_UI")]
+    public GameObject[] weapon_Aim;
+
     public Image bowAim_UI;
     public Text killLog_UI;
     public GameObject killLog_Obj;
@@ -19,5 +21,6 @@ public class Shot_UI : MonoBehaviourPun
     public Image ammoNot_UI;
     public Text name_UI;
     public Text score_UI;
+
 
 }

@@ -14,7 +14,7 @@ public class PlayerShooter : MonoBehaviourPun
 
     public EWeapon WeaponType;
     public Shot_System weapon;
-    
+
     public int weaponNum;            // 총 번호
     public GameObject ammo_Back;     // 총알 통 애니메이션용
 
@@ -88,8 +88,8 @@ public class PlayerShooter : MonoBehaviourPun
 
 
     public Player_SettingUI[] skill_UI;
-    
-    
+
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -112,20 +112,26 @@ public class PlayerShooter : MonoBehaviourPun
     [PunRPC]
     public void UI_Set_Server()
     {
-       bowAim_UI = shot_UI.bowAim_UI ;
-         killLog_UI = shot_UI.killLog_UI;
-       killLog_Obj = shot_UI.killLog_Obj;
-       enemyData_Obj = shot_UI.enemyData_Obj;
-      enemyName_UI = shot_UI.enemyName_UI;
-      enemyScore_UI = shot_UI.enemyScore_UI;
+
+        weapon_Aim[0] = shot_UI.weapon_Aim[0];
+        weapon_Aim[1] = shot_UI.weapon_Aim[1];
+
+        bowAim_UI = shot_UI.bowAim_UI;
+        killLog_UI = shot_UI.killLog_UI;
+        killLog_Obj = shot_UI.killLog_Obj;
+        enemyData_Obj = shot_UI.enemyData_Obj;
+        enemyName_UI = shot_UI.enemyName_UI;
+        enemyScore_UI = shot_UI.enemyScore_UI;
 
         ammoBack_UI = shot_UI.ammoBack_UI;
         ammoNot_UI = shot_UI.ammoNot_UI;
         name_UI = shot_UI.name_UI;
         score_UI = shot_UI.score_UI;
 
-}
-[PunRPC]
+
+
+    }
+    [PunRPC]
     public void WeaponSet()
     {
         switch (WeaponType)
@@ -218,11 +224,11 @@ public class PlayerShooter : MonoBehaviourPun
 
     private void WarningAmmo()
     {
-        if(weapon.weapon_CurAmmo <= 50)
+        if (weapon.weapon_CurAmmo <= 50)
         {
             ammoBack_UI.transform.parent.gameObject.SetActive(true);
         }
-        if(weapon.weapon_CurAmmo <= 10)
+        if (weapon.weapon_CurAmmo <= 10)
         {
             ammoNot_UI.gameObject.SetActive(true);
         }
@@ -269,16 +275,16 @@ public class PlayerShooter : MonoBehaviourPun
 
                 if (_player_Input.fire && !_player_Input.squid_Form)
                 {
-            
+
                     fireRateTime += Time.deltaTime;
-                    
+
                     _isFire = true;
 
                     _player_Anim.SetTrigger("Reload_Bow");
 
                     if (fireRateTime >= fireMaxTime && weapon.weapon_CurAmmo > 0)
                     {
-                     
+
                         _Player_Con.ES_Manager.Play_SoundEffect("Weapon_Gun");
                         _Player_Con.ES_Manager.Stop_Sound_Effect("Floor_Hit");
                         _Player_Con.ES_Manager.Play_SoundEffect("Floor_Hit");
@@ -326,7 +332,7 @@ public class PlayerShooter : MonoBehaviourPun
                         _Player_Con.ES_Manager.Play_SoundEffect("Weapon_Charge");
                         _isCharge_Sfx = true;
                     }
-             
+
                 }
                 if (fireRateTime >= fireMaxTime && weapon.weapon_CurAmmo > 0)
                 {
@@ -358,7 +364,7 @@ public class PlayerShooter : MonoBehaviourPun
                     fireRateTime = 0;
                     bowAim_UI.fillAmount = fireRateTime;
                     _player_Anim.SetBool("isFire", false);
-                    
+
                     _Player_Con.ES_Manager.Stop_Sound_Effect("Weapon_Charge");
                     _Player_Con.ES_Manager.Stop_Sound_Effect("Weapon_Not_Ammo");
                     _Player_Con.ES_Manager.Play_SoundEffect("Weapon_Not_Ammo");

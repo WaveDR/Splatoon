@@ -10453,6 +10453,7 @@ MonoBehaviour:
   - {fileID: 0}
   _Charge_Effect: {fileID: 8378718545984718547}
   player_Score: 0
+  shot_UI: {fileID: 0}
   bowAim_UI: {fileID: 0}
   killLog_UI: {fileID: 0}
   killLog_Obj: {fileID: 0}

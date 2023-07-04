@@ -3080,6 +3080,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bcb4be5a59e6e64183d27841170e344, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weapon_Aim:
+  - {fileID: 3249877912947497951}
+  - {fileID: 3249877913511303503}
   bowAim_UI: {fileID: 3249877913312145183}
   killLog_UI: {fileID: 1205515610131841599}
   killLog_Obj: {fileID: 1205515610340601760}
