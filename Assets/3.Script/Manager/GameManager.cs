@@ -290,10 +290,7 @@ public class GameManager : MonoBehaviourPun
         }
     }
 
-    [PunRPC] public void Timer()
-    {
-        deltaTime -= Time.deltaTime;
-    }
+
     public void List_In_Player(int score, PlayerController player_data)
     {
         player_Info[score] = new Player_Info(player_data.player_Team.team, player_data._player_shot.WeaponType,
@@ -411,7 +408,7 @@ public class GameManager : MonoBehaviourPun
         if (count < 11 && count > -1)
         {
             ui_Anim.SetBool("Count", true);
-            photonView.RPC("Count_Image_Server", RpcTarget.AllBuffered, count);
+            Count_Image_Server(count);
         }
     }
     [PunRPC]

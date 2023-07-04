@@ -1,5 +1,7 @@
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
+
 public class PlayerController : Living_Entity, IPlayer,IPunObservable
 {
     [Header("Player Stat")]

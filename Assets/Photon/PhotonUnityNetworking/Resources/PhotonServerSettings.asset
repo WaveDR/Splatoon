@@ -75,6 +75,7 @@ MonoBehaviour:
   - Count_Image_Server
   - TimeSet
   - EndCount
+  - Timer
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

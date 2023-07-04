@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 
-public class Living_Entity : MonoBehaviourPun, IDamage
+public class Living_Entity : MonoBehaviourPunCallbacks, IDamage
 {
     [SerializeField] protected PlayerStat player_Stat;
 
