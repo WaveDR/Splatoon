@@ -113,8 +113,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
 
         //나중에 입장한 플레이어 모으기 && 다 모이면 게임 시작 누를 수 있도록 수정예정
         StartCoroutine(Player_Spawn());
-
-    
+        PhotonNetwork.LoadLevel("InGame");
     }
  
     IEnumerator Player_Spawn()
