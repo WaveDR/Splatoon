@@ -1,6 +1,6 @@
 using UnityEngine;
 using Photon.Pun;
-public class PlayerController : Living_Entity, IPlayer
+public class PlayerController : Living_Entity, IPlayer,IPunObservable
 {
     [Header("Player Stat")]
     public PlayerTeams player_Team;
@@ -62,7 +62,10 @@ public class PlayerController : Living_Entity, IPlayer
         base.OnEnable();
         player_CurHealth = player_Stat.max_Heath;
     }
+   public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
 
+    }
     private void FixedUpdate()
     {
         _player_rigid.MovePosition(_player_rigid.position + player_Input.move_Vec * _player_Speed * Time.deltaTime);

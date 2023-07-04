@@ -139,7 +139,6 @@ public class GameManager : MonoBehaviourPun
     {
         deadLine.enabled = false; //데드라인 메쉬 비활성화
         deltaTime = startTimer; //시작 전 카운트  
-
     }
     // Update is called once per frame
     void Update()
@@ -353,7 +352,8 @@ public class GameManager : MonoBehaviourPun
     public void EndCount() //Game End CountDown
     {
         deltaTime -= Time.deltaTime;
-        TimeSet();
+        photonView.RPC("TimeSet", RpcTarget.AllBuffered);
+        //TimeSet();
 
         if (deltaTime <= 0)
         {
@@ -363,6 +363,7 @@ public class GameManager : MonoBehaviourPun
             gameEnd = true;
         }
     }
+    [PunRPC]
     private void TimeSet() //Time UI Setting
     {
         _Sec = (int)deltaTime % 60;
@@ -389,18 +390,25 @@ public class GameManager : MonoBehaviourPun
             timeText.text = "END";
         } //TimeSet Exit
     }
+
+    
     private void CountDown(int count) //Count Down Image
     {
         if (count < 11 && count > -1)
         {
             ui_Anim.SetBool("Count", true);
-            count_Image.sprite = count_Sprite[count];
+            photonView.RPC("Count_Image_Server", RpcTarget.AllBuffered, count);
+        }
+    }
+    [PunRPC]
+    public void Count_Image_Server(int count)
+    {
+        count_Image.sprite = count_Sprite[count];
 
-            if(_BeepTime >= 1)
-            {
-                BGM_Manager.Instance.Play_Sound_BGM("UI_Beep");
-                _BeepTime = 0;
-            }
+        if (_BeepTime >= 1)
+        {
+            BGM_Manager.Instance.Play_Sound_BGM("UI_Beep");
+            _BeepTime = 0;
         }
     }
     private void EndScoreCharge(bool call) //27.7% Production
