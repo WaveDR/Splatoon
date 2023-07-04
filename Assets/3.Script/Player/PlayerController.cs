@@ -144,18 +144,18 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) 
     {
-        if (stream.IsWriting)
-        {
-             stream.SendNext(player_Team.team);
-             stream.SendNext(_player_shot.WeaponType);
-             stream.SendNext(player_Input.player_Name);
-        }
-        else
-        {
-            player_Team.team = (ETeam)stream.ReceiveNext();
-            _player_shot.WeaponType = (EWeapon)stream.ReceiveNext();
-            player_Input.player_Name = (string)stream.ReceiveNext();
-        }
+      // if (stream.IsWriting)
+      // {
+      //      stream.SendNext(player_Team.team);
+      //      stream.SendNext(_player_shot.WeaponType);
+      //      stream.SendNext(player_Input.player_Name);
+      // }
+      // else
+      // {
+      //     player_Team.team = (ETeam)stream.ReceiveNext();
+      //     _player_shot.WeaponType = (EWeapon)stream.ReceiveNext();
+      //     player_Input.player_Name = (string)stream.ReceiveNext();
+      // }
     }
 
 
@@ -169,10 +169,11 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         player_Input.player_Name = name;
 
         _player_shot.photonView.RPC("UI_Set_Server", RpcTarget.AllBuffered);
+        player_Team.Player_ColorSet();
+        _player_shot.WeaponSet();
         player_Team.photonView.RPC("Player_ColorSet", RpcTarget.AllBuffered);
         _player_shot.photonView.RPC("WeaponSet", RpcTarget.AllBuffered);
-       //player_Team.Player_ColorSet();
-       //_player_shot.WeaponSet();
+      
 
     }
 

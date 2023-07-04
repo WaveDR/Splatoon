@@ -86,10 +86,6 @@ public class PlayerShooter : MonoBehaviourPun
 
     public PlayerInput player_Input => _player_Input;
 
-
-    public Player_SettingUI[] skill_UI;
-
-
     // Start is called before the first frame update
     void Awake()
     {
@@ -128,7 +124,7 @@ public class PlayerShooter : MonoBehaviourPun
         name_UI = shot_UI.name_UI;
         score_UI = shot_UI.score_UI;
 
-
+       skill_UI_Obj = shot_UI.gameObject;
 
     }
     [PunRPC]
