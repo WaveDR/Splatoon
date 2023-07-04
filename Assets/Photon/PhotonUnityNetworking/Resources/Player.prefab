@@ -10334,7 +10334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5ccb45f8032e434a8ebdd6040d3d9cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 0
+  team: 1
   _player_Con: {fileID: 0}
   _player_Shooter: {fileID: 0}
   _player_Color_Par:

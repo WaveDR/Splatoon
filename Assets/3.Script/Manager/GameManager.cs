@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.Linq;
 using System;
 using Photon.Pun;
+using Photon.Realtime;
 
 
 [Serializable]
@@ -16,8 +17,9 @@ public class Player_Info
     public string name;
     public int score;
 }
-public class GameManager : MonoBehaviourPun
+public class GameManager : MonoBehaviourPunCallbacks
 {
+    
     public static GameManager _instance = null;
     public static GameManager Instance
     {
@@ -105,6 +107,9 @@ public class GameManager : MonoBehaviourPun
     [Header("Particle")]
     [SerializeField] private ParticleSystem yellow_WinEffect;
     [SerializeField] private ParticleSystem blue_WinEffect;
+
+    
+
     private void Awake()
     {
         //GetComponent
@@ -135,8 +140,11 @@ public class GameManager : MonoBehaviourPun
         _team_Blue_Spawn[2] = new Vector3(1.41f, 3.6f, 60);
         _team_Blue_Spawn[3] = new Vector3(5.16f, 3.6f, 60);
     }
-    private void OnEnable()
+    public PhotonView PV;
+
+    public void Start()
     {
+        
         deadLine.enabled = false; //데드라인 메쉬 비활성화
         deltaTime = startTimer; //시작 전 카운트  
     }
