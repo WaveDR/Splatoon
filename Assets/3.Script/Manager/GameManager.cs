@@ -321,6 +321,7 @@ public class GameManager : MonoBehaviourPun
         
         foreach (PlayerController player in players)
         {
+            player._player_shot.ReSet_Skill_UI();
             player.isStop = true;
             player._player_shot.playerCam.SelectCamera();
             MapCam(false, player._player_shot.playerCam.cam_Obj.gameObject);

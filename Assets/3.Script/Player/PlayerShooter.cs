@@ -85,6 +85,8 @@ public class PlayerShooter : MonoBehaviourPun
 
     public PlayerInput player_Input => _player_Input;
 
+
+    public Player_SettingUI[] skill_UI;
     
     // Start is called before the first frame update
     void Awake()
@@ -99,7 +101,21 @@ public class PlayerShooter : MonoBehaviourPun
         //선택에 따라 활성화 disable도 동일한 방식
 
         if (!photonView.IsMine) return;
+
         WeaponSet();
+    }
+
+    public void ReSet_Skill_UI()
+    {
+        skill_UI = FindObjectsOfType<Player_SettingUI>();
+
+        for (int i = 0; i < skill_UI.Length; i++)
+        {
+            if(skill_UI[i] != gameObject.GetComponentInChildren<Player_SettingUI>())
+            {
+                skill_UI[i].gameObject.SetActive(false);
+            }
+        }
     }
     [PunRPC]
     public void WeaponSet()

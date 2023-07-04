@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class Player_SettingUI : MonoBehaviour
 {
+    
     public AudioMixer audio_Mixer;
     public Slider bgm_Slider;
     public Slider sfx_Slider;
@@ -19,6 +20,7 @@ public class Player_SettingUI : MonoBehaviour
         bgm_Slider.value = 0.5f;
         sfx_Slider.value = 0.5f;
     }
+
     public void Set_BGM_Volme()
     {
         audio_Mixer.SetFloat("BGM", Mathf.Log10(bgm_Slider.value) * 20);
