@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using Photon.Pun;
 
 
 
-public class Player_SettingUI : MonoBehaviour
+public class Player_SettingUI : MonoBehaviourPun
 {
     
     public AudioMixer audio_Mixer;

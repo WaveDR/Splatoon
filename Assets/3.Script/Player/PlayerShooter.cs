@@ -105,16 +105,19 @@ public class PlayerShooter : MonoBehaviourPun
         WeaponSet();
     }
 
-    [PunRPC]
     public void ReSet_Skill_UI()
     {
-        if (!photonView.IsMine) return;
+        photonView.RPC("Reset_Skill_Server", RpcTarget.AllBuffered);
+    }
+    [PunRPC]
 
+    public void Reset_Skill_Server()
+    {
         skill_UI = FindObjectsOfType<Player_SettingUI>();
 
         for (int i = 0; i < skill_UI.Length; i++)
         {
-            if(skill_UI[i] != gameObject.GetComponentInChildren<Player_SettingUI>())
+            if (!skill_UI[i].photonView.IsMine)
             {
                 skill_UI[i].gameObject.SetActive(false);
             }
