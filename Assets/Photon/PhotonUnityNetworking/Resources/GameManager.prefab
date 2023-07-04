@@ -7795,7 +7795,7 @@ MonoBehaviour:
     weapon: 0
     name: 
     score: 0
-  mvp_Model: {fileID: 0}
+  mvp_Model: {fileID: 6743300357353091621}
   timeText: {fileID: 0}
   count_Sprite:
   - {fileID: 3151282275560645790, guid: 93ee5423f14278f4597b5005c8d214d9, type: 3}
@@ -7833,12 +7833,12 @@ MonoBehaviour:
   - {fileID: 3633659884893909829, guid: e8efc798dc8e55345ab8dfa0da4e1fac, type: 3}
   - {fileID: -4908210003444775257, guid: e8efc798dc8e55345ab8dfa0da4e1fac, type: 3}
   ui_Anim: {fileID: 0}
-  manager_Anim: {fileID: 0}
-  mvp_Anim: {fileID: 0}
-  teamYellow_Anim: {fileID: 0}
-  teamBlue_Anim: {fileID: 0}
+  manager_Anim: {fileID: 8545126424324422944}
+  mvp_Anim: {fileID: 6743300357353091620}
+  teamYellow_Anim: {fileID: 8815526772360338598}
+  teamBlue_Anim: {fileID: 2644304471195427777}
   startTimer: 5
-  endTimer: 50
+  endTimer: 180
   isLobby: 1
   _team_Yellow_Spawn: []
   _team_Blue_Spawn: []
