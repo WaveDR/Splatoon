@@ -313,19 +313,22 @@ public class GameManager : MonoBehaviourPun
             count_Image.gameObject.SetActive(true); //카운트 다운 이미지 켜기
             scoreGage_Blue.fillAmount = 0; //스코어 게이지 초기화
             scoreGage_Yellow.fillAmount = 0;
+
+            foreach (PlayerController player in players)
+            {
+                player._player_shot.ReSet_Skill_UI();
+                player.isStop = true;
+                player._player_shot.playerCam.SelectCamera();
+                MapCam(false, player._player_shot.playerCam.cam_Obj.gameObject);
+            }
+
             isStart = true;
             
         }
 
         deltaTime -= Time.deltaTime;
         
-        foreach (PlayerController player in players)
-        {
-            player._player_shot.ReSet_Skill_UI();
-            player.isStop = true;
-            player._player_shot.playerCam.SelectCamera();
-            MapCam(false, player._player_shot.playerCam.cam_Obj.gameObject);
-        } //Player Move Limit
+        //Player Move Limit
 
         if (deltaTime <= 10 && deltaTime > 0) //CountDown Call
         {

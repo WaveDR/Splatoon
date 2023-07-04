@@ -109,8 +109,8 @@ public class PlayerShooter : MonoBehaviourPun
     {
         photonView.RPC("Reset_Skill_Server", RpcTarget.AllBuffered);
     }
-    [PunRPC]
 
+    [PunRPC]
     public void Reset_Skill_Server()
     {
         skill_UI = FindObjectsOfType<Player_SettingUI>();
