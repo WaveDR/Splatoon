@@ -37,6 +37,10 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
     public Bullet deathEffect;
 
     public Sound_Manager ES_Manager;
+
+    [Header("NetWork")]
+    private Vector3 networkPosition;
+    private float lerpSmoothing = 5f;
     // Start is called before the first frame update
     void Awake()
     {
@@ -64,8 +68,17 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
         base.OnEnable();
         player_CurHealth = player_Stat.max_Heath;
     }
-   public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
+
+        if (stream.IsWriting)
+        {
+            stream.SendNext(transform.position);
+        }
+        else
+        {
+            networkPosition = (Vector3)stream.ReceiveNext();
+        }
 
     }
     private void FixedUpdate()
@@ -76,7 +89,12 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
     // Update is called once per frame
     void Update()
     {
-        if (!photonView.IsMine) return;
+        if (!photonView.IsMine)
+        {
+            transform.position = Vector3.Lerp(transform.position, networkPosition, Time.deltaTime * lerpSmoothing);
+            return;
+        }
+            
 
         if (!isStop)
         {
