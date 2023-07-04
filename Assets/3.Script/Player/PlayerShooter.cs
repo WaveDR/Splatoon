@@ -108,7 +108,6 @@ public class PlayerShooter : MonoBehaviourPun
     [PunRPC]
     public void UI_Set_Server()
     {
-
         weapon_Aim[0] = shot_UI.weapon_Aim[0];
         weapon_Aim[1] = shot_UI.weapon_Aim[1];
 
@@ -125,8 +124,8 @@ public class PlayerShooter : MonoBehaviourPun
         score_UI = shot_UI.score_UI;
 
        skill_UI_Obj = shot_UI.gameObject;
-
     }
+
     [PunRPC]
     public void WeaponSet()
     {

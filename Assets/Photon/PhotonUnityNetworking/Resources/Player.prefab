@@ -10476,7 +10476,6 @@ MonoBehaviour:
   - {fileID: 5709063682245916398}
   - {fileID: 4379114554275577981}
   - {fileID: 8495149691993715129}
-  skill_UI: []
 --- !u!114 &1773349895887027396
 MonoBehaviour:
   m_ObjectHideFlags: 0
