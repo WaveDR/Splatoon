@@ -113,14 +113,15 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
 
         //나중에 입장한 플레이어 모으기 && 다 모이면 게임 시작 누를 수 있도록 수정예정
         StartCoroutine(Player_Spawn());
-        LoadingScene.LoadScene("InGame");
+        PhotonNetwork.LoadLevel("InGame");
+
     }
- 
+
     IEnumerator Player_Spawn()
     {
         GameManager.Instance.photonView.RPC("UI_Out", RpcTarget.AllBuffered);
-        PhotonNetwork.LoadLevel("InGame");
-        yield return new WaitForSeconds(2.1f);
+        set_Manager.LoadingOn();
+        yield return new WaitForSeconds(.5f);
 
         GameObject player = PhotonNetwork.Instantiate(playerPrefabs.name, Vector3.zero, Quaternion.identity);
         PlayerController player_Con = player.GetComponent<PlayerController>();
@@ -129,6 +130,8 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
             player_Con.player_Team.team,player_Con._player_shot.WeaponType,player_Con.player_Input.player_Name);
 
         GameManager.Instance.photonView.RPC("SetPlayerPos", RpcTarget.AllBuffered);
+        set_Manager.LoadingOff();
+
 
     }
 

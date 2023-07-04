@@ -188,8 +188,7 @@ public class Setting_Manager : MonoBehaviour
         player_shot.WeaponType = weapon;
 
         //로딩 UI 켜기
-        loading_Page.SetActive(true);
-
+        LoadingOn();
         //로비 오브젝트 비활성화, 대기실 오브젝트 활성화
         stage_Lobby[1].SetActive(true);
         stage_Lobby[0].SetActive(false);
@@ -202,13 +201,18 @@ public class Setting_Manager : MonoBehaviour
         gameObject.SetActive(false);
 
     }
-  
-    private void LoadingOff()
+
+    public void LoadingOff()
     {
         loading_Page.SetActive(false);
 
         //플레이어 UI 켜기
         player_shot.skill_UI_Obj.SetActive(true);
         Matching_Obj.SetActive(true);
+    }
+    public void LoadingOn()
+    {
+        loading_Page.SetActive(true);
+
     }
 }
