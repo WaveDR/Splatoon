@@ -143,11 +143,16 @@ public class GameManager : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        GameStream();
+        if (!isLobby)
+        {
+
+            photonView.RPC("GameStream", RpcTarget.AllBuffered);
+        }
     }
 
     //============================================        ก่ CallBack   |   Nomal ก้        ========================================================
 
+    [PunRPC]
     public void GameStream()
     {
             if (!isLobby)
@@ -332,7 +337,7 @@ public class GameManager : MonoBehaviourPun
 
         if (deltaTime <= 0) //GameStart Action
         {
-            GameManager.Instance.photonView.RPC("FindPlayer", RpcTarget.AllBuffered);
+            photonView.RPC("FindPlayer", RpcTarget.AllBuffered);
             ui_Anim.SetBool("Count", false);
             count_Image.gameObject.SetActive(false);
             ui_Anim.SetTrigger("GameStart");
