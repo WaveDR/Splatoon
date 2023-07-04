@@ -348,7 +348,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             ui_Anim.SetBool("Count", false);
             count_Image.gameObject.SetActive(false);
             ui_Anim.SetTrigger("GameStart");
-            deltaTime = endTimer;
+            photonView.RPC("Set_End_Timer", RpcTarget.All);
             foreach (PlayerController player in players)
             {
                 player.isStop = false;
@@ -360,6 +360,10 @@ public class GameManager : MonoBehaviourPunCallbacks
             BGM_Manager.Instance.Play_Sound_BGM("BGM_Game");
             gameStart = true;
         }
+    }
+    [PunRPC] public void Set_End_Timer()
+    {
+        deltaTime = endTimer;
     }
     public void EndCount() //Game End CountDown
     {
@@ -441,7 +445,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     //======================================================================  Ending Method
     public IEnumerator GameStop()
     {
-        GameManager.Instance.photonView.RPC("FindPlayer", RpcTarget.AllBuffered);
+        photonView.RPC("FindPlayer", RpcTarget.AllBuffered);
         BGM_Manager.Instance.Stop_All_Sound_BGM();
         BGM_Manager.Instance.Play_Sound_BGM("UI_Finish");
         //화면 전환되는 시간
