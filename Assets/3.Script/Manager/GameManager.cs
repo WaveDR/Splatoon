@@ -218,8 +218,6 @@ public class GameManager : MonoBehaviourPun
         foreach (PlayerController player in players)
         {
             player.UI_OnOFf(true);
-            player._player_shot.ReSet_Skill_UI();
-            player._player_shot.photonView.RPC("ReSet_Skill_UI", RpcTarget.AllBuffered);
             //MapCam(false, player._player_shot.playerCam.cam_Obj);
         }
 
@@ -314,11 +312,7 @@ public class GameManager : MonoBehaviourPun
             count_Image.gameObject.SetActive(true); //카운트 다운 이미지 켜기
             scoreGage_Blue.fillAmount = 0; //스코어 게이지 초기화
             scoreGage_Yellow.fillAmount = 0;
-
-            
-
             isStart = true;
-            
         }
 
         deltaTime -= Time.deltaTime;

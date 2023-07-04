@@ -173,6 +173,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
 
         player_Team.photonView.RPC("Player_ColorSet", RpcTarget.AllBuffered);
         _player_shot.photonView.RPC("WeaponSet", RpcTarget.AllBuffered);
+        _player_shot.photonView.RPC("UI_Set_Server", RpcTarget.AllBuffered);
     }
 
     private void Player_Jump()

@@ -69,6 +69,8 @@ MonoBehaviour:
   - Reload_Server
   - StartCount
   - GameStart
+  - ReSet_Skill_UI
+  - Get_Score_Server
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

@@ -52,6 +52,7 @@ public class PlayerShooter : MonoBehaviourPun
     public int player_ScoreSet => _player_ScoreSet;
 
     [Header("Shot_UI")]
+    public Shot_UI shot_UI;
     [SerializeField] private Image bowAim_UI;
     [SerializeField] private Text killLog_UI;
     [SerializeField] private GameObject killLog_Obj;
@@ -88,6 +89,7 @@ public class PlayerShooter : MonoBehaviourPun
 
     public Player_SettingUI[] skill_UI;
     
+    
     // Start is called before the first frame update
     void Awake()
     {
@@ -95,6 +97,7 @@ public class PlayerShooter : MonoBehaviourPun
         TryGetComponent(out _Player_Con);
         TryGetComponent(out _player_Anim);
         TryGetComponent(out playerCam);
+        shot_UI = FindObjectOfType<Shot_UI>();
     }
     private void OnEnable()
     {
@@ -104,26 +107,25 @@ public class PlayerShooter : MonoBehaviourPun
 
         WeaponSet();
     }
-    [PunRPC]
-    public void ReSet_Skill_UI()
-    {
-        skill_UI = FindObjectsOfType<Player_SettingUI>();
 
-        for (int i = 0; i < skill_UI.Length; i++)
-        {
-            if (!skill_UI[i].photonView.IsMine)
-            {
-                skill_UI[i].gameObject.SetActive(false);
-            }
-        }
-    }
 
-   
-    public void Reset_Skill_Server()
-    {
-       
-    }
     [PunRPC]
+    public void UI_Set_Server()
+    {
+       bowAim_UI = shot_UI.bowAim_UI ;
+         killLog_UI = shot_UI.killLog_UI;
+       killLog_Obj = shot_UI.killLog_Obj;
+       enemyData_Obj = shot_UI.enemyData_Obj;
+      enemyName_UI = shot_UI.enemyName_UI;
+      enemyScore_UI = shot_UI.enemyScore_UI;
+
+        ammoBack_UI = shot_UI.ammoBack_UI;
+        ammoNot_UI = shot_UI.ammoNot_UI;
+        name_UI = shot_UI.name_UI;
+        score_UI = shot_UI.score_UI;
+
+}
+[PunRPC]
     public void WeaponSet()
     {
         switch (WeaponType)
