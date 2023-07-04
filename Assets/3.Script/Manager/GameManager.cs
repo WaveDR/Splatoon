@@ -148,6 +148,7 @@ public class GameManager : MonoBehaviourPun
 
     //============================================        ก่ CallBack   |   Nomal ก้        ========================================================
 
+
     public void GameStream()
     {
             if (!isLobby)
@@ -156,8 +157,8 @@ public class GameManager : MonoBehaviourPun
 
                 else SetCursorState(true);
 
-            if (!gameStart) photonView.RPC("StartCount", RpcTarget.AllBuffered);
-            else if (!gameEnd) photonView.RPC("EndCount", RpcTarget.AllBuffered);
+                if (!gameStart) StartCount();
+                else if (!gameEnd) EndCount();
 
                 EndScoreCharge(chargeCall);
             }
@@ -318,13 +319,14 @@ public class GameManager : MonoBehaviourPun
 
         foreach (PlayerController player in players)
         {
+            player.player_Input.fire = false;
             player.isStop = true;
             player._player_shot.playerCam.SelectCamera();
             MapCam(false, player._player_shot.playerCam.cam_Obj.gameObject);
         }
         //Player Move Limit
 
-        if (deltaTime <= 10 && deltaTime > 0) //CountDown Call
+        if (deltaTime <= 5 && deltaTime > 0) //CountDown Call
         {
             _BeepTime += Time.deltaTime;
             CountDown((int)deltaTime);
