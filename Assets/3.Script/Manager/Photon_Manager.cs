@@ -20,6 +20,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     //Player Prefabs
 
     public GameObject playerPrefabs;
+    public GameObject player_UI_Prefabs;
 
     public Text stateUI;
 
@@ -55,7 +56,6 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = max_Player });
         Debug.Log("Created Room");
         stateUI.text = "방 생성";
-        PhotonNetwork.LoadLevel("InGame");
         matching_UI.SetActive(false);
     }
 
@@ -102,7 +102,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     {
         base.OnJoinRandomFailed(returnCode, message);
         Debug.Log("Not Empty Room...");
-        stateUI.text = "2인 방";
+        stateUI.text = "1 vs 1 매치!";
     }
 
     public override void OnJoinedRoom()
@@ -113,12 +113,14 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
 
         //나중에 입장한 플레이어 모으기 && 다 모이면 게임 시작 누를 수 있도록 수정예정
         StartCoroutine(Player_Spawn());
-        PhotonNetwork.LoadLevel("InGame");
+        LoadingScene.LoadScene("InGame");
     }
  
     IEnumerator Player_Spawn()
     {
-        yield return new WaitForSeconds(1f);
+        GameManager.Instance.photonView.RPC("UI_Out", RpcTarget.AllBuffered);
+        PhotonNetwork.LoadLevel("InGame");
+        yield return new WaitForSeconds(2.1f);
 
         GameObject player = PhotonNetwork.Instantiate(playerPrefabs.name, Vector3.zero, Quaternion.identity);
         PlayerController player_Con = player.GetComponent<PlayerController>();
@@ -127,7 +129,6 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
             player_Con.player_Team.team,player_Con._player_shot.WeaponType,player_Con.player_Input.player_Name);
 
         GameManager.Instance.photonView.RPC("SetPlayerPos", RpcTarget.AllBuffered);
-        GameManager.Instance.photonView.RPC("UI_Out", RpcTarget.AllBuffered);
 
     }
 

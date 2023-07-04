@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Photon.Pun;
 
 
-public class Shot_UI : MonoBehaviourPun
+public class Shot_UI : MonoBehaviour
 {
     [Header("Shot_UI")]
     public GameObject[] weapon_Aim;
