@@ -10426,7 +10426,6 @@ MonoBehaviour:
   hp: 0
   deathEffect: {fileID: 386770751946523949}
   ES_Manager: {fileID: 0}
-  targetPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1773349895887027397
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -38,11 +38,6 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
 
     public Sound_Manager ES_Manager;
 
-    [Header("Server")]
-    public Vector3 targetPosition;
-    private float interpolationFactor = 10f;
-    private Vector3 previousPosition;
-    private float updateInterval = 0.1f; // RPC 호출 주기
 
     private float timer;
 
@@ -76,16 +71,6 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (stream.IsWriting)
-        {
-            // 로컬 플레이어의 위치 정보를 전송
-            stream.SendNext(transform.position);
-        }
-        else
-        {
-            // 원격 플레이어의 위치 정보를 수신
-            targetPosition = (Vector3)stream.ReceiveNext();
-        }
     }
     private void FixedUpdate()
     {
@@ -97,7 +82,6 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
     {
         if (!photonView.IsMine)
         {
-            transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * interpolationFactor);
             return;
         }
         else
@@ -126,19 +110,7 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
                 }
             }
 
-            timer += Time.deltaTime;
-
-            // RPC 호출 주기마다 위치 정보를 RPC로 전달합니다.
-            if (timer >= updateInterval)
-            {
-                timer = 0f;
-
-                if (transform.position != previousPosition)
-                {
-                    photonView.RPC("UpdatePosition", RpcTarget.Others, transform.position);
-                    previousPosition = transform.position;
-                }
-            }
+ 
         }
         
     }
@@ -189,11 +161,7 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
 
     //============================================        ↑ 콜백 메서드   |  일반 메서드 ↓        ========================================================
 
-    [PunRPC]
-    private void UpdatePosition(Vector3 position)
-    {
-        targetPosition = position;
-    }
+ 
 
     [PunRPC]
     public void Player_Set(ETeam team, EWeapon weapon, string name)
@@ -203,8 +171,7 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
         player_Input.player_Name = name;
 
         _player_shot.photonView.RPC("UI_Set_Server", RpcTarget.AllBuffered);
-        player_Team.Player_ColorSet();
-        _player_shot.WeaponSet();
+     
         player_Team.photonView.RPC("Player_ColorSet", RpcTarget.AllBuffered);
         _player_shot.photonView.RPC("WeaponSet", RpcTarget.AllBuffered);
       
@@ -283,7 +250,6 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
 
     }
 
-    [PunRPC]
     public override void RestoreHp(float newHealth)
     {
         base.RestoreHp(newHealth);
