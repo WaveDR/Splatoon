@@ -38,9 +38,8 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
 
     public Sound_Manager ES_Manager;
 
-
-    private float timer;
-
+    private Vector3 networkPosition;
+    private Quaternion networkRotation;
     // Start is called before the first frame update
     void Awake()
     {
@@ -71,9 +70,30 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(this._player_rigid.position);
+            stream.SendNext(this._player_rigid.rotation);
+            stream.SendNext(this._player_rigid.velocity);
+        }
+        else
+        {
+            networkPosition = (Vector3)stream.ReceiveNext();
+            networkRotation = (Quaternion)stream.ReceiveNext();
+            _player_rigid.velocity = (Vector3)stream.ReceiveNext();
+
+            float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.timestamp));
+            networkPosition += (this._player_rigid.velocity * lag);
+        }
     }
     private void FixedUpdate()
     {
+
+        if (!photonView.IsMine)
+        {
+            _player_rigid.position = Vector3.MoveTowards(_player_rigid.position, networkPosition, Time.fixedDeltaTime);
+            _player_rigid.rotation = Quaternion.RotateTowards(_player_rigid.rotation, networkRotation, Time.fixedDeltaTime * 100.0f);
+        }
         _player_rigid.MovePosition(_player_rigid.position + player_Input.move_Vec * _player_Speed * Time.deltaTime);
     }
 

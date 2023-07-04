@@ -42,20 +42,6 @@ public class Bullet : MonoBehaviourPun
         else
             bulletType = team.team;
 
-        if (!brush)
-        {
-            for (int i = 0; i < particle.trigger.colliderCount; i++)
-            {
-                particle.trigger.RemoveCollider(i);
-            }
-
-
-            for (int i = 0; i < players.Length; i++)
-            {
-                particle.trigger.AddCollider(players[i]);
-            }
-        }
-
         if (color != null)
         {
             foreach (ParticleSystem par in color)
@@ -76,7 +62,6 @@ public class Bullet : MonoBehaviourPun
         }
     }
     
-    [PunRPC]
     public void Score_Plus()
     {
         player_Shot.player_Score++;
