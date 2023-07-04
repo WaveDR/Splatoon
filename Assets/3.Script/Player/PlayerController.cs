@@ -38,9 +38,14 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
 
     public Sound_Manager ES_Manager;
 
-    [Header("NetWork")]
-    private Vector3 networkPosition;
-    private float lerpSmoothing = 5f;
+    [Header("Server")]
+    public Vector3 targetPosition;
+    private float interpolationFactor = 10f;
+    private Vector3 previousPosition;
+    private float updateInterval = 0.1f; // RPC 호출 주기
+
+    private float timer;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -68,18 +73,19 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
         base.OnEnable();
         player_CurHealth = player_Stat.max_Heath;
     }
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-
         if (stream.IsWriting)
         {
+            // 로컬 플레이어의 위치 정보를 전송
             stream.SendNext(transform.position);
         }
         else
         {
-            networkPosition = (Vector3)stream.ReceiveNext();
+            // 원격 플레이어의 위치 정보를 수신
+            targetPosition = (Vector3)stream.ReceiveNext();
         }
-
     }
     private void FixedUpdate()
     {
@@ -91,34 +97,50 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
     {
         if (!photonView.IsMine)
         {
-            transform.position = Vector3.Lerp(transform.position, networkPosition, Time.deltaTime * lerpSmoothing);
+            transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * interpolationFactor);
             return;
         }
-            
-
-        if (!isStop)
+        else
         {
-            if (isFalling) Respawn(player_Team.team, true); //맵 밖으로 떨어질 때
-            if (isDead) Respawn(player_Team.team, false);   //죽을 때 리스폰
-
-            else //죽지 않았을 때
+            if (!isStop)
             {
-                Player_Movement();
-                Player_Jump();
-                RaycastFloor(player_Input.squid_Form);
-                Player_Animation();
+                if (isFalling) Respawn(player_Team.team, true); //맵 밖으로 떨어질 때
+                if (isDead) Respawn(player_Team.team, false);   //죽을 때 리스폰
 
-                if (!player_Input.squid_Form)
+                else //죽지 않았을 때
                 {
-                    _Wall_RacastOn = false;
-                    MoveWall(false, null);
+                    Player_Movement();
+                    Player_Jump();
+                    RaycastFloor(player_Input.squid_Form);
+                    Player_Animation();
+
+                    if (!player_Input.squid_Form)
+                    {
+                        _Wall_RacastOn = false;
+                        MoveWall(false, null);
+                    }
+                    else
+                    {
+                        RaycastWall(player_Input.squid_Form);
+                    }
                 }
-                else
+            }
+
+            timer += Time.deltaTime;
+
+            // RPC 호출 주기마다 위치 정보를 RPC로 전달합니다.
+            if (timer >= updateInterval)
+            {
+                timer = 0f;
+
+                if (transform.position != previousPosition)
                 {
-                    RaycastWall(player_Input.squid_Form);
+                    photonView.RPC("UpdatePosition", RpcTarget.Others, transform.position);
+                    previousPosition = transform.position;
                 }
             }
         }
+        
     }
 
     private void OnParticleCollision(GameObject other)
@@ -166,6 +188,12 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
     }
 
     //============================================        ↑ 콜백 메서드   |  일반 메서드 ↓        ========================================================
+
+    [PunRPC]
+    private void UpdatePosition(Vector3 position)
+    {
+        targetPosition = position;
+    }
 
     [PunRPC]
     public void Player_Set(ETeam team, EWeapon weapon, string name)
