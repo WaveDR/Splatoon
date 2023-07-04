@@ -17,7 +17,7 @@ public class Player_Info
     public string name;
     public int score;
 }
-public class GameManager : MonoBehaviourPun,IPunObservable
+public class GameManager : MonoBehaviourPun
 {
     
     public static GameManager _instance = null;
@@ -140,14 +140,6 @@ public class GameManager : MonoBehaviourPun,IPunObservable
         _team_Blue_Spawn[2] = new Vector3(1.41f, 3.6f, 60);
         _team_Blue_Spawn[3] = new Vector3(5.16f, 3.6f, 60);
     }
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting) stream.SendNext(deltaTime);
-        else deltaTime = (float) stream.ReceiveNext();
-
-    }
-
-
     public void Start()
     {
         deadLine.enabled = false; //데드라인 메쉬 비활성화
@@ -332,7 +324,7 @@ public class GameManager : MonoBehaviourPun,IPunObservable
             isStart = true;
         }
 
-        photonView.RPC("Timer", RpcTarget.AllBuffered);
+        deltaTime -= Time.deltaTime;
 
         foreach (PlayerController player in players)
         {
@@ -356,7 +348,7 @@ public class GameManager : MonoBehaviourPun,IPunObservable
             count_Image.gameObject.SetActive(false);
             ui_Anim.SetTrigger("GameStart");
 
-            photonView.RPC("Set_End_Timer", RpcTarget.AllBuffered);
+            deltaTime = endTimer;
 
             foreach (PlayerController player in players)
             {
@@ -370,15 +362,12 @@ public class GameManager : MonoBehaviourPun,IPunObservable
             gameStart = true;
         }
     }
-    [PunRPC] public void Set_End_Timer()
-    {
-        deltaTime = endTimer;
-    }
+
     public void EndCount() //Game End CountDown
     {
-        photonView.RPC("Timer", RpcTarget.AllBuffered);
+        deltaTime -= Time.deltaTime;
 
-        photonView.RPC("TimeSet", RpcTarget.AllBuffered);
+        TimeSet();
         //TimeSet();
 
         if (deltaTime <= 0)
@@ -389,7 +378,6 @@ public class GameManager : MonoBehaviourPun,IPunObservable
             gameEnd = true;
         }
     }
-    [PunRPC]
     private void TimeSet() //Time UI Setting
     {
         _Sec = (int)deltaTime % 60;
