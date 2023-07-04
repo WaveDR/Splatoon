@@ -325,7 +325,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             isStart = true;
         }
 
-        photonView.RPC("Timer", RpcTarget.All);
+        photonView.RPC("Timer", RpcTarget.AllBuffered);
 
         foreach (PlayerController player in players)
         {
@@ -348,7 +348,9 @@ public class GameManager : MonoBehaviourPunCallbacks
             ui_Anim.SetBool("Count", false);
             count_Image.gameObject.SetActive(false);
             ui_Anim.SetTrigger("GameStart");
-            photonView.RPC("Set_End_Timer", RpcTarget.All);
+
+            photonView.RPC("Set_End_Timer", RpcTarget.AllBuffered);
+
             foreach (PlayerController player in players)
             {
                 player.isStop = false;
@@ -367,7 +369,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     public void EndCount() //Game End CountDown
     {
-        photonView.RPC("Timer", RpcTarget.All);
+        photonView.RPC("Timer", RpcTarget.AllBuffered);
 
         photonView.RPC("TimeSet", RpcTarget.AllBuffered);
         //TimeSet();
