@@ -105,8 +105,11 @@ public class PlayerShooter : MonoBehaviourPun
         WeaponSet();
     }
 
+    [PunRPC]
     public void ReSet_Skill_UI()
     {
+        if (!photonView.IsMine) return;
+
         skill_UI = FindObjectsOfType<Player_SettingUI>();
 
         for (int i = 0; i < skill_UI.Length; i++)
@@ -174,13 +177,18 @@ public class PlayerShooter : MonoBehaviourPun
 
             if (player_Score >= 2)
             {
-                _player_ScoreSet++;
+                photonView.RPC("Get_Score_Server", RpcTarget.AllBuffered);
                 player_Score = 0;
             }
 
             score_UI.text = player_ScoreSet.ToString("D4");
         }
         //공격로직
+    }
+    [PunRPC]
+    public void Get_Score_Server()
+    {
+        _player_ScoreSet++;
     }
     public IEnumerator KillLog(string name)
     {
