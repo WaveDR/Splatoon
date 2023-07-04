@@ -685,7 +685,7 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
     
     public void Transform_Mesh(bool squid, bool human)
     {
-        photonView.RPC("TransSquid_Server", RpcTarget.AllBuffered, squid, human);
+        photonView.RPC("TransSquid_Server", RpcTarget.All, squid, human);
     }
     [PunRPC]
     public void TransSquid_Server(bool squid, bool human)

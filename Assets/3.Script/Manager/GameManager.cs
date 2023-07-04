@@ -148,27 +148,22 @@ public class GameManager : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        GameStream();
+        if (!photonView.IsMine) return;
+        if (!isLobby)
+        {
+            if (Input.GetKey(KeyCode.Escape)) SetCursorState(false);
+
+            else SetCursorState(true);
+
+            if (!gameStart) StartCount();
+            else if (!gameEnd) EndCount();
+
+            EndScoreCharge(chargeCall);
+        }
     }
 
     //============================================        ก่ CallBack   |   Nomal ก้        ========================================================
 
-
-    public void GameStream()
-    {
-            if (!isLobby)
-            {
-                if (Input.GetKey(KeyCode.Escape)) SetCursorState(false);
-
-                else SetCursorState(true);
-
-                if (!gameStart) StartCount();
-                else if (!gameEnd) EndCount();
-
-                EndScoreCharge(chargeCall);
-            }
-    }
-    [PunRPC]
     public void FindPlayer()
     {
         players = null;
