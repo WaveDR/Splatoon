@@ -178,7 +178,6 @@ public class PlayerShooter : MonoBehaviourPun
             if (player_Score >= 2)
             {
                 photonView.RPC("Get_Score_Server", RpcTarget.AllBuffered);
-                player_Score = 0;
             }
 
             score_UI.text = player_ScoreSet.ToString("D4");
@@ -189,6 +188,8 @@ public class PlayerShooter : MonoBehaviourPun
     public void Get_Score_Server()
     {
         _player_ScoreSet++;
+        player_Score = 0;
+
     }
     public IEnumerator KillLog(string name)
     {
