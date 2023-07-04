@@ -111,37 +111,20 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         stateUI.text = "방에 입장합니다.";
 
         //나중에 입장한 플레이어 모으기 && 다 모이면 게임 시작 누를 수 있도록 수정예정
-        StartCoroutine(Player_Spawn());
         PhotonNetwork.LoadLevel("InGame");
-
+        Invoke("Player_Spawn", 1f);
     }
 
-    IEnumerator Player_Spawn()
+    void Player_Spawn()
     {
-        yield return new WaitForSeconds(1f);
-
         GameObject player = PhotonNetwork.Instantiate(playerPrefabs.name, Vector3.zero, Quaternion.identity);
         PlayerController player_Con = player.GetComponent<PlayerController>();
 
         player_Con.photonView.RPC("Player_Set", RpcTarget.AllBuffered, 
             player_Con.player_Team.team,player_Con._player_shot.WeaponType,player_Con.player_Input.player_Name);
 
-        //GameManager.Instance.photonView.RPC("SetPlayerPos", RpcTarget.AllBuffered);
-        // GameManager.Instance.photonView.RPC("UI_Out", RpcTarget.AllBuffered);
-
-
-    }
-
-    private void Update()
-    {
-        if (isCreateRoom && PhotonNetwork.InRoom)
-        {
-            if (PhotonNetwork.CurrentRoom.PlayerCount >= max_Player && !isReady)
-            {
-                GameManager.Instance.isLobby = false;
-                isReady = true;
-            }
-        }
+        GameManager.Instance.photonView.RPC("SetPlayerPos", RpcTarget.AllBuffered);
+        GameManager.Instance.photonView.RPC("UI_Out", RpcTarget.AllBuffered);
     }
     #endregion
 }

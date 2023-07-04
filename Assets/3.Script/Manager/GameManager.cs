@@ -17,7 +17,7 @@ public class Player_Info
     public string name;
     public int score;
 }
-public class GameManager : MonoBehaviourPun
+public class GameManager : MonoBehaviourPunCallbacks
 {
     
     public static GameManager _instance = null;
@@ -112,11 +112,6 @@ public class GameManager : MonoBehaviourPun
     {
         photonView.RPC("Manager_Server", RpcTarget.AllBuffered);
     }
-    public void OnEnable()
-    {
-        deadLine.enabled = false; //데드라인 메쉬 비활성화
-        deltaTime = startTimer; //시작 전 카운트  
-    }
     // Update is called once per frame
     void Update()
     {
@@ -166,6 +161,9 @@ public class GameManager : MonoBehaviourPun
         _team_Blue_Spawn[1] = new Vector3(-2.34f, 3.6f, 60);
         _team_Blue_Spawn[2] = new Vector3(1.41f, 3.6f, 60);
         _team_Blue_Spawn[3] = new Vector3(5.16f, 3.6f, 60);
+
+        deadLine.enabled = false; //데드라인 메쉬 비활성화
+        deltaTime = startTimer; //시작 전 카운트  
     }
     
     [PunRPC]
@@ -303,12 +301,20 @@ public class GameManager : MonoBehaviourPun
     {
         if (!isStart)
         {
+            if (PhotonNetwork.InRoom)
+            {
+                if (PhotonNetwork.CurrentRoom.PlayerCount >= Photon_Manager.Instance.max_Player)
+                {
+                    isLobby = false;
+                }
+            }
+
             ui_Anim = GameObject.FindGameObjectWithTag("TimeUI").GetComponent<Animator>();
 
             PaintTarget.ClearAllPaint();
 
-            photonView.RPC("SetPlayerPos", RpcTarget.AllBuffered);
-            photonView.RPC("UI_Out", RpcTarget.AllBuffered);
+            //photonView.RPC("SetPlayerPos", RpcTarget.AllBuffered);
+            //photonView.RPC("UI_Out", RpcTarget.AllBuffered);
  
             BGM_Manager.Instance.Stop_All_Sound_BGM();
 

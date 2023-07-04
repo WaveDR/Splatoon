@@ -76,6 +76,8 @@ MonoBehaviour:
   - TimeSet
   - EndCount
   - Timer
+  - Manager_Server
+  - UpdatePosition
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
