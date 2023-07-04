@@ -20,7 +20,6 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     //Player Prefabs
 
     public GameObject playerPrefabs;
-    public GameObject player_UI_Prefabs;
 
     public Text stateUI;
 
@@ -119,7 +118,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
 
     IEnumerator Player_Spawn()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
 
         GameObject player = PhotonNetwork.Instantiate(playerPrefabs.name, Vector3.zero, Quaternion.identity);
         PlayerController player_Con = player.GetComponent<PlayerController>();
