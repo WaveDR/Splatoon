@@ -108,9 +108,36 @@ public class GameManager : MonoBehaviourPun
     [SerializeField] private ParticleSystem yellow_WinEffect;
     [SerializeField] private ParticleSystem blue_WinEffect;
 
-    
-
     private void Awake()
+    {
+        photonView.RPC("Manager_Server", RpcTarget.AllBuffered);
+    }
+    public void OnEnable()
+    {
+        deadLine.enabled = false; //데드라인 메쉬 비활성화
+        deltaTime = startTimer; //시작 전 카운트  
+    }
+    // Update is called once per frame
+    void Update()
+    {
+       
+        if (!isLobby)
+        {
+            if (Input.GetKey(KeyCode.Escape)) SetCursorState(false);
+
+            else SetCursorState(true);
+
+            if (!gameStart) StartCount();
+            else if (!gameEnd) EndCount();
+
+            EndScoreCharge(chargeCall);
+        }
+    }
+
+    //============================================        ↑ CallBack   |   Nomal ↓        ========================================================
+
+    [PunRPC]
+    public void Manager_Server()
     {
         //GetComponent
         deadLine = GameObject.FindGameObjectWithTag("DeadLine").GetComponent<MeshRenderer>();
@@ -140,30 +167,8 @@ public class GameManager : MonoBehaviourPun
         _team_Blue_Spawn[2] = new Vector3(1.41f, 3.6f, 60);
         _team_Blue_Spawn[3] = new Vector3(5.16f, 3.6f, 60);
     }
-    public void Start()
-    {
-        deadLine.enabled = false; //데드라인 메쉬 비활성화
-        deltaTime = startTimer; //시작 전 카운트  
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        if (!photonView.IsMine) return;
-        if (!isLobby)
-        {
-            if (Input.GetKey(KeyCode.Escape)) SetCursorState(false);
-
-            else SetCursorState(true);
-
-            if (!gameStart) StartCount();
-            else if (!gameEnd) EndCount();
-
-            EndScoreCharge(chargeCall);
-        }
-    }
-
-    //============================================        ↑ CallBack   |   Nomal ↓        ========================================================
-
+    
+    [PunRPC]
     public void FindPlayer()
     {
         players = null;
@@ -301,6 +306,8 @@ public class GameManager : MonoBehaviourPun
             ui_Anim = GameObject.FindGameObjectWithTag("TimeUI").GetComponent<Animator>();
 
             PaintTarget.ClearAllPaint();
+
+            photonView.RPC("SetPlayerPos", RpcTarget.AllBuffered);
             photonView.RPC("UI_Out", RpcTarget.AllBuffered);
  
             BGM_Manager.Instance.Stop_All_Sound_BGM();
@@ -309,7 +316,7 @@ public class GameManager : MonoBehaviourPun
             {
                 teamZone.team = ETeam.Etc;
             }
-            photonView.RPC("SetPlayerPos", RpcTarget.AllBuffered);
+
             count_Image.gameObject.SetActive(true); //카운트 다운 이미지 켜기
             scoreGage_Blue.fillAmount = 0; //스코어 게이지 초기화
             scoreGage_Yellow.fillAmount = 0;
