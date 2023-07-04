@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private float _Time;
     private float _BeepTime;
     private float _Charging_Score;
-    private float deltaTime
+    public float deltaTime
     {
         get { return _Time; }
         set { _Time = value;
@@ -140,11 +140,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         _team_Blue_Spawn[2] = new Vector3(1.41f, 3.6f, 60);
         _team_Blue_Spawn[3] = new Vector3(5.16f, 3.6f, 60);
     }
-    public PhotonView PV;
 
     public void Start()
     {
-        
         deadLine.enabled = false; //데드라인 메쉬 비활성화
         deltaTime = startTimer; //시작 전 카운트  
     }
@@ -171,7 +169,6 @@ public class GameManager : MonoBehaviourPunCallbacks
                 EndScoreCharge(chargeCall);
             }
     }
-
     [PunRPC]
     public void FindPlayer()
     {
@@ -293,6 +290,11 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
         }
     }
+
+    [PunRPC] public void Timer()
+    {
+        deltaTime -= Time.deltaTime;
+    }
     public void List_In_Player(int score, PlayerController player_data)
     {
         player_Info[score] = new Player_Info(player_data.player_Team.team, player_data._player_shot.WeaponType,
@@ -323,7 +325,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             isStart = true;
         }
 
-        deltaTime -= Time.deltaTime;
+        photonView.RPC("Timer", RpcTarget.All);
 
         foreach (PlayerController player in players)
         {
@@ -361,7 +363,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     public void EndCount() //Game End CountDown
     {
-        deltaTime -= Time.deltaTime;
+        photonView.RPC("Timer", RpcTarget.All);
+
         photonView.RPC("TimeSet", RpcTarget.AllBuffered);
         //TimeSet();
 
