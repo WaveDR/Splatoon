@@ -112,14 +112,14 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         stateUI.text = "방에 입장합니다.";
 
         //나중에 입장한 플레이어 모으기 && 다 모이면 게임 시작 누를 수 있도록 수정예정
-        PhotonNetwork.LoadLevel("InGame");
         StartCoroutine(Player_Spawn());
+        PhotonNetwork.LoadLevel("InGame");
 
     }
 
     IEnumerator Player_Spawn()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
 
         GameObject player = PhotonNetwork.Instantiate(playerPrefabs.name, Vector3.zero, Quaternion.identity);
         PlayerController player_Con = player.GetComponent<PlayerController>();
