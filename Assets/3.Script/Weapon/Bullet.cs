@@ -17,6 +17,7 @@ public class Bullet : MonoBehaviourPun
     public PlayerController[] players;
     void Awake()
     {
+
         particle = GetComponent<ParticleSystem>();
         players = FindObjectsOfType<PlayerController>();
         color = GetComponentsInChildren<ParticleSystem>();
