@@ -10490,7 +10490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon_DirY: {fileID: 0}
   player_DirY: {fileID: 1773349896258908904}
-  cam_Obj: {fileID: 7051375226883415567, guid: 3e0d81e65effee04aa085c68c0784517, type: 3}
+  cam_Obj: {fileID: 0}
   eulerX: 0
   _eulerY: 0
   rotateSpeed: 50

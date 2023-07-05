@@ -109,12 +109,12 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        photonView.RPC("Manager_Server", RpcTarget.AllBuffered);
+        Manager_Server();
     }
     // Update is called once per frame
     void Update()
     {
-       
+        if (!photonView.IsMine) return;
         if (!isLobby)
         {
             if (Input.GetKey(KeyCode.Escape)) SetCursorState(false);
