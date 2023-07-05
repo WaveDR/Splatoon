@@ -129,6 +129,26 @@ public class PlayerShooter : MonoBehaviourPun
     [PunRPC]
     public void WeaponSet()
     {
+       
+
+        for (int i = 0; i < weapon_Obj.Length; i++)
+        {
+            weapon_Obj[i].SetActive(true);
+            if (weaponNum != i)
+                weapon_Obj[i].SetActive(false);
+        }
+        _player_Anim.SetInteger("WeaponNum", weaponNum);
+
+        weapon = GetComponentInChildren<Shot_System>();
+        fireMaxTime = weapon.weapon_Stat.fire_Rate;
+        playerCam.weapon_DirY = GetComponentInChildren<Shot_System>();
+        ammoBack_UI.transform.parent.gameObject.SetActive(false);
+        name_UI.text = _player_Input.player_Name;
+        killLog_Obj.SetActive(false);
+        enemyData_Obj.SetActive(false);
+        ammoNot_UI.gameObject.SetActive(false);
+        weapon.photonView.RPC("Weapon_Color_Change", RpcTarget.AllBuffered);
+
         switch (WeaponType)
         {
             case EWeapon.Brush:
@@ -151,25 +171,6 @@ public class PlayerShooter : MonoBehaviourPun
                 weapon_Aim[0].SetActive(false);
                 break;
         }
-
-        for (int i = 0; i < weapon_Obj.Length; i++)
-        {
-            weapon_Obj[i].SetActive(true);
-            if (weaponNum != i)
-                weapon_Obj[i].SetActive(false);
-        }
-        _player_Anim.SetInteger("WeaponNum", weaponNum);
-
-        weapon = GetComponentInChildren<Shot_System>();
-        fireMaxTime = weapon.weapon_Stat.fire_Rate;
-        playerCam.weapon_DirY = GetComponentInChildren<Shot_System>();
-        ammoBack_UI.transform.parent.gameObject.SetActive(false);
-        name_UI.text = _player_Input.player_Name;
-        killLog_Obj.SetActive(false);
-        enemyData_Obj.SetActive(false);
-        ammoNot_UI.gameObject.SetActive(false);
-        weapon.photonView.RPC("Weapon_Color_Change", RpcTarget.AllBuffered);
-
     }
 
     void Update()
