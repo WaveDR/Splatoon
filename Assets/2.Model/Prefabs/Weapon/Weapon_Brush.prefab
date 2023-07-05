@@ -515,7 +515,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5777034218105252643}
   - component: {fileID: 6586504215621857690}
-  - component: {fileID: 74686861704087803}
   m_Layer: 0
   m_Name: Weapon_Brush
   m_TagString: Untagged
@@ -557,34 +556,12 @@ MonoBehaviour:
   weapon_Stat: {fileID: 11400000, guid: b827f3cba5acb0f42a5d837fe7190ea8, type: 2}
   weapon_MaxAmmo: 0
   weapon_CurAmmo: 0
+  player_Shot: {fileID: 0}
   firePoint_Files_Yellow: {fileID: 0}
   firePoint_Files_Blue: {fileID: 0}
   firePoint_Files: {fileID: 0}
   firePoint: []
   team: {fileID: 0}
---- !u!114 &74686861704087803
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6586504215621857689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 6586504215621857690}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &6609794661530712638
 GameObject:
   m_ObjectHideFlags: 0

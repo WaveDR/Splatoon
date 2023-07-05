@@ -215,6 +215,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         foreach (PlayerController player in players)
         {
             player.UI_OnOFf(true);
+            player.gameObject.SetActive(false);
+            player.gameObject.SetActive(true);
             //MapCam(false, player._player_shot.playerCam.cam_Obj);
         }
 
@@ -352,8 +354,13 @@ public class GameManager : MonoBehaviourPunCallbacks
 
             foreach (PlayerController player in players)
             {
+
+                player.gameObject.SetActive(false);
+                player.gameObject.SetActive(true);
+
                 if (player.photonView.IsMine)
                 {
+
                     player.isStop = false;
                     player._player_shot.name_UI.text = "¿µ¿ªÀ» ÀÜ¶à È®º¸ÇØ¶ó!";
                 }

@@ -498,7 +498,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7706319263360092555}
   - component: {fileID: 7041809192665240368}
-  - component: {fileID: 702567073968427483}
   m_Layer: 0
   m_Name: Weapon_Bow
   m_TagString: Untagged
@@ -542,34 +541,12 @@ MonoBehaviour:
   weapon_Stat: {fileID: 11400000, guid: 273e25f86f3fdc241b136090d735d656, type: 2}
   weapon_MaxAmmo: 0
   weapon_CurAmmo: 0
+  player_Shot: {fileID: 0}
   firePoint_Files_Yellow: {fileID: 0}
   firePoint_Files_Blue: {fileID: 0}
   firePoint_Files: {fileID: 0}
   firePoint: []
   team: {fileID: 0}
---- !u!114 &702567073968427483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7041809192665240369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 7041809192665240368}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &7888303199112603093
 GameObject:
   m_ObjectHideFlags: 0

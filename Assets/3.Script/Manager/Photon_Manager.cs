@@ -129,9 +129,9 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
 
         player_Con.photonView.RPC("Player_Set", RpcTarget.AllBuffered, 
             player_Con.player_Team.team,player_Con._player_shot.WeaponType,player_Con.player_Input.player_Name);
-        player.SetActive(false);
-        player.SetActive(true);
+  
         GameManager.Instance.SetPlayerPos();
+
     }
     #endregion
 

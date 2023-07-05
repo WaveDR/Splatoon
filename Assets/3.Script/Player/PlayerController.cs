@@ -66,9 +66,14 @@ public class PlayerController : Living_Entity, IPlayer
     {
         base.OnEnable();
         player_CurHealth = player_Stat.max_Heath;
+
+        _player_shot.UI_Set_Server();
+        player_Team.Player_ColorSet();
+        _player_shot.WeaponSet();
     }
     private void FixedUpdate()
     {
+        if (!photonView.IsMine) return;
         _player_rigid.MovePosition(_player_rigid.position + player_Input.move_Vec * _player_Speed * Time.deltaTime);
     }
 
@@ -100,13 +105,12 @@ public class PlayerController : Living_Entity, IPlayer
                     }
                 }
             }
-
         }
-
     }
 
     private void OnParticleCollision(GameObject other)
     {
+        if (!photonView.IsMine) return;
 
         dmgBullet = other.GetComponent<Bullet>();
 
@@ -157,20 +161,16 @@ public class PlayerController : Living_Entity, IPlayer
         player_Team.team = team;
         _player_shot.WeaponType = weapon;
         player_Input.player_Name = name;
-
-        _player_shot.UI_Set_Server();
-        player_Team.Player_ColorSet();
-        _player_shot.WeaponSet();
     }
 
     private void Player_Jump()
     {
-        if (player_Input.jDown && !_isJump)
-        {
-            _player_Anim.SetTrigger("isJump");
-            //_isJump = true;
-            _player_rigid.AddForce(Vector3.up * 5f, ForceMode.Impulse);
-        }
+            if (player_Input.jDown && !_isJump)
+            {
+                _player_Anim.SetTrigger("isJump");
+                //_isJump = true;
+                _player_rigid.AddForce(Vector3.up * 5f, ForceMode.Impulse);
+            }
     }
 
     private void Squid_Eular()

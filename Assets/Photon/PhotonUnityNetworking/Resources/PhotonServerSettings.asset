@@ -35,16 +35,13 @@ MonoBehaviour:
   StartInOfflineMode: 0
   RpcList:
   - ClickRpc
-  - Count_Image_Server
   - DestroyRpc
   - DestroySpaceship
   - Fire
-  - Manager_Server
   - Player_Set
   - Reload_Server
   - RespawnSpaceship
   - TransSquid_Server
-  - UI_Out
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
