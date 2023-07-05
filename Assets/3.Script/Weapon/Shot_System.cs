@@ -36,18 +36,6 @@ public class Shot_System : MonoBehaviour
         firePoint_Files_Yellow.gameObject.SetActive(true);
         firePoint_Files_Blue.gameObject.SetActive(true);
 
-        switch (team) //팀에 따른 물감 색 오브젝트 변환
-        {
-            case ETeam.Yellow:
-                firePoint_Files = firePoint_Files_Yellow;
-                firePoint_Files_Blue.gameObject.SetActive(false);
-                break;
-            case ETeam.Blue:
-                firePoint_Files = firePoint_Files_Blue;
-                firePoint_Files_Yellow.gameObject.SetActive(false);
-                break;
-        }
-
         firePoint = new Bullet[firePoint_Files.childCount];
 
         if (firePoint_Files.gameObject.activeSelf)
@@ -58,6 +46,19 @@ public class Shot_System : MonoBehaviour
                 firePoint[i].dmg = weapon_Stat.weapon_Dmg;
                 firePoint[i].Bullet_Set(player_Shot.Player_Con.player_Team);
             }
+        }
+
+        switch (team) //팀에 따른 물감 색 오브젝트 변환
+        {
+            case ETeam.Yellow:
+                firePoint_Files = firePoint_Files_Yellow;
+                firePoint_Files_Blue.gameObject.SetActive(false);
+                break;
+
+            case ETeam.Blue:
+                firePoint_Files = firePoint_Files_Blue;
+                firePoint_Files_Yellow.gameObject.SetActive(false);
+                break;
         }
     }
 

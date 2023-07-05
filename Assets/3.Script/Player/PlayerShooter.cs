@@ -115,7 +115,6 @@ public class PlayerShooter : MonoBehaviourPun
         score_UI = shot_UI.score_UI;
 
         skill_UI_Obj = shot_UI.gameObject;
-  
     }
 
     public void WeaponSet()
@@ -129,14 +128,20 @@ public class PlayerShooter : MonoBehaviourPun
         _player_Anim.SetInteger("WeaponNum", weaponNum);
 
         weapon = GetComponentInChildren<Shot_System>();
-        fireMaxTime = weapon.weapon_Stat.fire_Rate;
         playerCam.weapon_DirY = GetComponentInChildren<Shot_System>();
-        ammoBack_UI.transform.parent.gameObject.SetActive(false);
-        name_UI.text = _player_Input.player_Name;
+
+        fireMaxTime = weapon.weapon_Stat.fire_Rate;
         killLog_Obj.SetActive(false);
         enemyData_Obj.SetActive(false);
-        ammoNot_UI.gameObject.SetActive(false);
+
         weapon.Weapon_Color_Change(_Player_Con.player_Team.team);
+
+        if (photonView.IsMine)
+        {
+            ammoNot_UI.gameObject.SetActive(false);
+            ammoBack_UI.transform.parent.gameObject.SetActive(false);
+            name_UI.text = _player_Input.player_Name;
+        }
 
         switch (WeaponType)
         {
