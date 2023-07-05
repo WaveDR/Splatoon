@@ -13,6 +13,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     private readonly string game_Version = "1";
 
     public int max_Player;
+    public static int max_PlayerCount;
     public bool isCreateRoom;
     public ServerSettings setting = null;
     public GameObject matching_UI;
@@ -58,6 +59,11 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         Debug.Log("Created Room");
         stateUI.text = "¹æ »ý¼º";
         matching_UI.SetActive(false);
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            max_PlayerCount = max_Player;
+        }
     }
 
     public void Matching_Room()
@@ -132,4 +138,15 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         GameManager.Instance.photonView.RPC("SetPlayerPos", RpcTarget.AllBuffered);
     }
     #endregion
+
+    private void Update()
+    {
+        if (PhotonNetwork.InRoom)
+        {
+            if(isCreateRoom && PhotonNetwork.CurrentRoom.PlayerCount >= max_PlayerCount)
+            {
+                GameManager.Instance.isLobby = false;
+            }
+        }
+    }
 }

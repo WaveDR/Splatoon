@@ -19,7 +19,6 @@ public class Player_Info
 }
 public class GameManager : MonoBehaviourPunCallbacks
 {
-    
     public static GameManager _instance = null;
     public static GameManager Instance
     {
