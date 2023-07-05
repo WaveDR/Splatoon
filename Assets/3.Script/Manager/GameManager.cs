@@ -129,8 +129,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
 
     //============================================        ↑ CallBack   |   Nomal ↓        ========================================================
-
-    [PunRPC]
     public void Manager_Server()
     {
         //GetComponent
@@ -311,8 +309,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             PaintTarget.ClearAllPaint();
 
             SetPlayerPos();
-            photonView.RPC("UI_Out", RpcTarget.AllBuffered);
- 
+            Photon_Manager.Instance.matching_UI.transform.parent.gameObject.SetActive(false);
+
             BGM_Manager.Instance.Stop_All_Sound_BGM();
 
             foreach(TeamZone teamZone in nodes)
@@ -419,7 +417,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             Count_Image_Server(count);
         }
     }
-    [PunRPC]
+
     public void Count_Image_Server(int count)
     {
         count_Image.sprite = count_Sprite[count];
@@ -598,10 +596,4 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         }
     } //카메라 메서드
-
-    [PunRPC]
-    public void UI_Out()
-    {
-        Photon_Manager.Instance.matching_UI.transform.parent.gameObject.SetActive(false);
-    }
 }
