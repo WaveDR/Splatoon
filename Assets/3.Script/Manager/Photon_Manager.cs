@@ -131,7 +131,6 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
             player_Con.player_Team.team,player_Con._player_shot.WeaponType,player_Con.player_Input.player_Name);
   
         GameManager.Instance.SetPlayerPos();
-
     }
     #endregion
 

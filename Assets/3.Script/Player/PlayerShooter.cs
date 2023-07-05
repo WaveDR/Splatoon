@@ -91,7 +91,6 @@ public class PlayerShooter : MonoBehaviourPun
     {
         TryGetComponent(out _player_Input);
         TryGetComponent(out _Player_Con);
-        TryGetComponent(out _player_Anim);
         TryGetComponent(out playerCam);
     }
     public void UI_Set_Server()
@@ -119,6 +118,7 @@ public class PlayerShooter : MonoBehaviourPun
 
     public void WeaponSet()
     {
+        TryGetComponent(out _player_Anim);
         for (int i = 0; i < weapon_Obj.Length; i++)
         {
             weapon_Obj[i].SetActive(true);
@@ -128,7 +128,7 @@ public class PlayerShooter : MonoBehaviourPun
         _player_Anim.SetInteger("WeaponNum", weaponNum);
 
         weapon = GetComponentInChildren<Shot_System>();
-        playerCam.weapon_DirY = GetComponentInChildren<Shot_System>();
+        playerCam.weapon_DirY = weapon;
 
         fireMaxTime = weapon.weapon_Stat.fire_Rate;
         killLog_Obj.SetActive(false);
