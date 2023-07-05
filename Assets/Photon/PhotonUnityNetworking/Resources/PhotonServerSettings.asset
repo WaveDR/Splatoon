@@ -34,50 +34,26 @@ MonoBehaviour:
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
+  - Bullet_Set
   - ClickRpc
+  - Count_Image_Server
   - DestroyRpc
   - DestroySpaceship
-  - Fire
-  - RespawnSpaceship
-  - GameStream
-  - ChangeZone
-  - ShotEffect
-  - MoveScene
-  - Player_Set
-  - LoadingOff
-  - RPC_PlayerData
-  - Player_Spawn
-  - PlayerData
-  - Set_PlayerInfo
-  - Player_ColorSet
-  - WeaponSet
-  - Bullet_Set
-  - Reload_Ammo
-  - RestoreHp
-  - Score_Plus
-  - Shot
-  - Transform_Mesh
-  - Transform_Stat
-  - Weapon_Color_Change
-  - TransSquid_Server
-  - SetPlayerPos
   - FindPlayer
-  - UI_Out
-  - Reload_Ammo_Server
-  - Shot_Server
-  - shot_Server
-  - Reload_Server
-  - StartCount
-  - GameStart
-  - ReSet_Skill_UI
+  - Fire
   - Get_Score_Server
-  - UI_Set_Server
-  - Count_Image_Server
-  - TimeSet
-  - EndCount
-  - Timer
   - Manager_Server
-  - UpdatePosition
+  - Paint_Play
+  - Player_ColorSet
+  - Player_Set
+  - Reload_Server
+  - RespawnSpaceship
+  - SetPlayerPos
+  - TransSquid_Server
+  - UI_Out
+  - UI_Set_Server
+  - Weapon_Color_Change
+  - WeaponSet
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

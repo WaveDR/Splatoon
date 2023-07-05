@@ -285,8 +285,8 @@ public class PlayerShooter : MonoBehaviourPun
                         _Player_Con.ES_Manager.Stop_Sound_Effect("Floor_Hit");
                         _Player_Con.ES_Manager.Play_SoundEffect("Floor_Hit");
                         _player_Anim.SetBool("isFire", true);
-                        //weapon.Shot();
-                        weapon.photonView.RPC("Shot", RpcTarget.AllBuffered);
+                        weapon.Shot();
+                        //weapon.photonView.RPC("Shot", RpcTarget.AllBuffered);
                         fireRateTime = 0;
                     }
 
@@ -348,8 +348,8 @@ public class PlayerShooter : MonoBehaviourPun
                         _Player_Con.ES_Manager.Play_SoundEffect("Floor_Hit");
                         fireRateTime = 0;
                         bowAim_UI.fillAmount = fireRateTime;
-                        //weapon.Shot();
-                        weapon.photonView.RPC("Shot", RpcTarget.AllBuffered);
+                        weapon.Shot();
+                        //weapon.photonView.RPC("Shot", RpcTarget.AllBuffered);
 
                         _isCharge = false;
                         _isCharge_Sfx = false;
@@ -430,8 +430,8 @@ public class PlayerShooter : MonoBehaviourPun
     }
     public void shot()
     {
-        // weapon.Shot();
-        weapon.photonView.RPC("Shot", RpcTarget.AllBuffered);
+         weapon.Shot();
+        //weapon.photonView.RPC("Shot", RpcTarget.AllBuffered);
     }
 
     public void Reload_Ammo(int speed)

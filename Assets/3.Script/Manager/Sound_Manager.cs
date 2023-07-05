@@ -48,8 +48,6 @@ public class Sound_Manager : MonoBehaviour
         Debug.Log(name + "Sound Manager에 등록되지 않은 SoundSource입니다!");
     }
 
-
-
     public void Stop_All_Sound_Effect()
     {
         for (int i = 0; i < audio_Source_Effects.Length; i++)

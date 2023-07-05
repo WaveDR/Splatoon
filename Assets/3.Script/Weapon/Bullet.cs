@@ -17,7 +17,6 @@ public class Bullet : MonoBehaviourPun
     public PlayerController[] players;
     void Awake()
     {
-
         particle = GetComponent<ParticleSystem>();
         players = FindObjectsOfType<PlayerController>();
         color = GetComponentsInChildren<ParticleSystem>();
@@ -72,6 +71,12 @@ public class Bullet : MonoBehaviourPun
     {
         StartCoroutine(player_Shot.KillLog(name));
         player_Shot.Player_Con.ES_Manager.Play_SoundEffect("Player_Kill");
+    }
+
+    [PunRPC]
+    public void Paint_Play()
+    {
+        particle.Play();
     }
     private void OnDisable()
     {

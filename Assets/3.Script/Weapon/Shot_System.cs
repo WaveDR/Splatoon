@@ -74,7 +74,6 @@ public class Shot_System : MonoBehaviourPun
         }
     }
 
-    [PunRPC]
     public void Shot()
     {
         if (weapon_CurAmmo > 0)
@@ -83,7 +82,7 @@ public class Shot_System : MonoBehaviourPun
 
             foreach (Bullet shot in firePoint)
             {
-                shot.particle.Play();
+                shot.photonView.RPC("Paint_Play",RpcTarget.AllBuffered);
             }
         }
         else
