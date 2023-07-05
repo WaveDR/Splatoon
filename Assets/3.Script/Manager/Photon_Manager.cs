@@ -39,8 +39,10 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     }
     private void Start()
     {
-         //Connect();
+        //Connect();
+        PhotonNetwork.LogLevel = PunLogLevel.Informational;
     }
+
     private void OnApplicationQuit()
     {
         DisConnect();
@@ -87,6 +89,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         Debug.Log("Connect To Master Server Join.");
         stateUI.text = "서버에 연결됐습니다.";
         PhotonNetwork.JoinLobby();
+        Debug.LogError("Connected to Master Server");
     }
     public override void OnJoinedLobby()
     {
@@ -106,17 +109,20 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+        Debug.LogError("Joined Room");
+
         base.OnJoinedRoom();
+        PhotonNetwork.LoadLevel("InGame");
         Debug.Log("Room Join Success");
         stateUI.text = "방에 입장합니다.";
 
         //나중에 입장한 플레이어 모으기 && 다 모이면 게임 시작 누를 수 있도록 수정예정
-        PhotonNetwork.LoadLevel("InGame");
-        Invoke("Player_Spawn", 1f);
+       StartCoroutine(Player_Spawn());
     }
 
-    void Player_Spawn()
+    IEnumerator Player_Spawn()
     {
+        yield return new WaitForSeconds(1f);
         GameObject player = PhotonNetwork.Instantiate(playerPrefabs.name, Vector3.zero, Quaternion.identity);
         PlayerController player_Con = player.GetComponent<PlayerController>();
 
@@ -124,7 +130,6 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
             player_Con.player_Team.team,player_Con._player_shot.WeaponType,player_Con.player_Input.player_Name);
 
         GameManager.Instance.photonView.RPC("SetPlayerPos", RpcTarget.AllBuffered);
-        GameManager.Instance.photonView.RPC("UI_Out", RpcTarget.AllBuffered);
     }
     #endregion
 }

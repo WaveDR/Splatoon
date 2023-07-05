@@ -185,7 +185,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         _player_shot.WeaponType = weapon;
         player_Input.player_Name = name;
 
-        _player_shot.photonView.RPC("UI_Set_Server", RpcTarget.AllBuffered);
+       // _player_shot.photonView.RPC("UI_Set_Server", RpcTarget.AllBuffered);
 
         player_Team.photonView.RPC("Player_ColorSet", RpcTarget.AllBuffered);
         _player_shot.photonView.RPC("WeaponSet", RpcTarget.AllBuffered);

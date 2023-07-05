@@ -313,8 +313,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
             PaintTarget.ClearAllPaint();
 
-            //photonView.RPC("SetPlayerPos", RpcTarget.AllBuffered);
-            //photonView.RPC("UI_Out", RpcTarget.AllBuffered);
+            photonView.RPC("SetPlayerPos", RpcTarget.AllBuffered);
+            photonView.RPC("UI_Out", RpcTarget.AllBuffered);
  
             BGM_Manager.Instance.Stop_All_Sound_BGM();
 
