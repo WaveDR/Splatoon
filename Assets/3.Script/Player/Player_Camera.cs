@@ -51,9 +51,11 @@ public class Player_Camera : MonoBehaviourPun
 
     public void SelectCamera()
     {
-        if(photonView.IsMine)
-        cam_Obj = GameObject.FindGameObjectWithTag("PlayerCam").GetComponent<Cinemachine.CinemachineVirtualCamera>();
-        cam_Obj.Follow = player_DirY;
-        cam_Obj.LookAt = player_DirY;
+        if (photonView.IsMine)
+        {
+            cam_Obj = GameObject.FindGameObjectWithTag("PlayerCam").GetComponent<Cinemachine.CinemachineVirtualCamera>();
+            cam_Obj.Follow = player_DirY;
+            cam_Obj.LookAt = player_DirY;
+        }
     }
 }

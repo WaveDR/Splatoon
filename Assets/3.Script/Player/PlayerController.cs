@@ -157,6 +157,10 @@ public class PlayerController : Living_Entity, IPlayer
         player_Team.team = team;
         _player_shot.WeaponType = weapon;
         player_Input.player_Name = name;
+
+        _player_shot.UI_Set_Server();
+        player_Team.Player_ColorSet();
+        _player_shot.WeaponSet();
     }
 
     private void Player_Jump()

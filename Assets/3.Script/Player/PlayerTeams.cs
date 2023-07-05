@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 
-public class PlayerTeams : MonoBehaviourPun
+public class PlayerTeams : MonoBehaviour
 {
     public ETeam team;
     [SerializeField] private PlayerController _player_Con;
@@ -25,11 +24,6 @@ public class PlayerTeams : MonoBehaviourPun
         TryGetComponent(out _player_Con);
         TryGetComponent(out _player_Shooter);
     }
-    private void OnEnable()
-    {
-        if (!photonView.IsMine) return;
-        Player_ColorSet();
-    }
     public void Player_ColorSet()
     {
         switch (team)
@@ -41,13 +35,13 @@ public class PlayerTeams : MonoBehaviourPun
                     render.material = _player_Blue_Mat[0];
                     _squid_Render.material = _player_Blue_Mat[1];
                 }
-                
-                
+
+
                 foreach (ParticleSystem par in _player_Color_Par)
                 {
                     var particle = par.main;
                     particle.startColor = (Color)team_Blue;
-                   
+
                 }
                 _player_Shooter.ammoBack_UI.color = team_Blue;
                 _player_Shooter.ammoNot_UI.color = team_Blue;

@@ -354,8 +354,11 @@ public class GameManager : MonoBehaviourPunCallbacks
 
             foreach (PlayerController player in players)
             {
-                player.isStop = false;
-                player._player_shot.name_UI.text = "¿µ¿ªÀ» ÀÜ¶à È®º¸ÇØ¶ó!";
+                if (player.photonView.IsMine)
+                {
+                    player.isStop = false;
+                    player._player_shot.name_UI.text = "¿µ¿ªÀ» ÀÜ¶à È®º¸ÇØ¶ó!";
+                }
             }
 
             BGM_Manager.Instance.Stop_All_Sound_BGM();

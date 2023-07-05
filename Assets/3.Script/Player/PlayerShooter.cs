@@ -95,13 +95,6 @@ public class PlayerShooter : MonoBehaviourPun
         TryGetComponent(out playerCam);
         shot_UI = FindObjectOfType<Shot_UI>();
     }
-    private void OnEnable()
-    {
-        if (!photonView.IsMine) return;
-            UI_Set_Server();
-            WeaponSet();
-    }
-
     public void UI_Set_Server()
     {
         weapon_Aim[0] = shot_UI.weapon_Aim[0];
@@ -119,7 +112,8 @@ public class PlayerShooter : MonoBehaviourPun
         name_UI = shot_UI.name_UI;
         score_UI = shot_UI.score_UI;
 
-       skill_UI_Obj = shot_UI.gameObject;
+        skill_UI_Obj = shot_UI.gameObject;
+  
     }
 
     public void WeaponSet()
