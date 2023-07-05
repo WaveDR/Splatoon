@@ -22,6 +22,7 @@ public class Shot_System : MonoBehaviour
     void Awake()
     {
         player_Shot = GetComponentInParent<PlayerShooter>();
+        team = GetComponentInParent<PlayerTeams>();
     }
 
     public void Weapon_Color_Change(ETeam team)
@@ -61,11 +62,9 @@ public class Shot_System : MonoBehaviour
             {
                 firePoint[i] = firePoint_Files.GetChild(i).gameObject.GetComponent<Bullet>();
                 firePoint[i].dmg = weapon_Stat.weapon_Dmg;
-                firePoint[i].Bullet_Set(player_Shot.Player_Con.player_Team);
+                firePoint[i].Bullet_Set(this.team);
             }
         }
-
-      
     }
 
     public void Shot()

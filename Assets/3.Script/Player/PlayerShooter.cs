@@ -170,8 +170,7 @@ public class PlayerShooter : MonoBehaviourPun
 
     void Update()
     {
-        if (!photonView.IsMine) return;
-
+  
         if (!Player_Con.isStop || !_Player_Con.isDead)
         {
             Fire_Paint();
@@ -182,6 +181,7 @@ public class PlayerShooter : MonoBehaviourPun
                 Get_Score_Server();
             }
 
+            if (!photonView.IsMine) return;
             score_UI.text = player_ScoreSet.ToString("D4");
         }
         //공격로직
