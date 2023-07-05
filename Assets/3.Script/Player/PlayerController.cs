@@ -2,7 +2,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class PlayerController : Living_Entity, IPlayer,IPunObservable
+public class PlayerController : Living_Entity, IPlayer, IPunObservable
 {
     [Header("Player Stat")]
     public PlayerTeams player_Team;
@@ -100,11 +100,7 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
     // Update is called once per frame
     void Update()
     {
-        if (!photonView.IsMine)
-        {
-            return;
-        }
-        else
+        if (photonView.IsMine)
         {
             if (!isStop)
             {
@@ -130,21 +126,20 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
                 }
             }
 
- 
         }
-        
+
     }
 
     private void OnParticleCollision(GameObject other)
     {
- 
-            dmgBullet = other.GetComponent<Bullet>();
 
-            if (dmgBullet.team.team != player_Team.team && !isDead)
-            {
-                OnDamage(dmgBullet.dmg);
-            }
-     
+        dmgBullet = other.GetComponent<Bullet>();
+
+        if (dmgBullet.team.team != player_Team.team && !isDead)
+        {
+            OnDamage(dmgBullet.dmg);
+        }
+
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -181,7 +176,7 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
 
     //============================================        ↑ 콜백 메서드   |  일반 메서드 ↓        ========================================================
 
- 
+
 
     [PunRPC]
     public void Player_Set(ETeam team, EWeapon weapon, string name)
@@ -191,10 +186,10 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
         player_Input.player_Name = name;
 
         _player_shot.photonView.RPC("UI_Set_Server", RpcTarget.AllBuffered);
-     
+
         player_Team.photonView.RPC("Player_ColorSet", RpcTarget.AllBuffered);
         _player_shot.photonView.RPC("WeaponSet", RpcTarget.AllBuffered);
-      
+
 
     }
 
@@ -406,13 +401,13 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
                         Transform_Mesh(false, false);
                         _isHuman = true;
                     }
-                   
+
                 }
 
                 else //사람 형태
                 {
                     Transform_Stat(20, player_Stat.moveZone_Speed, false, true);
-                  
+
                     RestoreHp(recovery_Speed);
 
                     if (_isHuman)
@@ -496,7 +491,7 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
         else //공중에 있을 때
         {
             _isJump = true;
-           
+
             raycast_Object = null;
 
             if (SquidForm)// 오징어 형태
@@ -595,7 +590,7 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
                 else //사람 형태
                 {
                     Transform_Stat(20, player_Stat.moveZone_Speed, false, true);
-                    
+
                     RestoreHp(recovery_Speed);
 
                     if (_isHuman)
@@ -627,48 +622,48 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
 
     public void Transform_Stat(int ammo, float speed, bool Squid, bool Human)
     {
-            if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                if (Input.GetKeyDown(KeyCode.LeftShift))
-                {
-                    _player_shot.ammoBack_UI.transform.parent.gameObject.SetActive(true);
-                    hitEffect[0].transform.localPosition = new Vector3(0, 0.4f, 0.46f);
+                _player_shot.ammoBack_UI.transform.parent.gameObject.SetActive(true);
+                hitEffect[0].transform.localPosition = new Vector3(0, 0.4f, 0.46f);
 
-                }
-
-                if (Input.GetKeyUp(KeyCode.LeftShift))
-                {
-                    _player_shot.ammoBack_UI.transform.parent.gameObject.SetActive(false);
-                    hitEffect[0].transform.localPosition = new Vector3(0, 1.5f, 0.46f);
-                    _isFloor = false;
-                }
-                ES_Manager.Stop_All_Sound_Effect();
-                ES_Manager.Play_SoundEffect("Player_Hide");
-
-                player_Wave[2].Play(); //1회만 실행되는 소환 이펙트
             }
 
-            _player_shot.Reload_Ammo(ammo); // 재장전
-            // 재장전
-            _player_Speed = speed;
-
-
-            //형태 변형
-            //Transform_Mesh(Squid, Human);
-            if (Human)
+            if (Input.GetKeyUp(KeyCode.LeftShift))
             {
-                player_Wave[1].Stop();
-                player_Wave[0].Play(); // 인간 발걸음
+                _player_shot.ammoBack_UI.transform.parent.gameObject.SetActive(false);
+                hitEffect[0].transform.localPosition = new Vector3(0, 1.5f, 0.46f);
+                _isFloor = false;
             }
-            else
-            {
+            ES_Manager.Stop_All_Sound_Effect();
+            ES_Manager.Play_SoundEffect("Player_Hide");
 
-                player_Wave[0].Stop();
-                player_Wave[1].Play(); // 오징어 발걸음
-            }
-     
+            player_Wave[2].Play(); //1회만 실행되는 소환 이펙트
+        }
+
+        _player_shot.Reload_Ammo(ammo); // 재장전
+                                        // 재장전
+        _player_Speed = speed;
+
+
+        //형태 변형
+        //Transform_Mesh(Squid, Human);
+        if (Human)
+        {
+            player_Wave[1].Stop();
+            player_Wave[0].Play(); // 인간 발걸음
+        }
+        else
+        {
+
+            player_Wave[0].Stop();
+            player_Wave[1].Play(); // 오징어 발걸음
+        }
+
     } //기본 상태 변환
-    
+
     public void Transform_Mesh(bool squid, bool human)
     {
         photonView.RPC("TransSquid_Server", RpcTarget.All, squid, human);
@@ -681,7 +676,7 @@ public class PlayerController : Living_Entity, IPlayer,IPunObservable
             obj.SetActive(human);
         }
         squid_Object.SetActive(squid);
-       // Debug.LogError("형태변환");
+        // Debug.LogError("형태변환");
     }
     #endregion
 
