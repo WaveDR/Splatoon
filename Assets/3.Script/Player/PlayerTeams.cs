@@ -27,6 +27,8 @@ public class PlayerTeams : MonoBehaviourPun
     }
     private void OnEnable()
     {
+        if (!photonView.IsMine) return;
+        //Player_ColorSet();
     }
 
     [PunRPC]

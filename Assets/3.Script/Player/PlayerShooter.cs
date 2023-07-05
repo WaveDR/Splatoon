@@ -101,7 +101,7 @@ public class PlayerShooter : MonoBehaviourPun
 
         if (!photonView.IsMine) return;
             UI_Set_Server();
-            _Player_Con.player_Team.Player_ColorSet();
+       
             WeaponSet();
     }
 

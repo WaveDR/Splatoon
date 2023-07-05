@@ -29,10 +29,9 @@ public class Shot_System : MonoBehaviourPun
     // Update is called once per frame
     void OnEnable()
     {
-        if (photonView.IsMine)
+        if (!photonView.IsMine) return;
         {
-        Weapon_Color_Change();
-
+          // Weapon_Color_Change();
         }
     }
 
