@@ -58,18 +58,17 @@ public class PlayerController : Living_Entity, IPlayer
             hitEffect[i] = hitEffect[0].transform.GetChild(i).GetComponent<ParticleSystem>();
         }
         deathEffect = transform.GetChild(transform.childCount - 1).GetComponent<Bullet>();
-
+        player_CurHealth = player_Stat.max_Heath;
         ES_Manager = GetComponentInChildren<Sound_Manager>();
     }
 
     protected override void OnEnable()
     {
         base.OnEnable();
-        player_CurHealth = player_Stat.max_Heath;
-
+       
         _player_shot.UI_Set_Server();
         player_Team.Player_ColorSet();
-        _player_shot.WeaponSet();
+        _player_shot.WeaponSet(player_Team.team);
     }
     private void FixedUpdate()
     {

@@ -116,9 +116,10 @@ public class PlayerShooter : MonoBehaviourPun
         skill_UI_Obj = shot_UI.gameObject;
     }
 
-    public void WeaponSet()
+    public void WeaponSet(ETeam team)
     {
         TryGetComponent(out _player_Anim);
+
         for (int i = 0; i < weapon_Obj.Length; i++)
         {
             weapon_Obj[i].SetActive(true);
@@ -131,7 +132,7 @@ public class PlayerShooter : MonoBehaviourPun
 
         fireMaxTime = weapon.weapon_Stat.fire_Rate;
 
-        weapon.Weapon_Color_Change(_Player_Con.player_Team.team);
+        weapon.Weapon_Color_Change(team);
 
         if (photonView.IsMine)
         {
@@ -141,29 +142,29 @@ public class PlayerShooter : MonoBehaviourPun
             ammoNot_UI.gameObject.SetActive(false);
             ammoBack_UI.transform.parent.gameObject.SetActive(false);
             name_UI.text = _player_Input.player_Name;
-        }
 
-        switch (WeaponType)
-        {
-            case EWeapon.Brush:
-                weaponNum = 0;
-                for (int i = 0; i < weapon_Aim.Length; i++)
-                {
-                    weapon_Aim[i].SetActive(false);
-                }
-                break;
+            switch (WeaponType)
+            {
+                case EWeapon.Brush:
+                    weaponNum = 0;
+                    for (int i = 0; i < weapon_Aim.Length; i++)
+                    {
+                        weapon_Aim[i].SetActive(false);
+                    }
+                    break;
 
-            case EWeapon.Gun:
-                weaponNum = 1;
-                weapon_Aim[0].SetActive(true);
-                weapon_Aim[1].SetActive(false);
-                break;
+                case EWeapon.Gun:
+                    weaponNum = 1;
+                    weapon_Aim[0].SetActive(true);
+                    weapon_Aim[1].SetActive(false);
+                    break;
 
-            case EWeapon.Bow:
-                weaponNum = 2;
-                weapon_Aim[1].SetActive(true);
-                weapon_Aim[0].SetActive(false);
-                break;
+                case EWeapon.Bow:
+                    weaponNum = 2;
+                    weapon_Aim[1].SetActive(true);
+                    weapon_Aim[0].SetActive(false);
+                    break;
+            }
         }
     }
 
