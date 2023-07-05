@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 
-public class Bullet : MonoBehaviourPun
+public class Bullet : MonoBehaviour
 {
     public ETeam bulletType;
 
@@ -20,20 +19,11 @@ public class Bullet : MonoBehaviourPun
         particle = GetComponent<ParticleSystem>();
         players = FindObjectsOfType<PlayerController>();
         color = GetComponentsInChildren<ParticleSystem>();
-    }
-
-    private void OnEnable()
-    {
-        if (!photonView.IsMine) return;
-        //Bullet_Set();
-    }
-
-    [PunRPC]
-    public void Bullet_Set()
-    {
         player_Shot = GetComponentInParent<PlayerShooter>();
-        team = GetComponentInParent<PlayerTeams>();
+    }
 
+    public void Bullet_Set(PlayerTeams team)
+    {
         if (deathEffect)
         {
             if (team.team == ETeam.Blue) bulletType = ETeam.Yellow;
@@ -73,11 +63,6 @@ public class Bullet : MonoBehaviourPun
         player_Shot.Player_Con.ES_Manager.Play_SoundEffect("Player_Kill");
     }
 
-    [PunRPC]
-    public void Paint_Play()
-    {
-        particle.Play();
-    }
     private void OnDisable()
     {
         if (!brush)

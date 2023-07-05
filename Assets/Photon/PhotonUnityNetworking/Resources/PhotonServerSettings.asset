@@ -34,26 +34,17 @@ MonoBehaviour:
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
-  - Bullet_Set
   - ClickRpc
   - Count_Image_Server
   - DestroyRpc
   - DestroySpaceship
-  - FindPlayer
   - Fire
-  - Get_Score_Server
   - Manager_Server
-  - Paint_Play
-  - Player_ColorSet
   - Player_Set
   - Reload_Server
   - RespawnSpaceship
-  - SetPlayerPos
   - TransSquid_Server
   - UI_Out
-  - UI_Set_Server
-  - Weapon_Color_Change
-  - WeaponSet
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

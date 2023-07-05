@@ -97,15 +97,11 @@ public class PlayerShooter : MonoBehaviourPun
     }
     private void OnEnable()
     {
-        //선택에 따라 활성화 disable도 동일한 방식
-
         if (!photonView.IsMine) return;
             UI_Set_Server();
-       
             WeaponSet();
     }
 
-    [PunRPC]
     public void UI_Set_Server()
     {
         weapon_Aim[0] = shot_UI.weapon_Aim[0];
@@ -126,11 +122,8 @@ public class PlayerShooter : MonoBehaviourPun
        skill_UI_Obj = shot_UI.gameObject;
     }
 
-    [PunRPC]
     public void WeaponSet()
     {
-       
-
         for (int i = 0; i < weapon_Obj.Length; i++)
         {
             weapon_Obj[i].SetActive(true);
@@ -147,7 +140,7 @@ public class PlayerShooter : MonoBehaviourPun
         killLog_Obj.SetActive(false);
         enemyData_Obj.SetActive(false);
         ammoNot_UI.gameObject.SetActive(false);
-        weapon.photonView.RPC("Weapon_Color_Change", RpcTarget.AllBuffered);
+        weapon.Weapon_Color_Change(_Player_Con.player_Team.team);
 
         switch (WeaponType)
         {
@@ -184,19 +177,17 @@ public class PlayerShooter : MonoBehaviourPun
 
             if (player_Score >= 2)
             {
-                photonView.RPC("Get_Score_Server", RpcTarget.AllBuffered);
+                Get_Score_Server();
             }
 
             score_UI.text = player_ScoreSet.ToString("D4");
         }
         //공격로직
     }
-    [PunRPC]
     public void Get_Score_Server()
     {
         _player_ScoreSet++;
         player_Score = 0;
-
     }
     public IEnumerator KillLog(string name)
     {
@@ -262,7 +253,6 @@ public class PlayerShooter : MonoBehaviourPun
             _player_Anim.SetIKRotation(AvatarIKGoal.RightHand, right_HandMount[weaponNum].rotation);
         }
     }
-
     private void Fire_Paint()
     {
         switch (WeaponType)

@@ -28,10 +28,8 @@ public class PlayerTeams : MonoBehaviourPun
     private void OnEnable()
     {
         if (!photonView.IsMine) return;
-        //Player_ColorSet();
+        Player_ColorSet();
     }
-
-    [PunRPC]
     public void Player_ColorSet()
     {
         switch (team)
@@ -74,10 +72,5 @@ public class PlayerTeams : MonoBehaviourPun
                 _player_Shooter.ammoNot_UI.color = team_Yellow;
                 break;
         }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 
-public class Shot_System : MonoBehaviourPun
+
+public class Shot_System : MonoBehaviour
 {
     public EWeapon weaponType;
     public WeaponStat weapon_Stat;
@@ -24,21 +24,8 @@ public class Shot_System : MonoBehaviourPun
         player_Shot = GetComponentInParent<PlayerShooter>();
     }
 
-
-
-    // Update is called once per frame
-    void OnEnable()
+    public void Weapon_Color_Change(ETeam team)
     {
-        if (!photonView.IsMine) return;
-        {
-          // Weapon_Color_Change();
-        }
-    }
-
-    [PunRPC]
-    public void Weapon_Color_Change()
-    {
-        team = GetComponentInParent<PlayerTeams>();
         weapon_MaxAmmo = weapon_Stat.max_Ammo;
         weapon_CurAmmo = weapon_MaxAmmo;
 
@@ -49,7 +36,7 @@ public class Shot_System : MonoBehaviourPun
         firePoint_Files_Yellow.gameObject.SetActive(true);
         firePoint_Files_Blue.gameObject.SetActive(true);
 
-        switch (team.team) //팀에 따른 물감 색 오브젝트 변환
+        switch (team) //팀에 따른 물감 색 오브젝트 변환
         {
             case ETeam.Yellow:
                 firePoint_Files = firePoint_Files_Yellow;
@@ -69,7 +56,7 @@ public class Shot_System : MonoBehaviourPun
             {
                 firePoint[i] = firePoint_Files.GetChild(i).gameObject.GetComponent<Bullet>();
                 firePoint[i].dmg = weapon_Stat.weapon_Dmg;
-                firePoint[i].photonView.RPC("Bullet_Set", RpcTarget.AllBuffered);
+                firePoint[i].Bullet_Set(player_Shot.Player_Con.player_Team);
             }
         }
     }
@@ -82,7 +69,7 @@ public class Shot_System : MonoBehaviourPun
 
             foreach (Bullet shot in firePoint)
             {
-                shot.photonView.RPC("Paint_Play",RpcTarget.AllBuffered);
+                shot.particle.Play();
             }
         }
         else
