@@ -90,6 +90,15 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         {
             _player_rigid.MovePosition(_player_rigid.position + player_Input.move_Vec * _player_Speed * Time.deltaTime);
 
+            if (!player_Input.squid_Form)
+            {
+                _Wall_RacastOn = false;
+                MoveWall(false, null);
+            }
+            else
+            {
+                RaycastWall(player_Input.squid_Form);
+            }
         }
         else if ((transform.position - networkPosition).sqrMagnitude >= 100)
         {
@@ -98,8 +107,8 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         }
         else
         {
-            transform.position = Vector3.Lerp(transform.position, networkPosition, Time.deltaTime * 10f);
-            transform.rotation = Quaternion.Lerp(transform.rotation, networkRotation, Time.deltaTime * 10f);
+            transform.position = Vector3.Lerp(transform.position, networkPosition, Time.deltaTime * 50f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, networkRotation, Time.deltaTime * 50f);
         }
     }
 
@@ -119,16 +128,6 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
                     Player_Jump();
                     RaycastFloor(player_Input.squid_Form);
                     Player_Animation();
-
-                    if (!player_Input.squid_Form)
-                    {
-                        _Wall_RacastOn = false;
-                        MoveWall(false, null);
-                    }
-                    else
-                    {
-                        RaycastWall(player_Input.squid_Form);
-                    }
                 }
             }
         }

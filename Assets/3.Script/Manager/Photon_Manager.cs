@@ -90,7 +90,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         Debug.Log("Connect To Master Server Join.");
         stateUI.text = "서버에 연결됐습니다.";
         PhotonNetwork.JoinLobby();
-        Debug.LogError("Connected to Master Server");
+        Debug.Log("Connected to Master Server");
     }
     public override void OnJoinedLobby()
     {
@@ -110,7 +110,6 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        Debug.LogError("Joined Room");
         base.OnJoinedRoom();
 
         PhotonNetwork.LoadLevel("InGame");

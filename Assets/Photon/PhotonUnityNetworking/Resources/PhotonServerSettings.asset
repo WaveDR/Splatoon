@@ -39,10 +39,12 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - isLobby_Server
+  - Paint_Play
   - Player_Set
   - Reload_Server
   - RespawnSpaceship
   - TransSquid_Server
+  - UseAmmo
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

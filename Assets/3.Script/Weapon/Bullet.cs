@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviourPun
 {
     public ETeam bulletType;
 
@@ -52,6 +53,12 @@ public class Bullet : MonoBehaviour
                 }
             }
         }
+    }
+
+    [PunRPC]
+    public void Paint_Play()
+    {
+        particle.Play();
     }
     
     public void Score_Plus()

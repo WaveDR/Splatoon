@@ -332,6 +332,8 @@ public class GameManager : MonoBehaviourPun
             player.player_Input.fire = false;
             player.isStop = true;
             player._player_shot.playerCam.SelectCamera();
+
+            if(player.photonView.IsMine)
             MapCam(false, player._player_shot.playerCam.cam_Obj.gameObject);
         }
         //Player Move Limit
@@ -349,25 +351,23 @@ public class GameManager : MonoBehaviourPun
             count_Image.gameObject.SetActive(false);
             ui_Anim.SetTrigger("GameStart");
 
-            deltaTime = endTimer;
 
             foreach (PlayerController player in players)
             {
-
                 player.gameObject.SetActive(false);
                 player.gameObject.SetActive(true);
 
-                if (player.photonView.IsMine)
-                {
+                player.isStop = false;
 
-                    player.isStop = false;
-                    player._player_shot.name_UI.text = "¿µ¿ªÀ» ÀÜ¶à È®º¸ÇØ¶ó!";
-                }
+                if(player.photonView.IsMine)
+                player._player_shot.name_UI.text = "¿µ¿ªÀ» ÀÜ¶à È®º¸ÇØ¶ó!";
             }
 
             BGM_Manager.Instance.Stop_All_Sound_BGM();
             BGM_Manager.Instance.Play_Sound_BGM("UI_Finish");
             BGM_Manager.Instance.Play_Sound_BGM("BGM_Game");
+
+            deltaTime = endTimer;
             gameStart = true;
         }
     }

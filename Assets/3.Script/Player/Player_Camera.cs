@@ -33,6 +33,7 @@ public class Player_Camera : MonoBehaviourPun
     {
         if (!photonView.IsMine) return;
         if(!_player_Con.isStop)
+
         CameraRotation();
     }
 

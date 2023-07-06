@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-
-public class Shot_System : MonoBehaviour
+public class Shot_System : MonoBehaviourPun
 {
     public EWeapon weaponType;
     public WeaponStat weapon_Stat;
@@ -72,12 +72,7 @@ public class Shot_System : MonoBehaviour
     {
         if (weapon_CurAmmo > 0)
         {
-            weapon_CurAmmo -= weapon_Stat.use_Ammo;
-
-            foreach (Bullet shot in firePoint)
-            {
-                shot.particle.Play();
-            }
+            Attack();
         }
         else
         {
@@ -85,5 +80,18 @@ public class Shot_System : MonoBehaviour
             return;
         }
     }
+    public void Attack()
+    {
+        photonView.RPC("UseAmmo", RpcTarget.AllBuffered);
+        foreach (Bullet shot in firePoint)
+        {
+            shot.photonView.RPC("Paint_Play", RpcTarget.AllBuffered);
+        }
+    }
 
+    [PunRPC]
+    public void UseAmmo()
+    {
+        weapon_CurAmmo -= weapon_Stat.use_Ammo;
+    }
 }

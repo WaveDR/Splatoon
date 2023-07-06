@@ -165,7 +165,7 @@ public class Setting_Manager : MonoBehaviour
                 npc_Text.text = "좋아. 마지막이야. \n 이제 저 단말기에 너의 이름을 적어.";
                 break;
         }
-        BGM_Manager.Instance.Play_Sound_BGM("UI_Click");
+        //BGM_Manager.Instance.Play_Sound_BGM("UI_Click");
     }
 
     public void MoveScene()
@@ -173,7 +173,13 @@ public class Setting_Manager : MonoBehaviour
         // GameManager.Instance.SetCursorState(true);
         //나중에 네트워크에 넣을 정보값들
 
-        if (player_Name.text == null || player_Name.text == " " || player_Name.text == "")
+        if (player_Name.text == null )
+        {
+            player_Name.text = "No Name";
+            player_Input.player_Name = player_Name.text;
+        }
+
+        else if (player_Name.text == " " || player_Name.text == "")
         {
             player_Name.text = "No Name";
             player_Input.player_Name = player_Name.text;
@@ -197,7 +203,7 @@ public class Setting_Manager : MonoBehaviour
         Invoke("LoadingOff",2f);
         //Instantiate(player_Prefabs, Vector3.zero, Quaternion.identity);
         //로비 UI 비활성화
-        BGM_Manager.Instance.Play_Sound_BGM("UI_Click");
+        //BGM_Manager.Instance.Play_Sound_BGM("UI_Click");
         gameObject.SetActive(false);
 
     }

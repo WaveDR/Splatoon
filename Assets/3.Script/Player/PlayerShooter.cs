@@ -134,26 +134,11 @@ public class PlayerShooter : MonoBehaviourPun
 
         weapon.Weapon_Color_Change(team);
 
-        switch (WeaponType)
-        {
-            case EWeapon.Brush:
-                weaponNum = 0;
-
-                break;
-
-            case EWeapon.Gun:
-                weaponNum = 1;
-
-                break;
-
-            case EWeapon.Bow:
-                weaponNum = 2;
-                break;
-        }
 
         if (photonView.IsMine)
         {
             playerCam.weapon_DirY = weapon;
+
             killLog_Obj.SetActive(false);
             enemyData_Obj.SetActive(false);
             ammoNot_UI.gameObject.SetActive(false);
@@ -179,6 +164,22 @@ public class PlayerShooter : MonoBehaviourPun
                     weapon_Aim[0].SetActive(false);
                     break;
             }
+        }
+        switch (WeaponType)
+        {
+            case EWeapon.Brush:
+                weaponNum = 0;
+
+                break;
+
+            case EWeapon.Gun:
+                weaponNum = 1;
+
+                break;
+
+            case EWeapon.Bow:
+                weaponNum = 2;
+                break;
         }
 
     }
@@ -462,8 +463,7 @@ public class PlayerShooter : MonoBehaviourPun
     {
         if (weapon.weapon_CurAmmo <= weapon.weapon_MaxAmmo && !_isFire)
         {
-            //photonView.RPC("Reload_Server", RpcTarget.AllBuffered, speed);
-            Reload_Server(speed);
+            photonView.RPC("Reload_Server", RpcTarget.AllBuffered, speed);
             ammo_Back.transform.localScale =
            new Vector3(ammo_Back.transform.localScale.x, weapon.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
         }
