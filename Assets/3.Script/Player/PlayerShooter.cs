@@ -422,6 +422,7 @@ public class PlayerShooter : MonoBehaviourPun
 
         if (!photonView.IsMine)
         {
+            if(ammoBack_UI.gameObject.activeSelf)
             ammoBack_UI.fillAmount = weapon.weapon_CurAmmo * 0.01f;
             ammo_Back.transform.localScale = new Vector3(ammo_Back.transform.localScale.x, weapon.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
         }
