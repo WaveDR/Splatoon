@@ -24,6 +24,8 @@ public class Bullet : MonoBehaviour
 
     public void Bullet_Set(PlayerTeams team)
     {
+
+        this.team = team;
         if (deathEffect)
         {
             if (team.team == ETeam.Blue) bulletType = ETeam.Yellow;

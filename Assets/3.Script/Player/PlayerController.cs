@@ -2,7 +2,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class PlayerController : Living_Entity, IPlayer
+public class PlayerController : Living_Entity, IPlayer, IPunObservable
 {
     [Header("Player Stat")]
     public PlayerTeams player_Team;
@@ -62,6 +62,20 @@ public class PlayerController : Living_Entity, IPlayer
         ES_Manager = GetComponentInChildren<Sound_Manager>();
     }
 
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(this.gameObject.transform.position);
+            stream.SendNext(this.gameObject.transform.rotation);
+        }
+        else
+        {
+            networkPosition = (Vector3)stream.ReceiveNext();
+            networkRotation = (Quaternion)stream.ReceiveNext();
+        }
+    }
+
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -72,8 +86,21 @@ public class PlayerController : Living_Entity, IPlayer
     }
     private void FixedUpdate()
     {
-        if (!photonView.IsMine) return;
-        _player_rigid.MovePosition(_player_rigid.position + player_Input.move_Vec * _player_Speed * Time.deltaTime);
+        if (photonView.IsMine)
+        {
+            _player_rigid.MovePosition(_player_rigid.position + player_Input.move_Vec * _player_Speed * Time.deltaTime);
+
+        }
+        else if ((transform.position - networkPosition).sqrMagnitude >= 100)
+        {
+            transform.position = networkPosition;
+            transform.rotation = networkRotation;
+        }
+        else
+        {
+            transform.position = Vector3.Lerp(transform.position, networkPosition, Time.deltaTime * 10f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, networkRotation, Time.deltaTime * 10f);
+        }
     }
 
     // Update is called once per frame
