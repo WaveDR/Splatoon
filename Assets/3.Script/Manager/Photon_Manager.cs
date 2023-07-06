@@ -128,7 +128,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         PlayerController player_Con = player.GetComponent<PlayerController>();
 
         player_Con.photonView.RPC("Player_Set", RpcTarget.AllBuffered, 
-            player_Con.player_Team.team,player_Con._player_shot.WeaponType,player_Con.player_Input.player_Name);
+            player_Con.player_Team.team,player_Con._player_shot.WeaponType,player_Con.player_Input.player_Name, player_Con._player_shot.weaponNum);
   
         GameManager.Instance.SetPlayerPos();
     }

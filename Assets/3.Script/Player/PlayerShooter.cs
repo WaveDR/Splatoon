@@ -312,7 +312,10 @@ public class PlayerShooter : MonoBehaviourPun
                 if (_player_Input.fire)
                 {
                     fireRateTime += Time.deltaTime;
+
+                    if(photonView.IsMine)
                     bowAim_UI.fillAmount = fireRateTime;
+
                     _isFire = true;
                     _player_Anim.SetTrigger("Reload_Bow");
 
@@ -341,7 +344,10 @@ public class PlayerShooter : MonoBehaviourPun
                         _Player_Con.ES_Manager.Stop_Sound_Effect("Floor_Hit");
                         _Player_Con.ES_Manager.Play_SoundEffect("Floor_Hit");
                         fireRateTime = 0;
+
+                        if(photonView.IsMine)
                         bowAim_UI.fillAmount = fireRateTime;
+
                         weapon.Shot();
                         //weapon.photonView.RPC("Shot", RpcTarget.AllBuffered);
 
@@ -352,7 +358,10 @@ public class PlayerShooter : MonoBehaviourPun
                 else if ((fireRateTime < fireMaxTime || weapon.weapon_CurAmmo <= 0) && _player_Input.fUp)
                 {
                     fireRateTime = 0;
-                    bowAim_UI.fillAmount = fireRateTime;
+
+                    if (photonView.IsMine)
+                        bowAim_UI.fillAmount = fireRateTime;
+
                     _player_Anim.SetBool("isFire", false);
 
                     _Player_Con.ES_Manager.Stop_Sound_Effect("Weapon_Charge");
@@ -420,10 +429,11 @@ public class PlayerShooter : MonoBehaviourPun
                 break;
         }
 
-        if (!photonView.IsMine)
+        if (photonView.IsMine)
         {
             if(ammoBack_UI.gameObject.activeSelf)
             ammoBack_UI.fillAmount = weapon.weapon_CurAmmo * 0.01f;
+
             ammo_Back.transform.localScale = new Vector3(ammo_Back.transform.localScale.x, weapon.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
         }
     }

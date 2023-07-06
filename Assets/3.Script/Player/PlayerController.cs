@@ -155,11 +155,12 @@ public class PlayerController : Living_Entity, IPlayer
     //============================================        ↑ 콜백 메서드   |  일반 메서드 ↓        ========================================================
 
     [PunRPC]
-    public void Player_Set(ETeam team, EWeapon weapon, string name)
+    public void Player_Set(ETeam team, EWeapon weapon, string name, int weaponNum)
     {
         player_Team.team = team;
         _player_shot.WeaponType = weapon;
         player_Input.player_Name = name;
+        _player_shot.weaponNum = weaponNum;
     }
 
     private void Player_Jump()
