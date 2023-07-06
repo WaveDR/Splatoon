@@ -170,21 +170,23 @@ public class PlayerShooter : MonoBehaviourPun
 
     void Update()
     {
-  
+
         if (!Player_Con.isStop || !_Player_Con.isDead)
         {
             Fire_Paint();
-            WarningAmmo();
 
             if (player_Score >= 2)
             {
                 Get_Score_Server();
             }
+            if (photonView.IsMine)
+            {
 
-            if (!photonView.IsMine) return;
-            score_UI.text = player_ScoreSet.ToString("D4");
+                WarningAmmo();
+                score_UI.text = player_ScoreSet.ToString("D4");
+            }
+            //공격로직
         }
-        //공격로직
     }
     public void Get_Score_Server()
     {
@@ -417,8 +419,12 @@ public class PlayerShooter : MonoBehaviourPun
 
                 break;
         }
-        ammoBack_UI.fillAmount = weapon.weapon_CurAmmo * 0.01f;
-        ammo_Back.transform.localScale = new Vector3(ammo_Back.transform.localScale.x, weapon.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
+
+        if (!photonView.IsMine)
+        {
+            ammoBack_UI.fillAmount = weapon.weapon_CurAmmo * 0.01f;
+            ammo_Back.transform.localScale = new Vector3(ammo_Back.transform.localScale.x, weapon.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
+        }
     }
     public void shot()
     {

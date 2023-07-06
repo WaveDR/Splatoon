@@ -22,11 +22,12 @@ public class Shot_System : MonoBehaviour
     void Awake()
     {
         player_Shot = GetComponentInParent<PlayerShooter>();
-        team = GetComponentInParent<PlayerTeams>();
+       
     }
 
     public void Weapon_Color_Change(ETeam team)
     {
+        this.team = GetComponentInParent<PlayerTeams>();
         weapon_MaxAmmo = weapon_Stat.max_Ammo;
         weapon_CurAmmo = weapon_MaxAmmo;
 
