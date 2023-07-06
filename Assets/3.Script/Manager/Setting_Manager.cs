@@ -127,13 +127,16 @@ public class Setting_Manager : MonoBehaviour
     private EWeapon btn_weapon(int i, EWeapon weapon, bool back)
     {
         select_Effect.transform.position = playerSelect_Weapon[i].transform.position;
+
         if(!back)
         playerSelect_Weapon[i].SetActive(false);
         else
         {
             for (int j = 0; j < playerSelect_Weapon.Length; j++)
             {
+                photon_Manager.weaponNum = i;
                 playerSelect_Weapon[j].SetActive(true);
+
                 Debug.Log(playerSelect_Weapon[j].name);
             }
         }

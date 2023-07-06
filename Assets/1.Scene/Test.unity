@@ -7281,103 +7281,6 @@ Transform:
   m_Father: {fileID: 1654789989}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &583662271
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4441455990634922235, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
-      propertyPath: m_Name
-      value: Skill_UI
-      objectReference: {fileID: 0}
-    - target: {fileID: 4441455990634922239, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4441455990634922239, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4441455990634922239, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
-      propertyPath: m_RootOrder
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 4441455990634922239, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4441455990634922239, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4441455990634922239, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4441455990634922239, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4441455990634922239, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4441455990634922239, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4441455990634922239, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4441455990634922239, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4441455990634922239, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4441455990634922239, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4441455990634922239, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4441455990634922239, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4441455990634922239, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4441455990634922239, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4441455990634922239, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4441455990634922239, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4441455990634922239, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4441455990634922239, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5ca5db40c3183c44d9ce5e1220022f94, type: 3}
 --- !u!1 &597236700
 GameObject:
   m_ObjectHideFlags: 0
@@ -12025,17 +11928,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4d8c82ab69aaaf4196bec2362c29772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponType: 1
+  skill_UI_Obj: {fileID: 0}
   weapon_Obj:
   - {fileID: 1681489502}
   - {fileID: 2027990428}
   - {fileID: 2015519033}
+  WeaponType: 1
   weapon: {fileID: 0}
   weaponNum: 0
   ammo_Back: {fileID: 1616107424}
-  _combo_Attack: 0
-  _combo_Start: 0
-  _combo_Num: 0
+  playerCam: {fileID: 0}
+  weapon_Aim: []
+  _Charge_Effect: {fileID: 0}
+  player_Score: 0
+  shot_UI: {fileID: 0}
+  bowAim_UI: {fileID: 0}
+  killLog_UI: {fileID: 0}
+  killLog_Obj: {fileID: 0}
+  enemyData_Obj: {fileID: 0}
+  enemyName_UI: {fileID: 0}
+  enemyScore_UI: {fileID: 0}
+  ammoBack_UI: {fileID: 0}
+  ammoNot_UI: {fileID: 0}
+  name_UI: {fileID: 0}
+  score_UI: {fileID: 0}
   fireMaxTime: 0
   fireRateTime: 0
   combo_ResetTime: 0
@@ -12067,6 +11983,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   isDead: 0
+  isStop: 0
+  player_Team: {fileID: 0}
+  _isJump: 0
+  isWall: 0
   raycast_Object: {fileID: 0}
   raycast_Wall_Object: {fileID: 0}
   player_Wave:
@@ -12096,10 +12016,11 @@ MonoBehaviour:
   - {fileID: 2066063252}
   - {fileID: 93480409}
   squid_Object: {fileID: 890709357}
-  player_Team: {fileID: 0}
-  _isJump: 0
-  isWall: 0
+  player_Input: {fileID: 0}
+  _player_shot: {fileID: 0}
   hp: 0
+  deathEffect: {fileID: 0}
+  ES_Manager: {fileID: 0}
 --- !u!114 &1654789984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12173,6 +12094,7 @@ MonoBehaviour:
   isWall_Hor: 0
   isWall_Left: 0
   squid_FinalRot: 0
+  player_Name: 
 --- !u!65 &1654789986
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21019,6 +20941,7 @@ MonoBehaviour:
   isWall_Hor: 0
   isWall_Left: 0
   squid_FinalRot: 0
+  player_Name: 
 --- !u!114 &919132148455672480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21038,6 +20961,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   isDead: 0
+  isStop: 0
+  player_Team: {fileID: 0}
+  _isJump: 0
+  isWall: 0
   raycast_Object: {fileID: 0}
   raycast_Wall_Object: {fileID: 0}
   player_Wave:
@@ -21067,10 +20994,11 @@ MonoBehaviour:
   - {fileID: 2913185064655382747}
   - {fileID: 1596995152}
   squid_Object: {fileID: 109312425505517205}
-  player_Team: {fileID: 0}
-  _isJump: 0
-  isWall: 0
+  player_Input: {fileID: 0}
+  _player_shot: {fileID: 0}
   hp: 0
+  deathEffect: {fileID: 0}
+  ES_Manager: {fileID: 0}
 --- !u!114 &919132148455672481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21083,17 +21011,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4d8c82ab69aaaf4196bec2362c29772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponType: 1
+  skill_UI_Obj: {fileID: 0}
   weapon_Obj:
   - {fileID: 919132148001223213}
   - {fileID: 919132149085630274}
   - {fileID: 919132149155442100}
+  WeaponType: 1
   weapon: {fileID: 0}
   weaponNum: 0
   ammo_Back: {fileID: 1123677219}
-  _combo_Attack: 0
-  _combo_Start: 0
-  _combo_Num: 0
+  playerCam: {fileID: 0}
+  weapon_Aim: []
+  _Charge_Effect: {fileID: 0}
+  player_Score: 0
+  shot_UI: {fileID: 0}
+  bowAim_UI: {fileID: 0}
+  killLog_UI: {fileID: 0}
+  killLog_Obj: {fileID: 0}
+  enemyData_Obj: {fileID: 0}
+  enemyName_UI: {fileID: 0}
+  enemyScore_UI: {fileID: 0}
+  ammoBack_UI: {fileID: 0}
+  ammoNot_UI: {fileID: 0}
+  name_UI: {fileID: 0}
+  score_UI: {fileID: 0}
   fireMaxTime: 0
   fireRateTime: 0
   combo_ResetTime: 0

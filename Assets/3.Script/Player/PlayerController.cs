@@ -158,9 +158,9 @@ public class PlayerController : Living_Entity, IPlayer
     public void Player_Set(ETeam team, EWeapon weapon, string name, int weaponNum)
     {
         player_Team.team = team;
+        _player_shot.weaponNum = weaponNum;
         _player_shot.WeaponType = weapon;
         player_Input.player_Name = name;
-        _player_shot.weaponNum = weaponNum;
     }
 
     private void Player_Jump()
