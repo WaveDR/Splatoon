@@ -111,8 +111,8 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.LogError("Joined Room");
-
         base.OnJoinedRoom();
+
         PhotonNetwork.LoadLevel("InGame");
         Debug.Log("Room Join Success");
         stateUI.text = "방에 입장합니다.";

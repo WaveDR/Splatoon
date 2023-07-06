@@ -25,6 +25,7 @@ public class PlayerInput : MonoBehaviourPun
     public bool isWall_Hor;
     public bool isWall_Left;
 
+    public bool isClick;
     public string Move_Hor_S => move_Hor_S;
     public string Move_Ver_S => move_Ver_S;
 
@@ -75,9 +76,18 @@ public class PlayerInput : MonoBehaviourPun
             fDown = Input.GetButtonDown("Fire1");
             squid_Form = Input.GetButton("Run");
 
-            if(fire) photonView.RPC("Fire", RpcTarget.AllBuffered, fire);
-            if(fDown) photonView.RPC("Fire_Down", RpcTarget.AllBuffered, fDown);
-            if (fUp) photonView.RPC("Fire_Up", RpcTarget.AllBuffered, fUp);
+            if (fire) 
+            {
+                isClick = false;
+                photonView.RPC("Fire", RpcTarget.AllBuffered, fire);
+            }
+            else if (!fire && !isClick)
+            {
+                isClick = true;
+                photonView.RPC("Fire", RpcTarget.AllBuffered, fire);
+            }
+
+            if (fDown || fUp) photonView.RPC("Fire_Down", RpcTarget.AllBuffered, fDown, fUp);
             if (squid_Form) photonView.RPC("Transform_Squid", RpcTarget.AllBuffered, squid_Form);
         }
         //move_Vec.x = move_Hor;
@@ -130,21 +140,16 @@ public class PlayerInput : MonoBehaviourPun
     }
 
     [PunRPC]
-    public void Fire_Down(bool fDown)
+    public void Fire_Down(bool fDown , bool fUp)
     {
         this.fDown = fDown;
+        this.fUp = fUp;
     }
     [PunRPC]
 
     public void Fire(bool fire)
     {
         this.fire = fire;
-    }
-    [PunRPC]
-
-    public void Fire_Up(bool fUp)
-    {
-        this.fUp = fUp;
     }
     [PunRPC]
 
