@@ -126,9 +126,9 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(1f);
         GameObject player = PhotonNetwork.Instantiate(playerPrefabs.name, Vector3.zero, Quaternion.identity);
         PlayerController player_Con = player.GetComponent<PlayerController>();
-
+       
         player_Con.photonView.RPC("Player_Set", RpcTarget.AllBuffered, 
-            player_Con.player_Team.team,player_Con._player_shot.WeaponType,player_Con.player_Input.player_Name, player_Con._player_shot.weaponNum);
+            player_Con.player_Team.team,player_Con._player_shot.WeaponType,player_Con.player_Input.player_Name);
   
         GameManager.Instance.SetPlayerPos();
     }

@@ -23,8 +23,6 @@ public class Setting_Manager : MonoBehaviour
     [SerializeField] private Image[] images;
     [SerializeField] private int page_Num;
     public InputField player_Name;
-    public int weaponNum;
-
 
     public ETeam team;
     public EWeapon weapon;
@@ -129,16 +127,13 @@ public class Setting_Manager : MonoBehaviour
     private EWeapon btn_weapon(int i, EWeapon weapon, bool back)
     {
         select_Effect.transform.position = playerSelect_Weapon[i].transform.position;
-
         if(!back)
         playerSelect_Weapon[i].SetActive(false);
         else
         {
             for (int j = 0; j < playerSelect_Weapon.Length; j++)
             {
-                weaponNum = i;
                 playerSelect_Weapon[j].SetActive(true);
-
                 Debug.Log(playerSelect_Weapon[j].name);
             }
         }
@@ -189,8 +184,8 @@ public class Setting_Manager : MonoBehaviour
         }
 
         player_Team.team = team;
+
         player_shot.WeaponType = weapon;
-        player_shot.weaponNum = weaponNum;
 
         //로딩 UI 켜기
         LoadingOn();

@@ -134,6 +134,23 @@ public class PlayerShooter : MonoBehaviourPun
 
         weapon.Weapon_Color_Change(team);
 
+        switch (WeaponType)
+        {
+            case EWeapon.Brush:
+                weaponNum = 0;
+
+                break;
+
+            case EWeapon.Gun:
+                weaponNum = 1;
+
+                break;
+
+            case EWeapon.Bow:
+                weaponNum = 2;
+                break;
+        }
+
         if (photonView.IsMine)
         {
             playerCam.weapon_DirY = weapon;
@@ -146,7 +163,6 @@ public class PlayerShooter : MonoBehaviourPun
             switch (WeaponType)
             {
                 case EWeapon.Brush:
-                    weaponNum = 0;
                     for (int i = 0; i < weapon_Aim.Length; i++)
                     {
                         weapon_Aim[i].SetActive(false);
@@ -154,18 +170,17 @@ public class PlayerShooter : MonoBehaviourPun
                     break;
 
                 case EWeapon.Gun:
-                    weaponNum = 1;
                     weapon_Aim[0].SetActive(true);
                     weapon_Aim[1].SetActive(false);
                     break;
 
                 case EWeapon.Bow:
-                    weaponNum = 2;
                     weapon_Aim[1].SetActive(true);
                     weapon_Aim[0].SetActive(false);
                     break;
             }
         }
+
     }
 
     void Update()
