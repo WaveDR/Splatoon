@@ -98,8 +98,8 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         }
         else
         {
-            transform.position = Vector3.Lerp(transform.position, networkPosition, Time.deltaTime * 2f);
-            transform.rotation = Quaternion.Lerp(transform.rotation, networkRotation, Time.deltaTime * 2f);
+            transform.position = Vector3.Lerp(transform.position, networkPosition, Time.deltaTime * 10f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, networkRotation, Time.deltaTime * 10f);
         }
     }
 

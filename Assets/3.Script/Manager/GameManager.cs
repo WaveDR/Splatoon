@@ -17,7 +17,7 @@ public class Player_Info
     public string name;
     public int score;
 }
-public class GameManager : MonoBehaviourPunCallbacks
+public class GameManager : MonoBehaviourPun
 {
     public static GameManager _instance = null;
     public static GameManager Instance
@@ -114,7 +114,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        if (!photonView.IsMine) return;
         if (!isLobby)
         {
             if (Input.GetKey(KeyCode.Escape)) SetCursorState(false);
