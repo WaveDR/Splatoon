@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class PlayerInput : MonoBehaviourPun, IPunObservable
+public class PlayerInput : MonoBehaviourPun
 {
     [SerializeField] private string move_Hor_S;
     [SerializeField] private string move_Ver_S;
@@ -53,23 +53,6 @@ public class PlayerInput : MonoBehaviourPun, IPunObservable
         TryGetComponent(out _player_Con);
     }
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(fire);
-            stream.SendNext(fUp);
-            stream.SendNext(fDown);
-            stream.SendNext(squid_Form);
-        }
-        else
-        {
-            fire = (bool)stream.ReceiveNext();
-            fUp = (bool)stream.ReceiveNext();
-            fDown = (bool)stream.ReceiveNext();
-            squid_Form = (bool)stream.ReceiveNext();
-        }
-    }
     // Update is called once per frame
     void Update()
     {

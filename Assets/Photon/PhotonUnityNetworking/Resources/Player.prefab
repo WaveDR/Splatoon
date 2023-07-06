@@ -10444,7 +10444,7 @@ MonoBehaviour:
   - {fileID: 4898723398910590794}
   - {fileID: 3460124255464657954}
   - {fileID: 8729590655694549622}
-  WeaponType: 1
+  WeaponType: 2
   weapon: {fileID: 0}
   weaponNum: 0
   ammo_Back: {fileID: 1773349895312559445}
@@ -10531,6 +10531,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
+  - {fileID: 1773349895887027398}
   - {fileID: 1385191319}
   - {fileID: -1142846461221894578}
   sceneViewId: 0
