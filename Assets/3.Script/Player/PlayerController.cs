@@ -109,8 +109,6 @@ public class PlayerController : Living_Entity, IPlayer
 
     private void OnParticleCollision(GameObject other)
     {
-        if (!photonView.IsMine) return;
-
         dmgBullet = other.GetComponent<Bullet>();
 
         if (dmgBullet.team.team != player_Team.team && !isDead)

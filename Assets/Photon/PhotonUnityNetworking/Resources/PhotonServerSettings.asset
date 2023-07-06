@@ -38,12 +38,10 @@ MonoBehaviour:
   - DestroyRpc
   - DestroySpaceship
   - Fire
-  - Fire_Down
-  - Fire_Up
+  - isLobby_Server
   - Player_Set
   - Reload_Server
   - RespawnSpaceship
-  - Transform_Squid
   - TransSquid_Server
   DisableAutoOpenWizard: 1
   ShowSettings: 1

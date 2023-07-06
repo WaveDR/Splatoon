@@ -10320,6 +10320,7 @@ MonoBehaviour:
   isWall: 0
   isWall_Hor: 0
   isWall_Left: 0
+  isClick: 0
   squid_FinalRot: 0
   player_Name: No Name
 --- !u!114 &1773349895887027399

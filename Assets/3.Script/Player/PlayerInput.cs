@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class PlayerInput : MonoBehaviourPun
+public class PlayerInput : MonoBehaviourPun, IPunObservable
 {
     [SerializeField] private string move_Hor_S;
     [SerializeField] private string move_Ver_S;
@@ -52,6 +52,24 @@ public class PlayerInput : MonoBehaviourPun
     {
         TryGetComponent(out _player_Con);
     }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(fire);
+            stream.SendNext(fUp);
+            stream.SendNext(fDown);
+            stream.SendNext(squid_Form);
+        }
+        else
+        {
+            fire = (bool)stream.ReceiveNext();
+            fUp = (bool)stream.ReceiveNext();
+            fDown = (bool)stream.ReceiveNext();
+            squid_Form = (bool)stream.ReceiveNext();
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -75,20 +93,6 @@ public class PlayerInput : MonoBehaviourPun
             fUp = Input.GetButtonUp("Fire1");
             fDown = Input.GetButtonDown("Fire1");
             squid_Form = Input.GetButton("Run");
-
-            if (fire) 
-            {
-                isClick = false;
-                photonView.RPC("Fire", RpcTarget.AllBuffered, fire);
-            }
-            else if (!fire && !isClick)
-            {
-                isClick = true;
-                photonView.RPC("Fire", RpcTarget.AllBuffered, fire);
-            }
-
-            if (fDown || fUp) photonView.RPC("Fire_Down", RpcTarget.AllBuffered, fDown, fUp);
-            if (squid_Form) photonView.RPC("Transform_Squid", RpcTarget.AllBuffered, squid_Form);
         }
         //move_Vec.x = move_Hor;
         //move_Vec.z = move_Ver;
@@ -137,24 +141,5 @@ public class PlayerInput : MonoBehaviourPun
 
         if (h < 0 && v < 0) //ÁÂÃø ÇÏ´Ü
             squid_FinalRot = -134.99f;
-    }
-
-    [PunRPC]
-    public void Fire_Down(bool fDown , bool fUp)
-    {
-        this.fDown = fDown;
-        this.fUp = fUp;
-    }
-    [PunRPC]
-
-    public void Fire(bool fire)
-    {
-        this.fire = fire;
-    }
-    [PunRPC]
-
-    public void Transform_Squid(bool squid_Form)
-    {
-        this.squid_Form = squid_Form;
     }
 }

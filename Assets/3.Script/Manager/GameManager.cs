@@ -345,7 +345,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (deltaTime <= 0) //GameStart Action
         {
-            FindPlayer();
+            SetPlayerPos();
             ui_Anim.SetBool("Count", false);
             count_Image.gameObject.SetActive(false);
             ui_Anim.SetTrigger("GameStart");
@@ -603,4 +603,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         }
     } //카메라 메서드
+
+    [PunRPC]
+    public void isLobby_Server()
+    {
+        isLobby = false;
+    }
 }

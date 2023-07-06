@@ -138,9 +138,9 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.InRoom)
         {
-            if(isCreateRoom && PhotonNetwork.CurrentRoom.PlayerCount >= max_Player)
+            if(isCreateRoom && PhotonNetwork.CurrentRoom.PlayerCount >= max_Player && GameManager.Instance.isLobby)
             {
-                GameManager.Instance.isLobby = false;
+                GameManager.Instance.photonView.RPC("isLobby_Server", RpcTarget.AllBuffered);
             }
         }
     }
