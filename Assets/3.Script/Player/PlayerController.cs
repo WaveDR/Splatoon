@@ -40,6 +40,8 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
 
     private Vector3 networkPosition;
     private Quaternion networkRotation;
+    private float network_Hp;
+    private float network_Ammo;
     // Start is called before the first frame update
     void Awake()
     {
@@ -68,11 +70,15 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         {
             stream.SendNext(this.gameObject.transform.position);
             stream.SendNext(this.gameObject.transform.rotation);
+            stream.SendNext(this.player_CurHealth);
+            stream.SendNext(this._player_shot.weapon.weapon_CurAmmo);
         }
         else
         {
             networkPosition = (Vector3)stream.ReceiveNext();
             networkRotation = (Quaternion)stream.ReceiveNext();
+            network_Hp = (float)stream.ReceiveNext();
+            network_Ammo = (float)stream.ReceiveNext();
         }
     }
 
@@ -89,16 +95,6 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         if (photonView.IsMine)
         {
             _player_rigid.MovePosition(_player_rigid.position + player_Input.move_Vec * _player_Speed * Time.deltaTime);
-
-            if (!player_Input.squid_Form)
-            {
-                _Wall_RacastOn = false;
-                MoveWall(false, null);
-            }
-            else
-            {
-                RaycastWall(player_Input.squid_Form);
-            }
         }
         else if ((transform.position - networkPosition).sqrMagnitude >= 100)
         {
@@ -107,9 +103,16 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         }
         else
         {
-            transform.position = Vector3.Lerp(transform.position, networkPosition, Time.deltaTime * 50f);
-            transform.rotation = Quaternion.Lerp(transform.rotation, networkRotation, Time.deltaTime * 50f);
+            transform.position = Vector3.Lerp(transform.position, networkPosition, Time.deltaTime * 20f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, networkRotation, Time.deltaTime * 20f);
         }
+
+        if (!photonView.IsMine)
+        {
+            player_CurHealth = network_Hp;
+            _player_shot.weapon.weapon_CurAmmo = network_Ammo;
+        }
+
     }
 
     // Update is called once per frame
@@ -126,8 +129,18 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
                 {
                     Player_Movement();
                     Player_Jump();
-                    RaycastFloor(player_Input.squid_Form);
                     Player_Animation();
+                    RaycastFloor(player_Input.squid_Form);
+
+                    if (!player_Input.squid_Form)
+                    {
+                        _Wall_RacastOn = false;
+                        MoveWall(false, null);
+                    }
+                    else
+                    {
+                        RaycastWall(player_Input.squid_Form);
+                    }
                 }
             }
         }
@@ -278,10 +291,9 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
 
         StartCoroutine(_player_shot.Enemy_Score(dmgBullet.player_Shot.player_Input.player_Name, dmgBullet.player_Shot.player_ScoreSet));
     }
+
     public void Respawn(ETeam team, bool falling)
     {
-        if (photonView.IsMine)
-        {
             plusTime += Time.deltaTime;
             if (plusTime >= 1)
             {
@@ -347,7 +359,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
                     return;
                 }
             }
-        }
+   
     } //¸®½ºÆù
     #endregion
     public void Player_Data_SetUp(ETeam team, EWeapon weapon, string name)
