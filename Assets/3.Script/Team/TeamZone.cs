@@ -8,13 +8,17 @@ public class TeamZone : MonoBehaviourPun
 {
     public ETeam team;
     private Bullet bullet;
-    void Start()
+    public PaintTarget paint;
+
+
+    private void Awake()
     {
-        
+        TryGetComponent(out paint);
     }
+
     private void OnEnable()
     {
-        In_NodeList();
+        //In_NodeList();
     }
     public void In_NodeList()
     {
@@ -22,8 +26,8 @@ public class TeamZone : MonoBehaviourPun
     }
     public void ChangeZone(Bullet bullet)
     {
-            if (team != ETeam.Static)
-                team = bullet.bulletType;
+        if (team != ETeam.Static)
+            team = bullet.bulletType;
         //팀 판별 로직 구현할것
 
         if (!GameManager.Instance.isLobby)
@@ -31,9 +35,11 @@ public class TeamZone : MonoBehaviourPun
     }
     private void OnParticleCollision(GameObject other)
     {
+        if(!paint.enabled && paint!= null)
+        paint.enabled = true;
+
         bullet = other.GetComponent<Bullet>();
+        if (bullet.team.team == team) return;
         ChangeZone(bullet);
     }
-
-
 }

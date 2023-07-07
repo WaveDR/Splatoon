@@ -43,10 +43,7 @@ public class Living_Entity : MonoBehaviourPun, IDamage
         //플레이어의 총알에 맞았을 때 
         //총알에 맞으면 맞은 방향으로 피 튀기기
 
-        if (PhotonNetwork.IsMasterClient)
-        {
-            player_CurHealth -= damage;
-        }
+        player_CurHealth -= damage;
 
         if (player_CurHealth <= 0 && !isDead)
             {

@@ -22,6 +22,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
     private Rigidbody _player_rigid;
     public PlayerShooter _player_shot;
     private Animator _player_Anim;
+    private Enemy_Con _enemy;
 
     private float _player_Speed;
     private bool _Wall_RacastOn;
@@ -50,6 +51,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         TryGetComponent(out _player_Anim);
         TryGetComponent(out _player_shot);
         TryGetComponent(out player_Team);
+        TryGetComponent(out _enemy);
 
         Player_StatReset();
 
@@ -651,7 +653,8 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         _player_shot.Reload_Ammo(ammo); // 재장전
                                         // 재장전
         _player_Speed = speed;
-
+        if (_enemy != null)
+            _enemy.nav.speed = speed;
 
         //형태 변형
         //Transform_Mesh(Squid, Human);

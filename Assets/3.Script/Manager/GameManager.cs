@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviourPun
     [SerializeField] private Player_MVP mvp_Model;
 
     [Header("UI")]
-    [SerializeField] private Text timeText;
+    [SerializeField] private Text timeText; 
    //[SerializeField] private Text timeText_Mid;
    //[SerializeField] private Text timeText_Min;
 
