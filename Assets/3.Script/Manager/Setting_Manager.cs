@@ -173,7 +173,7 @@ public class Setting_Manager : MonoBehaviour
         // GameManager.Instance.SetCursorState(true);
         //나중에 네트워크에 넣을 정보값들
 
-        if (player_Name.text == null )
+        if (player_Name.text == null)
         {
             player_Name.text = "No Name";
             player_Input.player_Name = player_Name.text;
@@ -200,7 +200,7 @@ public class Setting_Manager : MonoBehaviour
         stage_Lobby[0].SetActive(false);
 
         //1.5초 후에 로딩씬 끄기
-        Invoke("LoadingOff",2f);
+        Invoke("Set_InGame_UI", 2f);
         //Instantiate(player_Prefabs, Vector3.zero, Quaternion.identity);
         //로비 UI 비활성화
         //BGM_Manager.Instance.Play_Sound_BGM("UI_Click");
@@ -208,13 +208,18 @@ public class Setting_Manager : MonoBehaviour
 
     }
 
+    void Set_InGame_UI()
+    {
+        player_shot.skill_UI_Obj.SetActive(true);
+        Matching_Obj.SetActive(true);
+        LoadingOff();
+    }
     public void LoadingOff()
     {
         loading_Page.SetActive(false);
 
         //플레이어 UI 켜기
-        player_shot.skill_UI_Obj.SetActive(true);
-        Matching_Obj.SetActive(true);
+        
     }
     public void LoadingOn()
     {

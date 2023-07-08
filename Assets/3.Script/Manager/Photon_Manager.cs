@@ -13,7 +13,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     private readonly string game_Version = "1";
 
     public int max_Player;
-    public int max_PlayerCount;
+
     public bool isCreateRoom;
     public ServerSettings setting = null;
     public GameObject matching_UI;
@@ -23,6 +23,10 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     public GameObject playerPrefabs;
 
     public Text stateUI;
+    public Text cur_Player;
+
+    public Text server_Ip;
+    public Text server_Port;
 
     private bool isReady;
     public GameObject start_Btn;
@@ -112,10 +116,10 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
-
         PhotonNetwork.LoadLevel("InGame");
         Debug.Log("Room Join Success");
         stateUI.text = "방에 입장합니다.";
+        cur_Player.text = $"{PhotonNetwork.CurrentRoom.PlayerCount}/{max_Player}";
         start_Btn.SetActive(true);
         //나중에 입장한 플레이어 모으기 && 다 모이면 게임 시작 누를 수 있도록 수정예정
         StartCoroutine(Player_Spawn());
@@ -133,15 +137,4 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         GameManager.Instance.SetPlayerPos();
     }
     #endregion
-
-    private void Update()
-    {
-       //if (PhotonNetwork.InRoom)
-       //{
-       //    if(isCreateRoom && PhotonNetwork.CurrentRoom.PlayerCount >= max_Player && GameManager.Instance.isLobby)
-       //    {
-       //        GameManager.Instance.photonView.RPC("isLobby_Server", RpcTarget.AllBuffered);
-       //    }
-       //}
-    }
 }

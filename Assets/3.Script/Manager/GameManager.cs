@@ -204,12 +204,12 @@ public class GameManager : MonoBehaviourPun
         {
             if (players[i].player_Team.team == ETeam.Yellow)
             {
-                Image img = yellow_Player_UI[i].transform.parent.GetComponent<Image>();
+                Image img = yellow_Player_UI[i / 2].transform.parent.GetComponent<Image>();
                 img.color = players[i].player_Team.team_Yellow;
             }
             else if (players[i].player_Team.team == ETeam.Blue)
             {
-                Image img = blue_Player_UI[i].transform.parent.GetComponent<Image>();
+                Image img = blue_Player_UI[i / 2].transform.parent.GetComponent<Image>();
                 img.color = players[i].player_Team.team_Blue;
             }
         }
@@ -307,6 +307,7 @@ public class GameManager : MonoBehaviourPun
         {
             if (PhotonNetwork.CurrentRoom.PlayerCount >= Photon_Manager.Instance.max_Player)
             {
+                Photon_Manager.Instance.set_Manager.LoadingOff();
                 isLobby = false;
                 isStart = false;
                 player_Check = true;
@@ -314,14 +315,10 @@ public class GameManager : MonoBehaviourPun
 
             if (skip_Start)
             {
-                Debug.Log(Photon_Manager.Instance.max_Player + "| 최대 인원");
-                Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount + "| 현재 인원");
-                Debug.Log(Photon_Manager.Instance.max_Player - PhotonNetwork.CurrentRoom.PlayerCount + "| 필요 추가 AI");
+                Photon_Manager.Instance.set_Manager.LoadingOff();
 
                 int num = 0;
                 int Ai_Count = Photon_Manager.Instance.max_Player - PhotonNetwork.CurrentRoom.PlayerCount;
-                int team_Player = Ai_Count / 2;
-
                 int yellow = 0;
                 int blue = 0;
 

@@ -10334,7 +10334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5ccb45f8032e434a8ebdd6040d3d9cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 1
+  team: 0
   _player_Con: {fileID: 0}
   _player_Shooter: {fileID: 0}
   _player_Color_Par:
@@ -10424,6 +10424,7 @@ MonoBehaviour:
   player_Input: {fileID: 0}
   _player_shot: {fileID: 0}
   _enemy: {fileID: 0}
+  dmgBullet: {fileID: 0}
   hp: 0
   curAmmo: 0
   deathEffect: {fileID: 386770751946523949}
@@ -10466,6 +10467,10 @@ MonoBehaviour:
   ammoNot_UI: {fileID: 0}
   name_UI: {fileID: 0}
   score_UI: {fileID: 0}
+  hit_UI:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   fireMaxTime: 0
   fireRateTime: 0
   combo_ResetTime: 0

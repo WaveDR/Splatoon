@@ -28,7 +28,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
     private bool _Wall_RacastOn;
     private bool _isHuman;
     private bool _isFloor;
-    private Bullet dmgBullet; //맞을 때 받을 데미지값 가져오기
+    public Bullet dmgBullet; //맞을 때 받을 데미지값 가져오기
 
     [SerializeField] private float hp;
 
@@ -407,11 +407,13 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
                     _player_shot.hit_UI[0].SetActive(true);
                 }
                 else _player_shot.hit_UI[0].SetActive(false);
+
                 if (player_CurHealth < 30)
                 {
                     _player_shot.hit_UI[1].SetActive(true);
                 }
                 else _player_shot.hit_UI[1].SetActive(false);
+
                 if (player_CurHealth < 10)
                 {
                     _player_shot.hit_UI[2].SetActive(true);
