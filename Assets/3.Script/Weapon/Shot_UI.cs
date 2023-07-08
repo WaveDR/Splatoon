@@ -21,5 +21,5 @@ public class Shot_UI : MonoBehaviour
     public Text name_UI;
     public Text score_UI;
 
-
+    public GameObject[] hit_UI;
 }

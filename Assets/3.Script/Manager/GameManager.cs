@@ -191,12 +191,12 @@ public class GameManager : MonoBehaviourPun
         {
             if (players[i].player_Team.team == ETeam.Yellow)
             {
-                Image img = yellow_Player_UI[i].transform.parent.GetComponent<Image>();
+                Image img = yellow_Player_UI[i / 2].transform.parent.GetComponent<Image>();
                 img.color = Color.gray;
             }
             else if (players[i].player_Team.team == ETeam.Blue)
             {
-                Image img = blue_Player_UI[i].transform.parent.GetComponent<Image>();
+                Image img = blue_Player_UI[i / 2].transform.parent.GetComponent<Image>();
                 img.color = Color.gray;
             }
         }
@@ -233,7 +233,7 @@ public class GameManager : MonoBehaviourPun
         {
             if (players[i].player_Team.team == ETeam.Yellow)
             {
-                if (i >= Photon_Manager.Instance.max_Player / 2)
+                if (positionNum_Yellow >= 4)
                 {
                     players[i].player_Team.team = ETeam.Blue;
                     i--;
@@ -261,7 +261,7 @@ public class GameManager : MonoBehaviourPun
             }
             else
             {
-                if (i >= Photon_Manager.Instance.max_Player / 2)
+                if (positionNum_Blue >= 4)
                 {
                     players[i].player_Team.team = ETeam.Yellow;
                     i--;
@@ -270,7 +270,6 @@ public class GameManager : MonoBehaviourPun
 
                 if (!isLobby)
                 {
-
                     switch (players[i]._player_shot.WeaponType)
                     {
                         case EWeapon.Brush:
@@ -303,6 +302,7 @@ public class GameManager : MonoBehaviourPun
 
     public void Player_Count()
     {
+        FindPlayer();
         if (PhotonNetwork.InRoom)
         {
             if (PhotonNetwork.CurrentRoom.PlayerCount >= Photon_Manager.Instance.max_Player)
@@ -320,10 +320,47 @@ public class GameManager : MonoBehaviourPun
 
                 int num = 0;
                 int Ai_Count = Photon_Manager.Instance.max_Player - PhotonNetwork.CurrentRoom.PlayerCount;
+                int team_Player = Ai_Count / 2;
 
+                int yellow = 0;
+                int blue = 0;
+
+                for (int i = 0; i < players.Length; i++)
+                {
+                    if (players[i].player_Team.team == ETeam.Blue) blue++;
+                    else yellow++;
+                }
+                
                 while (true)
                 {
-                    PhotonNetwork.Instantiate(AI_Prefab.name, Vector3.zero, Quaternion.identity);
+                   GameObject ai =  PhotonNetwork.Instantiate(AI_Prefab.name, Vector3.zero, Quaternion.identity);
+
+                    PlayerTeams ai_Team = ai.GetComponent<PlayerTeams>();
+                   
+
+                    if(blue >= yellow)
+                    {
+                        if (num % 2 == 0)
+                        {
+                            ai_Team.team = ETeam.Yellow;
+                        }
+                        if (num % 2 == 1)
+                        {
+                            ai_Team.team = ETeam.Blue;
+                        }
+                    }
+                    else
+                    {
+                        if (num % 2 == 0)
+                        {
+                            ai_Team.team = ETeam.Blue;
+                        }
+                        if (num % 2 == 1)
+                        {
+                            ai_Team.team = ETeam.Yellow;
+                        }
+                    }
+                 
                     num++;
 
                     if (num == Ai_Count)
@@ -508,6 +545,8 @@ public class GameManager : MonoBehaviourPun
         foreach (PlayerController player in players)
         {
             player.UI_OnOFf(false);
+
+            if(player._enemy == null)
             MapCam(true, player._player_shot.playerCam.cam_Obj.gameObject);
         } //맵캠으로 변경 / 플레이어 ui 비활성화
 

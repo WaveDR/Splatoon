@@ -9,7 +9,7 @@ public class Enemy_Con : MonoBehaviour
     PlayerController player_Con;
     PlayerShooter player_Shot;
     PlayerInput player_Input;
-     PlayerTeams player_Team;
+    PlayerTeams player_Team;
     public PlayerTeams Player_Team => player_Team;
     Animator player_Anim;
     [SerializeField] private PlayerStat player_Stat;
@@ -52,13 +52,22 @@ public class Enemy_Con : MonoBehaviour
 
                 if (!player_Con.isDead)
                 {
+                    nav.isStopped = false;
+
                     if (target != null)
                     {
+
                         if (!target.isDead)
+                        {
                             target_Pos = target.transform;
+                            player_Input.fire = true;
+                        }
 
                         else
+                        {
                             target = null;
+                            player_Input.fire = false;
+                        }
                     }
                     else
                     {
@@ -87,8 +96,6 @@ public class Enemy_Con : MonoBehaviour
                                     player_Input.fire = true;
                                     target_Pos = zone[0].transform;
                                 }
-
-
                             }
                         }
 
@@ -101,32 +108,40 @@ public class Enemy_Con : MonoBehaviour
                 else
                 {
                     target = null;
+                    nav.isStopped = true;
                 }
             }
             else if (player_Shot.weapon.weapon_CurAmmo < 0)
             {
-                if (team_Floor != null)
-                    target_Pos = team_Floor.transform;
-
                 player_Input.fire = false;
-
-                Debug.DrawRay(transform.position, Vector3.down * player_Stat.detect_Range, Color.green);
-                if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, player_Stat.detect_Range, player_Stat.floor_Layer))
+                if (!player_Con.isDead)
                 {
-                    GameObject raycast_Object = hit.collider.gameObject;
+                    if (team_Floor != null)
+                        target_Pos = team_Floor.transform;
 
-                    TeamZone teamZone = raycast_Object.GetComponent<TeamZone>();
 
-                    if (team_Floor == teamZone)
+                    Debug.DrawRay(transform.position, Vector3.down * player_Stat.detect_Range, Color.green);
+                    if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, player_Stat.detect_Range, player_Stat.floor_Layer))
                     {
-                        team_Floor = null;
-                        nav.isStopped = true;
-                        isNull = false;
+                        GameObject raycast_Object = hit.collider.gameObject;
 
+                        TeamZone teamZone = raycast_Object.GetComponent<TeamZone>();
+
+                        if (team_Floor == teamZone)
+                        {
+                            team_Floor = null;
+                            nav.isStopped = true;
+                            isNull = false;
+
+                        }
                     }
-
+                    
                 }
-
+                else
+                {
+                    target = null;
+                    nav.isStopped = true;
+                }
             }
             AI_Anim();
         }

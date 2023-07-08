@@ -88,10 +88,10 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
     protected override void OnEnable()
     {
         base.OnEnable();
-       
-        if(_enemy == null)
+
+        if (_enemy == null)
         {
-           _player_shot.UI_Set_Server();
+            _player_shot.UI_Set_Server();
         }
 
         player_Team.Player_ColorSet();
@@ -147,10 +147,11 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
 
                 else //죽지 않았을 때
                 {
+                    Hp_UI();
                     Player_Movement();
                     Player_Jump();
                     Player_Animation();
-                
+
                 }
             }
         }
@@ -211,12 +212,12 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
 
     private void Player_Jump()
     {
-            if (player_Input.jDown && !_isJump)
-            {
-                _player_Anim.SetTrigger("isJump");
-                //_isJump = true;
-                _player_rigid.AddForce(Vector3.up * 5f, ForceMode.Impulse);
-            }
+        if (player_Input.jDown && !_isJump)
+        {
+            _player_Anim.SetTrigger("isJump");
+            //_isJump = true;
+            _player_rigid.AddForce(Vector3.up * 5f, ForceMode.Impulse);
+        }
     }
 
     private void Squid_Eular()
@@ -299,77 +300,93 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         GameManager.Instance.Player_Dead_Check(); //Player Dead UI;
         ES_Manager.Play_SoundEffect("Player_Death");
 
+        if(_enemy == null)
         StartCoroutine(_player_shot.Enemy_Score(dmgBullet.player_Shot.player_Input.player_Name, dmgBullet.player_Shot.player_ScoreSet));
     }
 
     public void Respawn(ETeam team, bool falling)
     {
-            plusTime += Time.deltaTime;
-            if (plusTime >= 1)
-            {
+        plusTime += Time.deltaTime;
+
+        if (plusTime >= 1)
+        {
+            if (_enemy == null)
                 _player_shot.playerCam.cam_Obj.gameObject.SetActive(false);
-            }
-
+        }
+        if (_enemy == null)
             GameManager.Instance.MapCam(true, _player_shot.playerCam.cam_Obj.gameObject);
-            if (!falling)
+
+        if (!falling)
+        {
+            if (plusTime >= spawnTime)
             {
-                if (plusTime >= spawnTime)
+                //팀 구분
+                if (team == ETeam.Yellow)
                 {
-                    //팀 구분
-                    if (team == ETeam.Yellow)
-                    {
-                        transform.rotation = Quaternion.identity;
-                        transform.position = GameManager.Instance.team_Yellow_Spawn[Random.Range(0, 3)];
-                    }
-                    else
-                    {
-                        transform.rotation = Quaternion.Euler(0, 180, 0);
-                        transform.position = GameManager.Instance.team_Blue_Spawn[Random.Range(0, 3)];
-                    }
-
-                    //카메라 전환
-                    GameManager.Instance.MapCam(false, _player_shot.playerCam.cam_Obj.gameObject);
-
-                    //리스폰 시간 초기화
-                    spawnTime = 5f;
-                    plusTime = 0;
-
-                    //플레이어 스탯 초기화
-                    player_CurHealth = player_Stat.max_Heath;
-                    _player_shot.weapon.weapon_CurAmmo = _player_shot.weapon.weapon_MaxAmmo;
-                    Transform_Stat(0, player_Stat.moveZone_Speed, false, true);
-                    //리턴
-                    isDead = false;
-                    GameManager.Instance.Player_Dead_Check(); //Player Dead UI;
-
-                    return;
+                    transform.rotation = Quaternion.identity;
+                    transform.position = GameManager.Instance.team_Yellow_Spawn[Random.Range(0, 3)];
                 }
+                else
+                {
+                    transform.rotation = Quaternion.Euler(0, 180, 0);
+                    transform.position = GameManager.Instance.team_Blue_Spawn[Random.Range(0, 3)];
+                }
+
+                //카메라 전환
+                if (_enemy == null)
+                {
+                    GameManager.Instance.MapCam(false, _player_shot.playerCam.cam_Obj.gameObject);
+                    for (int i = 0; i < _player_shot.hit_UI.Length; i++)
+                    {
+                        _player_shot.hit_UI[i].SetActive(false);
+                    }
+                }
+
+                //리스폰 시간 초기화
+                spawnTime = 5f;
+                plusTime = 0;
+
+                //플레이어 스탯 초기화
+                player_CurHealth = player_Stat.max_Heath;
+                _player_shot.weapon.weapon_CurAmmo = _player_shot.weapon.weapon_MaxAmmo;
+                Transform_Stat(0, player_Stat.moveZone_Speed, false, true);
+                Transform_Mesh(false, true);
+                //리턴
+                isDead = false;
+                GameManager.Instance.Player_Dead_Check(); //Player Dead UI;
+
+                return;
             }
-            else //맵 밖으로 떨어질 때
+        }
+        else //맵 밖으로 떨어질 때
+        {
+            if (plusTime >= spawnTime)
             {
-                if (plusTime >= spawnTime)
+                //팀 구분
+                if (player_Team.team == ETeam.Yellow)
                 {
-                    //팀 구분
-                    if (player_Team.team == ETeam.Yellow)
-                    {
-                        transform.rotation = Quaternion.identity;
-                        transform.position = GameManager.Instance.team_Yellow_Spawn[Random.Range(0, 3)];
-                    }
-                    else
-                    {
-                        transform.rotation = Quaternion.Euler(0, 180, 0);
-                        transform.position = GameManager.Instance.team_Blue_Spawn[Random.Range(0, 3)];
-                    }
-                    //카메라 전환
-                    GameManager.Instance.MapCam(false, _player_shot.playerCam.cam_Obj.gameObject);
-                    //리스폰 초기화, 리턴
-                    spawnTime = 5f;
-                    plusTime = 0;
-                    isFalling = false;
-                    return;
+                    transform.rotation = Quaternion.identity;
+                    transform.position = GameManager.Instance.team_Yellow_Spawn[Random.Range(0, 3)];
                 }
+                else
+                {
+                    transform.rotation = Quaternion.Euler(0, 180, 0);
+                    transform.position = GameManager.Instance.team_Blue_Spawn[Random.Range(0, 3)];
+                }
+                //카메라 전환
+                GameManager.Instance.MapCam(false, _player_shot.playerCam.cam_Obj.gameObject);
+                for (int i = 0; i < _player_shot.hit_UI.Length; i++)
+                {
+                    _player_shot.hit_UI[i].SetActive(false);
+                }
+                //리스폰 초기화, 리턴
+                spawnTime = 5f;
+                plusTime = 0;
+                isFalling = false;
+                return;
             }
-   
+        }
+
     } //리스폰
     #endregion
     public void Player_Data_SetUp(ETeam team, EWeapon weapon, string name)
@@ -377,6 +394,31 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         player_Team.team = team;
         _player_shot.WeaponType = weapon;
         player_Input.player_Name = name;
+    }
+
+    public void Hp_UI()
+    {
+        if(_enemy == null)
+        {
+            if (player_CurHealth > 0)
+            {
+                if (player_CurHealth < 50)
+                {
+                    _player_shot.hit_UI[0].SetActive(true);
+                }
+                else _player_shot.hit_UI[0].SetActive(false);
+                if (player_CurHealth < 30)
+                {
+                    _player_shot.hit_UI[1].SetActive(true);
+                }
+                else _player_shot.hit_UI[1].SetActive(false);
+                if (player_CurHealth < 10)
+                {
+                    _player_shot.hit_UI[2].SetActive(true);
+                }
+                else _player_shot.hit_UI[2].SetActive(false);
+            }
+        }
     }
 
     public void UI_OnOFf(bool on)
@@ -573,9 +615,9 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
     {
         if (!_Wall_RacastOn) { MoveWall(false, null); return; }
 
-        Debug.DrawRay(transform.position, dir * player_Stat.detect_Range * 10, Color.green);
+        Debug.DrawRay(transform.position, dir * player_Stat.detect_Range * 3, Color.green);
 
-        if (Physics.Raycast(transform.position, dir, out RaycastHit forward_Hit, player_Stat.detect_Range * 10, player_Stat.floor_Layer))
+        if (Physics.Raycast(transform.position, dir, out RaycastHit forward_Hit, player_Stat.detect_Range * 3, player_Stat.floor_Layer))
         {
             MoveWall(true, forward_Hit.transform.gameObject);
             TeamZone teamZone = raycast_Wall_Object.GetComponent<TeamZone>();
@@ -637,7 +679,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
 
     public void Transform_Stat(int ammo, float speed, bool Squid, bool Human)
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.LeftShift))
+        if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.LeftShift)) && _enemy == null)
         {
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {

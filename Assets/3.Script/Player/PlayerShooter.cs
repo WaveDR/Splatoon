@@ -65,6 +65,8 @@ public class PlayerShooter : MonoBehaviourPun
     public Text name_UI;
     public Text score_UI;
 
+    public GameObject[] hit_UI;
+
     [Header("Attack Rate")]
 
     [SerializeField] private float fireMaxTime;
@@ -114,6 +116,15 @@ public class PlayerShooter : MonoBehaviourPun
         score_UI = shot_UI.score_UI;
 
         skill_UI_Obj = shot_UI.gameObject;
+
+        hit_UI[0] = shot_UI.hit_UI[0];
+        hit_UI[1] = shot_UI.hit_UI[1];
+        hit_UI[2] = shot_UI.hit_UI[2];
+
+        for (int i = 0; i < hit_UI.Length; i++)
+        {
+            hit_UI[i].SetActive(false);
+        }
     }
 
     public void WeaponSet(ETeam team)
@@ -151,39 +162,39 @@ public class PlayerShooter : MonoBehaviourPun
 
         weapon.Weapon_Color_Change(team);
 
-
-        if (photonView.IsMine && _Player_Con._enemy == null)
+        if(_Player_Con._enemy == null)
         {
-            playerCam.weapon_DirY = weapon;
-
-            killLog_Obj.SetActive(false);
-            enemyData_Obj.SetActive(false);
-            ammoNot_UI.gameObject.SetActive(false);
-            ammoBack_UI.transform.parent.gameObject.SetActive(false);
-            name_UI.text = _player_Input.player_Name;
-
-            switch (WeaponType)
+            if (photonView.IsMine)
             {
-                case EWeapon.Brush:
-                    for (int i = 0; i < weapon_Aim.Length; i++)
-                    {
-                        weapon_Aim[i].SetActive(false);
-                    }
-                    break;
+                playerCam.weapon_DirY = weapon;
 
-                case EWeapon.Gun:
-                    weapon_Aim[0].SetActive(true);
-                    weapon_Aim[1].SetActive(false);
-                    break;
+                killLog_Obj.SetActive(false);
+                enemyData_Obj.SetActive(false);
+                ammoNot_UI.gameObject.SetActive(false);
+                ammoBack_UI.transform.parent.gameObject.SetActive(false);
+                name_UI.text = _player_Input.player_Name;
 
-                case EWeapon.Bow:
-                    weapon_Aim[1].SetActive(true);
-                    weapon_Aim[0].SetActive(false);
-                    break;
+                switch (WeaponType)
+                {
+                    case EWeapon.Brush:
+                        for (int i = 0; i < weapon_Aim.Length; i++)
+                        {
+                            weapon_Aim[i].SetActive(false);
+                        }
+                        break;
+
+                    case EWeapon.Gun:
+                        weapon_Aim[0].SetActive(true);
+                        weapon_Aim[1].SetActive(false);
+                        break;
+
+                    case EWeapon.Bow:
+                        weapon_Aim[1].SetActive(true);
+                        weapon_Aim[0].SetActive(false);
+                        break;
+                }
             }
         }
-     
-
     }
 
     void Update()
@@ -213,22 +224,29 @@ public class PlayerShooter : MonoBehaviourPun
     }
     public IEnumerator KillLog(string name)
     {
-        killLog_Obj.SetActive(true);
-        killLog_UI.text = $"{name}(À»)¸¦ ¾²·¯¶ß·È´Ù!";
+        if (_Player_Con._enemy == null)
+        {
+            killLog_Obj.SetActive(true);
+            killLog_UI.text = $"{name}(À»)¸¦ ¾²·¯¶ß·È´Ù!";
 
-        yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(3f);
 
-        killLog_Obj.SetActive(false);
+            killLog_Obj.SetActive(false);
+        }
     }
 
     public IEnumerator Enemy_Score(string name, int score)
     {
-        enemyData_Obj.SetActive(true);
-        enemyName_UI.text = name;
-        enemyScore_UI.text = score.ToString("D4");
-        yield return new WaitForSeconds(5f);
+        if (_Player_Con._enemy == null)
+        {
+            enemyData_Obj.SetActive(true);
+            enemyName_UI.text = name;
+            enemyScore_UI.text = score.ToString("D4");
+            Debug.Log("»ç¸Á!");
+            yield return new WaitForSeconds(5f);
 
-        enemyData_Obj.SetActive(false);
+            enemyData_Obj.SetActive(false);
+        }
     }
 
     private void WarningAmmo()
