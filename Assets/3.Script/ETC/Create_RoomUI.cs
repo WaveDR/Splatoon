@@ -45,6 +45,6 @@ public class Create_RoomUI : MonoBehaviour
 
     public void GameStart()
     {
-        GameManager.Instance.isLobby = false;
+        GameManager.Instance.skip_Start = true;
     }
 }

@@ -118,7 +118,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         stateUI.text = "방에 입장합니다.";
         start_Btn.SetActive(true);
         //나중에 입장한 플레이어 모으기 && 다 모이면 게임 시작 누를 수 있도록 수정예정
-        StartCoroutine(Player_Spawn());
+       // StartCoroutine(Player_Spawn());
     }
 
     IEnumerator Player_Spawn()

@@ -44,10 +44,13 @@ public class Player_Camera : MonoBehaviourPun
         transform.localRotation = Quaternion.Euler(0, eulerX, 0);
         player_DirY.localRotation = Quaternion.Euler(eulerY,0 , 0);
 
-        if(weapon_DirY.weaponType == EWeapon.Bow && !_player_Con._isJump)
-            weapon_DirY.transform.localRotation = Quaternion.Euler(eulerY,0 , -90f);
-        else if (weapon_DirY.weaponType == EWeapon.Gun)
-            weapon_DirY.transform.localRotation = Quaternion.Euler(eulerY, 0, 0);
+        if(_player_Con._enemy == null)
+        {
+            if (weapon_DirY.weaponType == EWeapon.Bow && !_player_Con._isJump)
+                weapon_DirY.transform.localRotation = Quaternion.Euler(eulerY, 0, -90f);
+            else if (weapon_DirY.weaponType == EWeapon.Gun)
+                weapon_DirY.transform.localRotation = Quaternion.Euler(eulerY, 0, 0);
+        }
     }
 
     public void SelectCamera()

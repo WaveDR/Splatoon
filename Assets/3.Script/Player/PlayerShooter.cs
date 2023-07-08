@@ -118,7 +118,7 @@ public class PlayerShooter : MonoBehaviourPun
 
     public void WeaponSet(ETeam team)
     {
-        Debug.Log("dfdff");
+
         switch (WeaponType)
         {
             case EWeapon.Brush:

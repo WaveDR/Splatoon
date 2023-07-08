@@ -11628,8 +11628,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1784996748459828191}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.0000002980232}
-  m_LocalPosition: {x: 0.5435146, y: 3.52, z: 62.73}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1784996747819511292}
@@ -11663,7 +11663,7 @@ Transform:
   - {fileID: 1053823051062301233}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1784996748459828183
 Animator:
   serializedVersion: 3
@@ -11863,7 +11863,7 @@ MonoBehaviour:
   - {fileID: 4873567399414800478}
   - {fileID: 3485071351554870070}
   - {fileID: 8753903881668308322}
-  WeaponType: 2
+  WeaponType: 1
   weapon: {fileID: 0}
   weaponNum: 0
   ammo_Back: {fileID: 1784996749034279489}

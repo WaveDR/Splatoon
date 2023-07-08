@@ -93,6 +93,7 @@ public class GameManager : MonoBehaviourPun
     }
     private bool chargeCall;
     private bool isStart;
+    private bool player_Check;
 
     public bool isLobby;
     
@@ -113,10 +114,15 @@ public class GameManager : MonoBehaviourPun
     private void Awake()
     {
         Manager_Server();
+        isStart = true;
     }
     // Update is called once per frame
     void Update()
     {
+        if (!player_Check)
+        {
+            Player_Count();
+        }
         if (!isLobby)
         {
             if (Input.GetKey(KeyCode.Escape)) SetCursorState(false);
@@ -227,7 +233,7 @@ public class GameManager : MonoBehaviourPun
         {
             if (players[i].player_Team.team == ETeam.Yellow)
             {
-                if (i >= 5)
+                if (i >= Photon_Manager.Instance.max_Player / 2)
                 {
                     players[i].player_Team.team = ETeam.Blue;
                     i--;
@@ -249,15 +255,13 @@ public class GameManager : MonoBehaviourPun
                             break;
                     }
                 }
-           
-
                 players[i].transform.position = team_Yellow_Spawn[positionNum_Yellow];
                 players[i].transform.localRotation = Quaternion.identity;
                 positionNum_Yellow++;
             }
             else
             {
-                if (i >= 5)
+                if (i >= Photon_Manager.Instance.max_Player / 2)
                 {
                     players[i].player_Team.team = ETeam.Yellow;
                     i--;
@@ -297,29 +301,48 @@ public class GameManager : MonoBehaviourPun
 
     //======================================================================  Time Late Method
 
+    public void Player_Count()
+    {
+        if (PhotonNetwork.InRoom)
+        {
+            if (PhotonNetwork.CurrentRoom.PlayerCount >= Photon_Manager.Instance.max_Player)
+            {
+                isLobby = false;
+                isStart = false;
+                player_Check = true;
+            }
+
+            if (skip_Start)
+            {
+                Debug.Log(Photon_Manager.Instance.max_Player + "| 최대 인원");
+                Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount + "| 현재 인원");
+                Debug.Log(Photon_Manager.Instance.max_Player - PhotonNetwork.CurrentRoom.PlayerCount + "| 필요 추가 AI");
+
+                int num = 0;
+                int Ai_Count = Photon_Manager.Instance.max_Player - PhotonNetwork.CurrentRoom.PlayerCount;
+
+                while (true)
+                {
+                    PhotonNetwork.Instantiate(AI_Prefab.name, Vector3.zero, Quaternion.identity);
+                    num++;
+
+                    if (num == Ai_Count)
+                    {
+                        isLobby = false;
+                        skip_Start = false;
+                        isStart = false;
+                        player_Check = true;
+                        return;
+                    }
+                }
+            }
+        }
+    }
     public void StartCount() //Game Start CountDown
     {
         if (!isStart)
         {
-            if (PhotonNetwork.InRoom)
-            {
-                if (PhotonNetwork.CurrentRoom.PlayerCount >= Photon_Manager.Instance.max_Player)
-                {
-                    isLobby = false;
-                }
-
-                else if (skip_Start)
-                {
-                    int num = 0;
-                    while (num <= Photon_Manager.Instance.max_Player - PhotonNetwork.CurrentRoom.PlayerCount)
-                    {
-                        PhotonNetwork.Instantiate(AI_Prefab.name, Vector3.zero, Quaternion.identity);
-                        num++;
-                    }
-                   isLobby = false;
-                }
-            }
-
+            
             ui_Anim = GameObject.FindGameObjectWithTag("TimeUI").GetComponent<Animator>();
 
             PaintTarget.ClearAllPaint();
