@@ -55,11 +55,7 @@ public class Living_Entity : MonoBehaviourPun, IDamage
     {
         if (isDead) return;
 
-        if (PhotonNetwork.IsMasterClient)
-        {
             player_CurHealth += newHealth * Time.deltaTime;
-
-        }
 
     }
 

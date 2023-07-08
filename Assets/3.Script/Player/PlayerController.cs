@@ -22,7 +22,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
     private Rigidbody _player_rigid;
     public PlayerShooter _player_shot;
     private Animator _player_Anim;
-    private Enemy_Con _enemy;
+    public Enemy_Con _enemy;
 
     private float _player_Speed;
     private bool _Wall_RacastOn;
@@ -34,6 +34,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
 
     private float spawnTime = 5;
     private float plusTime;
+    public float curAmmo;
 
     public Bullet deathEffect;
 
@@ -88,12 +89,28 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
     {
         base.OnEnable();
        
-        _player_shot.UI_Set_Server();
+        if(_enemy == null)
+        {
+           _player_shot.UI_Set_Server();
+        }
+
         player_Team.Player_ColorSet();
         _player_shot.WeaponSet(player_Team.team);
     }
     private void FixedUpdate()
     {
+        RaycastFloor(player_Input.squid_Form);
+
+        if (!player_Input.squid_Form)
+        {
+            _Wall_RacastOn = false;
+            MoveWall(false, null);
+        }
+        else
+        {
+            RaycastWall(player_Input.squid_Form);
+        }
+
         if (photonView.IsMine)
         {
             _player_rigid.MovePosition(_player_rigid.position + player_Input.move_Vec * _player_Speed * Time.deltaTime);
@@ -120,6 +137,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
     // Update is called once per frame
     void Update()
     {
+        curAmmo = _player_shot.weapon.weapon_CurAmmo;
         if (photonView.IsMine)
         {
             if (!isStop)
@@ -132,17 +150,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
                     Player_Movement();
                     Player_Jump();
                     Player_Animation();
-                    RaycastFloor(player_Input.squid_Form);
-
-                    if (!player_Input.squid_Form)
-                    {
-                        _Wall_RacastOn = false;
-                        MoveWall(false, null);
-                    }
-                    else
-                    {
-                        RaycastWall(player_Input.squid_Form);
-                    }
+                
                 }
             }
         }

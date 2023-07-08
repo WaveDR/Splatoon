@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviourPun
     [Header("Player")]
     public PlayerController[] players;
     public Player_Info player_Data;
+    public GameObject AI_Prefab;
 
     public Dictionary<int, Player_Info> player_Info = new Dictionary<int, Player_Info>();
     [SerializeField] private Player_MVP mvp_Model;
@@ -81,6 +82,8 @@ public class GameManager : MonoBehaviourPun
     private float _Time;
     private float _BeepTime;
     private float _Charging_Score;
+
+    public float time;
     public float deltaTime
     {
         get { return _Time; }
@@ -102,7 +105,7 @@ public class GameManager : MonoBehaviourPun
     public MeshRenderer deadLine;
     public bool gameStart;
     public bool gameEnd;
-
+    public bool skip_Start;
     [Header("Particle")]
     [SerializeField] private ParticleSystem yellow_WinEffect;
     [SerializeField] private ParticleSystem blue_WinEffect;
@@ -125,6 +128,7 @@ public class GameManager : MonoBehaviourPun
 
             EndScoreCharge(chargeCall);
         }
+        time = deltaTime;
     }
 
     //============================================        ¡è CallBack   |   Nomal ¡é        ========================================================
@@ -303,6 +307,17 @@ public class GameManager : MonoBehaviourPun
                 {
                     isLobby = false;
                 }
+
+                else if (skip_Start)
+                {
+                    int num = 0;
+                    while (num <= Photon_Manager.Instance.max_Player - PhotonNetwork.CurrentRoom.PlayerCount)
+                    {
+                        PhotonNetwork.Instantiate(AI_Prefab.name, Vector3.zero, Quaternion.identity);
+                        num++;
+                    }
+                   isLobby = false;
+                }
             }
 
             ui_Anim = GameObject.FindGameObjectWithTag("TimeUI").GetComponent<Animator>();
@@ -333,7 +348,7 @@ public class GameManager : MonoBehaviourPun
             player.isStop = true;
             player._player_shot.playerCam.SelectCamera();
 
-            if(player.photonView.IsMine)
+            if(player.photonView.IsMine && player._enemy == null)
             MapCam(false, player._player_shot.playerCam.cam_Obj.gameObject);
         }
         //Player Move Limit
@@ -359,7 +374,7 @@ public class GameManager : MonoBehaviourPun
 
                 player.isStop = false;
 
-                if(player.photonView.IsMine)
+                if(player.photonView.IsMine && player._enemy == null)
                 player._player_shot.name_UI.text = "¿µ¿ªÀ» ÀÜ¶à È®º¸ÇØ¶ó!";
             }
 

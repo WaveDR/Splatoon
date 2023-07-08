@@ -10,7 +10,7 @@ public class TeamZone : MonoBehaviourPun
     private Bullet bullet;
     public PaintTarget paint;
 
-
+    public bool isSide;
     private void Awake()
     {
         TryGetComponent(out paint);
@@ -35,11 +35,22 @@ public class TeamZone : MonoBehaviourPun
     }
     private void OnParticleCollision(GameObject other)
     {
-        if(!paint.enabled && paint!= null)
-        paint.enabled = true;
+        if(paint != null)
+        {
+            if (!paint.enabled)
+                paint.enabled = true;
+        }
 
         bullet = other.GetComponent<Bullet>();
         if (bullet.team.team == team) return;
         ChangeZone(bullet);
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("AI"))
+        {
+            Enemy_Con ai = collision.gameObject.GetComponent<Enemy_Con>();
+            team = ai.Player_Team.team;
+        }
     }
 }

@@ -42,4 +42,9 @@ public class Create_RoomUI : MonoBehaviour
         ui_Anim.SetBool("isMatch", isMatch);
         if (!isMatch) notMatch.SetActive(false);
     }
+
+    public void GameStart()
+    {
+        GameManager.Instance.isLobby = false;
+    }
 }

@@ -118,15 +118,32 @@ public class PlayerShooter : MonoBehaviourPun
 
     public void WeaponSet(ETeam team)
     {
+        Debug.Log("dfdff");
+        switch (WeaponType)
+        {
+            case EWeapon.Brush:
+                weaponNum = 0;
+
+                break;
+
+            case EWeapon.Gun:
+                weaponNum = 1;
+
+                break;
+
+            case EWeapon.Bow:
+                weaponNum = 2;
+                break;
+        }
         TryGetComponent(out _player_Anim);
 
+        _player_Anim.SetInteger("WeaponNum", weaponNum);
         for (int i = 0; i < weapon_Obj.Length; i++)
         {
             weapon_Obj[i].SetActive(true);
             if (weaponNum != i)
                 weapon_Obj[i].SetActive(false);
         }
-        _player_Anim.SetInteger("WeaponNum", weaponNum);
 
         weapon = GetComponentInChildren<Shot_System>();
 
@@ -135,7 +152,7 @@ public class PlayerShooter : MonoBehaviourPun
         weapon.Weapon_Color_Change(team);
 
 
-        if (photonView.IsMine)
+        if (photonView.IsMine && _Player_Con._enemy == null)
         {
             playerCam.weapon_DirY = weapon;
 
@@ -165,22 +182,7 @@ public class PlayerShooter : MonoBehaviourPun
                     break;
             }
         }
-        switch (WeaponType)
-        {
-            case EWeapon.Brush:
-                weaponNum = 0;
-
-                break;
-
-            case EWeapon.Gun:
-                weaponNum = 1;
-
-                break;
-
-            case EWeapon.Bow:
-                weaponNum = 2;
-                break;
-        }
+     
 
     }
 
@@ -195,7 +197,7 @@ public class PlayerShooter : MonoBehaviourPun
             {
                 Get_Score_Server();
             }
-            if (photonView.IsMine)
+            if (photonView.IsMine && _Player_Con._enemy == null)
             {
 
                 WarningAmmo();
@@ -231,17 +233,21 @@ public class PlayerShooter : MonoBehaviourPun
 
     private void WarningAmmo()
     {
-        if (weapon.weapon_CurAmmo <= 50)
+        if(_Player_Con._enemy == null)
         {
-            ammoBack_UI.transform.parent.gameObject.SetActive(true);
-        }
-        if (weapon.weapon_CurAmmo <= 10)
-        {
-            ammoNot_UI.gameObject.SetActive(true);
-        }
-        else
-        {
-            ammoNot_UI.gameObject.SetActive(false);
+
+             if (weapon.weapon_CurAmmo <= 50)
+             {
+                 ammoBack_UI.transform.parent.gameObject.SetActive(true);
+             }
+             if (weapon.weapon_CurAmmo <= 10)
+             {
+                 ammoNot_UI.gameObject.SetActive(true);
+             }
+             else
+             {
+                 ammoNot_UI.gameObject.SetActive(false);
+             }
         }
     }
     private void OnDisable()
@@ -296,6 +302,7 @@ public class PlayerShooter : MonoBehaviourPun
                         _Player_Con.ES_Manager.Play_SoundEffect("Floor_Hit");
                         _player_Anim.SetBool("isFire", true);
                         weapon.Shot();
+
                         //weapon.photonView.RPC("Shot", RpcTarget.AllBuffered);
                         fireRateTime = 0;
                     }
@@ -445,7 +452,7 @@ public class PlayerShooter : MonoBehaviourPun
                 break;
         }
 
-        if (photonView.IsMine)
+        if (photonView.IsMine && _Player_Con._enemy == null)
         {
             if(ammoBack_UI.gameObject.activeSelf)
             ammoBack_UI.fillAmount = weapon.weapon_CurAmmo * 0.01f;
@@ -463,7 +470,8 @@ public class PlayerShooter : MonoBehaviourPun
     {
         if (weapon.weapon_CurAmmo <= weapon.weapon_MaxAmmo && !_isFire)
         {
-            photonView.RPC("Reload_Server", RpcTarget.AllBuffered, speed);
+            Reload_Server(speed);
+
             ammo_Back.transform.localScale =
            new Vector3(ammo_Back.transform.localScale.x, weapon.weapon_CurAmmo * 0.0018f, ammo_Back.transform.localScale.z);
         }
