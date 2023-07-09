@@ -218,17 +218,21 @@ public class PlayerShooter : MonoBehaviourPun
         _player_ScoreSet++;
         player_Score = 0;
     }
-    public IEnumerator KillLog(string name)
+    public void KillLog(string name)
     {
         if (_Player_Con._enemy == null)
         {
+            if (killLog_Obj.activeSelf) return;
+
             killLog_Obj.SetActive(true);
             killLog_UI.text = $"{name}(À»)¸¦ ¾²·¯¶ß·È´Ù!";
-
-            yield return new WaitForSeconds(3f);
-
-            killLog_Obj.SetActive(false);
+            Invoke("KillLog_Out",1.5f);
         }
+    }
+
+    public void KillLog_Out()
+    {
+        killLog_Obj.SetActive(false);
     }
 
     public IEnumerator Enemy_Score(string name, int score)

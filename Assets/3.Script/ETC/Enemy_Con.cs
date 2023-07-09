@@ -40,23 +40,14 @@ public class Enemy_Con : MonoBehaviour
     {
         if (!player_Con.isStop)
         {
-            if (player_Shot.weapon.weapon_CurAmmo > 90)
+            if (!player_Con.isDead)
             {
-                nav.isStopped = false;
-
-                if (!isNull)
+                if (player_Shot.weapon.weapon_CurAmmo > 0)
                 {
-                    team_Floor = null;
-                    isNull = true;
-                }
-
-                if (!player_Con.isDead)
-                {
-                    nav.isStopped = false;
+                    if (player_Shot.weapon.weapon_CurAmmo > 90) Move_AI();
 
                     if (target != null)
                     {
-
                         if (!target.isDead)
                         {
                             target_Pos = target.transform;
@@ -80,11 +71,11 @@ public class Enemy_Con : MonoBehaviour
                                 GameObject raycast_Object = hit.collider.gameObject;
 
                                 TeamZone teamZone = raycast_Object.GetComponent<TeamZone>();
-
                                 if (zone[0] == teamZone)
                                 {
-                                    target_Pos = zone[0].transform;
+
                                     zone.RemoveAt(0);
+                                    target_Pos = zone[0].transform;
 
                                     if (isNull && zone[0].team == player_Team.team)
                                     {
@@ -105,17 +96,12 @@ public class Enemy_Con : MonoBehaviour
                         }
                     }
                 }
-                else
+
+
+                else if (player_Shot.weapon.weapon_CurAmmo < 0)
                 {
-                    target = null;
-                    nav.isStopped = true;
-                }
-            }
-            else if (player_Shot.weapon.weapon_CurAmmo < 0)
-            {
-                player_Input.fire = false;
-                if (!player_Con.isDead)
-                {
+                    player_Input.fire = false;
+
                     if (team_Floor != null)
                         target_Pos = team_Floor.transform;
 
@@ -132,18 +118,28 @@ public class Enemy_Con : MonoBehaviour
                             team_Floor = null;
                             nav.isStopped = true;
                             isNull = false;
-
                         }
                     }
-                    
                 }
-                else
-                {
-                    target = null;
-                    nav.isStopped = true;
-                }
+                AI_Anim();
             }
-            AI_Anim();
+            else
+            {
+                target = null;
+                nav.isStopped = true;
+                player_Input.fire = false;
+            }
+
+        }
+    }
+    private void Move_AI()
+    {
+        nav.isStopped = false;
+
+        if (!isNull)
+        {
+            team_Floor = null;
+            isNull = true;
         }
     }
 
@@ -151,23 +147,53 @@ public class Enemy_Con : MonoBehaviour
     {
         if (!player_Con.isStop)
         {
-            TeamZone team = other.GetComponent<TeamZone>();
-            PlayerController player = other.GetComponent<PlayerController>();
 
-            if (player != null)
+            if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("AI"))
             {
-                if (player.player_Team.team != player_Team.team)
-                    target = player;
+                PlayerController player = other.GetComponent<PlayerController>();
+
+                if (player != null)
+                {
+                    if (player.player_Team.team != player_Team.team)
+                        target = player;
+                }
             }
 
-            else
+            else if (other.gameObject.CompareTag("Wall"))
             {
+                TeamZone team = other.GetComponent<TeamZone>();
                 if (team == null) return;
                 if (team.team == ETeam.Static || team.isSide) return;
 
                 if (team.team != player_Team.team)
                     zone.Add(team);
-                // target_Pos.position = team.transform.position;
+            }
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (!player_Con.isStop)
+        {
+            if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("AI"))
+            {
+                PlayerController player = other.GetComponent<PlayerController>();
+
+                if (player != null)
+                {
+                    if (player.player_Team.team != player_Team.team)
+                    {
+                        target = null;
+                        player_Input.fire = false;
+                    }
+                }
+            }
+            if (other.gameObject.CompareTag("Wall"))
+            {
+                if (zone.Count <= 5) return;
+                TeamZone team = other.GetComponent<TeamZone>();
+                if (team.team != player_Team.team && zone.Contains(team))
+                    zone.Remove(team);
+                else return;
             }
         }
     }
