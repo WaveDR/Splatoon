@@ -324,12 +324,12 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
                 if (team == ETeam.Yellow)
                 {
                     transform.rotation = Quaternion.identity;
-                    transform.position = GameManager.Instance.team_Yellow_Spawn[Random.Range(0, 3)];
+                    transform.position = GameManager.Instance.team_Yellow_Spawn[Random.Range(0, 3)].position;
                 }
                 else
                 {
                     transform.rotation = Quaternion.Euler(0, 180, 0);
-                    transform.position = GameManager.Instance.team_Blue_Spawn[Random.Range(0, 3)];
+                    transform.position = GameManager.Instance.team_Blue_Spawn[Random.Range(0, 3)].position;
                 }
 
                 //카메라 전환
@@ -366,12 +366,12 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
                 if (player_Team.team == ETeam.Yellow)
                 {
                     transform.rotation = Quaternion.identity;
-                    transform.position = GameManager.Instance.team_Yellow_Spawn[Random.Range(0, 3)];
+                    transform.position = GameManager.Instance.team_Yellow_Spawn[Random.Range(0, 3)].position;
                 }
                 else
                 {
                     transform.rotation = Quaternion.Euler(0, 180, 0);
-                    transform.position = GameManager.Instance.team_Blue_Spawn[Random.Range(0, 3)];
+                    transform.position = GameManager.Instance.team_Blue_Spawn[Random.Range(0, 3)].position;
                 }
                 //카메라 전환
                 GameManager.Instance.MapCam(false, _player_shot.playerCam.cam_Obj.gameObject);
@@ -706,7 +706,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
                                         // 재장전
         _player_Speed = speed;
         if (_enemy != null)
-            _enemy.nav.speed = speed;
+            _enemy.nav.speed = speed * 1.5f;
 
         //형태 변형
         //Transform_Mesh(Squid, Human);

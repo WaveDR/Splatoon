@@ -11604,7 +11604,6 @@ GameObject:
   - component: {fileID: 1784996748459828200}
   - component: {fileID: 1784996748459828183}
   - component: {fileID: 1784996748459828182}
-  - component: {fileID: 1784996748459828181}
   - component: {fileID: 1784996748459828180}
   - component: {fileID: 1784996748459828179}
   - component: {fileID: 1784996748459828178}
@@ -11614,13 +11613,14 @@ GameObject:
   - component: {fileID: 25228569755432924}
   - component: {fileID: 25228569755432925}
   - component: {fileID: 25228569755432926}
+  - component: {fileID: 7631149256017301950}
   m_Layer: 0
   m_Name: AI
   m_TagString: AI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1784996748459828200
 Transform:
   m_ObjectHideFlags: 0
@@ -11699,19 +11699,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!65 &1784996748459828181
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1784996748459828191}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.6342614, y: 2, z: 0.57078105}
-  m_Center: {x: 0.053708404, y: 0.8373165, z: 0.07205564}
 --- !u!114 &1784996748459828180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11842,6 +11829,7 @@ MonoBehaviour:
   player_Input: {fileID: 0}
   _player_shot: {fileID: 0}
   _enemy: {fileID: 0}
+  dmgBullet: {fileID: 0}
   hp: 0
   curAmmo: 0
   deathEffect: {fileID: 362456977742633529}
@@ -11884,6 +11872,7 @@ MonoBehaviour:
   ammoNot_UI: {fileID: 0}
   name_UI: {fileID: 0}
   score_UI: {fileID: 0}
+  hit_UI: []
   fireMaxTime: 0
   fireRateTime: 0
   combo_ResetTime: 0
@@ -11993,6 +11982,20 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!136 &7631149256017301950
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784996748459828191}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.75
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.85, z: 0}
 --- !u!1 &1784996748472047307
 GameObject:
   m_ObjectHideFlags: 0

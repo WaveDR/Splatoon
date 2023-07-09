@@ -89,12 +89,6 @@ public class PlayerShooter : MonoBehaviourPun
     public PlayerInput player_Input => _player_Input;
 
     // Start is called before the first frame update
-    void Awake()
-    {
-        TryGetComponent(out _player_Input);
-        TryGetComponent(out _Player_Con);
-        TryGetComponent(out playerCam);
-    }
     public void UI_Set_Server()
     {
         shot_UI = FindObjectOfType<Shot_UI>();
@@ -129,6 +123,9 @@ public class PlayerShooter : MonoBehaviourPun
 
     public void WeaponSet(ETeam team)
     {
+        TryGetComponent(out _player_Input);
+        TryGetComponent(out _Player_Con);
+        TryGetComponent(out playerCam);
 
         switch (WeaponType)
         {
@@ -161,7 +158,6 @@ public class PlayerShooter : MonoBehaviourPun
         fireMaxTime = weapon.weapon_Stat.fire_Rate;
 
         weapon.Weapon_Color_Change(team);
-
         if(_Player_Con._enemy == null)
         {
             if (photonView.IsMine)

@@ -98,11 +98,11 @@ public class GameManager : MonoBehaviourPun
     public bool isLobby;
     
     [Header("SpawnPos")]
-    [SerializeField] private Vector3[] _team_Yellow_Spawn;
-    [SerializeField] private Vector3[] _team_Blue_Spawn;
+    [SerializeField] private Transform[] _team_Yellow_Spawn;
+    [SerializeField] private Transform[] _team_Blue_Spawn;
 
-    public Vector3[] team_Yellow_Spawn => _team_Yellow_Spawn;
-    public Vector3[] team_Blue_Spawn => _team_Blue_Spawn;
+    public Transform[] team_Yellow_Spawn => _team_Yellow_Spawn;
+    public Transform[] team_Blue_Spawn => _team_Blue_Spawn;
     public MeshRenderer deadLine;
     public bool gameStart;
     public bool gameEnd;
@@ -155,18 +155,18 @@ public class GameManager : MonoBehaviourPun
 
         //Set Pos
 
-        _team_Yellow_Spawn = new Vector3[4];
-        _team_Blue_Spawn = new Vector3[4];
-
-        _team_Yellow_Spawn[0] = new Vector3(-5.46f, 3.6f, -60);
-        _team_Yellow_Spawn[1] = new Vector3(-1.46f, 3.6f, -60);
-        _team_Yellow_Spawn[2] = new Vector3(2.3f, 3.6f, -60);
-        _team_Yellow_Spawn[3] = new Vector3(6.04f, 3.6f, -60);
-
-        _team_Blue_Spawn[0] = new Vector3(-6.34f, 3.6f, 60);
-        _team_Blue_Spawn[1] = new Vector3(-2.34f, 3.6f, 60);
-        _team_Blue_Spawn[2] = new Vector3(1.41f, 3.6f, 60);
-        _team_Blue_Spawn[3] = new Vector3(5.16f, 3.6f, 60);
+        //_team_Yellow_Spawn = new Vector3[4];
+        //_team_Blue_Spawn = new Vector3[4];
+        //
+        //_team_Yellow_Spawn[0] = new Vector3(0, 3.6f, -60);
+        //_team_Yellow_Spawn[1] = new Vector3(-1.46f, 3.6f, -60);
+        //_team_Yellow_Spawn[2] = new Vector3(2.3f, 3.6f, -60);
+        //_team_Yellow_Spawn[3] = new Vector3(-11, 1.272f, -16);
+        //
+        //_team_Blue_Spawn[0] = new Vector3(-6.34f, 3.6f, 60);
+        //_team_Blue_Spawn[1] = new Vector3(-2.34f, 3.6f, 60);
+        //_team_Blue_Spawn[2] = new Vector3(1.41f, 3.6f, 60);
+        //_team_Blue_Spawn[3] = new Vector3(5.16f, 3.6f, 60);
 
         deadLine.enabled = false; //데드라인 메쉬 비활성화
         deltaTime = startTimer; //시작 전 카운트  
@@ -255,7 +255,7 @@ public class GameManager : MonoBehaviourPun
                             break;
                     }
                 }
-                players[i].transform.position = team_Yellow_Spawn[positionNum_Yellow];
+                players[i].transform.position = team_Yellow_Spawn[positionNum_Yellow].position;
                 players[i].transform.localRotation = Quaternion.identity;
                 positionNum_Yellow++;
             }
@@ -283,7 +283,7 @@ public class GameManager : MonoBehaviourPun
                             break;
                     }
                 }
-                players[i].transform.position = team_Blue_Spawn[positionNum_Blue];
+                players[i].transform.position = team_Blue_Spawn[positionNum_Blue].position;
                 players[i].transform.localRotation = Quaternion.identity;
                 players[i].transform.localRotation = Quaternion.Euler(0,180,0);
                 positionNum_Blue++;

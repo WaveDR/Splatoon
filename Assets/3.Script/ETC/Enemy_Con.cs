@@ -177,8 +177,17 @@ public class Enemy_Con : MonoBehaviour
 
         nav.destination = target_Pos.position;
 
-        player_Anim.SetFloat(player_Input.Move_Hor_S, player_Pos.x / player_Pos.x);
-        player_Anim.SetFloat(player_Input.Move_Ver_S, player_Pos.z / player_Pos.z);
+        if (!nav.isStopped)
+        {
+            player_Anim.SetFloat(player_Input.Move_Hor_S, player_Pos.x / player_Pos.x);
+            player_Anim.SetFloat(player_Input.Move_Ver_S, player_Pos.z / player_Pos.z);
+        }
+        else
+        {
+            player_Anim.SetFloat(player_Input.Move_Hor_S, 0);
+            player_Anim.SetFloat(player_Input.Move_Ver_S, 0);
+        }
+
 
         zone = zone.Distinct().ToList();
     }

@@ -92,6 +92,10 @@ public class Shot_System : MonoBehaviourPun
     [PunRPC]
     public void UseAmmo()
     {
+        if(player_Shot.Player_Con._enemy == null)
         weapon_CurAmmo -= weapon_Stat.use_Ammo;
+        else
+            weapon_CurAmmo -= weapon_Stat.use_Ammo / 2;
+
     }
 }
