@@ -641,7 +641,7 @@ MonoBehaviour:
     m_Value: 1
   depthOfFieldFocusMode:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 0
   depthOfFieldAutofocusMinDistance:
     m_OverrideState: 0
     m_Value: 0
@@ -650,13 +650,13 @@ MonoBehaviour:
     m_Value: 10000
   depthOfFieldTargetFallback:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: 2
   depthOfFieldTargetFallbackFixedDistance:
     m_OverrideState: 0
     m_Value: 1000
   depthOfFieldAutofocusViewportPoint:
     m_OverrideState: 0
-    m_Value: {x: 0.5, y: 0.5}
+    m_Value: {x: 0, y: 1}
   depthOfFieldAutofocusDistanceShift:
     m_OverrideState: 0
     m_Value: 0
@@ -669,11 +669,11 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 10
   depthOfFieldCameraSettings:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   depthOfFieldFocalLength:
     m_OverrideState: 1
-    m_Value: 0.27
+    m_Value: 0.1
     min: 0.005
     max: 0.5
   depthOfFieldAperture:
@@ -695,8 +695,8 @@ MonoBehaviour:
     min: 1
     max: 48
   depthOfFieldFocusSpeed:
-    m_OverrideState: 0
-    m_Value: 1
+    m_OverrideState: 1
+    m_Value: 5
     min: 0.001
     max: 5
   depthOfFieldTransparentSupport:
