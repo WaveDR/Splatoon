@@ -659,7 +659,7 @@ public class GameManager : MonoBehaviourPun
 
     public void SetCursorState(bool newState) //커서 잠금
     {
-       //Cursor.lockState = newState ? CursorLockMode.Confined : CursorLockMode.None;
+       Cursor.lockState = newState ? CursorLockMode.Confined : CursorLockMode.None;
     }
 
     public void MapCam(bool camOn, GameObject playerCam)
