@@ -3,18 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class PlayerInput : MonoBehaviourPun, IPunObservable
+public class PlayerInput : MonoBehaviourPun
 {
+    [Header("Player Move Index")]
+    [Header("===================================")]
     [SerializeField] private string move_Hor_S;
     [SerializeField] private string move_Ver_S;
-
+    public Vector3 move_Vec;
     [SerializeField] private float move_Hor = 0;
     [SerializeField] private float move_Ver = 0;
- 
-    public Vector3 move_Vec;
-    private PlayerController _player_Con;
+
+    
     public float Move_Hor => move_Hor;
     public float Move_Ver => move_Ver;
+    public string Move_Hor_S => move_Hor_S;
+    public string Move_Ver_S => move_Ver_S;
+
+    [Header("Player Interaction")]
+    [Header("===================================")]
+    public string player_Name;
 
     public bool jDown;
     public bool fDown;
@@ -26,9 +33,9 @@ public class PlayerInput : MonoBehaviourPun, IPunObservable
     public bool isWall_Left;
 
     public bool isClick;
-    public string Move_Hor_S => move_Hor_S;
-    public string Move_Ver_S => move_Ver_S;
 
+    [Header("Player Squid")]
+    [Header("===================================")]
     public float squid_FinalRot;
     private float squidRot;
     public float player_SquidRot
@@ -45,32 +52,14 @@ public class PlayerInput : MonoBehaviourPun, IPunObservable
                 squidRot = Mathf.Clamp(squidRot, squid_FinalRot, 0);
         }
     }
-    public string player_Name;
+
+    private PlayerController _player_Con;
 
     // Start is called before the first frame update
     private void Awake()
     {
         TryGetComponent(out _player_Con);
     }
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        //if (stream.IsWriting)
-        //{
-        //    stream.SendNext(fire);
-        //    stream.SendNext(fUp);
-        //    stream.SendNext(fDown);
-        //    stream.SendNext(squid_Form);
-        //}
-        //else
-        //{
-        //    fire = (bool)stream.ReceiveNext();
-        //    fUp = (bool)stream.ReceiveNext();
-        //    fDown = (bool)stream.ReceiveNext();
-        //    squid_Form = (bool)stream.ReceiveNext();
-        //}
-    }
-    // Update is called once per frame
     void Update()
     {
         if (!photonView.IsMine) return;
@@ -82,20 +71,21 @@ public class PlayerInput : MonoBehaviourPun, IPunObservable
             move_Vec = Vector3.zero;
             return;
         }
+
+        //캐릭터 이동
         move_Hor = Input.GetAxis(move_Hor_S);
         move_Ver = Input.GetAxis(move_Ver_S);
-
+        //캐릭터 점프
         jDown = Input.GetButtonDown("Jump");
 
         if (!_player_Con.isDead)
         {
+            //캐릭터 공격 및 형태변환 로직
             fire = Input.GetButton("Fire1");
             fUp = Input.GetButtonUp("Fire1");
             fDown = Input.GetButtonDown("Fire1");
             squid_Form = Input.GetButton("Run");
         }
-        //move_Vec.x = move_Hor;
-        //move_Vec.z = move_Ver;
 
         if (!isWall) //벽이 아니면 지상 이동
             move_Vec = new Vector3(Move_Hor, 0, Move_Ver);
@@ -115,6 +105,7 @@ public class PlayerInput : MonoBehaviourPun, IPunObservable
             }
         }
 
+        //오징어폼 회전값
         Squid_Euler(Move_Hor, Move_Ver);
     }
 

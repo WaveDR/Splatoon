@@ -5,16 +5,24 @@ using Photon.Pun;
 
 public class Bullet : MonoBehaviourPun
 {
-    public ETeam bulletType;
 
+    [Header("Player Component")]
+    [Header("============================================")]
+    public ETeam bulletType;
     public PlayerTeams team;
     public PlayerShooter player_Shot;
+    public PlayerController[] players;
+
+    [Header("Bullet Particle")]
+    [Header("============================================")]
     public ParticleSystem particle;
     public ParticleSystem[] color;
+
+    [Header("Weapon ETC")]
+    [Header("============================================")]
     public float dmg;
     public bool brush;
     public bool deathEffect;
-    public PlayerController[] players;
     void Awake()
     {
         particle = GetComponent<ParticleSystem>();
@@ -25,16 +33,20 @@ public class Bullet : MonoBehaviourPun
 
     public void Bullet_Set(PlayerTeams team)
     {
+        //총알 Team 및 Color 변경
 
         this.team = team;
         if (deathEffect)
         {
+            //사망 이펙트의 경우 상대방의 공격에 의해 실행되기에 반대되는 Team으로 적용
             if (team.team == ETeam.Blue) bulletType = ETeam.Yellow;
             else bulletType = ETeam.Blue;
         }
         else
             bulletType = team.team;
 
+
+        //적용된 ETeam에 따라 Color 변경
         if (color != null)
         {
             foreach (ParticleSystem par in color)
@@ -58,6 +70,7 @@ public class Bullet : MonoBehaviourPun
     [PunRPC]
     public void Paint_Play()
     {
+        //공격 시 Particle 재생
         particle.Play();
     }
     
@@ -85,8 +98,5 @@ public class Bullet : MonoBehaviourPun
     private void OnTriggerEnter(Collider other)
     {
         PlayerController enemy = other.GetComponent<PlayerController>();
-
-        //if(enemy != null)
-        //enemy.OnDamage(dmg);
     }
 }

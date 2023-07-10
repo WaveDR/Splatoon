@@ -5,70 +5,78 @@ using Photon.Realtime;
 public class PlayerController : Living_Entity, IPlayer, IPunObservable
 {
     [Header("Player Stat")]
+    [Header("===================================")]
+
     public PlayerTeams player_Team;
     public bool _isJump;
     public bool isWall;
 
     [Header("Player Move")]
+    [Header("===================================")]
+
     [SerializeField] private GameObject raycast_Object;
     [SerializeField] private GameObject raycast_Wall_Object;
     [SerializeField] private ParticleSystem[] player_Wave;
 
     [Header("Squidform")]
+    [Header("===================================")]
+
     [SerializeField] private GameObject[] human_Object;
     [SerializeField] private GameObject squid_Object;
 
-    public PlayerInput player_Input;
+
+    [Header("Player Component")]
+    [Header("===================================")]
     private Rigidbody _player_rigid;
-    public PlayerShooter _player_shot;
     private Animator _player_Anim;
+    public PlayerInput player_Input;
+    public PlayerShooter _player_shot;
     public Enemy_Con _enemy;
 
+    //Player Data
     private float _player_Speed;
     private bool _Wall_RacastOn;
     private bool _isHuman;
     private bool _isFloor;
     public Bullet dmgBullet; //맞을 때 받을 데미지값 가져오기
 
-    [SerializeField] private float hp;
-
     private float spawnTime = 5;
     private float plusTime;
-    public float curAmmo;
 
     public Bullet deathEffect;
-
     public Sound_Manager ES_Manager;
 
+    //Network Data
     private Vector3 networkPosition;
     private Quaternion networkRotation;
     private float network_Hp;
     private float network_Ammo;
-    // Start is called before the first frame update
+
     void Awake()
     {
+        //GetComponent =====================================================================
         TryGetComponent(out player_Input);
         TryGetComponent(out _player_rigid);
         TryGetComponent(out _player_Anim);
         TryGetComponent(out _player_shot);
         TryGetComponent(out player_Team);
         TryGetComponent(out _enemy);
-
-        Player_StatReset();
-
-        foreach (ParticleSystem start in player_Wave) start.Stop();
-
+        ES_Manager = GetComponentInChildren<Sound_Manager>();
+        deathEffect = transform.GetChild(transform.childCount - 1).GetComponent<Bullet>();
         for (int i = 1; i < hitEffect.Length; i++)
         {
             hitEffect[i] = hitEffect[0].transform.GetChild(i).GetComponent<ParticleSystem>();
         }
-        deathEffect = transform.GetChild(transform.childCount - 1).GetComponent<Bullet>();
+
+        //Player Info Reset ================================================================
+        foreach (ParticleSystem start in player_Wave) start.Stop();
+        _player_Speed = player_Stat.moveZone_Speed;
         player_CurHealth = player_Stat.max_Heath;
-        ES_Manager = GetComponentInChildren<Sound_Manager>();
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
+        //캐릭터 이동 / 회전 / 체력 / 총알
         if (stream.IsWriting)
         {
             stream.SendNext(this.gameObject.transform.position);
@@ -91,14 +99,18 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
 
         if (_enemy == null)
         {
+            //AI 이외 ui 적용
             _player_shot.UI_Set_Server();
         }
 
+        //Team Color 적용
         player_Team.Player_ColorSet();
+        //Weapon 적용
         _player_shot.WeaponSet(player_Team.team);
     }
     private void FixedUpdate()
     {
+        //1초 당 10프레임 계산하여 오징어 상태 최적화
         RaycastFloor(player_Input.squid_Form);
 
         if (!player_Input.squid_Form)
@@ -111,21 +123,25 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
             RaycastWall(player_Input.squid_Form);
         }
 
+        
         if (photonView.IsMine)
         {
             _player_rigid.MovePosition(_player_rigid.position + player_Input.move_Vec * _player_Speed * Time.deltaTime);
         }
+        //이동 위치 동기화 차이가 많이 날 시 위치 강제 조정
         else if ((transform.position - networkPosition).sqrMagnitude >= 100)
         {
             transform.position = networkPosition;
             transform.rotation = networkRotation;
         }
+        //타 플레이어 이동보간법 적용
         else
         {
             transform.position = Vector3.Lerp(transform.position, networkPosition, Time.deltaTime * 20f);
             transform.rotation = Quaternion.Lerp(transform.rotation, networkRotation, Time.deltaTime * 20f);
         }
 
+        //타 플레이어 총알 및 체력 적용
         if (!photonView.IsMine)
         {
             player_CurHealth = network_Hp;
@@ -137,7 +153,6 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
     // Update is called once per frame
     void Update()
     {
-        curAmmo = _player_shot.weapon.weapon_CurAmmo;
         if (photonView.IsMine)
         {
             if (!isStop)
@@ -147,11 +162,10 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
 
                 else //죽지 않았을 때
                 {
-                    Hp_UI();
+                    Hit_UI();
                     Player_Movement();
                     Player_Jump();
                     Player_Animation();
-
                 }
             }
         }
@@ -159,6 +173,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
 
     private void OnParticleCollision(GameObject other)
     {
+        //파티클 콜라이더로 데미지 처리
         dmgBullet = other.GetComponent<Bullet>();
 
         if (dmgBullet.team.team != player_Team.team && !isDead)
@@ -169,6 +184,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
     }
     private void OnCollisionEnter(Collision collision)
     {
+        //콜라이더 엔터로 맵 바깥으로 떨어질 시 리스폰 처리
         if (!photonView.IsMine) return;
         if (collision.gameObject.CompareTag("DeadLine"))
         {
@@ -179,6 +195,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
 
     private void OnCollisionStay(Collision collision)
     {
+        //Stay로 벽 타겟 감지
         if (!photonView.IsMine) return;
         if (collision.gameObject.CompareTag("Wall"))
         {
@@ -193,6 +210,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
     }
     private void OnCollisionExit(Collision collision)
     {
+        //벽에서 떨어질 시 자동적으로 타겟 null
         if (!photonView.IsMine) return;
         if (collision.gameObject.CompareTag("Wall")) // 건물 끄트머리에 도달할 시
         {
@@ -201,14 +219,16 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
     }
 
     //============================================        ↑ CallBack   |   Nomal ↓        ========================================================
+
+    #region Player Basic
     [PunRPC]
     public void Player_Set(ETeam team, EWeapon weapon, string name)
     {
+        //플레이어 네트워크 Setting
         player_Team.team = team;
         _player_shot.WeaponType = weapon;
         player_Input.player_Name = name;
     }
-
     private void Player_Jump()
     {
         if (player_Input.jDown && !_isJump)
@@ -218,9 +238,9 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
             _player_rigid.AddForce(Vector3.up * 5f, ForceMode.Impulse);
         }
     }
-
     private void Squid_Eular()
     {
+        //오징어폼 회전
         if (squid_Object.activeSelf)
         {
             if (player_Input.squid_FinalRot > 0)
@@ -241,19 +261,15 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         {
             transform.Translate(player_Input.move_Vec * _player_Speed * Time.deltaTime);
         }
-        hp = player_CurHealth;
         Squid_Eular();
     }
-    private void Player_StatReset()
-    {
-        _player_Speed = player_Stat.moveZone_Speed;
-    }
+    #endregion
 
     #region Override
-
     public override void OnDamage(float damage)
     {
         base.OnDamage(damage);
+        //팀에 따른 Hit Effect Color 변경
 
         if (player_Team.team == ETeam.Blue)
         {
@@ -274,13 +290,13 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
 
         if (!isDead)
         {
+            //플레이어 피격 사운드 / 애니메이션 / 이펙트
             ES_Manager.Play_SoundEffect("Player_Hit");
             _player_Anim.SetTrigger("Hit");
             hitEffect[0].Play();
         }
 
     }
-
     public override void RestoreHp(float newHealth)
     {
         base.RestoreHp(newHealth);
@@ -289,22 +305,24 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
     public override void Player_Die()
     {
         base.Player_Die();
+        //사망 시 상태 변경
         Transform_Stat(0, 0, false, false);
         Transform_Mesh(false, false);
 
+        //사망 이펙트
         deathEffect.particle.Play();
+        ES_Manager.Play_SoundEffect("Player_Death");
 
         dmgBullet.Player_Kill(player_Input.player_Name); //상대에게 뜨는 킬로그
 
-        GameManager.Instance.Player_Dead_Check(); //Player Dead UI;
-        ES_Manager.Play_SoundEffect("Player_Death");
+        GameManager.Instance.Player_Dead_Check(); //Player Dead UI 체크;
 
-        if(_enemy == null)
-        StartCoroutine(_player_shot.Enemy_Score(dmgBullet.player_Shot.player_Input.player_Name, dmgBullet.player_Shot.player_ScoreSet));
+        if(_enemy == null) //사망 시 적 정보 출력
+        StartCoroutine(_player_shot.Enemy_Data_UI(dmgBullet.player_Shot.player_Input.player_Name, dmgBullet.player_Shot.player_ScoreSet));
     }
-
-    public void Respawn(ETeam team, bool falling)
+    public override void Respawn(ETeam team, bool falling)
     {
+        //지연시간
         plusTime += Time.deltaTime;
 
         if (plusTime >= 1)
@@ -353,7 +371,6 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
                 //리턴
                 isDead = false;
                 GameManager.Instance.Player_Dead_Check(); //Player Dead UI;
-
                 return;
             }
         }
@@ -385,17 +402,11 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
                 return;
             }
         }
-
-    } //리스폰
-    #endregion
-    public void Player_Data_SetUp(ETeam team, EWeapon weapon, string name)
-    {
-        player_Team.team = team;
-        _player_shot.WeaponType = weapon;
-        player_Input.player_Name = name;
     }
+    #endregion
 
-    public void Hp_UI()
+    #region Player Info UI
+    public void Hit_UI()
     {
         if(_enemy == null)
         {
@@ -427,10 +438,11 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         _player_shot.skill_UI_Obj.SetActive(on);
     }
 
+    #endregion
+
     #region Player Raycast
     private void RaycastFloor(bool SquidForm)
     {
-        Debug.DrawRay(transform.position, Vector3.down * player_Stat.detect_Range, Color.green); ;
         if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, player_Stat.detect_Range, player_Stat.floor_Layer))
         {
             raycast_Object = hit.collider.gameObject;
@@ -598,25 +610,10 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         }
 
         Wall_Vec(SquidForm, transform.forward);
-
-        //else if (player_Input.move_Vec == -transform.right)
-        //{
-        //    player_Input.isWall_Hor = true;
-        //    player_Input.isWall_Left = true;
-        //    Wall_Vec(SquidForm, -transform.right);
-        //}
-        //else if (player_Input.move_Vec == transform.right )
-        //{
-        //    player_Input.isWall_Hor = true;
-        //    player_Input.isWall_Left = false;
-        //    Wall_Vec(SquidForm, transform.right);
-        //}
     }                 //Ray로 벽 확인
     public void Wall_Vec(bool SquidForm, Vector3 dir)
     {
         if (!_Wall_RacastOn) { MoveWall(false, null); return; }
-
-        Debug.DrawRay(transform.position, dir * player_Stat.detect_Range * 3, Color.green);
 
         if (Physics.Raycast(transform.position, dir, out RaycastHit forward_Hit, player_Stat.detect_Range * 3, player_Stat.floor_Layer))
         {
@@ -680,6 +677,8 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
 
     public void Transform_Stat(int ammo, float speed, bool Squid, bool Human)
     {
+        //이동속도 및 재장전 발걸음 이펙트 / 형태 변환 이펙트
+
         if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.LeftShift)) && _enemy == null)
         {
             if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -702,13 +701,12 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         }
 
         _player_shot.Reload_Ammo(ammo); // 재장전
-                                        // 재장전
+
+        //이동속도 증가
         _player_Speed = speed;
         if (_enemy != null)
             _enemy.ai_nav.speed = speed * 1.5f;
 
-        //형태 변형
-        //Transform_Mesh(Squid, Human);
         if (Human)
         {
             player_Wave[1].Stop();
@@ -716,13 +714,14 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         }
         else
         {
-
             player_Wave[0].Stop();
             player_Wave[1].Play(); // 오징어 발걸음
         }
 
-    } //기본 상태 변환
+    }
 
+
+    //형태변환 메서드
     public void Transform_Mesh(bool squid, bool human)
     {
         photonView.RPC("TransSquid_Server", RpcTarget.All, squid, human);
@@ -730,13 +729,12 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
     [PunRPC]
     public void TransSquid_Server(bool squid, bool human)
     {
+     
         foreach (GameObject obj in human_Object)
         {
             obj.SetActive(human);
         }
         squid_Object.SetActive(squid);
-        // Debug.LogError("형태변환");
     }
     #endregion
-
 }

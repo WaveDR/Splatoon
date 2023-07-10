@@ -5,11 +5,12 @@ using Photon.Pun;
 
 public class Player_Camera : MonoBehaviourPun
 {
+    [Header("Rotation_Dir")]
     public Shot_System weapon_DirY;
     public Transform player_DirY;
-    public Cinemachine.CinemachineVirtualCamera cam_Obj;
     public float eulerX;
     public float _eulerY;
+    public float rotateSpeed;
     public float eulerY
     {
         get { return _eulerY; }
@@ -17,9 +18,9 @@ public class Player_Camera : MonoBehaviourPun
             _eulerY = Mathf.Clamp(_eulerY, -65f, 65f);
         }
     }
-    public float rotateSpeed;
 
-
+    [Header("Camera")]
+    public Cinemachine.CinemachineVirtualCamera cam_Obj;
     public PlayerController _player_Con;
 
     private void Awake()
@@ -37,6 +38,7 @@ public class Player_Camera : MonoBehaviourPun
         CameraRotation();
     }
 
+    //Player Cam Rotation
     private void CameraRotation()
     {
         eulerX += Input.GetAxis("Mouse X") * Time.deltaTime * rotateSpeed;
@@ -53,6 +55,7 @@ public class Player_Camera : MonoBehaviourPun
         }
     }
 
+    //Player Cam Àû¿ë
     public void SelectCamera()
     {
         if (photonView.IsMine && _player_Con._enemy == null)

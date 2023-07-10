@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
-using Photon.Pun;
-
-
-
-public class Player_SettingUI : MonoBehaviourPun
+public class Player_SettingUI : MonoBehaviour
 {
-    
+    [Header("Player Audio")]
     public AudioMixer audio_Mixer;
+
+    [Header("Player UI")]
     public Slider bgm_Slider;
     public Slider sfx_Slider;
-
     public GameObject SettingUI;
 
     private void Awake()

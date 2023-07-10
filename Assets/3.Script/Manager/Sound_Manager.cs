@@ -75,6 +75,5 @@ public class Sound_Manager : MonoBehaviour
                 break;
             }
         }
-        Debug.Log("재생 중인" + name + "Sound가 없습니다!");
     }
 }
