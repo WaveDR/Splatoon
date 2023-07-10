@@ -58,13 +58,14 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
 
     public void SetRoom_MaxPlayer(int i)
     {
-        photonView.RPC("max_Player", RpcTarget.AllBuffered, i);
+        max_Player = i;
         isCreateRoom = true;
         PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = max_Player });
         Debug.Log("Created Room");
         stateUI.text = "방 생성";
         matching_UI.SetActive(false);
     }
+
     [PunRPC]
     public void MaxPlayer(int i)
     {
@@ -121,15 +122,16 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
+        photonView.RPC("MaxPlayer", RpcTarget.AllBuffered, max_Player);
         PhotonNetwork.LoadLevel("InGame");
         Debug.Log("Room Join Success");
         stateUI.text = "방에 입장합니다.";
-        cur_Player.text = $"{PhotonNetwork.CurrentRoom.PlayerCount}/{max_Player}";
+
         start_Btn.SetActive(true);
         //나중에 입장한 플레이어 모으기 && 다 모이면 게임 시작 누를 수 있도록 수정예정
         StartCoroutine(Player_Spawn());
     }
-
+    
     IEnumerator Player_Spawn()
     {
         yield return new WaitForSeconds(1f);
@@ -142,4 +144,10 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         GameManager.Instance.SetPlayerPos();
     }
     #endregion
+
+    private void Update()
+    {
+        if(PhotonNetwork.InRoom)
+        cur_Player.text = $"{PhotonNetwork.CurrentRoom.PlayerCount}/{max_Player}";
+    }
 }

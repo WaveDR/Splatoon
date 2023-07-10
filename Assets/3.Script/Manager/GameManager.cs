@@ -121,8 +121,11 @@ public class GameManager : MonoBehaviourPun
 
     private void Awake()
     {
-        Manager_Server();
-        isStart = true;
+        if (PhotonNetwork.InRoom)
+        {
+            Manager_Server();
+            isStart = true;
+        }
     }
     // Update is called once per frame
     void Update()
