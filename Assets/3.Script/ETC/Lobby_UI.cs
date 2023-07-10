@@ -16,7 +16,7 @@ public class Lobby_UI : MonoBehaviour
     {
         if (Input.anyKeyDown)
         {
-            SceneManager.LoadScene("Lobby");
+            LoadingScene.LoadScene("Lobby");
         }
     }
 }

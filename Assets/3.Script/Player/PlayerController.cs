@@ -200,8 +200,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         }
     }
 
-    //============================================        ↑ 콜백 메서드   |  일반 메서드 ↓        ========================================================
-
+    //============================================        ↑ CallBack   |   Nomal ↓        ========================================================
     [PunRPC]
     public void Player_Set(ETeam team, EWeapon weapon, string name)
     {
@@ -423,7 +422,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         }
     }
 
-    public void UI_OnOFf(bool on)
+    public void UI_On_Off(bool on)
     {
         _player_shot.skill_UI_Obj.SetActive(on);
     }
@@ -706,7 +705,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
                                         // 재장전
         _player_Speed = speed;
         if (_enemy != null)
-            _enemy.nav.speed = speed * 1.5f;
+            _enemy.ai_nav.speed = speed * 1.5f;
 
         //형태 변형
         //Transform_Mesh(Squid, Human);

@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class BGM_Manager : MonoBehaviour
 {
+    //싱글톤 패턴
     public static BGM_Manager Instance = null;
+
+    [Header("Use Sound Name")]
     public string[] play_SoundName;
 
+    [Header("Declaration Sound Name")]
     public Sound[] bgm_Sounds;
+
+    [Header("Use Sound Source")]
     public AudioSource[] audio_Source_Bgms;
 
     private void Awake()
@@ -27,8 +33,11 @@ public class BGM_Manager : MonoBehaviour
     }
     private void Start()
     {
+        //가용 사운드 소스 배열 크기 초기화
         play_SoundName = new string[audio_Source_Bgms.Length];
     }
+
+    //호출되는 매개변수 Sound Name을 찾아 재생
     public void Play_Sound_BGM(string name)
     {
         for (int i = 0; i < bgm_Sounds.Length; i++)
@@ -52,7 +61,7 @@ public class BGM_Manager : MonoBehaviour
         Debug.Log(name + "Sound Manager에 등록되지 않은 SoundSource입니다!");
     }
 
-
+    //BGM All Stop
     public void Stop_All_Sound_BGM()
     {
         for (int i = 0; i < audio_Source_Bgms.Length; i++)
@@ -60,5 +69,4 @@ public class BGM_Manager : MonoBehaviour
             audio_Source_Bgms[i].Stop();
         }
     }
-
 }

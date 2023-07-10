@@ -7,23 +7,30 @@ using UnityEngine.UI;
 [System.Serializable]
 public class Sound
 {
+    //게임 내 선언되어 생성되는 클래스
     public string sound_Name;
     public AudioClip clip;
 }
+
 public class Sound_Manager : MonoBehaviour
 {
-    public AudioSource[] audio_Source_Effects;
-
-    public Sound[] effect_Sounds;
+    //SFX 
+    [Header("Use Sound Name")]
     public string[] play_SoundName;
+
+    [Header("Declaration Sound Name")]
+    public Sound[] effect_Sounds;
+
+    [Header("Use Sound Source")]
+    public AudioSource[] audio_Source_Effects;
 
     private void Start()
     {
+        //가용 사운드 소스 배열 크기 초기화
         play_SoundName = new string[audio_Source_Effects.Length];
     }
 
-
-
+    //호출되는 매개변수 Sound Name을 찾아 재생
     public void Play_SoundEffect(string name)
     {
         for (int i = 0; i < effect_Sounds.Length; i++)
@@ -48,6 +55,7 @@ public class Sound_Manager : MonoBehaviour
         Debug.Log(name + "Sound Manager에 등록되지 않은 SoundSource입니다!");
     }
 
+    //Stop All Sfx
     public void Stop_All_Sound_Effect()
     {
         for (int i = 0; i < audio_Source_Effects.Length; i++)
@@ -56,6 +64,7 @@ public class Sound_Manager : MonoBehaviour
         }
     }
 
+    //Stop Sfx
     public void Stop_Sound_Effect(string name)
     {
         for (int i = 0; i < effect_Sounds.Length; i++)

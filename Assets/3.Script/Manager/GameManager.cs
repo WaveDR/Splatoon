@@ -5,12 +5,11 @@ using UnityEngine.UI;
 using System.Linq;
 using System;
 using Photon.Pun;
-using Photon.Realtime;
-
 
 [Serializable]
 public class Player_Info
 {
+    //현재 참가 중인 플레이어 값
     public Player_Info(ETeam _team, EWeapon _weapon, string _name, int _score) { team = _team; weapon = _weapon; name = _name; score = _score; }
     public ETeam team;
     public EWeapon weapon;
@@ -33,21 +32,23 @@ public class GameManager : MonoBehaviourPun
         }
         set { _instance = value; }
     }
+
+    [Header("Play Zone")]
     public List<TeamZone> nodes = new List<TeamZone>();
-    public GameObject map_Camera;
 
     [Header("Player")]
+    [Header("===================================")]
     public PlayerController[] players;
-    public Player_Info player_Data;
     public GameObject AI_Prefab;
-
+    public Player_Info player_Data;
     public Dictionary<int, Player_Info> player_Info = new Dictionary<int, Player_Info>();
     [SerializeField] private Player_MVP mvp_Model;
 
+
     [Header("UI")]
+    [Header("===================================")]
+
     [SerializeField] private Text timeText; 
-   //[SerializeField] private Text timeText_Mid;
-   //[SerializeField] private Text timeText_Min;
 
     [SerializeField] private Sprite[] count_Sprite;
     [SerializeField] private Image count_Image;
@@ -66,6 +67,7 @@ public class GameManager : MonoBehaviourPun
     [SerializeField] private Sprite[] weapon_UI;
 
     [Header("Character Anim")]
+    [Header("===================================")]
     [SerializeField] private Animator ui_Anim;
     [SerializeField] private Animator manager_Anim;
     [SerializeField] private Animator mvp_Anim;
@@ -74,15 +76,14 @@ public class GameManager : MonoBehaviourPun
 
 
     [Header("Timer")]
+    [Header("===================================")]
     [SerializeField] private float startTimer = 10;
     [SerializeField] private float endTimer = 180;
-
     private int _Min;
     private int _Sec;
     private float _Time;
     private float _BeepTime;
     private float _Charging_Score;
-
     public float time;
     public float deltaTime
     {
@@ -91,25 +92,32 @@ public class GameManager : MonoBehaviourPun
             _Time = Mathf.Clamp(_Time, 0, endTimer);
         }
     }
-    private bool chargeCall;
-    private bool isStart;
-    private bool player_Check;
 
-    public bool isLobby;
-    
     [Header("SpawnPos")]
+    [Header("===================================")]
     [SerializeField] private Transform[] _team_Yellow_Spawn;
     [SerializeField] private Transform[] _team_Blue_Spawn;
-
     public Transform[] team_Yellow_Spawn => _team_Yellow_Spawn;
     public Transform[] team_Blue_Spawn => _team_Blue_Spawn;
+
+
+    [Header("EndGame Production")]
+    [Header("===================================")]
     public MeshRenderer deadLine;
+    public GameObject map_Camera;
     public bool gameStart;
     public bool gameEnd;
     public bool skip_Start;
+
     [Header("Particle")]
     [SerializeField] private ParticleSystem yellow_WinEffect;
     [SerializeField] private ParticleSystem blue_WinEffect;
+
+    //Etc Bool
+    private bool chargeCall;
+    private bool isStart;
+    private bool player_Check;
+    public bool isLobby;
 
     private void Awake()
     {
@@ -153,33 +161,20 @@ public class GameManager : MonoBehaviourPun
         teamYellow_Anim.gameObject.SetActive(false);
         teamBlue_Anim.gameObject.SetActive(false);
 
-        //Set Pos
-
-        //_team_Yellow_Spawn = new Vector3[4];
-        //_team_Blue_Spawn = new Vector3[4];
-        //
-        //_team_Yellow_Spawn[0] = new Vector3(0, 3.6f, -60);
-        //_team_Yellow_Spawn[1] = new Vector3(-1.46f, 3.6f, -60);
-        //_team_Yellow_Spawn[2] = new Vector3(2.3f, 3.6f, -60);
-        //_team_Yellow_Spawn[3] = new Vector3(-11, 1.272f, -16);
-        //
-        //_team_Blue_Spawn[0] = new Vector3(-6.34f, 3.6f, 60);
-        //_team_Blue_Spawn[1] = new Vector3(-2.34f, 3.6f, 60);
-        //_team_Blue_Spawn[2] = new Vector3(1.41f, 3.6f, 60);
-        //_team_Blue_Spawn[3] = new Vector3(5.16f, 3.6f, 60);
-
         deadLine.enabled = false; //데드라인 메쉬 비활성화
         deltaTime = startTimer; //시작 전 카운트  
     }
     
     public void FindPlayer()
     {
+        //플레이어 색인
         players = null;
         players = FindObjectsOfType<PlayerController>();
     }
 
     public void Player_Dead_Check()
     {
+        //사망한 플레이어 체크하여 UI 변경 연계
         for (int i = 0; i < players.Length; i++)
         {
             Player_Respawn_UI(i, players[i].isDead);
@@ -189,6 +184,7 @@ public class GameManager : MonoBehaviourPun
     {
         if (isDead)
         {
+            //사망한 플레이어 UI 회색으로 변경
             if (players[i].player_Team.team == ETeam.Yellow)
             {
                 Image img = yellow_Player_UI[i / 2].transform.parent.GetComponent<Image>();
@@ -202,6 +198,7 @@ public class GameManager : MonoBehaviourPun
         }
         else
         {
+            //부활한 플레이어 UI 원래 색으로 복구
             if (players[i].player_Team.team == ETeam.Yellow)
             {
                 Image img = yellow_Player_UI[i / 2].transform.parent.GetComponent<Image>();
@@ -213,26 +210,30 @@ public class GameManager : MonoBehaviourPun
                 img.color = players[i].player_Team.team_Blue;
             }
         }
-  
     }
+
     public void SetPlayerPos()
     {
+        //플레이어 색인 후 팀에 맞게 스폰 위치 배정
         FindPlayer();
         int positionNum_Yellow = 0;
         int positionNum_Blue = 0;
 
         foreach (PlayerController player in players)
         {
-            player.UI_OnOFf(true);
+            //플레이어 ui 활성화 및 OnEnable을 이용한 정보 값 재적용 확인 절차
+            player.UI_On_Off(true);
             player.gameObject.SetActive(false);
             player.gameObject.SetActive(true);
             //MapCam(false, player._player_shot.playerCam.cam_Obj);
         }
 
+        //팀 UI 배정
         for (int i = 0; i < players.Length; i++)
         {
             if (players[i].player_Team.team == ETeam.Yellow)
             {
+                //Yellow팀이 5명 이상으로 매칭될 경우 해당 플레이어의 팀 진영을 Blue팀으로 변경
                 if (positionNum_Yellow >= 4)
                 {
                     players[i].player_Team.team = ETeam.Blue;
@@ -240,6 +241,7 @@ public class GameManager : MonoBehaviourPun
                     continue;
                 }
 
+                //아이템에 따른 UI변경
                 if (!isLobby)
                 {
                     switch (players[i]._player_shot.WeaponType)
@@ -255,12 +257,15 @@ public class GameManager : MonoBehaviourPun
                             break;
                     }
                 }
+
+                //positionNum_Yellow 변수에 따라 스폰 위치 및 해당 UI 위치 변경
                 players[i].transform.position = team_Yellow_Spawn[positionNum_Yellow].position;
                 players[i].transform.localRotation = Quaternion.identity;
                 positionNum_Yellow++;
             }
             else
             {
+                //5인 이상이 Blue팀일 경우 Yellow팀으로 변경
                 if (positionNum_Blue >= 4)
                 {
                     players[i].player_Team.team = ETeam.Yellow;
@@ -268,6 +273,7 @@ public class GameManager : MonoBehaviourPun
                     continue;
                 }
 
+                //아이템에 따른 UI변경
                 if (!isLobby)
                 {
                     switch (players[i]._player_shot.WeaponType)
@@ -283,6 +289,8 @@ public class GameManager : MonoBehaviourPun
                             break;
                     }
                 }
+
+                //positionNum_Blue 변수에 따라 스폰 위치 및 해당 UI 위치 변경
                 players[i].transform.position = team_Blue_Spawn[positionNum_Blue].position;
                 players[i].transform.localRotation = Quaternion.identity;
                 players[i].transform.localRotation = Quaternion.Euler(0,180,0);
@@ -292,6 +300,7 @@ public class GameManager : MonoBehaviourPun
     }
 
 
+    //MVP Player를 가리기 위한 딕셔너리 정보값 추가
     public void List_In_Player(int score, PlayerController player_data)
     {
         player_Info[score] = new Player_Info(player_data.player_Team.team, player_data._player_shot.WeaponType,
@@ -300,11 +309,13 @@ public class GameManager : MonoBehaviourPun
 
     //======================================================================  Time Late Method
 
+    //게임 시작 전 입장한 플레이어 체크
     public void Player_Count()
     {
-        FindPlayer();
+        FindPlayer(); 
         if (PhotonNetwork.InRoom)
         {
+            //매칭 인원 전원 입장 시 자동시작
             if (PhotonNetwork.CurrentRoom.PlayerCount >= Photon_Manager.Instance.max_Player)
             {
                 Photon_Manager.Instance.set_Manager.LoadingOff();
@@ -313,16 +324,18 @@ public class GameManager : MonoBehaviourPun
                 player_Check = true;
             }
 
+            //부족한 인원 수 만큼 AI를 생성하여 시작
             if (skip_Start)
             {
                 Photon_Manager.Instance.set_Manager.LoadingOff();
 
-                int num = 0;
                 int Ai_Count = Photon_Manager.Instance.max_Player - PhotonNetwork.CurrentRoom.PlayerCount;
+
                 int yellow = 0;
                 int blue = 0;
+                int num = 0;
 
-                for (int i = 0; i < players.Length; i++)
+                for (int i = 0; i < players.Length; i++) //팀 당 필요한 인원 수 계산
                 {
                     if (players[i].player_Team.team == ETeam.Blue) blue++;
                     else yellow++;
@@ -330,16 +343,16 @@ public class GameManager : MonoBehaviourPun
                 
                 while (true)
                 {
-                   GameObject ai =  PhotonNetwork.Instantiate(AI_Prefab.name, Vector3.zero, Quaternion.identity);
-
+                    //AI 생성
+                    GameObject ai =  PhotonNetwork.Instantiate(AI_Prefab.name, Vector3.zero, Quaternion.identity);
                     PlayerTeams ai_Team = ai.GetComponent<PlayerTeams>();
-                   
-
+  
+                    //생성된 AI를 번갈아가며 팀 배정
                     if(blue >= yellow)
                     {
                         if (num % 2 == 0)
                         {
-                            ai_Team.team = ETeam.Yellow;
+                            ai_Team.team = ETeam.Yellow; // Blue팀이 Yellow팀 보다 인원이 많을 경우 Yellow팀 먼저 시작
                         }
                         if (num % 2 == 1)
                         {
@@ -350,7 +363,7 @@ public class GameManager : MonoBehaviourPun
                     {
                         if (num % 2 == 0)
                         {
-                            ai_Team.team = ETeam.Blue;
+                            ai_Team.team = ETeam.Blue; // Yellow팀이 Blue팀 보다 인원이 많을 경우 Blue팀 먼저 시작
                         }
                         if (num % 2 == 1)
                         {
@@ -360,7 +373,7 @@ public class GameManager : MonoBehaviourPun
                  
                     num++;
 
-                    if (num == Ai_Count)
+                    if (num == Ai_Count) //적정 생성 완료 시 While문 종료
                     {
                         isLobby = false;
                         skip_Start = false;
@@ -376,14 +389,11 @@ public class GameManager : MonoBehaviourPun
     {
         if (!isStart)
         {
-            
+            //게임 시작 전 초기화
             ui_Anim = GameObject.FindGameObjectWithTag("TimeUI").GetComponent<Animator>();
-
-            PaintTarget.ClearAllPaint();
-
-            SetPlayerPos();
+            PaintTarget.ClearAllPaint(); 
+            SetPlayerPos(); 
             Photon_Manager.Instance.matching_UI.transform.parent.gameObject.SetActive(false);
-
             BGM_Manager.Instance.Stop_All_Sound_BGM();
 
             foreach(TeamZone teamZone in nodes)
@@ -392,13 +402,16 @@ public class GameManager : MonoBehaviourPun
             }
 
             count_Image.gameObject.SetActive(true); //카운트 다운 이미지 켜기
-            scoreGage_Blue.fillAmount = 0; //스코어 게이지 초기화
+
+            //스코어 게이지 초기화
+            scoreGage_Blue.fillAmount = 0; 
             scoreGage_Yellow.fillAmount = 0;
             isStart = true;
         }
 
         deltaTime -= Time.deltaTime;
 
+        //게임시작 전 플레이어 대기 및 카메라 초기화
         foreach (PlayerController player in players)
         {
             player.player_Input.fire = false;
@@ -408,7 +421,6 @@ public class GameManager : MonoBehaviourPun
             if(player.photonView.IsMine && player._enemy == null)
             MapCam(false, player._player_shot.playerCam.cam_Obj.gameObject);
         }
-        //Player Move Limit
 
         if (deltaTime <= 5 && deltaTime > 0) //CountDown Call
         {
@@ -418,12 +430,15 @@ public class GameManager : MonoBehaviourPun
 
         if (deltaTime <= 0) //GameStart Action
         {
+            //플레이어 위치 재배정
             SetPlayerPos();
+            
+            //카운트 다운 종료
             ui_Anim.SetBool("Count", false);
-            count_Image.gameObject.SetActive(false);
+            count_Image.gameObject.SetActive(false); 
             ui_Anim.SetTrigger("GameStart");
 
-
+            //플레이어 세팅 완료
             foreach (PlayerController player in players)
             {
                 player.gameObject.SetActive(false);
@@ -444,12 +459,14 @@ public class GameManager : MonoBehaviourPun
         }
     }
 
+    //Game Ending
     public void EndCount() //Game End CountDown
     {
         deltaTime -= Time.deltaTime;
 
+        //화면 상단 Time UI 메서드
         TimeSet();
-        //TimeSet();
+
 
         if (deltaTime <= 0)
         {
@@ -461,15 +478,19 @@ public class GameManager : MonoBehaviourPun
     }
     private void TimeSet() //Time UI Setting
     {
+        // n : nn
         _Sec = (int)deltaTime % 60;
         _Min = (int)deltaTime / 60;
         timeText.text = $"{ _Min}:{_Sec.ToString("D2")}";
 
+        //남은 시간 1분 이하 시 시계 색 변경
         if (deltaTime <= 61 && deltaTime > 10)
         {
             ui_Anim.SetBool("One_Min", true);
             timeText.color = players[0].player_Team.team_Yellow;
-        }   //1 Min Warning
+        }   
+        
+        //1 Min Warning
         if (deltaTime <= 11 && deltaTime > 1)
         {
             ui_Anim.SetBool("One_Min", false);
@@ -477,16 +498,18 @@ public class GameManager : MonoBehaviourPun
 
             _BeepTime += Time.deltaTime;
             CountDown((int)deltaTime - 1);
-        }    //10 Sec. NumColor = Yellow
+        }    
+
+        //10초 카운트
         else if (deltaTime <= 1)
         {
             count_Image.gameObject.SetActive(false);
             ui_Anim.SetBool("Count", false);
             timeText.text = "END";
-        } //TimeSet Exit
+        }
     }
 
-    
+    //카운트 다운 애니메이션 및 Sfx
     private void CountDown(int count) //Count Down Image
     {
         if (count < 11 && count > -1)
@@ -506,7 +529,9 @@ public class GameManager : MonoBehaviourPun
             _BeepTime = 0;
         }
     }
-    private void EndScoreCharge(bool call) //27.7% Production
+
+    //게임 종료 후 27%까지 게이지 충전 연출
+    private void EndScoreCharge(bool call) 
     {
         if (call && _Charging_Score <= 27.3f)
         {
@@ -523,29 +548,32 @@ public class GameManager : MonoBehaviourPun
     //======================================================================  Ending Method
     public IEnumerator GameStop()
     {
+        //게임 시작 후 입장한 플레이어 재확인
         FindPlayer();
         BGM_Manager.Instance.Stop_All_Sound_BGM();
         BGM_Manager.Instance.Play_Sound_BGM("UI_Finish");
-        //화면 전환되는 시간
+
+        //플레이어 동작정지
         foreach (PlayerController player in players)
         {
             player.player_Input.fire = false;
             player.isStop = true;
         }
-        yield return new WaitForSeconds(5f); //맵 확인하는 시간
 
-        deadLine.enabled = true;
+        yield return new WaitForSeconds(5f); //페이드 인 / 아웃
+
+        deadLine.enabled = true; 
         ui_Anim.SetBool("TimeOut", false);
         teamYellow_Anim.gameObject.SetActive(true);
         teamBlue_Anim.gameObject.SetActive(true);
 
         foreach (PlayerController player in players)
         {
-            player.UI_OnOFf(false);
+            player.UI_On_Off(false);
 
             if(player._enemy == null)
             MapCam(true, player._player_shot.playerCam.cam_Obj.gameObject);
-        } //맵캠으로 변경 / 플레이어 ui 비활성화
+        } 
 
         
         yield return new WaitForSeconds(3f); //UI Call
@@ -553,25 +581,32 @@ public class GameManager : MonoBehaviourPun
         manager_Anim.SetBool("GameEnd", true);
 
         yield return new WaitForSeconds(1f); //Score Gage Charged
+
+        //27% 연출 시작
         BGM_Manager.Instance.Play_Sound_BGM("UI_Gage");
         chargeCall = true;
-        
 
-        yield return new WaitForSeconds(3f); //Result
+        yield return new WaitForSeconds(3f); //승리 팀 계산
+
+        //27% 연출 종료
         chargeCall = false;
         BGM_Manager.Instance.Stop_All_Sound_BGM();
         BGM_Manager.Instance.Play_Sound_BGM("UI_Splash");
 
+        //각 팀 점수의 1% 계산
         float color_Count = (Check_Color(ETeam.Blue) + Check_Color(ETeam.Yellow)) / 100;
+
+        //계산된 1%의 적용 후 곱한 값
         float yellow_Score = Mathf.Floor(((Check_Color(ETeam.Yellow) / color_Count)) * 10f) / 10f;
         float blue_Score = Mathf.Floor(((Check_Color(ETeam.Blue) / color_Count)) * 10f) / 10f;
 
+        //UI 적용
         scoreGage_Yellow.fillAmount = yellow_Score / 100;
         scoreGage_Blue.fillAmount = blue_Score / 100;
         scoreCount_Yellow.text = $"{yellow_Score}" + "%";
         scoreCount_Blue.text = $"{blue_Score}" + "%";
 
-        //점수 확인
+        //승리 팀 선별
         if ( Check_Color(ETeam.Yellow) > Check_Color(ETeam.Blue))
         {
             teamYellow_Anim.Win();
@@ -588,7 +623,10 @@ public class GameManager : MonoBehaviourPun
         yield return new WaitForSeconds(0.5f);
         ui_Anim.SetBool("Score", false);
         BGM_Manager.Instance.Play_Sound_BGM("BGM_Victory");
-        //Player Data Setup
+
+        //===========================================================================================
+        //MVP Player 색인
+
         int[] player_Score = new int[players.Length];
 
         for (int i = 0; i < players.Length; i++)
@@ -597,20 +635,14 @@ public class GameManager : MonoBehaviourPun
             player_Score[i] = players[i]._player_shot.player_ScoreSet;
         }
 
+        //가장 큰 스코어
         int mostScore = player_Score.Max();
 
-        Debug.Log(mostScore);
-
-        Debug.Log(player_Info[mostScore].team);
-        Debug.Log(player_Info[mostScore].weapon);
-        Debug.Log(player_Info[mostScore].name);
-        Debug.Log(player_Info[mostScore].score);
-        // Debug.Log(mostScore);
-
+        //가장 큰 스코어를 key값으로 딕셔너리 검색
         player_Data = player_Info[mostScore];
 
         mvp_Data[0].text = player_Data.name;
-
+        
         if(player_Data.team == ETeam.Yellow)
         {
             mvp_Data[1].text = "Yellow";
@@ -647,6 +679,7 @@ public class GameManager : MonoBehaviourPun
     //======================================================================  ETC
     public float Check_Color(ETeam team)
     {
+        //컬러 노드 갯수 확인 메서드
         int teamScore = 0;
 
         for (int i = 0; i < nodes.Count; i++)
@@ -655,7 +688,7 @@ public class GameManager : MonoBehaviourPun
                 teamScore++;
         }
         return teamScore;
-    } //컬러 노드 갯수 확인 메서드
+    } 
 
     public void SetCursorState(bool newState) //커서 잠금
     {
@@ -664,6 +697,7 @@ public class GameManager : MonoBehaviourPun
 
     public void MapCam(bool camOn, GameObject playerCam)
     {
+        //카메라 전환
         if (camOn)
         {
             playerCam.SetActive(false);

@@ -1498,20 +1498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a95335bc30db88b46a8933ebfd477129, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audio_Source_Effects:
-  - {fileID: 1623338291}
-  - {fileID: 1623338290}
-  - {fileID: 1623338289}
-  - {fileID: 1623338288}
-  - {fileID: 1623338287}
-  - {fileID: 1623338286}
-  - {fileID: 1623338285}
-  - {fileID: 1623338284}
-  - {fileID: 1623338283}
-  - {fileID: 1623338282}
-  - {fileID: 1382845022}
-  - {fileID: 1382845021}
-  - {fileID: 1382845020}
+  play_SoundName: []
   effect_Sounds:
   - sound_Name: Floor_Hit
     clip: {fileID: 8300000, guid: 9cf705dcd74fc5642886311702d017e3, type: 3}
@@ -1533,7 +1520,20 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 6bb06dcd21a8a3d4b83690526f7ecfbd, type: 3}
   - sound_Name: Weapon_Charge
     clip: {fileID: 8300000, guid: e6eb0f18d8efbd542ab9594fcac6b0ca, type: 3}
-  play_SoundName: []
+  audio_Source_Effects:
+  - {fileID: 1623338291}
+  - {fileID: 1623338290}
+  - {fileID: 1623338289}
+  - {fileID: 1623338288}
+  - {fileID: 1623338287}
+  - {fileID: 1623338286}
+  - {fileID: 1623338285}
+  - {fileID: 1623338284}
+  - {fileID: 1623338283}
+  - {fileID: 1623338282}
+  - {fileID: 1382845022}
+  - {fileID: 1382845021}
+  - {fileID: 1382845020}
 --- !u!82 &1623338291
 AudioSource:
   m_ObjectHideFlags: 0
