@@ -48,7 +48,6 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
         //Connect();
         PhotonNetwork.LogLevel = PunLogLevel.Informational;
     }
-
     private void OnApplicationQuit()
     {
         DisConnect();
@@ -60,18 +59,31 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     {
         max_Player = i;
         isCreateRoom = true;
-        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = max_Player });
-        Debug.Log("Created Room");
-        stateUI.text = "방 생성";
         matching_UI.SetActive(false);
+        stateUI.text = "방 생성";
+        Debug.Log("Created Room");
+        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = max_Player });
     }
 
     [PunRPC]
     public void MaxPlayer(int i)
     {
         max_Player = i;
+    
+    }
+    public IEnumerator GameStart_Skip()
+    {
+        yield return new WaitForSeconds(2f);
+        set_Manager.LoadingOff();
+        photonView.RPC("GameStart_Network", RpcTarget.AllBuffered);
     }
 
+    [PunRPC]
+    public void GameStart_Network()
+    {
+        matching_UI.transform.parent.gameObject.SetActive(false);
+        GameManager.Instance.skip_Start = true;
+    }
     public void Matching_Room()
     {
         Connect();
@@ -121,12 +133,13 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+
         base.OnJoinedRoom();
-        photonView.RPC("MaxPlayer", RpcTarget.AllBuffered, max_Player);
         PhotonNetwork.LoadLevel("InGame");
         Debug.Log("Room Join Success");
         stateUI.text = "방에 입장합니다.";
 
+        if(PhotonNetwork.IsMasterClient)
         start_Btn.SetActive(true);
         //나중에 입장한 플레이어 모으기 && 다 모이면 게임 시작 누를 수 있도록 수정예정
         StartCoroutine(Player_Spawn());

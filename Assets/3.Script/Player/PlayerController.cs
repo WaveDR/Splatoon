@@ -111,22 +111,24 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
     private void FixedUpdate()
     {
         //1초 당 10프레임 계산하여 오징어 상태 최적화
-        RaycastFloor(player_Input.squid_Form);
-
-        if (!player_Input.squid_Form)
-        {
-            _Wall_RacastOn = false;
-            MoveWall(false, null);
-        }
-        else
-        {
-            RaycastWall(player_Input.squid_Form);
-        }
+    
 
         
         if (photonView.IsMine)
         {
             _player_rigid.MovePosition(_player_rigid.position + player_Input.move_Vec * _player_Speed * Time.deltaTime);
+
+            RaycastFloor(player_Input.squid_Form);
+
+            if (!player_Input.squid_Form)
+            {
+                _Wall_RacastOn = false;
+                MoveWall(false, null);
+            }
+            else
+            {
+                RaycastWall(player_Input.squid_Form);
+            }
         }
         //이동 위치 동기화 차이가 많이 날 시 위치 강제 조정
         else if ((transform.position - networkPosition).sqrMagnitude >= 100)

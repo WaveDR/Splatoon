@@ -20,7 +20,7 @@ MonoBehaviour:
     AppVersion: 
     UseNameServer: 0
     FixedRegion: 
-    Server: 3.142.42.41
+    Server: 54.180.90.102
     Port: 5055
     ProxyServer: 
     Protocol: 0
@@ -46,6 +46,8 @@ MonoBehaviour:
   - TransSquid_Server
   - UseAmmo
   - MaxPlayer
+  - GameStart_Network
+  - Match_UI_Off
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

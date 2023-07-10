@@ -315,10 +315,13 @@ public class GameManager : MonoBehaviourPun
     //게임 시작 전 입장한 플레이어 체크
     public void Player_Count()
     {
-        FindPlayer(); 
+        FindPlayer();
         if (PhotonNetwork.InRoom)
         {
+            if (photonView.IsMine)
+                Photon_Manager.Instance.photonView.RPC("MaxPlayer", RpcTarget.AllBuffered, Photon_Manager.Instance.max_Player);
             //매칭 인원 전원 입장 시 자동시작
+
             if (PhotonNetwork.CurrentRoom.PlayerCount >= Photon_Manager.Instance.max_Player)
             {
                 Photon_Manager.Instance.set_Manager.LoadingOff();
@@ -343,46 +346,49 @@ public class GameManager : MonoBehaviourPun
                     if (players[i].player_Team.team == ETeam.Blue) blue++;
                     else yellow++;
                 }
-                
-                while (true)
-                {
-                    //AI 생성
-                    GameObject ai =  PhotonNetwork.Instantiate(AI_Prefab.name, Vector3.zero, Quaternion.identity);
-                    PlayerTeams ai_Team = ai.GetComponent<PlayerTeams>();
-  
-                    //생성된 AI를 번갈아가며 팀 배정
-                    if(blue >= yellow)
-                    {
-                        if (num % 2 == 0)
-                        {
-                            ai_Team.team = ETeam.Yellow; // Blue팀이 Yellow팀 보다 인원이 많을 경우 Yellow팀 먼저 시작
-                        }
-                        if (num % 2 == 1)
-                        {
-                            ai_Team.team = ETeam.Blue;
-                        }
-                    }
-                    else
-                    {
-                        if (num % 2 == 0)
-                        {
-                            ai_Team.team = ETeam.Blue; // Yellow팀이 Blue팀 보다 인원이 많을 경우 Blue팀 먼저 시작
-                        }
-                        if (num % 2 == 1)
-                        {
-                            ai_Team.team = ETeam.Yellow;
-                        }
-                    }
-                 
-                    num++;
 
-                    if (num == Ai_Count) //적정 생성 완료 시 While문 종료
+                if (photonView.IsMine)
+                {
+                    while (true)
                     {
-                        isLobby = false;
-                        skip_Start = false;
-                        isStart = false;
-                        player_Check = true;
-                        return;
+                        //AI 생성
+                        GameObject ai = PhotonNetwork.Instantiate(AI_Prefab.name, Vector3.zero, Quaternion.identity);
+                        PlayerTeams ai_Team = ai.GetComponent<PlayerTeams>();
+
+                        //생성된 AI를 번갈아가며 팀 배정
+                        if (blue >= yellow)
+                        {
+                            if (num % 2 == 0)
+                            {
+                                ai_Team.team = ETeam.Yellow; // Blue팀이 Yellow팀 보다 인원이 많을 경우 Yellow팀 먼저 시작
+                            }
+                            if (num % 2 == 1)
+                            {
+                                ai_Team.team = ETeam.Blue;
+                            }
+                        }
+                        else
+                        {
+                            if (num % 2 == 0)
+                            {
+                                ai_Team.team = ETeam.Blue; // Yellow팀이 Blue팀 보다 인원이 많을 경우 Blue팀 먼저 시작
+                            }
+                            if (num % 2 == 1)
+                            {
+                                ai_Team.team = ETeam.Yellow;
+                            }
+                        }
+
+                        num++;
+
+                        if (num == Ai_Count) //적정 생성 완료 시 While문 종료
+                        {
+                            photonView.RPC("isLobby_Server", RpcTarget.AllBuffered);
+                            skip_Start = false;
+                            isStart = false;
+                            player_Check = true;
+                            return;
+                        }
                     }
                 }
             }
@@ -395,8 +401,7 @@ public class GameManager : MonoBehaviourPun
             //게임 시작 전 초기화
             ui_Anim = GameObject.FindGameObjectWithTag("TimeUI").GetComponent<Animator>();
             PaintTarget.ClearAllPaint(); 
-            SetPlayerPos(); 
-            Photon_Manager.Instance.matching_UI.transform.parent.gameObject.SetActive(false);
+            SetPlayerPos();
             BGM_Manager.Instance.Stop_All_Sound_BGM();
 
             foreach(TeamZone teamZone in nodes)
@@ -574,8 +579,11 @@ public class GameManager : MonoBehaviourPun
         {
             player.UI_On_Off(false);
 
-            if(player._enemy == null)
-            MapCam(true, player._player_shot.playerCam.cam_Obj.gameObject);
+            if(player._enemy == null )
+            {
+                if(player.photonView.IsMine)
+                MapCam(true, player._player_shot.playerCam.cam_Obj.gameObject);
+            }
         } 
 
         

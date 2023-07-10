@@ -51,8 +51,7 @@ public class Setting_Manager : MonoBehaviour
         photon_Manager = FindObjectOfType<Photon_Manager>();
 
         //Cursor Off
-        GameManager.Instance.SetCursorState(false);
-
+        //GameManager.Instance.SetCursorState(false);
 
         #region UI √ ±‚»≠ 
         Reset_Obj(0);

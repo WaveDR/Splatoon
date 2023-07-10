@@ -101,7 +101,7 @@ public class Shot_System : MonoBehaviourPun
         UseAmmo();
         foreach (Bullet shot in firePoint)
         {
-            shot.Paint_Play();
+            shot.photonView.RPC("Paint_Play",RpcTarget.AllBuffered);
         }
     }
 

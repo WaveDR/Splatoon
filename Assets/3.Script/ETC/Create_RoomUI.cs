@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class Create_RoomUI : MonoBehaviour
 {
     [Header("UI GameObject")]
@@ -68,7 +67,6 @@ public class Create_RoomUI : MonoBehaviour
     //즉시 시작 버튼
     public void GameStart()
     {
-        GameManager.Instance.skip_Start = true;
-        Photon_Manager.Instance.set_Manager.LoadingOff();
+        Photon_Manager.Instance.StartCoroutine(Photon_Manager.Instance.GameStart_Skip());
     }
 }
