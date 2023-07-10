@@ -10308,9 +10308,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   move_Hor_S: Horizontal
   move_Ver_S: Vertical
+  move_Vec: {x: 0, y: 0, z: 0}
   move_Hor: 0
   move_Ver: 0
-  move_Vec: {x: 0, y: 0, z: 0}
+  player_Name: No Name
   jDown: 0
   fDown: 0
   fUp: 0
@@ -10321,7 +10322,6 @@ MonoBehaviour:
   isWall_Left: 0
   isClick: 0
   squid_FinalRot: 0
-  player_Name: No Name
 --- !u!114 &1773349895887027399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10334,7 +10334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5ccb45f8032e434a8ebdd6040d3d9cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 0
+  team: 1
   _player_Con: {fileID: 0}
   _player_Shooter: {fileID: 0}
   _player_Color_Par:
@@ -10353,6 +10353,12 @@ MonoBehaviour:
   _player_Blue_Mat:
   - {fileID: 2100000, guid: 6795bad0a26400049a95305646e3eb18, type: 2}
   - {fileID: 2100000, guid: 623aec3c3145ddd49b6eca38b445381e, type: 2}
+  team_Yellow:
+    serializedVersion: 2
+    rgba: 4282381053
+  team_Blue:
+    serializedVersion: 2
+    rgba: 4294919041
   _human_Render:
   - {fileID: 1773349896187419362}
   - {fileID: 1773349896101907366}
@@ -10363,12 +10369,6 @@ MonoBehaviour:
   - {fileID: 5709063682210734169}
   - {fileID: 1773349896940078960}
   _squid_Render: {fileID: 1773349896456322608}
-  team_Yellow:
-    serializedVersion: 2
-    rgba: 4282381053
-  team_Blue:
-    serializedVersion: 2
-    rgba: 4294919041
 --- !u!114 &1773349895887027398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10425,8 +10425,6 @@ MonoBehaviour:
   _player_shot: {fileID: 0}
   _enemy: {fileID: 0}
   dmgBullet: {fileID: 0}
-  hp: 0
-  curAmmo: 0
   deathEffect: {fileID: 386770751946523949}
   ES_Manager: {fileID: 0}
 --- !u!114 &1773349895887027397
@@ -10447,7 +10445,6 @@ MonoBehaviour:
   - {fileID: 3460124255464657954}
   - {fileID: 8729590655694549622}
   WeaponType: 1
-  weapon: {fileID: 0}
   weaponNum: 0
   ammo_Back: {fileID: 1773349895312559445}
   playerCam: {fileID: 0}
@@ -10483,6 +10480,7 @@ MonoBehaviour:
   - {fileID: 5709063682245916398}
   - {fileID: 4379114554275577981}
   - {fileID: 8495149691993715129}
+  weapon: {fileID: 0}
 --- !u!114 &1773349895887027396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10497,10 +10495,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon_DirY: {fileID: 0}
   player_DirY: {fileID: 1773349896258908904}
-  cam_Obj: {fileID: 0}
   eulerX: 0
   _eulerY: 0
   rotateSpeed: 50
+  cam_Obj: {fileID: 0}
   _player_Con: {fileID: 0}
 --- !u!114 &-688114680521539111
 MonoBehaviour:
@@ -10521,7 +10519,6 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 1773349895887027392}
   - {fileID: 1773349895887027398}
   - {fileID: -1142846461221894578}
   sceneViewId: 0

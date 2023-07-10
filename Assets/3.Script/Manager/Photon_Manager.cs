@@ -58,12 +58,17 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
 
     public void SetRoom_MaxPlayer(int i)
     {
-        max_Player = i;
+        photonView.RPC("max_Player", RpcTarget.AllBuffered, i);
         isCreateRoom = true;
         PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = max_Player });
         Debug.Log("Created Room");
         stateUI.text = "¹æ »ý¼º";
         matching_UI.SetActive(false);
+    }
+    [PunRPC]
+    public void MaxPlayer(int i)
+    {
+        max_Player = i;
     }
 
     public void Matching_Room()

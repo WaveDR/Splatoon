@@ -217,7 +217,7 @@ public class Setting_Manager : MonoBehaviour
         }
 
         //클릭음
-        BGM_Manager.Instance.Play_Sound_BGM("UI_Click");
+        //BGM_Manager.Instance.Play_Sound_BGM("UI_Click");
     }
 
     public void MoveScene()
@@ -254,7 +254,7 @@ public class Setting_Manager : MonoBehaviour
         Invoke("Set_InGame_UI", 2f);
 
         //로비 UI 비활성화
-        BGM_Manager.Instance.Play_Sound_BGM("UI_Click");
+        //BGM_Manager.Instance.Play_Sound_BGM("UI_Click");
         gameObject.SetActive(false);
     }
 

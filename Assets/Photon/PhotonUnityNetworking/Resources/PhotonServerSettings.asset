@@ -45,6 +45,7 @@ MonoBehaviour:
   - RespawnSpaceship
   - TransSquid_Server
   - UseAmmo
+  - MaxPlayer
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
