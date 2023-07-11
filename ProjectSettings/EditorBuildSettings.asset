@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/1.Scene/ScoreLobby.unity
+    guid: 20c5fc9d6448db1429287f3ea1a9ace5
   m_configObjects: {}

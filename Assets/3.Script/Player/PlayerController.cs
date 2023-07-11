@@ -27,8 +27,8 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
 
     [Header("Player Component")]
     [Header("===================================")]
-    private Rigidbody _player_rigid;
     private Animator _player_Anim;
+    public Rigidbody player_rigid;
     public PlayerInput player_Input;
     public PlayerShooter _player_shot;
     public Enemy_Con _enemy;
@@ -56,7 +56,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
     {
         //GetComponent =====================================================================
         TryGetComponent(out player_Input);
-        TryGetComponent(out _player_rigid);
+        TryGetComponent(out player_rigid);
         TryGetComponent(out _player_Anim);
         TryGetComponent(out _player_shot);
         TryGetComponent(out player_Team);
@@ -116,7 +116,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         
         if (photonView.IsMine)
         {
-            _player_rigid.MovePosition(_player_rigid.position + player_Input.move_Vec * _player_Speed * Time.deltaTime);
+            player_rigid.MovePosition(player_rigid.position + player_Input.move_Vec * _player_Speed * Time.deltaTime);
 
             RaycastFloor(player_Input.squid_Form);
 
@@ -237,7 +237,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         {
             _player_Anim.SetTrigger("isJump");
             //_isJump = true;
-            _player_rigid.AddForce(Vector3.up * 5f, ForceMode.Impulse);
+            player_rigid.AddForce(Vector3.up * 5f, ForceMode.Impulse);
         }
     }
     private void Squid_Eular()
@@ -315,6 +315,7 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
         deathEffect.particle.Play();
         ES_Manager.Play_SoundEffect("Player_Death");
 
+        if(photonView.IsMine)
         dmgBullet.Player_Kill(player_Input.player_Name); //상대에게 뜨는 킬로그
 
         GameManager.Instance.Player_Dead_Check(); //Player Dead UI 체크;
@@ -672,8 +673,8 @@ public class PlayerController : Living_Entity, IPlayer, IPunObservable
     public void MoveWall(bool moveWall, GameObject wallObj)
     {
         player_Input.isWall = moveWall;
-        _player_rigid.isKinematic = moveWall;
-        _player_rigid.useGravity = !moveWall;
+        player_rigid.isKinematic = moveWall;
+        player_rigid.useGravity = !moveWall;
         raycast_Wall_Object = wallObj;
     }  //벽에 닿았을 시 상태 변환
 

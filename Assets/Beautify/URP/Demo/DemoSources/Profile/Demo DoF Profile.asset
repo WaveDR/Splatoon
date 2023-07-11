@@ -219,7 +219,7 @@ MonoBehaviour:
     m_Value: 0.79
   saturate:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0
     min: -2
     max: 3
   brightness:
@@ -271,10 +271,10 @@ MonoBehaviour:
     m_Value: {fileID: 0}
   bloomIntensity:
     m_OverrideState: 1
-    m_Value: 0.3
+    m_Value: 0.77
   bloomThreshold:
     m_OverrideState: 1
-    m_Value: 1.15
+    m_Value: 1.39
   bloomConservativeThreshold:
     m_OverrideState: 1
     m_Value: 1

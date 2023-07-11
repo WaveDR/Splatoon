@@ -10421,6 +10421,7 @@ MonoBehaviour:
   - {fileID: 1773349896253992618}
   - {fileID: 1773349896739185486}
   squid_Object: {fileID: 1773349896650636852}
+  player_rigid: {fileID: 0}
   player_Input: {fileID: 0}
   _player_shot: {fileID: 0}
   _enemy: {fileID: 0}

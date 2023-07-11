@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.Linq;
 using System;
 using Photon.Pun;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public class Player_Info
@@ -325,6 +326,7 @@ public class GameManager : MonoBehaviourPun
             if (PhotonNetwork.CurrentRoom.PlayerCount >= Photon_Manager.Instance.max_Player)
             {
                 Photon_Manager.Instance.set_Manager.LoadingOff();
+                Photon_Manager.Instance.matching_UI.transform.parent.gameObject.SetActive(false);
                 isLobby = false;
                 isStart = false;
                 player_Check = true;
@@ -334,7 +336,6 @@ public class GameManager : MonoBehaviourPun
             if (skip_Start)
             {
                 Photon_Manager.Instance.set_Manager.LoadingOff();
-
                 int Ai_Count = Photon_Manager.Instance.max_Player - PhotonNetwork.CurrentRoom.PlayerCount;
 
                 int yellow = 0;
@@ -400,6 +401,7 @@ public class GameManager : MonoBehaviourPun
         {
             //게임 시작 전 초기화
             ui_Anim = GameObject.FindGameObjectWithTag("TimeUI").GetComponent<Animator>();
+            Photon_Manager.Instance.set_Manager.LoadingOff();
             PaintTarget.ClearAllPaint(); 
             SetPlayerPos();
             BGM_Manager.Instance.Stop_All_Sound_BGM();
@@ -575,14 +577,18 @@ public class GameManager : MonoBehaviourPun
         teamYellow_Anim.gameObject.SetActive(true);
         teamBlue_Anim.gameObject.SetActive(true);
 
+        //Player 카메라 설정 
         foreach (PlayerController player in players)
         {
             player.UI_On_Off(false);
 
             if(player._enemy == null )
             {
-                if(player.photonView.IsMine)
-                MapCam(true, player._player_shot.playerCam.cam_Obj.gameObject);
+                if (player.photonView.IsMine)
+                {
+                    MapCam(true, player._player_shot.playerCam.cam_Obj.gameObject);
+                    Save_Data(player);
+                }
             }
         } 
 
@@ -685,6 +691,14 @@ public class GameManager : MonoBehaviourPun
         manager_Anim.SetBool("GameEnd", false);
         ui_Anim.SetBool("isMVP", true);
         mvp_Anim.SetBool("Dance", true);
+
+        //=================================================== 끝내고 결과 Scene으로 이동
+
+        yield return new WaitForSeconds(7f);
+        ui_Anim.SetBool("FadeOut", true);
+        yield return new WaitForSeconds(2f);
+        Photon_Manager.Instance.DisConnect();
+        SceneManager.LoadScene("ScoreLobby");
     }
 
     //======================================================================  ETC
@@ -727,4 +741,18 @@ public class GameManager : MonoBehaviourPun
     {
         isLobby = false;
     }
+
+     public void Save_Data(PlayerController player)
+     {
+        if (photonView.IsMine)
+        {
+            PlayerPrefs.DeleteAll();
+            //딕셔너리와 유사 키,값으로 저장하기에 키를 먼저 만들어줌
+            PlayerPrefs.SetString("Name", player.player_Input.player_Name);
+            PlayerPrefs.SetString("Score", player._player_shot.player_ScoreSet.ToString());
+            PlayerPrefs.SetString("Weapon", player._player_shot.weapon.weaponType.ToString());
+            PlayerPrefs.SetString("Team", player.player_Team.team.ToString());
+        }
+    }
+
 }

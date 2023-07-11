@@ -73,6 +73,7 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     }
     public IEnumerator GameStart_Skip()
     {
+        matching_UI.transform.parent.gameObject.SetActive(false);
         yield return new WaitForSeconds(2f);
         set_Manager.LoadingOff();
         photonView.RPC("GameStart_Network", RpcTarget.AllBuffered);
@@ -81,7 +82,6 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void GameStart_Network()
     {
-        matching_UI.transform.parent.gameObject.SetActive(false);
         GameManager.Instance.skip_Start = true;
     }
     public void Matching_Room()
@@ -133,7 +133,6 @@ public class Photon_Manager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-
         base.OnJoinedRoom();
         PhotonNetwork.LoadLevel("InGame");
         Debug.Log("Room Join Success");
