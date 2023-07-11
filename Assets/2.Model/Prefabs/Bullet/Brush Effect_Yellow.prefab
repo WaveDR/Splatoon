@@ -14233,6 +14233,7 @@ GameObject:
   - component: {fileID: 1386174724967926084}
   - component: {fileID: 1386174724967926090}
   - component: {fileID: 5043599397441532759}
+  - component: {fileID: -6353465750202546795}
   m_Layer: 0
   m_Name: Brush Effect_Yellow
   m_TagString: Untagged
@@ -14275,7 +14276,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -19031,10 +19032,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletType: 0
   team: {fileID: 0}
+  player_Shot: {fileID: 0}
   particle: {fileID: 0}
+  color: []
   dmg: 0
   brush: 0
+  deathEffect: 0
   players: []
+--- !u!114 &-6353465750202546795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1386174724967926086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &5607857562737703702
 GameObject:
   m_ObjectHideFlags: 0

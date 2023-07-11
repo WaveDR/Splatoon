@@ -17,7 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/1.Scene/InGame.unity
     guid: 4091ff5bf1107634d92184a6733d8e76
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/1.Scene/Test.unity
-    guid: d1c3109bdb54ad54c8a2b2838528e640
+    path: Assets/1.Scene/ScoreLobby.unity
+    guid: 20c5fc9d6448db1429287f3ea1a9ace5
   m_configObjects: {}

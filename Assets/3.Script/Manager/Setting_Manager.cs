@@ -3,43 +3,64 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 public class Setting_Manager : MonoBehaviour
 {
-    public PlayerShooter player_shot;
-    public PlayerTeams player_Team;
-    public PlayerInput player_Input;
+
+    [Header("Player Select UI")]
     [SerializeField] private GameObject[] playerSelect_Card;
     [SerializeField] private GameObject[] playerSelect_Camera;
     [SerializeField] private GameObject[] playerSelect_Weapon;
-    [SerializeField] private GameObject[] stage_Lobby;
-    [SerializeField] private GameObject loading_Page;
     [SerializeField] private ParticleSystem select_Effect;
+
+    [Header("Page Change")]
+    [SerializeField] private GameObject loading_Page;
+    [SerializeField] private GameObject[] change_Cam;
+    [SerializeField] private GameObject Matching_Obj;
+
+    [Header("Select Page UI")]
     [SerializeField] private Text npc_Text;
     [SerializeField] private Text back_Text;
     [SerializeField] private Image[] images;
     [SerializeField] private int page_Num;
 
+    [Header("Select Player Data")]
+    public GameObject player_Prefabs;
+    private PlayerShooter player_shot;
+    private PlayerTeams player_Team;
+    private PlayerInput player_Input;
+    public InputField player_Name;
+
+    [SerializeField] private Color32 team_Yellow = new Color32(253, 242, 63, 255);
+    [SerializeField] private Color32 team_Blue = new Color32(129, 67, 255, 255);
     public ETeam team;
     public EWeapon weapon;
-    public string player_Name;
 
-    public Color32 team_Yellow = new Color32(253, 242, 63, 255);
-    public Color32 team_Blue = new Color32(129, 67, 255, 255);
+    [Header("Photon Manager")]
+    public Photon_Manager photon_Manager;
+
     private void Awake()
     {
-        GameManager.Instance.SetCursorState(false);
+        // GetComponent to Prefab
+        player_shot = player_Prefabs.GetComponent<PlayerShooter>();
+        player_Team = player_Prefabs.GetComponent<PlayerTeams>();
+        player_Input = player_Prefabs.GetComponent<PlayerInput>();
 
-        //플레이어 스크립트 넣어주기
-        player_shot = FindObjectOfType<PlayerShooter>();
-        player_Team = FindObjectOfType<PlayerTeams>();
-        player_Input = FindObjectOfType<PlayerInput>();
+        // GetComponent to PhotonManager
+        photon_Manager = FindObjectOfType<Photon_Manager>();
+
+        //Cursor Off
+        //GameManager.Instance.SetCursorState(false);
+
         #region UI 초기화 
-        reset_Obj(0);
-        stage_Lobby[0].SetActive(true);
-        stage_Lobby[1].SetActive(false);
+        Reset_Obj(0);
+        change_Cam[0].SetActive(true);
+        change_Cam[1].SetActive(false);
+
         loading_Page.SetActive(false);
-        player_shot.skill_UI_Obj.SetActive(false);
+        Matching_Obj.SetActive(false);
+
         page_Num = 0;
         back_Text.text = "로비실";
         foreach (GameObject obj in playerSelect_Weapon)
@@ -47,10 +68,12 @@ public class Setting_Manager : MonoBehaviour
             obj.SetActive(true);
         }
         #endregion
+
     }
     public void Select_Team(string team)
     {
-        back_Text.text = "뒤로가기";
+        //팀 정하는 버튼
+        //모든 버튼 색을 정한 팀 색으로 변경
         if (team == "Blue")
         {
            foreach(Image img in images)
@@ -68,61 +91,87 @@ public class Setting_Manager : MonoBehaviour
             }
             this.team = ETeam.Yellow;
         }
-        back_Text.transform.parent.GetComponent<Button>().enabled = true; //뒤로가기 활성화
+
+        //뒤로가기 활성화
+        back_Text.transform.parent.GetComponent<Button>().enabled = true; 
+        back_Text.text = "뒤로가기";
+
+        //다음 페이지 변경
         page_Num++;
-        reset_Obj(1);
+        Reset_Obj(1);
     }
+
+    
     public void Select_Weapon(string weapon)
     {
-        back_Text.text = "뒤로가기";
+        //매개변수에 따른 enum 메서드 호출 및 적용
         switch (weapon)
         {
+            //매개변수 : 무기번호 / 무기 타입 / 뒤로가기 여부
             case "Brush":
-                this.weapon = btn_weapon(0, EWeapon.Brush,false);
+                this.weapon = Select_weapon(0, EWeapon.Brush,false);
                 break;
             case "Gun":
-                this.weapon = btn_weapon(1, EWeapon.Gun, false);
+                this.weapon = Select_weapon(1, EWeapon.Gun, false);
                 break;
             case "Bow":
-                this.weapon = btn_weapon(2, EWeapon.Bow, false);
+                this.weapon = Select_weapon(2, EWeapon.Bow, false);
                 break;
         }
+
+        back_Text.text = "뒤로가기";
+
+        //다음 페이지 변경
         page_Num++;
-        reset_Obj(2);
+        Reset_Obj(2);
     }
 
-
-    public void Write_Name(string name)
-    {
-        player_Name = name;
-    }
+    //뒤로가기 페이지
     public void Back_Page()
     {
+        //진행된 page_Num에 따라 대사 및 페이지 변경
         switch (page_Num)
         {
+            //팀 페이지 기준
             case 0:
                 return;
+
+            //무기 페이지 기준
             case 1:
                 page_Num--;
-                reset_Obj(0);
-                back_Text.text = "로비실";
+                Reset_Obj(0);
                 npc_Text.text = "엥, 뭐야? 진영 바꾸게? \n 낙장불입인데~";
-                back_Text.transform.parent.GetComponent<Button>().enabled = false; //뒤로가기 비활성화
+
+                //뒤로가기 버튼 비활성화
+                back_Text.text = "로비실";
+                back_Text.transform.parent.GetComponent<Button>().enabled = false; 
                 break;
+
+            //이름 페이지 기준
             case 2:
                 page_Num--;
+                Reset_Obj(1);
+
+                //닉네임 초기화
                 player_Name = null;
-                btn_weapon(0, EWeapon.Gun, true);
-                reset_Obj(1);
+                //무기 초기화
+                Select_weapon(0, EWeapon.Gun, true);
                 npc_Text.text = "무기 바꾸려고? \n 거기서 거기라니까~?";
                 break;
         }
     }
-    private EWeapon btn_weapon(int i, EWeapon weapon, bool back)
+    
+    private EWeapon Select_weapon(int i, EWeapon weapon, bool back)
     {
+        //무기 선택 이펙트
         select_Effect.transform.position = playerSelect_Weapon[i].transform.position;
-        if(!back)
+        select_Effect.Play();
+
+        //선택 무기 비활성화
+        if (!back)
         playerSelect_Weapon[i].SetActive(false);
+
+        //뒤로가기 선택 시 무기 전원 활성화
         else
         {
             for (int j = 0; j < playerSelect_Weapon.Length; j++)
@@ -131,11 +180,15 @@ public class Setting_Manager : MonoBehaviour
                 Debug.Log(playerSelect_Weapon[j].name);
             }
         }
-        select_Effect.Play();
+
+        //선택된 EWeapon값 반환
         return weapon;
     }
-    private void reset_Obj(int num)
+
+    private void Reset_Obj(int num)
     {
+        //매개변수에 따른 페이지 및 카메라 변경
+
         for (int i = 0; i < playerSelect_Card.Length; i++)
         {
             playerSelect_Card[i].SetActive(true);
@@ -147,6 +200,8 @@ public class Setting_Manager : MonoBehaviour
                 playerSelect_Camera[i].SetActive(false);
             }
         }
+
+        //페이지 번호에 따라 대사 변경
         switch (page_Num)
         {
             case 0:
@@ -159,41 +214,68 @@ public class Setting_Manager : MonoBehaviour
                 npc_Text.text = "좋아. 마지막이야. \n 이제 저 단말기에 너의 이름을 적어.";
                 break;
         }
+
+        //클릭음
+        //BGM_Manager.Instance.Play_Sound_BGM("UI_Click");
     }
 
     public void MoveScene()
     {
-        GameManager.Instance.SetCursorState(true);
-        //나중에 네트워크에 넣을 정보값들
+        //입력사항 선택 완료 버튼
 
-        player_Input.player_Name = player_Name;
+        //닉네임 정하지 않을 시 No Name으로 지정 
+        if (player_Name.text == null)
+        {
+            player_Name.text = "No Name";
+            player_Input.player_Name = player_Name.text;
+        }
+        else if (player_Name.text == " " || player_Name.text == "")
+        {
+            player_Name.text = "No Name";
+            player_Input.player_Name = player_Name.text;
+        }
+        else
+        {
+            player_Input.player_Name = player_Name.text;
+        }
+
+        //선택된 팀 / 무기를 Prefab에 적용
         player_Team.team = team;
         player_shot.WeaponType = weapon;
 
         //로딩 UI 켜기
-        loading_Page.SetActive(true);
-
-        //플레이어 무기 재활성화
-        player_shot.gameObject.SetActive(false);
-        player_shot.gameObject.SetActive(true);
-
+        LoadingOn();
         //로비 오브젝트 비활성화, 대기실 오브젝트 활성화
-        stage_Lobby[1].SetActive(true);
-        stage_Lobby[0].SetActive(false);
-
+        change_Cam[1].SetActive(true);
+        change_Cam[0].SetActive(false);
 
         //1.5초 후에 로딩씬 끄기
-        Invoke("LoadingOff",2f);
+        Invoke("Set_InGame_UI", 2f);
 
         //로비 UI 비활성화
+        //BGM_Manager.Instance.Play_Sound_BGM("UI_Click");
         gameObject.SetActive(false);
     }
 
-    private void LoadingOff()
+    void Set_InGame_UI()
+    {
+        //플레이어 기본 UI 활성화
+        player_shot.skill_UI_Obj.SetActive(true);
+
+        //매칭 UI 활성화
+        Matching_Obj.SetActive(true);
+
+        //로딩 씬 비활성화
+        LoadingOff();
+    }
+
+    //============================================= Loading Page ========================================
+    public void LoadingOff()
     {
         loading_Page.SetActive(false);
-
-        //플레이어 UI 켜기
-        player_shot.skill_UI_Obj.SetActive(true);
+    }
+    public void LoadingOn()
+    {
+        loading_Page.SetActive(true);
     }
 }

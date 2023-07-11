@@ -16,8 +16,7 @@ MonoBehaviour:
   dashSpeed: 5
   enemyZone_Speed: 2
   max_Heath: 100
-  detect_Range: 0.1
-  damage: 1
+  detect_Range: 0.3
   floor_Layer:
     serializedVersion: 2
     m_Bits: 8

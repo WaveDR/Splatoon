@@ -23,7 +23,6 @@ public class Player_MVP : MonoBehaviour
             {
                 rendMesh.material = teamColor[1];
                 rend.material = teamColor[1];
-
             }
         }
     }
